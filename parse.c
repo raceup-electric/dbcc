@@ -47,6 +47,8 @@ static mpc_ast_t *_parse_dbc_file_by_handle(const char *name, FILE *handle);
 	X(vals,                 "vals")\
 	X(mul_val,              "mul_val")\
 	X(mul_vals,             "mul_vals")\
+	X(mul_range,            "mul_range")\
+	X(mul_ranges,           "mul_ranges")\
 	X(attribute_definition, "attribute_definition")\
 	X(attribute_value,      "attribute_value")\
 	X(comment,              "comment")\
@@ -98,10 +100,12 @@ static const char *dbc_grammar =
 " attribute_definition : \"BA_DEF_\" (<whatever>|<s>|',')* ';' <n> ; \n"
 " attribute_value      : \"BA_\" (<whatever>|<s>|',')* ';' <n> ; \n"
 " val_item             : (<s>+ <integer> <s>+ <string>) ; \n"
-" val                  : \"VAL_\" <s>+ <id> <s>+ <name> <val_item>* <s>* ';' <n> ; \n"
-" vals                 : <val>* ; \n"
-" mul_val     : \"SG_MUL_VAL_\" <s>+ <id> <s>+ <name> <s>+ <name> <s>+ <integer> '-' <integer> ';' <n> ; \n"
-" mul_vals     : <mul_val>* ; \n"
+" val                  : \"VAL_\" <s>+ <id> <s>+ <name> <val_item>* <s>* ';' <n>* ; \n"
+" vals                 : <val>*; \n"
+" mul_range            : (<integer> '-' <integer> ','? <s>*) ; \n"
+" mul_ranges           : <mul_range>* ; \n"
+" mul_val              : \"SG_MUL_VAL_\" <s>+ <id> <s>+ <name> <s>+ <name> <s>+ <mul_ranges> ';' <n> ; \n"
+" mul_vals             : <mul_val>* ; \n"
 " env_var_name         : <ident> ; \n"
 " comment_string       : <string> ; \n"
 " comment              : \"CM_\" <s>+ "
