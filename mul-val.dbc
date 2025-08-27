@@ -33,8 +33,12 @@ NS_ :
 
 BS_:
 
-BU_: Vector__XXX
+BU_:
 
+
+BO_ 0 extended_multiplex_w_ranges: 2 Vector__XXX
+ SG_ muxed_w_ranges m1 : 8|8@1- (1,0) [0|0] "" Vector__XXX
+ SG_ muxer_w_multiple_ranges M : 0|8@1+ (1,0) [0|255] "" Vector__XXX
 
 BO_ 1682 extended_multiplex: 8 Vector__XXX
  SG_ sig1 : 0|2@1+ (1,0) [0|0] "" Vector__XXX
@@ -45,6 +49,10 @@ BO_ 1682 extended_multiplex: 8 Vector__XXX
  SG_ muxed1 m1 : 32|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ muxed2 m4 : 32|32@1+ (1,0) [0|0] "" Vector__XXX
 
+
+
+
+SG_MUL_VAL_ 0 muxed_w_ranges muxer_w_multiple_ranges 1-2, 66-66, 255-255;
 SG_MUL_VAL_ 1682 muxed_muxer simple_muxer 9216-9216;
 SG_MUL_VAL_ 1682 muxed1 muxed_muxer 1-1;
 SG_MUL_VAL_ 1682 muxed2 muxed_muxer 4-4;
