@@ -36,10 +36,15 @@ typedef struct {
 } val_list_t;
 
 typedef struct {
+    unsigned min_value;
+    unsigned max_value;
+} mul_val_range_pair;
+
+typedef struct {
 	char *multiplexed;
 	char *multiplexor;
-	unsigned min_value;
-	unsigned max_value;
+	size_t range_num;
+	mul_val_range_pair **ranges;
 	unsigned id;   /**< identifier, 11 or 29 bit */
 } mul_val_list_t;
 
