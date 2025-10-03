@@ -1,5 +1,5 @@
 LDFLAGS  = -lm
-CFLAGS   = -std=c99 -Wall -Wextra -g -O2 -pedantic -fwrapv -DDBCC_VERSION="\"v1.2.3\""
+CFLAGS   = -std=c99 -Wall -Wextra -g -O2 -pedantic -fwrapv -DDBCC_VERSION="\"v1.2.4\""
 RM      := rm
 OUTDIR  := out
 SOURCES := ${wildcard *.c}
@@ -69,7 +69,9 @@ TESTS=${OUTDIR}/ex1.c \
       ${OUTDIR}/ex2.csv \
       ${OUTDIR}/ex1.json \
       ${OUTDIR}/ex2.json \
-      ${OUTDIR}/enum.c
+      ${OUTDIR}/enum.c \
+      ${OUTDIR}/mul-val.c \
+      ${OUTDIR}/single-enum.c
 
 test: ${TESTS}
 	make -C ${OUTDIR}

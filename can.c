@@ -111,9 +111,9 @@ static int sigval(mpc_ast_t *top, unsigned id, const char *signal)
 	for (int i = 0; i >= 0;) {
 		i = mpc_ast_get_index_lb(top, "sigval|>", i);
 		if (i >= 0) {
-			mpc_ast_t *sv = mpc_ast_get_child_lb(top, "sigval|>", i);
-			mpc_ast_t *name   = mpc_ast_get_child(sv, "name|ident|regex");
-			mpc_ast_t *svid = mpc_ast_get_child(sv,   "id|integer|regex");
+			mpc_ast_t *sv   = mpc_ast_get_child_lb(top, "sigval|>", i);
+			mpc_ast_t *name = mpc_ast_get_child(sv,     "name|ident|regex");
+			mpc_ast_t *svid = mpc_ast_get_child(sv,     "id|integer|regex");
 			assert(name);
 			assert(svid);
 			unsigned svidd = 0;
@@ -133,7 +133,6 @@ static int sigval(mpc_ast_t *top, unsigned id, const char *signal)
 
 static signal_t *ast2signal(mpc_ast_t *top, mpc_ast_t *ast, unsigned can_id)
 {
-	int r;
 	assert(ast);
 	signal_t *sig = signal_new();
 	mpc_ast_t *name   = mpc_ast_get_child(ast, "name|ident|regex");
@@ -143,8 +142,10 @@ static signal_t *ast2signal(mpc_ast_t *top, mpc_ast_t *ast, unsigned can_id)
 	mpc_ast_t *sign   = mpc_ast_get_child(ast, "sign|char");
 	sig->name = duplicate(name->contents);
 	sig->val_list = NULL;
-	r = sscanf(start->contents, "%u", &sig->start_bit);
-	/* BUG: Minor bug, an error should be returned here instead */
+	int r = sscanf(start->contents, "%u", &sig->start_bit);
+	/* BUG: Minor-medium bug, an error should be returned here instead,
+	 * using `assert` for error handling is something of faux pas in
+	 * more civilized circles. Here, were are barbarians, lazy ones. */
 	assert(r == 1 && sig->start_bit <= 64);
 	r = sscanf(length->contents, "%u", &sig->bit_length);
 	assert(r == 1 && sig->bit_length <= 64);
