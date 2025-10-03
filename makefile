@@ -1,5 +1,5 @@
 LDFLAGS  = -lm
-CFLAGS   = -std=c99 -Wall -Wextra -g -O2 -pedantic -fwrapv -DDBCC_VERSION="\"v1.2.4\""
+CFLAGS   = -std=c99 -Wall -Wextra -g -O2 -pedantic -fwrapv -DDBCC_VERSION="\"v1.2.5\""
 RM      := rm
 OUTDIR  := out
 SOURCES := ${wildcard *.c}
@@ -21,16 +21,16 @@ TARGET  := dbcc
 
 all: ${TARGET}
 
-%.o: %.c
+%.o: %.c makefile
 	${CC} ${CFLAGS} ${INCLUDES} $< -c -o $@
 
-%.1: %.md
+%.1: %.md makefile
 	pandoc --standalone --to man -o$@ $<
 
-%.html: %.md
+%.html: %.md makefile
 	pandoc -o $@ $<
 
-%.pdf: %.md
+%.pdf: %.md makefile
 	pandoc -o $@ $<
 
 lib${TARGET}.a: ${OBJECTS}

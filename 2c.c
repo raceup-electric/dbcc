@@ -10,6 +10,9 @@
  * code. The entire program really should be written in a language like Perl or
  * Python, but I wanted to use the MPC library for something, so here we are. */
 
+/* TODO: Add in version number and commit of `dbcc` to generated files, this
+ * should really go for all generators */
+
 #include "2c.h"
 #include "util.h"
 #include <assert.h>
