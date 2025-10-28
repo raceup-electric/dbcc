@@ -13,6 +13,7 @@
 #include "2csv.h"
 #include "2bsm.h"
 #include "2json.h"
+#include "2ros.h"
 #include "options.h"
 
 #ifndef NELEMS
@@ -25,6 +26,7 @@ typedef enum {
 	CONVERT_TO_CSV,
 	CONVERT_TO_BSM,
 	CONVERT_TO_JSON,
+	CONVERT_TO_ROS,
 } conversion_type_e;
 
 static void usage(const char *arg0)
@@ -55,6 +57,7 @@ Options:\n\
 \t-C     convert output to CSV instead of the default C code\n\
 \t-b     convert output to BSM (beSTORM) instead of the default C code\n\
 \t-j     convert output to JSON instead of the default C code\n\
+\t-r     convert output to ROS2 c++ node instead of the default C code\n\
 \t-D     use 'double' for the encode/decode type messages\n\
 \t-o dir set the output directory\n\
 \t-p     generate only print code\n\
@@ -84,10 +87,15 @@ static char *replace_file_type(const char *file, const char *suffix)
 	char *dot = strrchr(name, '.');
 	if (*dot)
 		*dot = '\0';
-	size_t name_size = strlen(name) + strlen(suffix) + 2;
-	name = reallocator(name, name_size); /* + 1 for '.', + 1 for '\0' */
-	strcat(name, ".");
-	strcat(name, suffix);
+	if (*suffix) {
+		size_t name_size = strlen(name) + strlen(suffix) + 2;
+		name = reallocator(name, name_size); /* + 1 for '.', + 1 for '\0' */
+		strcat(name, ".");
+		strcat(name, suffix);
+	} else {
+		size_t name_size = strlen(name) + 1;
+		name = reallocator(name, name_size); /* + 1 for '\0' */
+	}
 	return name;
 }
 
@@ -158,6 +166,17 @@ static int dbc2jsonWrapper(dbc_t *dbc, const char *dbc_file, bool use_time_stamp
 	return r;
 }
 
+static int dbc2rosWrapper(dbc_t *dbc, const char *dbc_file, const char *file_only)
+{
+    assert(dbc);
+    assert(dbc_file);
+	char *dname = replace_file_type(dbc_file,  "");
+	char *fname = replace_file_type(file_only,  "");
+    int r = dbc2ros(dbc, dname, fname);
+    free(fname);
+    free(dname);
+    return r;
+}
 
 static int flag(const char *v) { /* really should be case insensitive */
 	static char *y[] = { "yes", "on", "true", };
@@ -215,7 +234,7 @@ int main(int argc, char **argv)
 	};
 	int opt = 0;
 
-	while ((opt = dbcc_getopt(argc, argv, "hVvbjgxCNtDpukso:n:O:")) != -1) {
+	while ((opt = dbcc_getopt(argc, argv, "hVvbjgxCrNtDpukso:n:O:")) != -1) {
 		switch (opt) {
 		case 'h':
 			usage(argv[0]);
@@ -241,6 +260,9 @@ int main(int argc, char **argv)
 			break;
 		case 'C':
 			convert = CONVERT_TO_CSV;
+			break;
+		case 'r':
+			convert = CONVERT_TO_ROS;
 			break;
 		case 'N':
 			copts.use_id_in_name = false;
@@ -345,6 +367,9 @@ int main(int argc, char **argv)
 			break;
 		case CONVERT_TO_JSON:
 			r = dbc2jsonWrapper(dbc, outpath, copts.use_time_stamps);
+			break;
+		case CONVERT_TO_ROS:
+			r = dbc2rosWrapper(dbc, outpath, dbcc_basename(argv[i]));
 			break;
 		default:
 			error("invalid conversion type: %d", convert);
