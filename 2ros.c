@@ -602,8 +602,6 @@ static int msg_pack(FILE *c, can_msg_t *msg, const char *package_name)
 		fprintf(c, "\t\t\t\tuint64_t m = 0;\n");
 	if (intel_used)
 		fprintf(c, "\t\t\t\tuint64_t i = 0;\n");
-	if (!message_has_signals)
-		fprintf(c, "\t\t\t\tUNUSED(o);\n\t\tUNUSED(data);\n");
 	
 	for (size_t i = 0; i < msg->signal_count; i++) {
 		// TODO add multiplexed signal logic
@@ -614,14 +612,14 @@ static int msg_pack(FILE *c, can_msg_t *msg, const char *package_name)
 		signal2serializer(msg->sigs[i], c, "\t\t\t\t");
 	}
 
-	if (message_has_signals) {
-		fprintf(c, "\t\t\t\tuint64_t data = %s%s%s%s%s;\n",
-			swap_motorola && motorola_used ? "reverse_byte_order" : "",
-			motorola_used ? "(m)" : "",
-			motorola_used && intel_used ? "|" : "",
-			(!swap_motorola && intel_used) ? "reverse_byte_order" : "",
-			intel_used ? "(i)" : "");
-	}
+	fprintf(c, "\t\t\t\tuint64_t data = %s%s%s%s%s%s;\n",
+		swap_motorola && motorola_used ? "reverse_byte_order" : "",
+		motorola_used ? "(m)" : "",
+		motorola_used && intel_used ? "|" : "",
+		(!swap_motorola && intel_used) ? "reverse_byte_order" : "",
+		intel_used ? "(i)" : "",
+		message_has_signals ? "" : "0");
+
 	fprintf(c, "\t\t\t\twriteToSocket(%ld, reinterpret_cast<uint8_t*>(&data), %d);\n", msg->id, msg->dlc);
 	fprintf(c, "\t\t\t}\n\t\t);\n\n");
 	return 0;
