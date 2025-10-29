@@ -298,6 +298,58 @@ static void generate_package_xml(const char *outdir, const char *package_name) {
 	free(file_name);
 }
 
+static void generate_cmakelists_txt(const dbc_t *dbc, const char *outdir, const char *package_name) {
+	size_t file_name_size = strlen(outdir) + strlen("/CMakeLists.txt") + 1;
+	char *file_name = allocate(file_name_size);
+	snprintf(file_name, file_name_size, "%s%s", outdir, "/CMakeLists.txt");
+
+	FILE *file = fopen_or_die(file_name, "wb");
+
+	fprintf(file, "\
+cmake_minimum_required(VERSION 3.5)\n\
+project(%s)\n\n\
+# Default to C99\n\
+if(NOT CMAKE_C_STANDARD)\n\
+  set(CMAKE_C_STANDARD 99)\n\
+endif()\n\n\
+# Default to C++14\n\
+if(NOT CMAKE_CXX_STANDARD)\n\
+  set(CMAKE_CXX_STANDARD 14)\n\
+endif()\n\n\
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES \"Clang\")\n\
+  add_compile_options(-Wall -Wextra -Wpedantic)\n\
+endif()\n\n\
+# find dependencies\n\
+find_package(ament_cmake REQUIRED)\n\
+find_package(rclcpp REQUIRED)\n\
+find_package(rosidl_default_generators REQUIRED)\n\
+#find_package(std_msgs REQUIRED)\n\n\
+set(msg_files\n", package_name);
+    
+    for (size_t i = 0; i < dbc->message_count; i++) {
+		const can_msg_t *msg = dbc->messages[i];
+		fprintf(file, "  \"msg/%s.msg\"\n", msg->name);
+	}
+	fprintf(file, "\
+)\n\n\
+rosidl_generate_interfaces(${PROJECT_NAME}\n\
+  ${msg_files}\n\
+  #DEPENDENCIES std_msgs\n\
+)\n\n\
+# Ensure that C++ nodes can use the generated message headers\n\
+ament_export_dependencies(rosidl_default_runtime)\n\n\n\
+add_executable(${PROJECT_NAME}_writer src/${PROJECT_NAME}_writer.cpp)\n\
+ament_target_dependencies(${PROJECT_NAME}_writer rclcpp ${PROJECT_NAME})\n\n\
+install(TARGETS\n\
+  ${PROJECT_NAME}_writer\n\
+  DESTINATION lib/${PROJECT_NAME}\n\
+)\n\n\
+ament_package()\n");
+
+	fclose(file);
+	free(file_name);
+}
+ 
 void str_to_upper(char *str) {
 	for (int i = 0; str[i] != '\0'; i++) {
 		str[i] = toupper((unsigned char)str[i]);
@@ -636,6 +688,8 @@ int dbc2ros(const dbc_t *dbc, const char *outdir, const char *package_name) {
 	generate_folders(outdir);
 
 	generate_package_xml(outdir, package_name);
+
+	generate_cmakelists_txt(dbc, outdir, package_name);
 
 	generate_ros_msgs(dbc, outdir);
 
