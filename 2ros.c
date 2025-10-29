@@ -236,7 +236,7 @@ static int comment(signal_t *sig, FILE *o, const char *indent)
 }
 
 
-static void create_folders(const char *path) {
+static void generate_folders(const char *path) {
 	if (mkdir(path, 0777) == -1) {
 		if (errno != EEXIST) {
 			error("error creating folder");
@@ -266,6 +266,36 @@ static void create_folders(const char *path) {
 		}
 	}
 	free(fullpath);
+}
+
+static void generate_package_xml(const char *outdir, const char *package_name) {
+	size_t file_name_size = strlen(outdir) + strlen("/package.xml") + 1;
+	char *file_name = allocate(file_name_size);
+	snprintf(file_name, file_name_size, "%s%s", outdir, "/package.xml");
+
+	FILE *file = fopen_or_die(file_name, "wb");
+
+	fprintf(file, "\
+<?xml version=\"1.0\"?>\n\
+<?xml-model href=\"http://download.ros.org/schema/package_format3.xsd\" schematypens=\"http://www.w3.org/2001/XMLSchema\"?>\n\
+<package format=\"3\">\n\
+  <name>%s</name>\n\
+  <version>0.0.0</version>\n\
+  <description>TODO: Package description</description>\n\
+  <maintainer email=\"todo@raceup.it\">driverless</maintainer>\n\
+  <license>TODO: License declaration</license>\n\n\
+  <buildtool_depend>ament_cmake</buildtool_depend>\n\
+  <build_depend>rosidl_default_generators</build_depend>\n\n\
+  <depend>rclcpp</depend>\n\
+  <exec_depend>rosidl_default_runtime</exec_depend>\n\n\
+  <member_of_group>rosidl_interface_packages</member_of_group>\n\n\
+  <export>\n\
+    <build_type>ament_cmake</build_type>\n\
+  </export>\n\
+</package>\n", package_name);
+
+	fclose(file);
+	free(file_name);
 }
 
 void str_to_upper(char *str) {
@@ -603,7 +633,9 @@ int dbc2ros(const dbc_t *dbc, const char *outdir, const char *package_name) {
 
 	check_input_naming(dbc, package_name);
 
-	create_folders(outdir);
+	generate_folders(outdir);
+
+	generate_package_xml(outdir, package_name);
 
 	generate_ros_msgs(dbc, outdir);
 
