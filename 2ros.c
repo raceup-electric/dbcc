@@ -9,7 +9,6 @@
 #include <time.h>
 #include <regex.h>
 
-static const char* package_name = "can_io"; //TODO
 static const bool swap_motorola = true; // WHAT ????
 
 
@@ -435,7 +434,7 @@ static void snake2pascal(char *out, const size_t out_size, const char *snake) {
 	out[j] = '\0';
 }
 
-static void create_headers(const dbc_t *dbc, FILE *file) {
+static void create_headers(const dbc_t *dbc, FILE *file, const char *name) {
 	fprintf(file, "\
 #include <rclcpp/rclcpp.hpp>\n\
 //...TODO ADD ALL INCLUDES\n\
@@ -445,7 +444,7 @@ static void create_headers(const dbc_t *dbc, FILE *file) {
 		char snake_msg_name[strlen(msg->name) * 2]; // snake_case message name
 		pascal2snake(snake_msg_name, strlen(msg->name) * 2, msg->name);
 
-		fprintf(file, "#include <%s/msg/%s.hpp>\n", package_name, snake_msg_name);
+		fprintf(file, "#include <%s/msg/%s.hpp>\n", name, snake_msg_name);
 	}
 	fprintf(file, "\n\n");
 }
@@ -499,8 +498,8 @@ static int msg_pack(FILE *c, can_msg_t *msg, const char *name)
 	char snake_msg_name[strlen(msg->name) * 2]; // snake_case message name
 	pascal2snake(snake_msg_name, strlen(msg->name) * 2, msg->name);
 
-	fprintf(c, "\t\t%s_sub_ = this->create_subscription<%s::msg::%s>(\n", snake_msg_name, package_name, msg->name);
-	fprintf(c, "\t\t\t\"/%s/%s\", 10, [this](const %s::msg::%s::SharedPtr msg) {\n", name, snake_msg_name, package_name, msg->name);
+	fprintf(c, "\t\t%s_sub_ = this->create_subscription<%s::msg::%s>(\n", snake_msg_name, name, msg->name);
+	fprintf(c, "\t\t\t\"/%s/%s\", 10, [this](const %s::msg::%s::SharedPtr msg) {\n", name, snake_msg_name, name, msg->name);
 
 	if (message_has_signals)
 		fprintf(c, "\t\t\t\tuint64_t x;\n");
@@ -542,14 +541,14 @@ static void create_subscribers(const dbc_t *dbc, FILE *file, const char *name) {
 	fprintf(file, "\t}\n\n");
 }
 
-static void create_variables(const dbc_t *dbc, FILE *file) {
+static void create_variables(const dbc_t *dbc, FILE *file, const char *name) {
 	fprintf(file, "\tint socket_{-1};\n\n");
 	for (size_t i = 0; i < dbc->message_count; i++) {
 		can_msg_t *msg = dbc->messages[i];
 		char snake_msg_name[strlen(msg->name) * 2]; // snake_case message name
 		pascal2snake(snake_msg_name, strlen(msg->name) * 2, msg->name);
 
-		fprintf(file, "\trclcpp::Subscription<%s::msg::%s>::SharedPtr %s_sub_;\n", package_name, msg->name, snake_msg_name);
+		fprintf(file, "\trclcpp::Subscription<%s::msg::%s>::SharedPtr %s_sub_;\n", name, msg->name, snake_msg_name);
 	}
 }
 
@@ -574,7 +573,7 @@ static void generate_ros_node(const dbc_t *dbc, const char *outdir, const char *
 	snake2pascal(class_name, strlen(name) + strlen("Parser"), name);
 	strcat(class_name, "Parser");
 
-	create_headers(dbc, file);
+	create_headers(dbc, file, name);
 	fprintf(file, "class %s : public rclcpp::Node {\n", class_name);
 	fprintf(file, "public:\n");
 	fprintf(file, "%s", writer_constructor_destructor);
@@ -582,7 +581,7 @@ static void generate_ros_node(const dbc_t *dbc, const char *outdir, const char *
 	fprintf(file, "%s", setup_real_time);
 	fprintf(file, "%s", create_and_write_socket);
 	create_subscribers(dbc, file, name);
-	create_variables(dbc, file);
+	create_variables(dbc, file, name);
 	fprintf(file, "}\n\n");
 	create_main(file, class_name);
 
