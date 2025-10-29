@@ -62,10 +62,10 @@ static const char *create_and_write_socket = "\
         RCLCPP_INFO(this->get_logger(), \"Connected to CAN interface: %s\", ifname.c_str());\n\
     }\n\
 \n\
-    void writeToSocket(uint32_t can_id, const uint8_t* data, size_t size) {\n\
+    void writeToSocket(uint32_t can_id, const uint8_t* data, uint8_t dlc) {\n\
         struct can_frame frame = {};\n\
         frame.can_id = can_id;\n\
-        frame.can_dlc = std::min<size_t>(size, 8);\n\
+        frame.can_dlc = std::min<uint8_t>(dlc, 8);\n\
         std::memcpy(frame.data, data, frame.can_dlc);\n\
 \n\
         int nbytes = write(socket_, &frame, sizeof(struct can_frame));\n\
@@ -622,7 +622,7 @@ static int msg_pack(FILE *c, can_msg_t *msg, const char *package_name)
 			(!swap_motorola && intel_used) ? "reverse_byte_order" : "",
 			intel_used ? "(i)" : "");
 	}
-	fprintf(c, "\t\t\t\twriteToSocket(%ld, reinterpret_cast<uint8_t*>(&data), sizeof(data));\n", msg->id);
+	fprintf(c, "\t\t\t\twriteToSocket(%ld, reinterpret_cast<uint8_t*>(&data), %d);\n", msg->id, msg->dlc);
 	fprintf(c, "\t\t\t}\n\t\t);\n\n");
 	return 0;
 }
