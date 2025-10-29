@@ -13,7 +13,7 @@ static const bool swap_motorola = true; // WHAT ????
 
 
 // TODO check, copiato da socketcan_writer
-static char *setup_real_time = "\
+static const char *setup_real_time = "\
     void setupRealTime(int32_t priority) {\n\
         if (priority > 99) priority = 99;\n\
 \n\
@@ -30,7 +30,7 @@ static char *setup_real_time = "\
 \n";
 
 // TODO check, adattato da socketcan_writer
-static char *create_and_write_socket = "\
+static const char *create_and_write_socket = "\
     void setupSocket(const std::string &ifname) {\n\
         socket_ = socket(PF_CAN, SOCK_RAW, CAN_RAW);\n\
         if (socket_ < 0) {\n\
@@ -78,7 +78,7 @@ static char *create_and_write_socket = "\
     }\n\
 \n";
 
-static char *float_pack = "\
+static const char *float_pack = "\
 /* pack754() -- pack a floating point number into IEEE-754 format */ \n\
 static uint64_t pack754(const double f, const unsigned bits, const unsigned expbits) {\n\
 	if (f == 0.0) /* get this special case out of the way */\n\
@@ -117,7 +117,7 @@ static inline uint32_t   pack754_32(const float  f)   { return   pack754(f, 32, 
 static inline uint64_t   pack754_64(const double f)   { return   pack754(f, 64, 11); }\n\
 \n\n";
 
-static char *float_unpack = "\
+static const char *float_unpack = "\
 /* unpack754() -- unpack a floating point number from IEEE-754 format */ \n\
 static double unpack754(const uint64_t i, const unsigned bits, const unsigned expbits) {\n\
 	if (i == 0) return 0.0;\n\
@@ -147,6 +147,14 @@ static double unpack754(const uint64_t i, const unsigned bits, const unsigned ex
 static inline float    unpack754_32(uint32_t i) { return unpack754(i, 32, 8); }\n\
 static inline double   unpack754_64(uint64_t i) { return unpack754(i, 64, 11); }\n\
 \n\n";
+
+static const char *reverse_byte_order =
+"static inline uint64_t reverse_byte_order(uint64_t x) {\n"
+"\tx = (x & 0x00000000FFFFFFFF) << 32 | (x & 0xFFFFFFFF00000000) >> 32;\n"
+"\tx = (x & 0x0000FFFF0000FFFF) << 16 | (x & 0xFFFF0000FFFF0000) >> 16;\n"
+"\tx = (x & 0x00FF00FF00FF00FF) << 8  | (x & 0xFF00FF00FF00FF00) >> 8;\n"
+"\treturn x;\n"
+"}\n\n";
 
 static unsigned fix_start_bit(bool motorola, unsigned start, unsigned siglen)
 {
@@ -339,7 +347,10 @@ rosidl_generate_interfaces(${PROJECT_NAME}\n\
 # Ensure that C++ nodes can use the generated message headers\n\
 ament_export_dependencies(rosidl_default_runtime)\n\n\n\
 add_executable(${PROJECT_NAME}_writer src/${PROJECT_NAME}_writer.cpp)\n\
-ament_target_dependencies(${PROJECT_NAME}_writer rclcpp ${PROJECT_NAME})\n\n\
+ament_target_dependencies(${PROJECT_NAME}_writer rclcpp)\n\
+target_link_libraries(${PROJECT_NAME}_writer\n\
+  ${PROJECT_NAME}__rosidl_typesupport_cpp\n\
+)\n\n\
 install(TARGETS\n\
   ${PROJECT_NAME}_writer\n\
   DESTINATION lib/${PROJECT_NAME}\n\
@@ -349,7 +360,7 @@ ament_package()\n");
 	fclose(file);
 	free(file_name);
 }
- 
+
 void str_to_upper(char *str) {
 	for (int i = 0; str[i] != '\0'; i++) {
 		str[i] = toupper((unsigned char)str[i]);
@@ -549,10 +560,10 @@ static int signal2serializer(signal_t *sig, FILE *o, const char *indent)
 
 	if (sig->is_floating) {
 		assert(sig->bit_length == 32 || sig->bit_length == 64);
-		if (fprintf(o, "%sx = pack754_%u(msg.%s) & 0x%"PRIx64";\n", indent, sig->bit_length, sig->name, mask) < 0)
+		if (fprintf(o, "%sx = pack754_%u(msg->%s) & 0x%"PRIx64";\n", indent, sig->bit_length, sig->name, mask) < 0)
 			return -1;
 	} else {
-		if (fprintf(o, "%sx = ((%s)(msg.%s)) & 0x%"PRIx64";\n", indent, determine_unsigned_type_c(sig->bit_length), sig->name, mask) < 0)
+		if (fprintf(o, "%sx = ((%s)(msg->%s)) & 0x%"PRIx64";\n", indent, determine_unsigned_type_c(sig->bit_length), sig->name, mask) < 0)
 			return -1;
 	}
 	if (start)
@@ -611,7 +622,7 @@ static int msg_pack(FILE *c, can_msg_t *msg, const char *package_name)
 			(!swap_motorola && intel_used) ? "reverse_byte_order" : "",
 			intel_used ? "(i)" : "");
 	}
-	fprintf(c, "\t\t\t\twriteToSocket(%ld, reinterpret_cast<uint8_t*>(&data), sizeof(data))\n", msg->id);
+	fprintf(c, "\t\t\t\twriteToSocket(%ld, reinterpret_cast<uint8_t*>(&data), sizeof(data));\n", msg->id);
 	fprintf(c, "\t\t\t}\n\t\t);\n\n");
 	return 0;
 }
@@ -669,7 +680,7 @@ static void generate_ros_node(const dbc_t *dbc, const char *outdir, const char *
 	fprintf(file, "%s", create_and_write_socket);
 	create_subscribers(dbc, file, package_name);
 	create_variables(dbc, file, package_name);
-	fprintf(file, "}\n\n");
+	fprintf(file, "};\n\n");
 	create_main(file, class_name);
 
 	fclose(file);
@@ -684,15 +695,10 @@ int dbc2ros(const dbc_t *dbc, const char *outdir, const char *package_name) {
 	assert(package_name);
 
 	check_input_naming(dbc, package_name);
-
 	generate_folders(outdir);
-
 	generate_package_xml(outdir, package_name);
-
 	generate_cmakelists_txt(dbc, outdir, package_name);
-
 	generate_ros_msgs(dbc, outdir);
-
 	generate_ros_node(dbc, outdir, package_name);
 
 	return 0;
