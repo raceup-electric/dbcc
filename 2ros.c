@@ -14,7 +14,7 @@ static const bool swap_motorola = true; // WHAT ????
 
 // TODO check, copiato da socketcan_writer
 static const char *setup_real_time = "\
-    void setupRealTime(int32_t priority) {\n\
+    void setupRealTime(uint32_t priority) {\n\
         if (priority > 99) priority = 99;\n\
 \n\
         struct sched_param schp = {};\n\
@@ -517,7 +517,18 @@ static void snake2pascal(char *out, const size_t out_size, const char *snake) {
 static void create_headers(const dbc_t *dbc, FILE *file, const char *package_name) {
 	fprintf(file, "\
 #include <rclcpp/rclcpp.hpp>\n\
-//...TODO ADD ALL INCLUDES\n\
+#include <cstring>\n\
+#include <string>\n\
+#include <unistd.h>\n\
+#include <net/if.h>\n\
+#include <sys/ioctl.h>\n\
+#include <sys/socket.h>\n\
+#include <linux/can.h>\n\
+#include <linux/can/raw.h>\n\
+#include <sched.h>\n\
+#include <sys/resource.h>\n\
+#include <cerrno>\n\
+#include <algorithm>\n\
 \n");
 	for (size_t i = 0; i < dbc->message_count; i++) {
 		const can_msg_t *msg = dbc->messages[i];
