@@ -14,12 +14,12 @@ static const bool swap_motorola = true; // WHAT ????
 
 static char *writer_constructor_destructor = "\
     SocketCANWriter() : Node(\"socketcan_writer\") {\n\
-        this->declare_parameter<int>(\"sched_priority\", 99);\n\
-        setupRealTime(this->get_parameter(\"sched_priority\").as_int());\n\
-        setupSocket(\"can0\");\n\
-        createSubscriptions()\n\
-    }\n\
-\n\
+        int priority = this->declare_parameter<int>(\"sched_priority\", 99);\n\
+		std::string interface_name = this->declare_parameter<std::string>(\"interface_name\", \"can0\");\n\n\
+        setupRealTime(priority);\n\
+        setupSocket(interface_name);\n\
+        createSubscriptions();\n\
+    }\n\n\
     virtual ~SocketCANWriter() {\n\
         if (socket_ >= 0) close(socket_);\n\
     }\n\
