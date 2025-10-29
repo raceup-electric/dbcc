@@ -564,9 +564,9 @@ int main(int argc, char **argv) {\n\
 }
 
 static void generate_ros_node(const dbc_t *dbc, const char *outdir, const char *package_name) {
-	size_t node_name_size = strlen(package_name) + strlen("_parser") + 1; /* + 1 for '\0' */
+	size_t node_name_size = strlen(package_name) + strlen("_writer") + 1; /* + 1 for '\0' */
 	char *node_name = allocate(node_name_size);
-	snprintf(node_name, node_name_size, "%s%s", package_name, "_parser");
+	snprintf(node_name, node_name_size, "%s%s", package_name, "_writer");
 
 	size_t file_name_size = strlen(outdir) + strlen("/src/") + strlen(node_name) + strlen(".cpp") + 1;
 	char *file_name = allocate(file_name_size);
