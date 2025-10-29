@@ -12,19 +12,6 @@
 static const bool swap_motorola = true; // WHAT ????
 
 
-static char *writer_constructor_destructor = "\
-    SocketCANWriter() : Node(\"socketcan_writer\") {\n\
-        int priority = this->declare_parameter<int>(\"sched_priority\", 99);\n\
-		std::string interface_name = this->declare_parameter<std::string>(\"interface_name\", \"can0\");\n\n\
-        setupRealTime(priority);\n\
-        setupSocket(interface_name);\n\
-        createSubscriptions();\n\
-    }\n\n\
-    virtual ~SocketCANWriter() {\n\
-        if (socket_ >= 0) close(socket_);\n\
-    }\n\
-\n";
-
 // TODO check, copiato da socketcan_writer
 static char *setup_real_time = "\
     void setupRealTime(int32_t priority) {\n\
@@ -449,6 +436,21 @@ static void create_headers(const dbc_t *dbc, FILE *file, const char *package_nam
 	fprintf(file, "\n\n");
 }
 
+static void create_constructor_destructor(FILE *file, const char *class_name, const char *node_name) {
+	fprintf(file, "\
+    %s() : Node(\"%s\") {\n\
+        int priority = this->declare_parameter<int>(\"sched_priority\", 99);\n\
+		std::string interface_name = this->declare_parameter<std::string>(\"interface_name\", \"can0\");\n\n\
+        setupRealTime(priority);\n\
+        setupSocket(interface_name);\n\
+        createSubscriptions();\n\
+    }\n\n\
+    virtual ~%s() {\n\
+        if (socket_ >= 0) close(socket_);\n\
+    }\n\n",
+	class_name, node_name, class_name);
+}
+
 static int signal2serializer(signal_t *sig, FILE *o, const char *indent)
 {
 	assert(sig);
@@ -532,7 +534,6 @@ static int msg_pack(FILE *c, can_msg_t *msg, const char *package_name)
 	return 0;
 }
 
-
 static void create_subscribers(const dbc_t *dbc, FILE *file, const char *package_name) {
 	fprintf(file, "\tvoid createSubscriptions() {\n");
 	for (size_t i = 0; i < dbc->message_count; i++) {
@@ -552,7 +553,6 @@ static void create_variables(const dbc_t *dbc, FILE *file, const char *package_n
 	}
 }
 
-
 static void create_main(FILE *file, const char *class_name) {
 	fprintf(file, "\
 int main(int argc, char **argv) {\n\
@@ -564,19 +564,24 @@ int main(int argc, char **argv) {\n\
 }
 
 static void generate_ros_node(const dbc_t *dbc, const char *outdir, const char *package_name) {
-	size_t name_size = strlen(outdir) + strlen("/src/") + strlen(package_name) + strlen("_parser.cpp") + 1; /* + 1 for '\0' */
-	char *file_name = allocate(name_size);
-	snprintf(file_name, name_size, "%s%s%s%s", outdir, "/src/", package_name, "_parser.cpp");
-	FILE *file = fopen_or_die(file_name, "wb");
+	size_t node_name_size = strlen(package_name) + strlen("_parser") + 1; /* + 1 for '\0' */
+	char *node_name = allocate(node_name_size);
+	snprintf(node_name, node_name_size, "%s%s", package_name, "_parser");
+
+	size_t file_name_size = strlen(outdir) + strlen("/src/") + strlen(node_name) + strlen(".cpp") + 1;
+	char *file_name = allocate(file_name_size);
+	snprintf(file_name, file_name_size, "%s%s%s%s", outdir, "/src/", node_name, ".cpp");
 	
-	char class_name[strlen(package_name) + strlen("Parser")];
-	snake2pascal(class_name, strlen(package_name) + strlen("Parser"), package_name);
-	strcat(class_name, "Parser");
+	size_t class_name_size = strlen(node_name);
+	char *class_name = allocate(class_name_size);
+	snake2pascal(class_name, class_name_size, node_name);
+
+	FILE *file = fopen_or_die(file_name, "wb");
 
 	create_headers(dbc, file, package_name);
 	fprintf(file, "class %s : public rclcpp::Node {\n", class_name);
 	fprintf(file, "public:\n");
-	fprintf(file, "%s", writer_constructor_destructor);
+	create_constructor_destructor(file, class_name, node_name);
 	fprintf(file, "private:\n");
 	fprintf(file, "%s", setup_real_time);
 	fprintf(file, "%s", create_and_write_socket);
@@ -586,7 +591,9 @@ static void generate_ros_node(const dbc_t *dbc, const char *outdir, const char *
 	create_main(file, class_name);
 
 	fclose(file);
+	free(class_name);
 	free(file_name);
+	free(node_name);
 }
 
 int dbc2ros(const dbc_t *dbc, const char *outdir, const char *package_name) {
