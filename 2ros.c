@@ -79,74 +79,28 @@ static const char *create_and_write_socket = "\
 \n";
 
 static const char *float_pack = "\
-/* pack754() -- pack a floating point number into IEEE-754 format */ \n\
-static uint64_t pack754(const double f, const unsigned bits, const unsigned expbits) {\n\
-	if (f == 0.0) /* get this special case out of the way */\n\
-		return signbit(f) ? (1uLL << (bits - 1)) :  0;\n\
-	if (f != f) /* NaN, encoded as Exponent == all-bits-set, Mantissa != 0, Signbit == Do not care */\n\
-		return (1uLL << (bits - 1)) - 1uLL;\n\
-	if (f == INFINITY) /* +INFINITY encoded as Mantissa == 0, Exponent == all-bits-set */\n\
-		return ((1uLL << expbits) - 1uLL) << (bits - expbits - 1);\n\
-	if (f == -INFINITY) /* -INFINITY encoded as Mantissa == 0, Exponent == all-bits-set, Signbit == 1 */\n\
-		return (1uLL << (bits - 1)) | ((1uLL << expbits) - 1uLL) << (bits - expbits - 1);\n\
-\n\
-	long long sign = 0;\n\
-	double fnorm = f;\n\
-	/* check sign and begin normalization */\n\
-	if (f < 0) { sign = 1; fnorm = -f; }\n\
-\n\
-	/* get the normalized form of f and track the exponent */\n\
-	int shift = 0;\n\
-	while (fnorm >= 2.0) { fnorm /= 2.0; shift++; }\n\
-	while (fnorm < 1.0)  { fnorm *= 2.0; shift--; }\n\
-	fnorm = fnorm - 1.0;\n\
-\n\
-	const unsigned significandbits = bits - expbits - 1; // -1 for sign bit\n\
-\n\
-	/* calculate the binary form (non-float) of the significand data */\n\
-	const long long significand = fnorm * (( 1LL << significandbits) + 0.5f);\n\
-\n\
-	/* get the biased exponent */\n\
-	const long long exp = shift + ((1LL << (expbits - 1)) - 1); // shift + bias\n\
-\n\
-	/* return the final answer */\n\
-	return (sign << (bits - 1)) | (exp << (bits - expbits - 1)) | significand;\n\
-}\n\
-\n\
-static inline uint32_t   pack754_32(const float  f)   { return   pack754(f, 32, 8); }\n\
-static inline uint64_t   pack754_64(const double f)   { return   pack754(f, 64, 11); }\n\
-\n\n";
+static inline uint32_t pack754_32(const float f) {\n\
+\tuint32_t i;\n\
+\tstd::memcpy(&i, &f, sizeof(i));\n\
+\treturn i;\n\
+}\n\n\
+static inline uint64_t pack754_64(const double d) {\n\
+\tuint64_t i;\n\
+\tstd::memcpy(&i, &d, sizeof(i));\n\
+\treturn i;\n\
+}\n\n";
 
 static const char *float_unpack = "\
-/* unpack754() -- unpack a floating point number from IEEE-754 format */ \n\
-static double unpack754(const uint64_t i, const unsigned bits, const unsigned expbits) {\n\
-	if (i == 0) return 0.0;\n\
-\n\
-	const uint64_t expset = ((1uLL << expbits) - 1uLL) << (bits - expbits - 1);\n\
-	if ((i & expset) == expset) { /* NaN or +/-Infinity */\n\
-		if (i & ((1uLL << (bits - expbits - 1)) - 1uLL)) /* Non zero Mantissa means NaN */\n\
-			return NAN;\n\
-		return (i & (1uLL << (bits - 1))) ? -INFINITY : INFINITY;\n\
-	}\n\
-\n\
-	/* pull the significand */\n\
-	const unsigned significandbits = bits - expbits - 1; /* - 1 for sign bit */\n\
-	double result = (i & ((1LL << significandbits) - 1)); /* mask */\n\
-	result /= (1LL << significandbits);  /* convert back to float */\n\
-	result += 1.0f;                        /* add the one back on */\n\
-\n\
-	/* deal with the exponent */\n\
-	const unsigned bias = (1 << (expbits - 1)) - 1;\n\
-	long long shift = ((i >> significandbits) & ((1LL << expbits) - 1)) - bias;\n\
-	while (shift > 0) { result *= 2.0; shift--; }\n\
-	while (shift < 0) { result /= 2.0; shift++; }\n\
-	\n\
-	return ((i >> (bits - 1)) & 1) ? -result : result; /* sign it, and return */\n\
-}\n\
-\n\
-static inline float    unpack754_32(uint32_t i) { return unpack754(i, 32, 8); }\n\
-static inline double   unpack754_64(uint64_t i) { return unpack754(i, 64, 11); }\n\
-\n\n";
+static inline float unpack754_32(const uint32_t i) {\n\
+\tfloat f;\n\
+\tstd::memcpy(&f, &i, sizeof(f));\n\
+\treturn f;\n\
+}\n\n\
+static inline double unpack754_64(const uint64_t i) {\n\
+\tdouble d;\n\
+\tstd::memcpy(&d, &i, sizeof(d));\n\
+\treturn d;\n\
+}\n\n";
 
 static const char *reverse_byte_order =
 "static inline uint64_t reverse_byte_order(uint64_t x) {\n"
@@ -523,10 +477,10 @@ static void create_headers(const dbc_t *dbc, FILE *file, const char *package_nam
 #include <net/if.h>\n\
 #include <sys/ioctl.h>\n\
 #include <sys/socket.h>\n\
+#include <sys/resource.h>\n\
 #include <linux/can.h>\n\
 #include <linux/can/raw.h>\n\
 #include <sched.h>\n\
-#include <sys/resource.h>\n\
 #include <cerrno>\n\
 #include <algorithm>\n\
 \n");
@@ -681,6 +635,8 @@ static void generate_ros_node(const dbc_t *dbc, const char *outdir, const char *
 	FILE *file = fopen_or_die(file_name, "wb");
 
 	create_headers(dbc, file, package_name);
+	fprintf(file, "%s", float_pack);
+	fprintf(file, "%s", reverse_byte_order);
 	fprintf(file, "class %s : public rclcpp::Node {\n", class_name);
 	fprintf(file, "public:\n");
 	create_constructor_destructor(file, class_name, node_name);
