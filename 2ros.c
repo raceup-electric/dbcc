@@ -62,7 +62,7 @@ static const char *create_and_write_socket = "\
         RCLCPP_INFO(this->get_logger(), \"Connected to CAN interface: %s\", ifname.c_str());\n\
     }\n\
 \n\
-    void writeToSocket(uint32_t can_id, const uint8_t* data, uint8_t dlc) {\n\
+    void writeToSocket(uint32_t can_id, const void* data, uint8_t dlc) {\n\
         struct can_frame frame = {};\n\
         frame.can_id = can_id;\n\
         frame.can_dlc = std::min<uint8_t>(dlc, 8);\n\
@@ -559,7 +559,8 @@ static int msg_pack(FILE *c, can_msg_t *msg, const char *package_name)
 	pascal2snake(snake_msg_name, strlen(msg->name) * 2, msg->name);
 
 	fprintf(c, "\t\t%s_sub_ = this->create_subscription<%s::msg::%s>(\n", snake_msg_name, package_name, msg->name);
-	fprintf(c, "\t\t\t\"/%s/%s\", 10, [this](const %s::msg::%s::SharedPtr msg) {\n", package_name, snake_msg_name, package_name, msg->name);
+	fprintf(c, "\t\t\t\"/%s/%s\", 10, [this](const %s::msg::%s::SharedPtr%s) {\n",
+		package_name, snake_msg_name, package_name, msg->name, message_has_signals ? " msg" : "");
 
 	if (message_has_signals)
 		fprintf(c, "\t\t\t\tuint64_t x;\n");
@@ -585,7 +586,7 @@ static int msg_pack(FILE *c, can_msg_t *msg, const char *package_name)
 		intel_used ? "(i)" : "",
 		message_has_signals ? "" : "0");
 
-	fprintf(c, "\t\t\t\twriteToSocket(%ld, reinterpret_cast<uint8_t*>(&data), %d);\n", msg->id, msg->dlc);
+	fprintf(c, "\t\t\t\twriteToSocket(%ld, &data, %d);\n", msg->id, msg->dlc);
 	fprintf(c, "\t\t\t}\n\t\t);\n\n");
 	return 0;
 }
