@@ -402,7 +402,9 @@ static void generate_ros_msgs(const dbc_t *dbc, const char *outdir) {
 
 		for (size_t j = 0; j < msg->signal_count; j++) {
 			const signal_t *sig = msg->sigs[j];
-			const char *type = determine_type_rosmsg(sig->bit_length, sig->is_signed, sig->is_floating);
+			const char *type = "float64";
+			if (sig->offset == 0.0 && sig->scaling == 1.0)
+				type = determine_type_rosmsg(sig->bit_length, sig->is_signed, sig->is_floating);
 			const char *name = sig->name;
 			fprintf(file, "%s %s\n", type, name);
 		}
@@ -523,14 +525,23 @@ static int signal2serializer(signal_t *sig, FILE *o, const char *indent)
 	if (comment(sig, o, indent) < 0)
 		return -1;
 
-	if (sig->is_floating) {
+	if (sig->is_floating)
 		assert(sig->bit_length == 32 || sig->bit_length == 64);
-		if (fprintf(o, "%sx = pack754_%u(msg->%s) & 0x%"PRIx64";\n", indent, sig->bit_length, sig->name, mask) < 0)
-			return -1;
-	} else {
-		if (fprintf(o, "%sx = ((%s)(msg->%s)) & 0x%"PRIx64";\n", indent, determine_unsigned_type_c(sig->bit_length), sig->name, mask) < 0)
-			return -1;
-	}
+
+	fprintf(o, "%sx = (", indent);
+	if (sig->is_floating)
+		fprintf(o, "pack754_%u", sig->bit_length);
+	else
+		fprintf(o, "(%s)", determine_unsigned_type_c(sig->bit_length));
+	fprintf(o, "((msg->%s", sig->name);
+	if (sig->offset != 0.0)
+		fprintf(o, " + %g", -1.0 * sig->offset);
+	fprintf(o, ")");
+	if (sig->scaling != 1.0)
+		fprintf(o, " * %g", 1.0 / sig->scaling);
+	fprintf(o, ")) & 0x%"PRIx64";\n", mask);
+
+
 	if (start)
 		if (fprintf(o, "%sx <<= %u; \n", indent, start) < 0)
 			return -1;
