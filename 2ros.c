@@ -485,6 +485,8 @@ static void create_headers(const dbc_t *dbc, FILE *file, const char *package_nam
 #include <sched.h>\n\
 #include <cerrno>\n\
 #include <algorithm>\n\
+#include <thread>\n\
+#include <atomic>\n\
 \n");
 	for (size_t i = 0; i < dbc->message_count; i++) {
 		const can_msg_t *msg = dbc->messages[i];
@@ -504,11 +506,16 @@ static void create_constructor_destructor(FILE *file, const char *class_name, co
         setupRealTime(priority);\n\
         setupSocket(interface_name);\n\
         createSubscriptions();\n\
+        createPublishers();\n\
+        read_thread_ = std::thread(&%s::readLoop, this);\n\
     }\n\n\
     virtual ~%s() {\n\
+        running_ = false;\n\
+        if (socket_ >= 0) shutdown(socket_, SHUT_RDWR); // Unblock blocking read()\n\
+        if (read_thread_.joinable()) read_thread_.join();\n\
         if (socket_ >= 0) close(socket_);\n\
     }\n\n",
-	class_name, node_name, class_name);
+    class_name, node_name, class_name, class_name);
 }
 
 static int signal2serializer(signal_t *sig, FILE *o, const char *indent)
@@ -623,10 +630,13 @@ static void create_publishers(const dbc_t *dbc, FILE *file, const char *package_
 		fprintf(file, "(\"/%s/%s\", 10);\n", package_name, snake_msg_name);
 	}
 	fprintf(file, "\t}\n\n");
+
+	fprintf(file, "\tvoid readLoop() {\n\t\twhile (running_ && rclcpp::ok()) {\n");
+	fprintf(file, "\t\t}\n\t}\n\n");
 }
 
 static void create_variables(const dbc_t *dbc, FILE *file, const char *package_name) {
-	fprintf(file, "\tint socket_{-1};\n\n");
+	fprintf(file, "\tint socket_{-1};\n\tstd::atomic<bool> running_{true};\n\tstd::thread read_thread_;\n\n");
 	for (size_t i = 0; i < dbc->message_count; i++) {
 		can_msg_t *msg = dbc->messages[i];
 		char snake_msg_name[strlen(msg->name) * 2]; // snake_case message name
