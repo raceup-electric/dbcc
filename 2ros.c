@@ -716,7 +716,9 @@ static int msg_unpack(FILE *c, can_msg_t *msg, const char *package_name)
 		signal2deserializer(msg->sigs[i], c, "\t\t\t\t\t");
 	}
 
-	// TODO publish message
+	char snake_msg_name[strlen(msg->name) * 2];
+	pascal2snake(snake_msg_name, strlen(msg->name) * 2, msg->name);
+	fprintf(c, "\t\t\t\t\t%s_pub_->publish(msg);\n", snake_msg_name);
 
 	fprintf(c, "\t\t\t\t\tbreak;\n\t\t\t\t}\n");
 	return 0;
