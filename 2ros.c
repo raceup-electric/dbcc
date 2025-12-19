@@ -610,6 +610,21 @@ static void create_subscribers(const dbc_t *dbc, FILE *file, const char *package
 	fprintf(file, "\t}\n\n");
 }
 
+static void create_publishers(const dbc_t *dbc, FILE *file, const char *package_name) {
+	fprintf(file, "\tvoid createPublishers() {\n");
+	
+	for (size_t i = 0; i < dbc->message_count; i++) {
+		can_msg_t *msg = dbc->messages[i];
+		
+		char snake_msg_name[strlen(msg->name) * 2]; // snake_case message name
+		pascal2snake(snake_msg_name, strlen(msg->name) * 2, msg->name);
+
+		fprintf(file, "\t\t%s_pub_ = this->create_publisher<%s::msg::%s>", snake_msg_name, package_name, msg->name);
+		fprintf(file, "(\"/%s/%s\", 10);\n", package_name, snake_msg_name);
+	}
+	fprintf(file, "\t}\n\n");
+}
+
 static void create_variables(const dbc_t *dbc, FILE *file, const char *package_name) {
 	fprintf(file, "\tint socket_{-1};\n\n");
 	for (size_t i = 0; i < dbc->message_count; i++) {
@@ -618,6 +633,7 @@ static void create_variables(const dbc_t *dbc, FILE *file, const char *package_n
 		pascal2snake(snake_msg_name, strlen(msg->name) * 2, msg->name);
 
 		fprintf(file, "\trclcpp::Subscription<%s::msg::%s>::SharedPtr %s_sub_;\n", package_name, msg->name, snake_msg_name);
+		fprintf(file, "\trclcpp::Publisher<%s::msg::%s>::SharedPtr %s_pub_;\n", package_name, msg->name, snake_msg_name);
 	}
 }
 
@@ -656,6 +672,7 @@ static void generate_ros_node(const dbc_t *dbc, const char *outdir, const char *
 	fprintf(file, "%s", setup_real_time);
 	fprintf(file, "%s", create_and_write_socket);
 	create_subscribers(dbc, file, package_name);
+	create_publishers(dbc, file, package_name);
 	create_variables(dbc, file, package_name);
 	fprintf(file, "};\n\n");
 	create_main(file, class_name);
