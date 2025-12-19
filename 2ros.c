@@ -569,6 +569,53 @@ static int signal2serializer(signal_t *sig, FILE *o, const char *indent)
 	return 0;
 }
 
+static int signal2deserializer(signal_t *sig, FILE *o, const char *indent)
+{
+	assert(sig);
+	assert(o);
+	const bool motorola   = (sig->endianess == endianess_motorola_e);
+	const unsigned start  = fix_start_bit(motorola, sig->start_bit, sig->bit_length);
+	const unsigned length = sig->bit_length;
+	const uint64_t mask = length == 64 ?
+		0xFFFFFFFFFFFFFFFFuLL :
+		(1uLL << length) - 1uLL;
+
+	if (comment(sig, o, indent) < 0)
+		return -1;
+
+	if (start) {
+		if (fprintf(o, "%sx = (%c >> %d) & 0x%"PRIx64";\n", indent, motorola ? 'm' : 'i', start, mask) < 0)
+			return -1;
+	} else {
+		if (fprintf(o, "%sx = %c & 0x%"PRIx64";\n", indent, motorola ? 'm' : 'i',  mask) < 0)
+			return -1;
+	}
+
+	if (sig->is_floating) {
+		assert(length == 32 || length == 64);
+		if (fprintf(o, "%smsg.%s = unpack754_%d(x);\n", indent, sig->name, length) < 0)
+			return -1;
+		return 0;
+	}
+
+	if (sig->is_signed) {
+		const uint64_t top = (1uL << (length - 1));
+		uint64_t negative = ~mask;
+		if (length <= 32)
+			negative &= 0xFFFFFFFF;
+		if (length <= 16)
+			negative &= 0xFFFF;
+		if (length <= 8)
+			negative &= 0xFF;
+		if (negative)
+			if (fprintf(o, "%sx = (x & 0x%"PRIx64") ? (x | 0x%"PRIx64") : x; \n", indent, top, negative) < 0)
+				return -1;
+	}
+	// TODO offset/scaling
+
+	return fprintf(o, "%smsg.%s = x;\n", indent, sig->name) < 0 ? -1 : 0;
+}
+
 static int msg_pack(FILE *c, can_msg_t *msg, const char *package_name)
 {
 	assert(msg);
@@ -621,6 +668,51 @@ static int msg_pack(FILE *c, can_msg_t *msg, const char *package_name)
 	return 0;
 }
 
+static int msg_unpack(FILE *c, can_msg_t *msg, const char *package_name)
+{
+	assert(msg);
+	assert(c);
+
+	bool motorola_used = false;
+	bool intel_used = false;
+
+	for (size_t i = 0; i < msg->signal_count; i++)
+		if (msg->sigs[i]->endianess == endianess_motorola_e)
+			motorola_used = true;
+		else
+			intel_used = true;
+
+	const bool message_has_signals = motorola_used || intel_used;
+
+	fprintf(c, "\t\t\t\tcase %ld: {\n", msg->id);
+
+	if (msg->dlc)
+		fprintf(c, "\t\t\t\t\tif (frame.can_dlc < %u) continue;\n", msg->dlc);
+	if (message_has_signals)
+		fprintf(c, "\t\t\t\t\tuint64_t x;\n");
+	if (motorola_used)
+		fprintf(c, "\t\t\t\t\tuint64_t m = %s(data);\n", swap_motorola ? "reverse_byte_order" : "");
+	if (intel_used)
+		fprintf(c, "\t\t\t\t\tuint64_t i = %s(data);\n", swap_motorola ? "" : "reverse_byte_order");
+
+	fprintf(c, "\t\t\t\t\t%s::msg::%s msg;\n", package_name, msg->name);
+	
+	
+	for (size_t i = 0; i < msg->signal_count; i++) {
+		// TODO add multiplexed signal logic
+		if (msg->sigs[i]->is_multiplexed)
+			fprintf(stderr, "WARNING: multiplexed signal are not yet supported! (%ld - %s: %s)\n",
+				msg->id, msg->name, msg->sigs[i]->name);
+
+		signal2deserializer(msg->sigs[i], c, "\t\t\t\t\t");
+	}
+
+	// TODO publish message
+
+	fprintf(c, "\t\t\t\t\tbreak;\n\t\t\t\t}\n");
+	return 0;
+}
+
 static void create_subscribers(const dbc_t *dbc, FILE *file, const char *package_name) {
 	fprintf(file, "\tvoid createSubscriptions() {\n");
 	for (size_t i = 0; i < dbc->message_count; i++) {
@@ -645,6 +737,12 @@ static void create_publishers(const dbc_t *dbc, FILE *file, const char *package_
 
 	fprintf(file, "\tvoid readLoop() {\n\t\twhile (running_ && rclcpp::ok()) {\n");
 	fprintf(file, "%s", read_socket);
+	fprintf(file, "\t\t\tuint64_t data;\n\t\t\tstd::memcpy(&data, frame.data, frame.can_dlc);\n\n");
+	fprintf(file, "\t\t\tswitch(frame.can_id) {\n");
+	for (size_t i = 0; i < dbc->message_count; i++) {
+		msg_unpack(file, dbc->messages[i], package_name);
+	}
+	fprintf(file, "\t\t\t}\n");
 	fprintf(file, "\t\t}\n\t}\n\n");
 }
 
@@ -687,6 +785,7 @@ static void generate_ros_node(const dbc_t *dbc, const char *outdir, const char *
 
 	create_headers(dbc, file, package_name);
 	fprintf(file, "%s", float_pack);
+	fprintf(file, "%s", float_unpack);
 	fprintf(file, "%s", reverse_byte_order);
 	fprintf(file, "class %s : public rclcpp::Node {\n", class_name);
 	fprintf(file, "public:\n");
