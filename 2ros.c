@@ -78,6 +78,18 @@ static const char *create_and_write_socket = "\
     }\n\
 \n";
 
+static const char *read_socket = "\
+			struct can_frame frame;\n\
+			int nbytes = read(socket_, &frame, sizeof(struct can_frame));\n\n\
+			if (nbytes < 0) {\n\
+				RCLCPP_WARN(this->get_logger(), \"Read error on CAN socket \045s\", strerror(errno));\n\
+				continue;\n\
+			} else if (nbytes < sizeof(struct can_frame)) {\n\
+				RCLCPP_WARN(this->get_logger(), \"Read incomplete CAN frame\");\n\
+				continue;\n\
+			}\n\
+\n";
+
 static const char *float_pack = "\
 static inline uint32_t pack754_32(const float f) {\n\
 \tuint32_t i;\n\
@@ -632,6 +644,7 @@ static void create_publishers(const dbc_t *dbc, FILE *file, const char *package_
 	fprintf(file, "\t}\n\n");
 
 	fprintf(file, "\tvoid readLoop() {\n\t\twhile (running_ && rclcpp::ok()) {\n");
+	fprintf(file, "%s", read_socket);
 	fprintf(file, "\t\t}\n\t}\n\n");
 }
 
