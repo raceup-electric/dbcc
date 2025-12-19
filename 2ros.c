@@ -9,82 +9,82 @@
 #include <time.h>
 #include <regex.h>
 
-static const bool swap_motorola = true; // WHAT ????
+static const bool swap_motorola = true;
 
 
 // TODO check, copiato da socketcan_writer
 static const char *setup_real_time = "\
-    void setupRealTime(uint32_t priority) {\n\
-        if (priority > 99) priority = 99;\n\
+	void setupRealTime(uint32_t priority) {\n\
+		if (priority > 99) priority = 99;\n\
 \n\
-        struct sched_param schp = {};\n\
-        schp.sched_priority = priority;\n\
-        struct rlimit rt_limit = {priority, priority};\n\
+		struct sched_param schp = {};\n\
+		schp.sched_priority = priority;\n\
+		struct rlimit rt_limit = {priority, priority};\n\
 \n\
-        if (setrlimit(RLIMIT_RTPRIO, &rt_limit) || sched_setscheduler(0, SCHED_FIFO, &schp)) {\n\
-            RCLCPP_WARN(this->get_logger(), \"Realtime priority could not be set.\");\n\
-        } else {\n\
-            RCLCPP_INFO(this->get_logger(), \"Realtime priority set to %d\", priority);\n\
-        }\n\
-    }\n\
+		if (setrlimit(RLIMIT_RTPRIO, &rt_limit) || sched_setscheduler(0, SCHED_FIFO, &schp)) {\n\
+			RCLCPP_WARN(this->get_logger(), \"Realtime priority could not be set.\");\n\
+		} else {\n\
+			RCLCPP_INFO(this->get_logger(), \"Realtime priority set to %d\", priority);\n\
+		}\n\
+	}\n\
 \n";
 
 // TODO check, adattato da socketcan_writer
 static const char *create_and_write_socket = "\
-    void setupSocket(const std::string &ifname) {\n\
-        socket_ = socket(PF_CAN, SOCK_RAW, CAN_RAW);\n\
-        if (socket_ < 0) {\n\
-            RCLCPP_FATAL(this->get_logger(), \"Failed to create CAN socket for %s: %s\", ifname.c_str(), strerror(errno));\n\
-            rclcpp::shutdown();\n\
-            return;\n\
-        }\n\
+	void setupSocket(const std::string &ifname) {\n\
+		socket_ = socket(PF_CAN, SOCK_RAW, CAN_RAW);\n\
+		if (socket_ < 0) {\n\
+			RCLCPP_FATAL(this->get_logger(), \"Failed to create CAN socket for %s: %s\", ifname.c_str(), strerror(errno));\n\
+			rclcpp::shutdown();\n\
+			return;\n\
+		}\n\
 \n\
-        struct ifreq ifr;\n\
-        std::strncpy(ifr.ifr_name, ifname.c_str(), IFNAMSIZ);\n\
-        if (ioctl(socket_, SIOCGIFINDEX, &ifr) < 0) {\n\
-            RCLCPP_FATAL(this->get_logger(), \"CAN interface %s not found: %s\", ifname.c_str(), strerror(errno));\n\
-            close(socket_);\n\
-            // rclcpp::shutdown();\n\
-            return;\n\
-        }\n\
+		struct ifreq ifr;\n\
+		std::strncpy(ifr.ifr_name, ifname.c_str(), IFNAMSIZ);\n\
+		if (ioctl(socket_, SIOCGIFINDEX, &ifr) < 0) {\n\
+			RCLCPP_FATAL(this->get_logger(), \"CAN interface %s not found: %s\", ifname.c_str(), strerror(errno));\n\
+			close(socket_);\n\
+			// rclcpp::shutdown();\n\
+			return;\n\
+		}\n\
 \n\
-        struct sockaddr_can addr = {};\n\
-        addr.can_family = AF_CAN;\n\
-        addr.can_ifindex = ifr.ifr_ifindex;\n\
+		struct sockaddr_can addr = {};\n\
+		addr.can_family = AF_CAN;\n\
+		addr.can_ifindex = ifr.ifr_ifindex;\n\
 \n\
-        if (bind(socket_, (struct sockaddr *)&addr, sizeof(addr)) < 0) {\n\
-            RCLCPP_FATAL(this->get_logger(), \"Failed to bind socket to %s: %s\", ifname.c_str(), strerror(errno));\n\
-            close(socket_);\n\
-            rclcpp::shutdown();\n\
-            return;\n\
-        }\n\
+		if (bind(socket_, (struct sockaddr *)&addr, sizeof(addr)) < 0) {\n\
+			RCLCPP_FATAL(this->get_logger(), \"Failed to bind socket to %s: %s\", ifname.c_str(), strerror(errno));\n\
+			close(socket_);\n\
+			rclcpp::shutdown();\n\
+			return;\n\
+		}\n\
 \n\
-        RCLCPP_INFO(this->get_logger(), \"Connected to CAN interface: %s\", ifname.c_str());\n\
-    }\n\
+		RCLCPP_INFO(this->get_logger(), \"Connected to CAN interface: %s\", ifname.c_str());\n\
+	}\n\
 \n\
-    void writeToSocket(uint32_t can_id, const void* data, uint8_t dlc) {\n\
-        struct can_frame frame = {};\n\
-        frame.can_id = can_id;\n\
-        frame.can_dlc = std::min<uint8_t>(dlc, 8);\n\
-        std::memcpy(frame.data, data, frame.can_dlc);\n\
+	void writeToSocket(uint32_t can_id, const void* data, uint8_t dlc) {\n\
+		struct can_frame frame = {};\n\
+		frame.can_id = can_id;\n\
+		frame.can_dlc = std::min<uint8_t>(dlc, 8);\n\
+		std::memcpy(frame.data, data, frame.can_dlc);\n\
 \n\
-        int nbytes = write(socket_, &frame, sizeof(struct can_frame));\n\
+		ssize_t nbytes = write(socket_, &frame, sizeof(struct can_frame));\n\
 \n\
-        if (nbytes != sizeof(struct can_frame)) {\n\
-            RCLCPP_ERROR(this->get_logger(), \"Write error on CAN socket: \045s\", strerror(errno));\n\
-        } else {\n\
-            RCLCPP_DEBUG(this->get_logger(), \"Message sent on CAN to CAN ID 0x\045X\", can_id);\n\
-        }\n\
-    }\n\
+		if (nbytes != sizeof(struct can_frame)) {\n\
+			RCLCPP_ERROR(this->get_logger(), \"Write error on CAN socket: \045s\", strerror(errno));\n\
+		} else {\n\
+			RCLCPP_DEBUG(this->get_logger(), \"Message sent on CAN to CAN ID 0x\045X\", can_id);\n\
+		}\n\
+	}\n\
 \n";
 
 static const char *read_socket = "\
 			struct can_frame frame;\n\
-			int nbytes = read(socket_, &frame, sizeof(struct can_frame));\n\n\
+			ssize_t nbytes = read(socket_, &frame, sizeof(struct can_frame));\n\n\
 			if (nbytes < 0) {\n\
 				RCLCPP_WARN(this->get_logger(), \"Read error on CAN socket \045s\", strerror(errno));\n\
 				continue;\n\
-			} else if (nbytes < sizeof(struct can_frame)) {\n\
+			} else if ((size_t)nbytes < sizeof(struct can_frame)) {\n\
 				RCLCPP_WARN(this->get_logger(), \"Read incomplete CAN frame\");\n\
 				continue;\n\
 			}\n\
@@ -299,8 +299,8 @@ find_package(rclcpp REQUIRED)\n\
 find_package(rosidl_default_generators REQUIRED)\n\
 #find_package(std_msgs REQUIRED)\n\n\
 set(msg_files\n", package_name);
-    
-    for (size_t i = 0; i < dbc->message_count; i++) {
+
+	for (size_t i = 0; i < dbc->message_count; i++) {
 		const can_msg_t *msg = dbc->messages[i];
 		fprintf(file, "  \"msg/%s.msg\"\n", msg->name);
 	}
@@ -512,22 +512,22 @@ static void create_headers(const dbc_t *dbc, FILE *file, const char *package_nam
 
 static void create_constructor_destructor(FILE *file, const char *class_name, const char *node_name) {
 	fprintf(file, "\
-    %s() : Node(\"%s\") {\n\
-        int priority = this->declare_parameter<int>(\"sched_priority\", 99);\n\
+	%s() : Node(\"%s\") {\n\
+		int priority = this->declare_parameter<int>(\"sched_priority\", 99);\n\
 		std::string interface_name = this->declare_parameter<std::string>(\"interface_name\", \"can0\");\n\n\
-        setupRealTime(priority);\n\
-        setupSocket(interface_name);\n\
-        createSubscriptions();\n\
-        createPublishers();\n\
-        read_thread_ = std::thread(&%s::readLoop, this);\n\
-    }\n\n\
-    virtual ~%s() {\n\
-        running_ = false;\n\
-        if (socket_ >= 0) shutdown(socket_, SHUT_RDWR); // Unblock blocking read()\n\
-        if (read_thread_.joinable()) read_thread_.join();\n\
-        if (socket_ >= 0) close(socket_);\n\
-    }\n\n",
-    class_name, node_name, class_name, class_name);
+		setupRealTime(priority);\n\
+		setupSocket(interface_name);\n\
+		createSubscriptions();\n\
+		createPublishers();\n\
+		read_thread_ = std::thread(&%s::readLoop, this);\n\
+	}\n\n\
+	virtual ~%s() {\n\
+		running_ = false;\n\
+		if (socket_ >= 0) shutdown(socket_, SHUT_RDWR); // Unblock blocking read()\n\
+		if (read_thread_.joinable()) read_thread_.join();\n\
+		if (socket_ >= 0) close(socket_);\n\
+	}\n\n",
+	class_name, node_name, class_name, class_name);
 }
 
 static int signal2serializer(signal_t *sig, FILE *o, const char *indent)
@@ -772,10 +772,10 @@ static void create_variables(const dbc_t *dbc, FILE *file, const char *package_n
 static void create_main(FILE *file, const char *class_name) {
 	fprintf(file, "\
 int main(int argc, char **argv) {\n\
-    rclcpp::init(argc, argv);\n\
-    rclcpp::spin(std::make_shared<%s>());\n\
-    rclcpp::shutdown();\n\
-    return 0;\n\
+	rclcpp::init(argc, argv);\n\
+	rclcpp::spin(std::make_shared<%s>());\n\
+	rclcpp::shutdown();\n\
+	return 0;\n\
 }\n", class_name);
 }
 
