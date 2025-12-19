@@ -156,7 +156,7 @@ static const char *determine_signed_type_c(unsigned length)
 static const char *determine_type_c(unsigned length, bool is_signed, bool is_floating)
 {
 	if (is_floating)
-		return length == 64 ? "dbcc_double_t" : "dbcc_float_t";
+		return length == 64 ? "double" : "float";
 	return is_signed ?
 		determine_signed_type_c(length) :
 		determine_unsigned_type_c(length);
@@ -593,12 +593,7 @@ static int signal2deserializer(signal_t *sig, FILE *o, const char *indent)
 
 	if (sig->is_floating) {
 		assert(length == 32 || length == 64);
-		if (fprintf(o, "%smsg.%s = unpack754_%d(x);\n", indent, sig->name, length) < 0)
-			return -1;
-		return 0;
-	}
-
-	if (sig->is_signed) {
+	} else if (sig->is_signed) {
 		const uint64_t top = (1uL << (length - 1));
 		uint64_t negative = ~mask;
 		if (length <= 32)
@@ -611,9 +606,23 @@ static int signal2deserializer(signal_t *sig, FILE *o, const char *indent)
 			if (fprintf(o, "%sx = (x & 0x%"PRIx64") ? (x | 0x%"PRIx64") : x; \n", indent, top, negative) < 0)
 				return -1;
 	}
-	// TODO offset/scaling
 
-	return fprintf(o, "%smsg.%s = x;\n", indent, sig->name) < 0 ? -1 : 0;
+	const char *type = determine_type_c(sig->bit_length, sig->is_signed, sig->is_floating);
+	if (sig->scaling != 1.0 || sig->offset != 0.0)
+		type = "double";
+
+	fprintf(o, "%smsg.%s = ", indent, sig->name);
+	if (sig->is_floating)
+		fprintf(o, "unpack754_%d", length);
+	else
+		fprintf(o, "(%s)", type);
+	fprintf(o, "(x)");
+	if (sig->scaling != 1.0)
+		fprintf(o, " * %g", sig->scaling);
+	if (sig->offset != 0.0)
+		fprintf(o, " + %g", sig->offset);
+	fprintf(o, ";\n");
+	return 0;
 }
 
 static int msg_pack(FILE *c, can_msg_t *msg, const char *package_name)
