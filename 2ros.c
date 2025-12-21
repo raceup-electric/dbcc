@@ -32,31 +32,28 @@ static const char *setup_real_time = "\
 // TODO check, adattato da socketcan_writer
 static const char *create_and_write_socket = "\
 	void setupSocket(const std::string &ifname) {\n\
-		socket_ = socket(PF_CAN, SOCK_RAW, CAN_RAW);\n\
+		socket_ = socket(AF_CAN, SOCK_RAW, CAN_RAW);\n\
 		if (socket_ < 0) {\n\
-			RCLCPP_FATAL(this->get_logger(), \"Failed to create CAN socket for %s: %s\", ifname.c_str(), strerror(errno));\n\
-			rclcpp::shutdown();\n\
-			return;\n\
+			throw std::runtime_error(\"Failed to create CAN socket\");\n\
 		}\n\
 \n\
-		struct ifreq ifr;\n\
-		std::strncpy(ifr.ifr_name, ifname.c_str(), IFNAMSIZ);\n\
+		struct ifreq ifr {};\n\
+		std::strncpy(ifr.ifr_name, ifname.c_str(), IFNAMSIZ - 1);\n\
+\n\
 		if (ioctl(socket_, SIOCGIFINDEX, &ifr) < 0) {\n\
-			RCLCPP_FATAL(this->get_logger(), \"CAN interface %s not found: %s\", ifname.c_str(), strerror(errno));\n\
 			close(socket_);\n\
-			// rclcpp::shutdown();\n\
-			return;\n\
+			socket_ = -1;\n\
+			throw std::runtime_error(\"CAN interface not found: \" + ifname);\n\
 		}\n\
 \n\
-		struct sockaddr_can addr = {};\n\
+		struct sockaddr_can addr {};\n\
 		addr.can_family = AF_CAN;\n\
 		addr.can_ifindex = ifr.ifr_ifindex;\n\
 \n\
-		if (bind(socket_, (struct sockaddr *)&addr, sizeof(addr)) < 0) {\n\
-			RCLCPP_FATAL(this->get_logger(), \"Failed to bind socket to %s: %s\", ifname.c_str(), strerror(errno));\n\
+		if (bind(socket_, reinterpret_cast<struct sockaddr*>(&addr), sizeof(addr)) < 0) {\n\
 			close(socket_);\n\
-			rclcpp::shutdown();\n\
-			return;\n\
+			socket_ = -1;\n\
+			throw std::runtime_error(\"Failed to bind CAN socket\");\n\
 		}\n\
 \n\
 		RCLCPP_INFO(this->get_logger(), \"Connected to CAN interface: %s\", ifname.c_str());\n\
