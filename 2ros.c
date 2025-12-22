@@ -415,7 +415,11 @@ static void generate_ros_msgs(const dbc_t *dbc, const char *outdir) {
 			if (sig->offset == 0.0 && sig->scaling == 1.0)
 				type = determine_type_rosmsg(sig->bit_length, sig->is_signed, sig->is_floating);
 			const char *name = sig->name;
-			fprintf(file, "%s %s\n", type, name);
+			const char *comment = sig->comment;
+
+			fprintf(file, "%s %s", type, name);
+			if (comment) fprintf(file, " # %s", comment);
+			fprintf(file, "\n");
 		}
 
 		fprintf(file, "\n");
