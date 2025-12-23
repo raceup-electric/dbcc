@@ -349,30 +349,136 @@ static int check_regex_syntax(const char *pattern, const char *text) {
 	return ret == 0;
 }
 
-static void check_message_namimg(const char* message) {
-	int ok = check_regex_syntax("^[A-Z][A-Za-z0-9]*$", message);
-	if (!ok) {
-		fprintf(stderr, "WARNING: '%s' is not a valid %s. It should have the pattern %s. ROS2 will not compile.\n", message, "message", "^[A-Z][A-Za-z0-9]*$");
+static void fix_message_naming(char** message) {
+	assert(message);
+	assert(*message);
+
+	char* src = *message;
+	size_t len = strlen(src);
+
+	// Worst case: all chars kept + possible prepended 'A' + '\0'
+	char* dst = allocate(len + 2);
+	size_t j = 0;
+
+	for (size_t i = 0; i < len; ++i) {
+		if (isalnum((unsigned char)src[i])) {
+			dst[j++] = src[i];
+		}
 	}
+
+	if (j == 0 || isdigit((unsigned char)dst[0])) {
+		memmove(dst + 1, dst, j);
+		dst[0] = 'A';
+		j++;
+	}
+
+	dst[0] = (char)toupper((unsigned char)dst[0]);
+
+	dst[j] = '\0';
+
+	if (strcmp(src, dst)) {
+		fprintf(stderr, "WARNING: '%s' changed to '%s'. Messages should have the pattern %s.\n", src, dst, "^[A-Z][A-Za-z0-9]*$");
+	}
+
+	free(*message);
+	*message = dst;
 }
 
-static void check_signal_namimg(const char* signal) {
-	int ok = check_regex_syntax("^[a-z][a-z0-9_]*$", signal);
-	if (strstr(signal, "__")) ok = 0; // (?!.*__)
-	if (strlen(signal) > 0 && signal[strlen(signal)-1] == '_') ok = 0; // (?!.*_$)
-	if (!ok) {
-		fprintf(stderr, "WARNING: '%s' is not a valid %s. It should have the pattern %s. ROS2 will not compile.\n", signal, "signal", "^(?!.*__)(?!.*_$)[a-z][a-z0-9_]*$");
+static void fix_signal_naming(char** signal) {
+	assert(signal);
+	assert(*signal);
+
+	char* src = *signal;
+	size_t len = strlen(src);
+
+	// Worst case: all chars kept + possible prepended 'a' + '\0'
+	char* dst = allocate(len + 2);
+	size_t j = 0;
+
+	for (size_t i = 0; i < len; ++i) {
+		unsigned char c = (unsigned char)src[i];
+
+		if (isupper(c)) {
+			c = (unsigned char)tolower(c);
+		}
+
+		if (islower(c) || isdigit(c)) {
+			dst[j++] = (char)c;
+		} else if (c == '_') {
+			if (j > 0 && dst[j-1] != '_') {
+				dst[j++] = '_';
+			}
+		}
 	}
+
+	if (j == 0 || !islower((unsigned char)dst[0])) {
+		memmove(dst + 1, dst, j);
+		dst[0] = 'a';
+		j++;
+	}
+
+	if (dst[j - 1] == '_') {
+		j--;
+	}
+
+	dst[j] = '\0';
+
+	if (strcmp(src, dst)) {
+		fprintf(stderr, "WARNING: '%s' changed to '%s'. Signals should have the pattern %s.\n", src, dst, "^(?!.*__)(?!.*_$)[a-z][a-z0-9_]*$");
+	}
+
+	free(*signal);
+	*signal = dst;
 }
 
-static void check_value_namimg(const char* value) {
-	int ok = check_regex_syntax("^[A-Z]([A-Z0-9_]?[A-Z0-9]+)*$", value);
-	if (!ok) {
-		fprintf(stderr, "WARNING: '%s' is not a valid %s. It should have the pattern %s. ROS2 will not compile.\n", value, "value", "^[A-Z]([A-Z0-9_]?[A-Z0-9]+)*$");
+static void fix_value_naming(char** value) {
+	assert(value);
+	assert(*value);
+
+	char* src = *value;
+	size_t len = strlen(src);
+
+	// Worst case: all chars kept + possible prepended 'A' + '\0'
+	char* dst = allocate(len + 2);
+	size_t j = 0;
+
+	for (size_t i = 0; i < len; ++i) {
+		unsigned char c = (unsigned char)src[i];
+
+		if (islower(c)) {
+			c = (unsigned char)toupper(c);
+		}
+
+		if (isupper(c) || isdigit(c)) {
+			dst[j++] = (char)c;
+		} else if (c == '_') {
+			if (j > 0 && dst[j-1] != '_') {
+				dst[j++] = '_';
+			}
+		}
 	}
+
+	if (j == 0 || !isupper((unsigned char)dst[0])) {
+		memmove(dst + 1, dst, j);
+		dst[0] = 'A';
+		j++;
+	}
+
+	if (dst[j - 1] == '_') {
+		j--;
+	}
+
+	dst[j] = '\0';
+
+	if (strcmp(src, dst)) {
+		fprintf(stderr, "WARNING: '%s' changed to '%s'. Values should have the pattern %s.\n", src, dst, "^[A-Z]([A-Z0-9_]?[A-Z0-9]+)*$");
+	}
+
+	free(*value);
+	*value = dst;
 }
 
-static void check_package_namimg(const char* package) {
+static void check_package_naming(const char* package) {
 	int ok = check_regex_syntax("^[a-z][a-z0-9_]*[a-z0-9]$", package);
 	if (!ok) {
 		fprintf(stderr, "WARNING: '%s' is not a valid name. It should have the pattern %s. Please specify a valid name.\n", package, "^[a-z][a-z0-9_]*[a-z0-9]$");
@@ -381,21 +487,21 @@ static void check_package_namimg(const char* package) {
 
 static void check_input_naming(const dbc_t *dbc, const char *package_name) {
 	for (size_t i = 0; i < dbc->message_count; i++) {
-		const can_msg_t *msg = dbc->messages[i];
-		check_message_namimg(msg->name);
+		can_msg_t *msg = dbc->messages[i];
+		fix_message_naming(&msg->name);
 		
 		for (size_t j = 0; j < msg->signal_count; j++) {
-			const signal_t *sig = msg->sigs[j];
-			check_signal_namimg(sig->name);
+			signal_t *sig = msg->sigs[j];
+			fix_signal_naming(&sig->name);
 			
 			if (!sig->val_list) continue;
 			for (size_t k = 0; k < sig->val_list->val_list_item_count; k++) {
-				const val_list_item_t *val = sig->val_list->val_list_items[k];
-				check_value_namimg(val->name);
+				val_list_item_t *val = sig->val_list->val_list_items[k];
+				fix_value_naming(&val->name);
 			}
 		}
 	}
-	check_package_namimg(package_name);
+	check_package_naming(package_name);
 }
 
 static void generate_ros_msgs(const dbc_t *dbc, const char *outdir) {
