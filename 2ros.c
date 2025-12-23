@@ -409,6 +409,8 @@ static void generate_ros_msgs(const dbc_t *dbc, const char *outdir) {
 		if (msg->comment) 
 			fprintf(file, "# %s\n\n", msg->comment);
 
+		fprintf(file, "builtin_interfaces/Time timestamp\n");
+
 		for (size_t j = 0; j < msg->signal_count; j++) {
 			const signal_t *sig = msg->sigs[j];
 			const char *type = "float64";
@@ -698,14 +700,16 @@ static int msg_unpack(FILE *c, can_msg_t *msg, const char *package_name)
 
 	if (msg->dlc)
 		fprintf(c, "\t\t\t\t\tif (frame.can_dlc < %u) continue;\n", msg->dlc);
+
+	fprintf(c, "\t\t\t\t\t%s::msg::%s msg;\n", package_name, msg->name);
+	fprintf(c, "\t\t\t\t\tmsg.timestamp = this->get_clock()->now();\n");
+
 	if (message_has_signals)
 		fprintf(c, "\t\t\t\t\tuint64_t x;\n");
 	if (motorola_used)
 		fprintf(c, "\t\t\t\t\tuint64_t m = %s(data);\n", swap_motorola ? "reverse_byte_order" : "");
 	if (intel_used)
 		fprintf(c, "\t\t\t\t\tuint64_t i = %s(data);\n", swap_motorola ? "" : "reverse_byte_order");
-
-	fprintf(c, "\t\t\t\t\t%s::msg::%s msg;\n", package_name, msg->name);
 	
 	
 	for (size_t i = 0; i < msg->signal_count; i++) {
