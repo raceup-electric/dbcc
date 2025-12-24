@@ -425,6 +425,10 @@ static void fix_signal_naming(char** signal) {
 		fprintf(stderr, "WARNING: '%s' changed to '%s'. Signals should have the pattern %s.\n", src, dst, "^(?!.*__)(?!.*_$)[a-z][a-z0-9_]*$");
 	}
 
+	if (strcmp(dst, "timestamp") == 0) {
+		fprintf(stderr, "WARNING: illegal signal named '%s'. The generated code will not compile!\n", dst);
+	}
+
 	free(*signal);
 	*signal = dst;
 }
@@ -483,24 +487,7 @@ static void check_package_naming(const char* package) {
 	}
 }
 
-static void check_input_naming(const dbc_t *dbc, const char *package_name) {
-	for (size_t i = 0; i < dbc->message_count; i++) {
-		can_msg_t *msg = dbc->messages[i];
-		fix_message_naming(&msg->name);
-		
-		for (size_t j = 0; j < msg->signal_count; j++) {
-			signal_t *sig = msg->sigs[j];
-			fix_signal_naming(&sig->name);
-			
-			if (!sig->val_list) continue;
-			for (size_t k = 0; k < sig->val_list->val_list_item_count; k++) {
-				val_list_item_t *val = sig->val_list->val_list_items[k];
-				fix_value_naming(&val->name);
-			}
-		}
-	}
-	check_package_naming(package_name);
-
+static void check_naming_duplicates(const dbc_t *dbc) {
 	// check for duplicate message names
 	for (size_t i = 0; i < dbc->message_count; i++) {
 		for (size_t j = i+1; j < dbc->message_count; j++) {
@@ -520,12 +507,6 @@ static void check_input_naming(const dbc_t *dbc, const char *package_name) {
 				}
 			}
 
-			// check for 'timestamp' signal
-			if (strcmp(msg->sigs[j]->name, "timestamp") == 0) {
-				fprintf(stderr, "WARNING: illegal signal named '%s' in message '%s'. The generated code will not compile!\n",
-					msg->sigs[j]->name, msg->name);
-			}
-
 			// check for duplicate value names
 			signal_t *sig = msg->sigs[j];
 			if (!sig->val_list) continue;
@@ -539,6 +520,26 @@ static void check_input_naming(const dbc_t *dbc, const char *package_name) {
 			}
 		}
 	}
+}
+
+static void check_input_naming(const dbc_t *dbc, const char *package_name) {
+	for (size_t i = 0; i < dbc->message_count; i++) {
+		can_msg_t *msg = dbc->messages[i];
+		fix_message_naming(&msg->name);
+		
+		for (size_t j = 0; j < msg->signal_count; j++) {
+			signal_t *sig = msg->sigs[j];
+			fix_signal_naming(&sig->name);
+			
+			if (!sig->val_list) continue;
+			for (size_t k = 0; k < sig->val_list->val_list_item_count; k++) {
+				val_list_item_t *val = sig->val_list->val_list_items[k];
+				fix_value_naming(&val->name);
+			}
+		}
+	}
+	check_package_naming(package_name);
+	check_naming_duplicates(dbc);
 }
 
 static void generate_ros_msgs(const dbc_t *dbc, const char *outdir) {
