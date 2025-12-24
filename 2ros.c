@@ -500,6 +500,41 @@ static void check_input_naming(const dbc_t *dbc, const char *package_name) {
 		}
 	}
 	check_package_naming(package_name);
+
+	// check for duplicate message names
+	for (size_t i = 0; i < dbc->message_count; i++) {
+		for (size_t j = i+1; j < dbc->message_count; j++) {
+			if (strcmp(dbc->messages[i]->name, dbc->messages[j]->name) == 0) {
+				fprintf(stderr, "WARNING: duplicate message name '%s'. The generated code will not compile!\n", dbc->messages[i]->name);
+			}
+		}
+		
+		// check for duplicate signal names
+		can_msg_t *msg = dbc->messages[i];
+		for (size_t j = 0; j < msg->signal_count; j++) {
+			for (size_t k = j+1; k < msg->signal_count; k++) {
+				if (strcmp(msg->sigs[j]->name, msg->sigs[k]->name) == 0) {
+					fprintf(stderr, "WARNING: duplicate signal name '%s'. The generated code will not compile!\n", msg->sigs[j]->name);
+				}
+			}
+
+			// check for duplicate value names
+			signal_t *sig = msg->sigs[j];
+			if (!sig->val_list) continue;
+			for (size_t k = 0; k < sig->val_list->val_list_item_count; k++) {
+				for (size_t l = k+1; l < sig->val_list->val_list_item_count; l++) {
+					if (strcmp(sig->val_list->val_list_items[k]->name, sig->val_list->val_list_items[l]->name) == 0) {
+						fprintf(stderr, "WARNING: duplicate value name '%s'. The generated code will not compile!\n", sig->val_list->val_list_items[k]->name);
+					}
+				}
+			}
+
+			// check for 'timestamp' signal
+			if (strcmp(msg->sigs[j]->name, "timestamp") == 0) {
+				fprintf(stderr, "WARNING: signal named '%s'. The generated code will not compile!\n", "timestamp");
+			}
+		}
+	}
 }
 
 static void generate_ros_msgs(const dbc_t *dbc, const char *outdir) {
