@@ -505,7 +505,8 @@ static void check_input_naming(const dbc_t *dbc, const char *package_name) {
 	for (size_t i = 0; i < dbc->message_count; i++) {
 		for (size_t j = i+1; j < dbc->message_count; j++) {
 			if (strcmp(dbc->messages[i]->name, dbc->messages[j]->name) == 0) {
-				fprintf(stderr, "WARNING: duplicate message name '%s'. The generated code will not compile!\n", dbc->messages[i]->name);
+				fprintf(stderr, "WARNING: duplicate message name '%s'. The generated code will not compile!\n",
+					dbc->messages[i]->name);
 			}
 		}
 		
@@ -514,13 +515,15 @@ static void check_input_naming(const dbc_t *dbc, const char *package_name) {
 		for (size_t j = 0; j < msg->signal_count; j++) {
 			for (size_t k = j+1; k < msg->signal_count; k++) {
 				if (strcmp(msg->sigs[j]->name, msg->sigs[k]->name) == 0) {
-					fprintf(stderr, "WARNING: duplicate signal name '%s'. The generated code will not compile!\n", msg->sigs[j]->name);
+					fprintf(stderr, "WARNING: duplicate signal name '%s' in message '%s'. The generated code will not compile!\n",
+						msg->sigs[j]->name, msg->name);
 				}
 			}
 
 			// check for 'timestamp' signal
 			if (strcmp(msg->sigs[j]->name, "timestamp") == 0) {
-				fprintf(stderr, "WARNING: signal named '%s'. The generated code will not compile!\n", "timestamp");
+				fprintf(stderr, "WARNING: illegal signal named '%s' in message '%s'. The generated code will not compile!\n",
+					msg->sigs[j]->name, msg->name);
 			}
 
 			// check for duplicate value names
@@ -529,7 +532,8 @@ static void check_input_naming(const dbc_t *dbc, const char *package_name) {
 			for (size_t k = 0; k < sig->val_list->val_list_item_count; k++) {
 				for (size_t l = k+1; l < sig->val_list->val_list_item_count; l++) {
 					if (strcmp(sig->val_list->val_list_items[k]->name, sig->val_list->val_list_items[l]->name) == 0) {
-						fprintf(stderr, "WARNING: duplicate value name '%s'. The generated code will not compile!\n", sig->val_list->val_list_items[k]->name);
+						fprintf(stderr, "WARNING: duplicate value name '%s' in signal '%s', message '%s'. The generated code will not compile!\n",
+							sig->val_list->val_list_items[k]->name, sig->name, msg->name);
 					}
 				}
 			}
