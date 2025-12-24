@@ -518,6 +518,11 @@ static void check_input_naming(const dbc_t *dbc, const char *package_name) {
 				}
 			}
 
+			// check for 'timestamp' signal
+			if (strcmp(msg->sigs[j]->name, "timestamp") == 0) {
+				fprintf(stderr, "WARNING: signal named '%s'. The generated code will not compile!\n", "timestamp");
+			}
+
 			// check for duplicate value names
 			signal_t *sig = msg->sigs[j];
 			if (!sig->val_list) continue;
@@ -527,11 +532,6 @@ static void check_input_naming(const dbc_t *dbc, const char *package_name) {
 						fprintf(stderr, "WARNING: duplicate value name '%s'. The generated code will not compile!\n", sig->val_list->val_list_items[k]->name);
 					}
 				}
-			}
-
-			// check for 'timestamp' signal
-			if (strcmp(msg->sigs[j]->name, "timestamp") == 0) {
-				fprintf(stderr, "WARNING: signal named '%s'. The generated code will not compile!\n", "timestamp");
 			}
 		}
 	}
