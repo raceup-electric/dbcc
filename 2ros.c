@@ -375,7 +375,7 @@ static void fix_message_naming(char** message) {
 	dst[j] = '\0';
 
 	if (strcmp(src, dst)) {
-		fprintf(stderr, "WARNING: '%s' changed to '%s'. Messages should have the pattern %s.\n", src, dst, "^[A-Z][A-Za-z0-9]*$");
+		fprintf(stderr, "'%s' changed to '%s'. Messages should have the pattern %s.\n", src, dst, "^[A-Z][A-Za-z0-9]*$");
 	}
 
 	free(*message);
@@ -422,7 +422,7 @@ static void fix_signal_naming(char** signal) {
 	dst[j] = '\0';
 
 	if (strcmp(src, dst)) {
-		fprintf(stderr, "WARNING: '%s' changed to '%s'. Signals should have the pattern %s.\n", src, dst, "^(?!.*__)(?!.*_$)[a-z][a-z0-9_]*$");
+		fprintf(stderr, "'%s' changed to '%s'. Signals should have the pattern %s.\n", src, dst, "^(?!.*__)(?!.*_$)[a-z][a-z0-9_]*$");
 	}
 
 	if (strcmp(dst, "timestamp") == 0) {
@@ -473,7 +473,7 @@ static void fix_value_naming(char** value) {
 	dst[j] = '\0';
 
 	if (strcmp(src, dst)) {
-		fprintf(stderr, "WARNING: '%s' changed to '%s'. Values should have the pattern %s.\n", src, dst, "^[A-Z]([A-Z0-9_]?[A-Z0-9]+)*$");
+		fprintf(stderr, "'%s' changed to '%s'. Values should have the pattern %s.\n", src, dst, "^[A-Z]([A-Z0-9_]?[A-Z0-9]+)*$");
 	}
 
 	free(*value);
@@ -522,6 +522,71 @@ static void check_naming_duplicates(const dbc_t *dbc) {
 	}
 }
 
+static char *duplicate_upper(const char *s)
+{
+	size_t len = strlen(s);
+	char *out = allocate(len + 1);
+	for (size_t i = 0; i < len; i++) {
+		out[i] = (char)toupper((unsigned char)s[i]);
+	}
+	out[len] = '\0';
+	return out;
+}
+
+static void fix_duplicate_value_naming(const dbc_t *dbc) {
+	// check for duplicate value names across different signals in the same message
+	for (size_t i = 0; i < dbc->message_count; i++) {
+		can_msg_t *msg = dbc->messages[i];
+		uint8_t *needs_prefix = allocate(msg->signal_count);
+
+		for (size_t j = 0; j < msg->signal_count; j++) {
+			signal_t *sig_a = msg->sigs[j];
+			if (!sig_a->val_list) continue;
+
+			for (size_t k = j + 1; k < msg->signal_count; k++) {
+				signal_t *sig_b = msg->sigs[k];
+				if (!sig_b->val_list) continue;
+
+				for (size_t va = 0; va < sig_a->val_list->val_list_item_count; va++) {
+					const char *name_a = sig_a->val_list->val_list_items[va]->name;
+
+					for (size_t vb = 0; vb < sig_b->val_list->val_list_item_count; vb++) {
+						const char *name_b = sig_b->val_list->val_list_items[vb]->name;
+
+						if (strcmp(name_a, name_b) == 0) {
+							needs_prefix[j] = 1;
+							needs_prefix[k] = 1;
+						}
+					}
+				}
+			}
+		}
+
+		for (size_t j = 0; j < msg->signal_count; j++) {
+			if (!needs_prefix[j]) continue;
+
+			signal_t *sig = msg->sigs[j];
+			char *sig_upper = duplicate_upper(sig->name);
+
+			for (size_t v = 0; v < sig->val_list->val_list_item_count; v++) {
+				val_list_item_t *item = sig->val_list->val_list_items[v];
+
+				char *old_name = item->name;
+				size_t new_len = strlen(sig_upper) + strlen(old_name) + 2;
+				char *new_name = allocate(new_len);
+
+				snprintf(new_name, new_len, "%s_%s", sig_upper, old_name);
+
+				//fprintf(stdout, "'%s' changed to '%s'.\n", old_name, new_name);
+				item->name = new_name;
+				free(old_name);
+			}
+			free(sig_upper);
+		}
+		free(needs_prefix);
+	}
+}
+
 static void check_input_naming(const dbc_t *dbc, const char *package_name) {
 	for (size_t i = 0; i < dbc->message_count; i++) {
 		can_msg_t *msg = dbc->messages[i];
@@ -540,6 +605,7 @@ static void check_input_naming(const dbc_t *dbc, const char *package_name) {
 	}
 	check_package_naming(package_name);
 	check_naming_duplicates(dbc);
+	fix_duplicate_value_naming(dbc);
 }
 
 static void generate_ros_msgs(const dbc_t *dbc, const char *outdir) {
