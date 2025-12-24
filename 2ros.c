@@ -661,26 +661,30 @@ static void generate_ros_msgs(const dbc_t *dbc, const char *outdir) {
 }
 
 
-static void pascal2snake(char *out, const size_t out_size, const char *pascal) {
+static char *pascal2snake(const char *pascal) {
+	size_t len = strlen(pascal) * 2 + 1; // TODO basta meno
+	char *out = allocate(len);
 	size_t j = 0;
-	for (size_t i = 0; pascal[i] && j + 1 < out_size; i++) {
+	for (size_t i = 0; pascal[i]; i++) {
 		// handles upper/lower case letter and numbers like ros compiler (in theory)
 		if (i > 0 && isupper((unsigned char)pascal[i]) &&
 			(pascal[i+1] ? 
 				!isupper((unsigned char)pascal[i-1]) || islower((unsigned char)pascal[i+1])
 				: !isupper((unsigned char)pascal[i-1]))) {
-			if (j + 1 < out_size) out[j++] = '_';
+			out[j++] = '_';
 		}
-		if (j + 1 < out_size)
-			out[j++] = (char)tolower((unsigned char)pascal[i]);
+		out[j++] = (char)tolower((unsigned char)pascal[i]);
 	}
 	out[j] = '\0';
+	return out;
 }
 
-static void snake2pascal(char *out, const size_t out_size, const char *snake) {
+static char *snake2pascal(const char *snake) {
+	size_t len = strlen(snake) + 1;
+	char *out = allocate(len);
 	size_t j = 0;
 	int upper = 1;
-	for (size_t i = 0; snake[i] && j + 1 < out_size; i++) {
+	for (size_t i = 0; snake[i]; i++) {
 		while (snake[i] == '_') {
 			i++;
 			upper = 1;
@@ -693,6 +697,7 @@ static void snake2pascal(char *out, const size_t out_size, const char *snake) {
 		}
 	}
 	out[j] = '\0';
+	return out;
 }
 
 static void create_headers(const dbc_t *dbc, FILE *file, const char *package_name) {
@@ -715,10 +720,10 @@ static void create_headers(const dbc_t *dbc, FILE *file, const char *package_nam
 \n");
 	for (size_t i = 0; i < dbc->message_count; i++) {
 		const can_msg_t *msg = dbc->messages[i];
-		char snake_msg_name[strlen(msg->name) * 2]; // snake_case message name
-		pascal2snake(snake_msg_name, strlen(msg->name) * 2, msg->name);
+		char *snake_msg_name = pascal2snake(msg->name); // snake_case message name
 
 		fprintf(file, "#include <%s/msg/%s.hpp>\n", package_name, snake_msg_name);
+		free(snake_msg_name);
 	}
 	fprintf(file, "\n\n");
 }
@@ -854,12 +859,13 @@ static int msg_pack(FILE *c, can_msg_t *msg, const char *package_name)
 
 	const bool message_has_signals = motorola_used || intel_used;
 
-	char snake_msg_name[strlen(msg->name) * 2]; // snake_case message name
-	pascal2snake(snake_msg_name, strlen(msg->name) * 2, msg->name);
+	char *snake_msg_name = pascal2snake(msg->name); // snake_case message name
 
 	fprintf(c, "\t\t%s_sub_ = this->create_subscription<%s::msg::%s>(\n", snake_msg_name, package_name, msg->name);
 	fprintf(c, "\t\t\t\"/%s/%s\", 10, [this](const %s::msg::%s::SharedPtr%s) {\n",
 		package_name, snake_msg_name, package_name, msg->name, message_has_signals ? " msg" : "");
+
+	free(snake_msg_name);
 
 	if (message_has_signals)
 		fprintf(c, "\t\t\t\tuint64_t x;\n");
@@ -931,9 +937,9 @@ static int msg_unpack(FILE *c, can_msg_t *msg, const char *package_name)
 		signal2deserializer(msg->sigs[i], c, "\t\t\t\t\t");
 	}
 
-	char snake_msg_name[strlen(msg->name) * 2];
-	pascal2snake(snake_msg_name, strlen(msg->name) * 2, msg->name);
+	char *snake_msg_name = pascal2snake(msg->name);
 	fprintf(c, "\t\t\t\t\t%s_pub_->publish(msg);\n", snake_msg_name);
+	free(snake_msg_name);
 
 	fprintf(c, "\t\t\t\t\tbreak;\n\t\t\t\t}\n");
 	return 0;
@@ -953,11 +959,11 @@ static void create_publishers(const dbc_t *dbc, FILE *file, const char *package_
 	for (size_t i = 0; i < dbc->message_count; i++) {
 		can_msg_t *msg = dbc->messages[i];
 		
-		char snake_msg_name[strlen(msg->name) * 2]; // snake_case message name
-		pascal2snake(snake_msg_name, strlen(msg->name) * 2, msg->name);
+		char *snake_msg_name = pascal2snake(msg->name); // snake_case message name
 
 		fprintf(file, "\t\t%s_pub_ = this->create_publisher<%s::msg::%s>", snake_msg_name, package_name, msg->name);
 		fprintf(file, "(\"/%s/%s\", 10);\n", package_name, snake_msg_name);
+		free(snake_msg_name);
 	}
 	fprintf(file, "\t}\n\n");
 
@@ -976,11 +982,11 @@ static void create_variables(const dbc_t *dbc, FILE *file, const char *package_n
 	fprintf(file, "\tint socket_{-1};\n\tstd::atomic<bool> running_{true};\n\tstd::thread read_thread_;\n\n");
 	for (size_t i = 0; i < dbc->message_count; i++) {
 		can_msg_t *msg = dbc->messages[i];
-		char snake_msg_name[strlen(msg->name) * 2]; // snake_case message name
-		pascal2snake(snake_msg_name, strlen(msg->name) * 2, msg->name);
+		char *snake_msg_name = pascal2snake(msg->name); // snake_case message name
 
 		fprintf(file, "\trclcpp::Subscription<%s::msg::%s>::SharedPtr %s_sub_;\n", package_name, msg->name, snake_msg_name);
 		fprintf(file, "\trclcpp::Publisher<%s::msg::%s>::SharedPtr %s_pub_;\n", package_name, msg->name, snake_msg_name);
+		free(snake_msg_name);
 	}
 }
 
@@ -1003,9 +1009,7 @@ static void generate_ros_node(const dbc_t *dbc, const char *outdir, const char *
 	char *file_name = allocate(file_name_size);
 	snprintf(file_name, file_name_size, "%s%s%s%s", outdir, "/src/", node_name, ".cpp");
 	
-	size_t class_name_size = strlen(node_name);
-	char *class_name = allocate(class_name_size);
-	snake2pascal(class_name, class_name_size, node_name);
+	char *class_name = snake2pascal(node_name);
 
 	FILE *file = fopen_or_die(file_name, "wb");
 
