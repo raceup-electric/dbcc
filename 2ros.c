@@ -69,8 +69,6 @@ static const char *create_and_write_socket = "\
 \n\
 		if (nbytes != sizeof(struct can_frame)) {\n\
 			RCLCPP_ERROR(this->get_logger(), \"Write error on CAN socket: \045s\", strerror(errno));\n\
-		} else {\n\
-			RCLCPP_DEBUG(this->get_logger(), \"Message sent on CAN to CAN ID 0x\045X\", can_id);\n\
 		}\n\
 	}\n\
 \n";
@@ -79,10 +77,10 @@ static const char *read_socket = "\
 			struct can_frame frame;\n\
 			ssize_t nbytes = read(socket_, &frame, sizeof(struct can_frame));\n\n\
 			if (nbytes < 0) {\n\
-				RCLCPP_WARN(this->get_logger(), \"Read error on CAN socket \045s\", strerror(errno));\n\
+				RCLCPP_ERROR(this->get_logger(), \"Read error on CAN socket \045s\", strerror(errno));\n\
 				continue;\n\
 			} else if ((size_t)nbytes < sizeof(struct can_frame)) {\n\
-				RCLCPP_WARN(this->get_logger(), \"Read incomplete CAN frame\");\n\
+				RCLCPP_ERROR(this->get_logger(), \"Read incomplete CAN frame\");\n\
 				continue;\n\
 			}\n\
 \n";
