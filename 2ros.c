@@ -204,6 +204,54 @@ static int comment(signal_t *sig, FILE *o, const char *indent)
 			sig->offset) < 0 ? - 1 : 0;
 }
 
+static char *duplicate_upper(const char *in) {
+	size_t len = strlen(in);
+	char *out = allocate(len + 1);
+	for (size_t i = 0; i < len; i++) {
+		out[i] = (char)toupper((unsigned char)in[i]);
+	}
+	out[len] = '\0';
+	return out;
+}
+
+static char *pascal2snake(const char *in) {
+	size_t len = strlen(in) * 2 + 1;
+	char *out = allocate(len);
+	size_t j = 0;
+	for (size_t i = 0; in[i]; i++) {
+		// handles upper/lower case letter and numbers like ros compiler (in theory)
+		if (i > 0 && isupper((unsigned char)in[i]) &&
+			(in[i+1] ? 
+				!isupper((unsigned char)in[i-1]) || islower((unsigned char)in[i+1])
+				: !isupper((unsigned char)in[i-1]))) {
+			out[j++] = '_';
+		}
+		out[j++] = (char)tolower((unsigned char)in[i]);
+	}
+	out[j] = '\0';
+	return out;
+}
+
+static char *snake2pascal(const char *in) {
+	size_t len = strlen(in) + 1;
+	char *out = allocate(len);
+	size_t j = 0;
+	int upper = 1;
+	for (size_t i = 0; in[i]; i++) {
+		while (in[i] == '_') {
+			i++;
+			upper = 1;
+		}
+		if (upper) {
+			out[j++] = (char)toupper((unsigned char)in[i]);
+			upper = 0;
+		} else {
+			out[j++] = (char)tolower((unsigned char)in[i]);
+		}
+	}
+	out[j] = '\0';
+	return out;
+}
 
 static void generate_folders(const char *path) {
 	if (mkdir(path, 0777) == -1) {
@@ -244,24 +292,25 @@ static void generate_package_xml(const char *outdir, const char *package_name) {
 
 	FILE *file = fopen_or_die(file_name, "wb");
 
-	fprintf(file, "\
-<?xml version=\"1.0\"?>\n\
-<?xml-model href=\"http://download.ros.org/schema/package_format3.xsd\" schematypens=\"http://www.w3.org/2001/XMLSchema\"?>\n\
-<package format=\"3\">\n\
-  <name>%s</name>\n\
-  <version>0.0.0</version>\n\
-  <description>TODO: Package description</description>\n\
-  <maintainer email=\"todo@raceup.it\">driverless</maintainer>\n\
-  <license>TODO: License declaration</license>\n\n\
-  <buildtool_depend>ament_cmake</buildtool_depend>\n\
-  <build_depend>rosidl_default_generators</build_depend>\n\n\
-  <depend>rclcpp</depend>\n\
-  <exec_depend>rosidl_default_runtime</exec_depend>\n\n\
-  <member_of_group>rosidl_interface_packages</member_of_group>\n\n\
-  <export>\n\
-    <build_type>ament_cmake</build_type>\n\
-  </export>\n\
-</package>\n", package_name);
+	fprintf(file,
+		"<?xml version=\"1.0\"?>\n"
+		"<?xml-model href=\"http://download.ros.org/schema/package_format3.xsd\" schematypens=\"http://www.w3.org/2001/XMLSchema\"?>\n"
+		"<package format=\"3\">\n"
+		"  <name>%s</name>\n"
+		"  <version>0.0.0</version>\n"
+		"  <description>TODO: Package description</description>\n"
+		"  <maintainer email=\"todo@raceup.it\">driverless</maintainer>\n"
+		"  <license>TODO: License declaration</license>\n\n"
+		"  <buildtool_depend>ament_cmake</buildtool_depend>\n"
+		"  <build_depend>rosidl_default_generators</build_depend>\n\n"
+		"  <depend>rclcpp</depend>\n"
+		"  <exec_depend>rosidl_default_runtime</exec_depend>\n\n"
+		"  <member_of_group>rosidl_interface_packages</member_of_group>\n\n"
+		"  <export>\n"
+		"    <build_type>ament_cmake</build_type>\n"
+		"  </export>\n"
+		"</package>\n",
+		package_name);
 
 	fclose(file);
 	free(file_name);
@@ -274,58 +323,53 @@ static void generate_cmakelists_txt(const dbc_t *dbc, const char *outdir, const 
 
 	FILE *file = fopen_or_die(file_name, "wb");
 
-	fprintf(file, "\
-cmake_minimum_required(VERSION 3.5)\n\
-project(%s)\n\n\
-# Default to C99\n\
-if(NOT CMAKE_C_STANDARD)\n\
-  set(CMAKE_C_STANDARD 99)\n\
-endif()\n\n\
-# Default to C++14\n\
-if(NOT CMAKE_CXX_STANDARD)\n\
-  set(CMAKE_CXX_STANDARD 14)\n\
-endif()\n\n\
-if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES \"Clang\")\n\
-  add_compile_options(-Wall -Wextra -Wpedantic)\n\
-endif()\n\n\
-# find dependencies\n\
-find_package(ament_cmake REQUIRED)\n\
-find_package(rclcpp REQUIRED)\n\
-find_package(rosidl_default_generators REQUIRED)\n\
-#find_package(std_msgs REQUIRED)\n\n\
-set(msg_files\n", package_name);
+	fprintf(file,
+		"cmake_minimum_required(VERSION 3.5)\n"
+		"project(%s)\n\n"
+		"# Default to C99\n"
+		"if(NOT CMAKE_C_STANDARD)\n"
+		"  set(CMAKE_C_STANDARD 99)\n"
+		"endif()\n\n"
+		"# Default to C++14\n"
+		"if(NOT CMAKE_CXX_STANDARD)\n"
+		"  set(CMAKE_CXX_STANDARD 14)\n"
+		"endif()\n\n"
+		"if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES \"Clang\")\n"
+		"  add_compile_options(-Wall -Wextra -Wpedantic)\n"
+		"endif()\n\n"
+		"# find dependencies\n"
+		"find_package(ament_cmake REQUIRED)\n"
+		"find_package(rclcpp REQUIRED)\n"
+		"find_package(rosidl_default_generators REQUIRED)\n"
+		"#find_package(std_msgs REQUIRED)\n\n"
+		"set(msg_files\n",
+		package_name);
 
 	for (size_t i = 0; i < dbc->message_count; i++) {
 		const can_msg_t *msg = dbc->messages[i];
 		fprintf(file, "  \"msg/%s.msg\"\n", msg->name);
 	}
-	fprintf(file, "\
-)\n\n\
-rosidl_generate_interfaces(${PROJECT_NAME}\n\
-  ${msg_files}\n\
-  #DEPENDENCIES std_msgs\n\
-)\n\n\
-# Ensure that C++ nodes can use the generated message headers\n\
-ament_export_dependencies(rosidl_default_runtime)\n\n\n\
-add_executable(${PROJECT_NAME}_writer src/${PROJECT_NAME}_writer.cpp)\n\
-ament_target_dependencies(${PROJECT_NAME}_writer rclcpp)\n\
-target_link_libraries(${PROJECT_NAME}_writer\n\
-  ${PROJECT_NAME}__rosidl_typesupport_cpp\n\
-)\n\n\
-install(TARGETS\n\
-  ${PROJECT_NAME}_writer\n\
-  DESTINATION lib/${PROJECT_NAME}\n\
-)\n\n\
-ament_package()\n");
+	fprintf(file,
+		")\n\n"
+		"rosidl_generate_interfaces(${PROJECT_NAME}\n"
+		"  ${msg_files}\n"
+		"  #DEPENDENCIES std_msgs\n"
+		")\n\n"
+		"# Ensure that C++ nodes can use the generated message headers\n"
+		"ament_export_dependencies(rosidl_default_runtime)\n\n\n"
+		"add_executable(${PROJECT_NAME}_writer src/${PROJECT_NAME}_writer.cpp)\n"
+		"ament_target_dependencies(${PROJECT_NAME}_writer rclcpp)\n"
+		"target_link_libraries(${PROJECT_NAME}_writer\n"
+		"  ${PROJECT_NAME}__rosidl_typesupport_cpp\n"
+		")\n\n"
+		"install(TARGETS\n"
+		"  ${PROJECT_NAME}_writer\n"
+		"  DESTINATION lib/${PROJECT_NAME}\n"
+		")\n\n"
+		"ament_package()\n");
 
 	fclose(file);
 	free(file_name);
-}
-
-void str_to_upper(char *str) {
-	for (int i = 0; str[i] != '\0'; i++) {
-		str[i] = toupper((unsigned char)str[i]);
-	}
 }
 
 static int check_regex_syntax(const char *pattern, const char *text) {
@@ -522,17 +566,6 @@ static void check_naming_duplicates(const dbc_t *dbc) {
 	}
 }
 
-static char *duplicate_upper(const char *s)
-{
-	size_t len = strlen(s);
-	char *out = allocate(len + 1);
-	for (size_t i = 0; i < len; i++) {
-		out[i] = (char)toupper((unsigned char)s[i]);
-	}
-	out[len] = '\0';
-	return out;
-}
-
 static void fix_duplicate_value_naming(const dbc_t *dbc) {
 	// check for duplicate value names across different signals in the same message
 	for (size_t i = 0; i < dbc->message_count; i++) {
@@ -660,64 +693,25 @@ static void generate_ros_msgs(const dbc_t *dbc, const char *outdir) {
 	}
 }
 
-
-static char *pascal2snake(const char *pascal) {
-	size_t len = strlen(pascal) * 2 + 1; // TODO basta meno
-	char *out = allocate(len);
-	size_t j = 0;
-	for (size_t i = 0; pascal[i]; i++) {
-		// handles upper/lower case letter and numbers like ros compiler (in theory)
-		if (i > 0 && isupper((unsigned char)pascal[i]) &&
-			(pascal[i+1] ? 
-				!isupper((unsigned char)pascal[i-1]) || islower((unsigned char)pascal[i+1])
-				: !isupper((unsigned char)pascal[i-1]))) {
-			out[j++] = '_';
-		}
-		out[j++] = (char)tolower((unsigned char)pascal[i]);
-	}
-	out[j] = '\0';
-	return out;
-}
-
-static char *snake2pascal(const char *snake) {
-	size_t len = strlen(snake) + 1;
-	char *out = allocate(len);
-	size_t j = 0;
-	int upper = 1;
-	for (size_t i = 0; snake[i]; i++) {
-		while (snake[i] == '_') {
-			i++;
-			upper = 1;
-		}
-		if (upper) {
-			out[j++] = (char)toupper((unsigned char)snake[i]);
-			upper = 0;
-		} else {
-			out[j++] = (char)tolower((unsigned char)snake[i]);
-		}
-	}
-	out[j] = '\0';
-	return out;
-}
-
 static void create_headers(const dbc_t *dbc, FILE *file, const char *package_name) {
-	fprintf(file, "\
-#include <rclcpp/rclcpp.hpp>\n\
-#include <cstring>\n\
-#include <string>\n\
-#include <unistd.h>\n\
-#include <net/if.h>\n\
-#include <sys/ioctl.h>\n\
-#include <sys/socket.h>\n\
-#include <sys/resource.h>\n\
-#include <linux/can.h>\n\
-#include <linux/can/raw.h>\n\
-#include <sched.h>\n\
-#include <cerrno>\n\
-#include <algorithm>\n\
-#include <thread>\n\
-#include <atomic>\n\
-\n");
+	fprintf(file,
+		"#include <rclcpp/rclcpp.hpp>\n"
+		"#include <cstring>\n"
+		"#include <string>\n"
+		"#include <unistd.h>\n"
+		"#include <net/if.h>\n"
+		"#include <sys/ioctl.h>\n"
+		"#include <sys/socket.h>\n"
+		"#include <sys/resource.h>\n"
+		"#include <linux/can.h>\n"
+		"#include <linux/can/raw.h>\n"
+		"#include <sched.h>\n"
+		"#include <cerrno>\n"
+		"#include <algorithm>\n"
+		"#include <thread>\n"
+		"#include <atomic>\n"
+		"\n");
+
 	for (size_t i = 0; i < dbc->message_count; i++) {
 		const can_msg_t *msg = dbc->messages[i];
 		char *snake_msg_name = pascal2snake(msg->name); // snake_case message name
@@ -991,13 +985,14 @@ static void create_variables(const dbc_t *dbc, FILE *file, const char *package_n
 }
 
 static void create_main(FILE *file, const char *class_name) {
-	fprintf(file, "\
-int main(int argc, char **argv) {\n\
-	rclcpp::init(argc, argv);\n\
-	rclcpp::spin(std::make_shared<%s>());\n\
-	rclcpp::shutdown();\n\
-	return 0;\n\
-}\n", class_name);
+	fprintf(file,
+		"int main(int argc, char **argv) {\n"
+		"\trclcpp::init(argc, argv);\n"
+		"\trclcpp::spin(std::make_shared<%s>());\n"
+		"\trclcpp::shutdown();\n"
+		"\treturn 0;\n"
+		"}\n",
+		class_name);
 }
 
 static void generate_ros_node(const dbc_t *dbc, const char *outdir, const char *package_name) {
