@@ -11,6 +11,7 @@
 
 static const bool swap_motorola = true;
 
+static const char *node_suffix = "_parser";
 
 // TODO check, copiato da socketcan_writer
 static const char *setup_real_time = "\
@@ -357,16 +358,17 @@ static void generate_cmakelists_txt(const dbc_t *dbc, const char *outdir, const 
 		")\n\n"
 		"# Ensure that C++ nodes can use the generated message headers\n"
 		"ament_export_dependencies(rosidl_default_runtime)\n\n\n"
-		"add_executable(${PROJECT_NAME}_writer src/${PROJECT_NAME}_writer.cpp)\n"
-		"ament_target_dependencies(${PROJECT_NAME}_writer rclcpp)\n"
-		"target_link_libraries(${PROJECT_NAME}_writer\n"
+		"add_executable(${PROJECT_NAME}%s src/${PROJECT_NAME}%s.cpp)\n"
+		"ament_target_dependencies(${PROJECT_NAME}%s rclcpp)\n"
+		"target_link_libraries(${PROJECT_NAME}%s\n"
 		"  ${PROJECT_NAME}__rosidl_typesupport_cpp\n"
 		")\n\n"
 		"install(TARGETS\n"
-		"  ${PROJECT_NAME}_writer\n"
+		"  ${PROJECT_NAME}%s\n"
 		"  DESTINATION lib/${PROJECT_NAME}\n"
 		")\n\n"
-		"ament_package()\n");
+		"ament_package()\n",
+		node_suffix, node_suffix, node_suffix, node_suffix, node_suffix);
 
 	fclose(file);
 	free(file_name);
@@ -996,9 +998,9 @@ static void create_main(FILE *file, const char *class_name) {
 }
 
 static void generate_ros_node(const dbc_t *dbc, const char *outdir, const char *package_name) {
-	size_t node_name_size = strlen(package_name) + strlen("_writer") + 1; /* + 1 for '\0' */
+	size_t node_name_size = strlen(package_name) + strlen(node_suffix) + 1; /* + 1 for '\0' */
 	char *node_name = allocate(node_name_size);
-	snprintf(node_name, node_name_size, "%s%s", package_name, "_writer");
+	snprintf(node_name, node_name_size, "%s%s", package_name, node_suffix);
 
 	size_t file_name_size = strlen(outdir) + strlen("/src/") + strlen(node_name) + strlen(".cpp") + 1;
 	char *file_name = allocate(file_name_size);
