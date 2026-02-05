@@ -13,79 +13,6 @@ static const bool swap_motorola = true;
 
 static const char *node_suffix = "_parser";
 
-// TODO check, copiato da socketcan_writer
-static const char *setup_real_time = "\
-	void setupRealTime(uint32_t priority) {\n\
-		if (priority > 99) priority = 99;\n\
-\n\
-		struct sched_param schp = {};\n\
-		schp.sched_priority = priority;\n\
-		struct rlimit rt_limit = {priority, priority};\n\
-\n\
-		if (setrlimit(RLIMIT_RTPRIO, &rt_limit) || sched_setscheduler(0, SCHED_FIFO, &schp)) {\n\
-			RCLCPP_WARN(this->get_logger(), \"Realtime priority could not be set.\");\n\
-		} else {\n\
-			RCLCPP_INFO(this->get_logger(), \"Realtime priority set to %d\", priority);\n\
-		}\n\
-	}\n\
-\n";
-
-// TODO check, adattato da socketcan_writer
-static const char *create_and_write_socket = "\
-	void setupSocket(const std::string &ifname) {\n\
-		socket_ = socket(AF_CAN, SOCK_RAW, CAN_RAW);\n\
-		if (socket_ < 0) {\n\
-			throw std::runtime_error(\"Failed to create CAN socket\");\n\
-		}\n\
-\n\
-		struct ifreq ifr {};\n\
-		std::strncpy(ifr.ifr_name, ifname.c_str(), IFNAMSIZ - 1);\n\
-\n\
-		if (ioctl(socket_, SIOCGIFINDEX, &ifr) < 0) {\n\
-			close(socket_);\n\
-			socket_ = -1;\n\
-			throw std::runtime_error(\"CAN interface not found: \" + ifname);\n\
-		}\n\
-\n\
-		struct sockaddr_can addr {};\n\
-		addr.can_family = AF_CAN;\n\
-		addr.can_ifindex = ifr.ifr_ifindex;\n\
-\n\
-		if (bind(socket_, reinterpret_cast<struct sockaddr*>(&addr), sizeof(addr)) < 0) {\n\
-			close(socket_);\n\
-			socket_ = -1;\n\
-			throw std::runtime_error(\"Failed to bind CAN socket\");\n\
-		}\n\
-\n\
-		RCLCPP_INFO(this->get_logger(), \"Connected to CAN interface: %s\", ifname.c_str());\n\
-	}\n\
-\n\
-	void writeToSocket(uint32_t can_id, const void* data, uint8_t dlc) {\n\
-		struct can_frame frame = {};\n\
-		frame.can_id = can_id;\n\
-		frame.can_dlc = std::min<uint8_t>(dlc, 8);\n\
-		std::memcpy(frame.data, data, frame.can_dlc);\n\
-\n\
-		ssize_t nbytes = write(socket_, &frame, sizeof(struct can_frame));\n\
-\n\
-		if (nbytes != sizeof(struct can_frame)) {\n\
-			RCLCPP_ERROR(this->get_logger(), \"Write error on CAN socket: \045s\", strerror(errno));\n\
-		}\n\
-	}\n\
-\n";
-
-static const char *read_socket = "\
-			struct can_frame frame;\n\
-			ssize_t nbytes = read(socket_, &frame, sizeof(struct can_frame));\n\n\
-			if (nbytes < 0) {\n\
-				RCLCPP_ERROR(this->get_logger(), \"Read error on CAN socket \045s\", strerror(errno));\n\
-				continue;\n\
-			} else if ((size_t)nbytes < sizeof(struct can_frame)) {\n\
-				RCLCPP_ERROR(this->get_logger(), \"Read incomplete CAN frame\");\n\
-				continue;\n\
-			}\n\
-\n";
-
 static const char *float_pack = "\
 static inline uint32_t pack754_32(const float f) {\n\
 \tuint32_t i;\n\
@@ -699,19 +626,7 @@ static void create_headers(const dbc_t *dbc, FILE *file, const char *package_nam
 	fprintf(file,
 		"#include <rclcpp/rclcpp.hpp>\n"
 		"#include <cstring>\n"
-		"#include <string>\n"
-		"#include <unistd.h>\n"
-		"#include <net/if.h>\n"
-		"#include <sys/ioctl.h>\n"
-		"#include <sys/socket.h>\n"
-		"#include <sys/resource.h>\n"
-		"#include <linux/can.h>\n"
-		"#include <linux/can/raw.h>\n"
-		"#include <sched.h>\n"
-		"#include <cerrno>\n"
-		"#include <algorithm>\n"
-		"#include <thread>\n"
-		"#include <atomic>\n"
+		"#include <linux/can.h> //TODO remove, kept for tstruct can_frame\n"
 		"\n");
 
 	for (size_t i = 0; i < dbc->message_count; i++) {
@@ -727,21 +642,10 @@ static void create_headers(const dbc_t *dbc, FILE *file, const char *package_nam
 static void create_constructor_destructor(FILE *file, const char *class_name, const char *node_name) {
 	fprintf(file, "\
 	%s() : Node(\"%s\") {\n\
-		int priority = this->declare_parameter<int>(\"sched_priority\", 99);\n\
-		std::string interface_name = this->declare_parameter<std::string>(\"interface_name\", \"can0\");\n\n\
-		setupRealTime(priority);\n\
-		setupSocket(interface_name);\n\
 		createSubscriptions();\n\
 		createPublishers();\n\
-		read_thread_ = std::thread(&%s::readLoop, this);\n\
-	}\n\n\
-	virtual ~%s() {\n\
-		running_ = false;\n\
-		if (socket_ >= 0) shutdown(socket_, SHUT_RDWR); // Unblock blocking read()\n\
-		if (read_thread_.joinable()) read_thread_.join();\n\
-		if (socket_ >= 0) close(socket_);\n\
 	}\n\n",
-	class_name, node_name, class_name, class_name);
+	class_name, node_name);
 }
 
 static int signal2serializer(signal_t *sig, FILE *o, const char *indent)
@@ -887,7 +791,8 @@ static int msg_pack(FILE *c, can_msg_t *msg, const char *package_name)
 		intel_used ? "(i)" : "",
 		message_has_signals ? "" : "0");
 
-	fprintf(c, "\t\t\t\twriteToSocket(%ld, &data, %d);\n", msg->id, msg->dlc);
+	//fprintf(c, "\t\t\t\twriteToSocket(%ld, &data, %d);\n", msg->id, msg->dlc);
+	fprintf(c, "\t\t\t\t//TODO\n");
 	fprintf(c, "\t\t\t}\n\t\t);\n\n");
 	return 0;
 }
@@ -946,7 +851,7 @@ static void create_subscribers(const dbc_t *dbc, FILE *file, const char *package
 	for (size_t i = 0; i < dbc->message_count; i++) {
 		msg_pack(file, dbc->messages[i], package_name);
 	}
-	fprintf(file, "\t}\n\n");
+		fprintf(file, "\t}\n\n");
 }
 
 static void create_publishers(const dbc_t *dbc, FILE *file, const char *package_name) {
@@ -963,8 +868,8 @@ static void create_publishers(const dbc_t *dbc, FILE *file, const char *package_
 	}
 	fprintf(file, "\t}\n\n");
 
-	fprintf(file, "\tvoid readLoop() {\n\t\twhile (running_ && rclcpp::ok()) {\n");
-	fprintf(file, "%s", read_socket);
+	fprintf(file, "\tvoid readLoop() {\n\t\twhile (rclcpp::ok()) {// TODO\n");
+	fprintf(file, "\t\t\tstruct can_frame frame; //TODO remove. kept in order to compile\n");
 	fprintf(file, "\t\t\tuint64_t data;\n\t\t\tstd::memcpy(&data, frame.data, frame.can_dlc);\n\n");
 	fprintf(file, "\t\t\tswitch(frame.can_id) {\n");
 	for (size_t i = 0; i < dbc->message_count; i++) {
@@ -975,7 +880,6 @@ static void create_publishers(const dbc_t *dbc, FILE *file, const char *package_
 }
 
 static void create_variables(const dbc_t *dbc, FILE *file, const char *package_name) {
-	fprintf(file, "\tint socket_{-1};\n\tstd::atomic<bool> running_{true};\n\tstd::thread read_thread_;\n\n");
 	for (size_t i = 0; i < dbc->message_count; i++) {
 		can_msg_t *msg = dbc->messages[i];
 		char *snake_msg_name = pascal2snake(msg->name); // snake_case message name
@@ -1018,8 +922,6 @@ static void generate_ros_node(const dbc_t *dbc, const char *outdir, const char *
 	fprintf(file, "public:\n");
 	create_constructor_destructor(file, class_name, node_name);
 	fprintf(file, "private:\n");
-	fprintf(file, "%s", setup_real_time);
-	fprintf(file, "%s", create_and_write_socket);
 	create_subscribers(dbc, file, package_name);
 	create_publishers(dbc, file, package_name);
 	create_variables(dbc, file, package_name);
