@@ -10,6 +10,7 @@
 #include <regex.h>
 
 static const bool swap_motorola = true;
+static const bool generate_legacy_subscriber = true;
 
 static const char *node_suffix = "_parser";
 
@@ -232,6 +233,7 @@ static void generate_package_xml(const char *outdir, const char *package_name) {
 		"  <buildtool_depend>ament_cmake</buildtool_depend>\n"
 		"  <build_depend>rosidl_default_generators</build_depend>\n\n"
 		"  <depend>rclcpp</depend>\n"
+		"%s"
 		"  <depend>builtin_interfaces</depend>\n"
 		"  <exec_depend>rosidl_default_runtime</exec_depend>\n\n"
 		"  <member_of_group>rosidl_interface_packages</member_of_group>\n\n"
@@ -239,7 +241,7 @@ static void generate_package_xml(const char *outdir, const char *package_name) {
 		"    <build_type>ament_cmake</build_type>\n"
 		"  </export>\n"
 		"</package>\n",
-		package_name);
+		package_name, generate_legacy_subscriber ? "  <depend>raceup_msgs</depend>\n" : "");
 
 	fclose(file);
 	free(file_name);
@@ -269,10 +271,11 @@ static void generate_cmakelists_txt(const dbc_t *dbc, const char *outdir, const 
 		"# find dependencies\n"
 		"find_package(ament_cmake REQUIRED)\n"
 		"find_package(rclcpp REQUIRED)\n"
+		"%s"
 		"find_package(rosidl_default_generators REQUIRED)\n"
 		"find_package(builtin_interfaces REQUIRED)\n\n"
 		"set(msg_files\n",
-		package_name);
+		package_name, generate_legacy_subscriber ? "find_package(raceup_msgs REQUIRED)\n" : "");
 
 	for (size_t i = 0; i < dbc->message_count; i++) {
 		const can_msg_t *msg = dbc->messages[i];
@@ -287,7 +290,7 @@ static void generate_cmakelists_txt(const dbc_t *dbc, const char *outdir, const 
 		"# Ensure that C++ nodes can use the generated message headers\n"
 		"ament_export_dependencies(rosidl_default_runtime)\n\n\n"
 		"add_executable(${PROJECT_NAME}%s src/${PROJECT_NAME}%s.cpp)\n"
-		"ament_target_dependencies(${PROJECT_NAME}%s rclcpp builtin_interfaces)\n"
+		"ament_target_dependencies(${PROJECT_NAME}%s rclcpp builtin_interfaces%s)\n"
 		"rosidl_target_interfaces(${PROJECT_NAME}_parser\n"
 		"  ${PROJECT_NAME} \"rosidl_typesupport_cpp\"\n"
 		")\n\n"
@@ -296,7 +299,7 @@ static void generate_cmakelists_txt(const dbc_t *dbc, const char *outdir, const 
 		"  DESTINATION lib/${PROJECT_NAME}\n"
 		")\n\n"
 		"ament_package()\n",
-		node_suffix, node_suffix, node_suffix, node_suffix, node_suffix);
+		node_suffix, node_suffix, node_suffix, generate_legacy_subscriber ? " raceup_msgs" : "", node_suffix);
 
 	fclose(file);
 	free(file_name);
@@ -624,11 +627,12 @@ static void generate_ros_msgs(const dbc_t *dbc, const char *outdir) {
 }
 
 static void create_headers(const dbc_t *dbc, FILE *file, const char *package_name) {
-	fprintf(file,
-		"#include <rclcpp/rclcpp.hpp>\n"
-		"#include <cstring>\n"
-		"#include <linux/can.h> //TODO remove, kept for tstruct can_frame\n"
-		"\n");
+	fprintf(file, "#include <rclcpp/rclcpp.hpp>\n");
+	fprintf(file, "#include <cstring>\n");
+	if (generate_legacy_subscriber) {
+		fprintf(file, "#include <raceup_msgs/msg/can_data.hpp>\n");
+	}
+	fprintf(file, "\n");
 
 	for (size_t i = 0; i < dbc->message_count; i++) {
 		const can_msg_t *msg = dbc->messages[i];
@@ -814,20 +818,20 @@ static int msg_unpack(FILE *c, can_msg_t *msg, const char *package_name)
 
 	const bool message_has_signals = motorola_used || intel_used;
 
-	fprintf(c, "\t\t\t\tcase %ld: {\n", msg->id);
+	fprintf(c, "\t\t\tcase %ld: {\n", msg->id);
 
 	if (msg->dlc)
-		fprintf(c, "\t\t\t\t\tif (frame.can_dlc < %u) continue;\n", msg->dlc);
+		fprintf(c, "\t\t\t\tif (dlc < %u) return;\n", msg->dlc);
 
-	fprintf(c, "\t\t\t\t\t%s::msg::%s msg;\n", package_name, msg->name);
-	fprintf(c, "\t\t\t\t\tmsg.timestamp = this->get_clock()->now();\n");
+	fprintf(c, "\t\t\t\t%s::msg::%s msg;\n", package_name, msg->name);
+	fprintf(c, "\t\t\t\tmsg.timestamp = timestamp;\n");
 
 	if (message_has_signals)
-		fprintf(c, "\t\t\t\t\tuint64_t x;\n");
+		fprintf(c, "\t\t\t\tuint64_t x;\n");
 	if (motorola_used)
-		fprintf(c, "\t\t\t\t\tuint64_t m = %s(data);\n", swap_motorola ? "reverse_byte_order" : "");
+		fprintf(c, "\t\t\t\tuint64_t m = %s(data);\n", swap_motorola ? "reverse_byte_order" : "");
 	if (intel_used)
-		fprintf(c, "\t\t\t\t\tuint64_t i = %s(data);\n", swap_motorola ? "" : "reverse_byte_order");
+		fprintf(c, "\t\t\t\tuint64_t i = %s(data);\n", swap_motorola ? "" : "reverse_byte_order");
 	
 	
 	for (size_t i = 0; i < msg->signal_count; i++) {
@@ -836,14 +840,14 @@ static int msg_unpack(FILE *c, can_msg_t *msg, const char *package_name)
 			fprintf(stderr, "WARNING: multiplexed signal are not yet supported! (%ld - %s: %s)\n",
 				msg->id, msg->name, msg->sigs[i]->name);
 
-		signal2deserializer(msg->sigs[i], c, "\t\t\t\t\t");
+		signal2deserializer(msg->sigs[i], c, "\t\t\t\t");
 	}
 
 	char *snake_msg_name = pascal2snake(msg->name);
-	fprintf(c, "\t\t\t\t\t%s_pub_->publish(msg);\n", snake_msg_name);
+	fprintf(c, "\t\t\t\t%s_pub_->publish(msg);\n", snake_msg_name);
 	free(snake_msg_name);
 
-	fprintf(c, "\t\t\t\t\tbreak;\n\t\t\t\t}\n");
+	fprintf(c, "\t\t\t\tbreak;\n\t\t\t}\n");
 	return 0;
 }
 
@@ -852,7 +856,19 @@ static void create_subscribers(const dbc_t *dbc, FILE *file, const char *package
 	for (size_t i = 0; i < dbc->message_count; i++) {
 		msg_pack(file, dbc->messages[i], package_name);
 	}
-		fprintf(file, "\t}\n\n");
+
+	if (generate_legacy_subscriber) {
+		fprintf(file,
+			"\t\tlegacy_frame_sub_ = this->create_subscription<raceup_msgs::msg::CanData>(\n"
+			"\t\t\t\"/can_data_out\", 10, [this](const raceup_msgs::msg::CanData::SharedPtr msg) {\n"
+			"\t\t\t\tuint64_t data;\n"
+			"\t\t\t\tstd::memcpy(&data, msg->msg_body.data(), sizeof(data));\n"
+			"\t\t\t\tdecodeMessage(data, msg->length, msg->id, msg->header.stamp);\n"
+			"\t\t\t}\n\t\t);\n"
+		);
+	}
+
+	fprintf(file, "\t}\n\n");
 }
 
 static void create_publishers(const dbc_t *dbc, FILE *file, const char *package_name) {
@@ -869,15 +885,13 @@ static void create_publishers(const dbc_t *dbc, FILE *file, const char *package_
 	}
 	fprintf(file, "\t}\n\n");
 
-	fprintf(file, "\tvoid readLoop() {\n\t\twhile (rclcpp::ok()) {// TODO\n");
-	fprintf(file, "\t\t\tstruct can_frame frame; //TODO remove. kept in order to compile\n");
-	fprintf(file, "\t\t\tuint64_t data;\n\t\t\tstd::memcpy(&data, frame.data, frame.can_dlc);\n\n");
-	fprintf(file, "\t\t\tswitch(frame.can_id) {\n");
+	fprintf(file, "\tvoid decodeMessage(uint64_t data, uint8_t dlc, uint32_t id, const rclcpp::Time& timestamp) {\n");
+	fprintf(file, "\t\tswitch(id) {\n");
 	for (size_t i = 0; i < dbc->message_count; i++) {
 		msg_unpack(file, dbc->messages[i], package_name);
 	}
-	fprintf(file, "\t\t\t}\n");
-	fprintf(file, "\t\t}\n\t}\n\n");
+	fprintf(file, "\t\t}\n");
+	fprintf(file, "\t}\n\n");
 }
 
 static void create_variables(const dbc_t *dbc, FILE *file, const char *package_name) {
@@ -889,6 +903,8 @@ static void create_variables(const dbc_t *dbc, FILE *file, const char *package_n
 		fprintf(file, "\trclcpp::Publisher<%s::msg::%s>::SharedPtr %s_pub_;\n", package_name, msg->name, snake_msg_name);
 		free(snake_msg_name);
 	}
+
+	fprintf(file, "\trclcpp::Subscription<raceup_msgs::msg::CanData>::SharedPtr legacy_frame_sub_;\n");
 }
 
 static void create_main(FILE *file, const char *class_name) {
