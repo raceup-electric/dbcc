@@ -731,8 +731,10 @@ static int signal2deserializer(signal_t *sig, FILE *o, const char *indent)
 	}
 
 	const char *type = determine_type_c(sig->bit_length, sig->is_signed, sig->is_floating);
-	if (sig->scaling != 1.0 || sig->offset != 0.0)
-		type = "double";
+
+	// keep the following commented!!! explicitly casting to double messes with int sign
+	// if (sig->scaling != 1.0 || sig->offset != 0.0)
+	// 	type = "double";
 
 	fprintf(o, "%smsg.%s = ", indent, sig->name);
 	if (sig->is_floating)
