@@ -233,6 +233,7 @@ static void generate_package_xml(const char *outdir, const char *package_name) {
 		"  <buildtool_depend>ament_cmake</buildtool_depend>\n"
 		"  <build_depend>rosidl_default_generators</build_depend>\n\n"
 		"  <depend>rclcpp</depend>\n"
+		"  <depend>can_msgs</depend>\n"
 		"%s"
 		"  <depend>builtin_interfaces</depend>\n"
 		"  <exec_depend>rosidl_default_runtime</exec_depend>\n\n"
@@ -271,6 +272,7 @@ static void generate_cmakelists_txt(const dbc_t *dbc, const char *outdir, const 
 		"# find dependencies\n"
 		"find_package(ament_cmake REQUIRED)\n"
 		"find_package(rclcpp REQUIRED)\n"
+		"find_package(can_msgs REQUIRED)\n"
 		"%s"
 		"find_package(rosidl_default_generators REQUIRED)\n"
 		"find_package(builtin_interfaces REQUIRED)\n\n"
@@ -290,7 +292,7 @@ static void generate_cmakelists_txt(const dbc_t *dbc, const char *outdir, const 
 		"# Ensure that C++ nodes can use the generated message headers\n"
 		"ament_export_dependencies(rosidl_default_runtime)\n\n\n"
 		"add_executable(${PROJECT_NAME}%s src/${PROJECT_NAME}%s.cpp)\n"
-		"ament_target_dependencies(${PROJECT_NAME}%s rclcpp builtin_interfaces%s)\n"
+		"ament_target_dependencies(${PROJECT_NAME}%s rclcpp builtin_interfaces can_msgs%s)\n"
 		"rosidl_target_interfaces(${PROJECT_NAME}_parser\n"
 		"  ${PROJECT_NAME} \"rosidl_typesupport_cpp\"\n"
 		")\n\n"
@@ -629,6 +631,7 @@ static void generate_ros_msgs(const dbc_t *dbc, const char *outdir) {
 static void create_headers(const dbc_t *dbc, FILE *file, const char *package_name) {
 	fprintf(file, "#include <rclcpp/rclcpp.hpp>\n");
 	fprintf(file, "#include <cstring>\n");
+	fprintf(file, "#include <can_msgs/msg/frame.hpp>\n");
 	if (generate_legacy_subscriber) {
 		fprintf(file, "#include <raceup_msgs/msg/can_data.hpp>\n");
 	}
@@ -859,6 +862,16 @@ static void create_subscribers(const dbc_t *dbc, FILE *file, const char *package
 		msg_pack(file, dbc->messages[i], package_name);
 	}
 
+	fprintf(file,
+		"\t\tframe_sub_ = this->create_subscription<can_msgs::msg::Frame>(\n"
+		"\t\t\t\"/can/%s/read\", 10, [this](const can_msgs::msg::Frame::SharedPtr msg) {\n"
+		"\t\t\t\tif (msg->is_error) return;\n"
+		"\t\t\t\tuint64_t data;\n"
+		"\t\t\t\tstd::memcpy(&data, msg->data.data(), msg->dlc);\n"
+		"\t\t\t\tdecodeMessage(data, msg->dlc, msg->id, msg->header.stamp);\n"
+		"\t\t\t}\n\t\t);\n\n", package_name
+	);
+
 	if (generate_legacy_subscriber) {
 		fprintf(file,
 			"\t\tlegacy_frame_sub_ = this->create_subscription<raceup_msgs::msg::CanData>(\n"
@@ -906,7 +919,11 @@ static void create_variables(const dbc_t *dbc, FILE *file, const char *package_n
 		free(snake_msg_name);
 	}
 
-	fprintf(file, "\trclcpp::Subscription<raceup_msgs::msg::CanData>::SharedPtr legacy_frame_sub_;\n");
+	fprintf(file, "\trclcpp::Subscription<can_msgs::msg::Frame>::SharedPtr frame_sub_;\n");
+
+	if (generate_legacy_subscriber) {
+		fprintf(file, "\trclcpp::Subscription<raceup_msgs::msg::CanData>::SharedPtr legacy_frame_sub_;\n");
+	}
 }
 
 static void create_main(FILE *file, const char *class_name) {
