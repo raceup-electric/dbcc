@@ -647,8 +647,8 @@ static void create_headers(const dbc_t *dbc, FILE *file, const char *package_nam
 static void create_constructor_destructor(FILE *file, const char *class_name, const char *node_name) {
 	fprintf(file, "\
 	%s() : Node(\"%s\") {\n\
-		createSubscriptions();\n\
 		createPublishers();\n\
+		createSubscriptions();\n\
 	}\n\n",
 	class_name, node_name);
 }
