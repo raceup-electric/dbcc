@@ -861,8 +861,8 @@ static void create_subscribers(const dbc_t *dbc, FILE *file, const char *package
 		msg_pack(file, dbc->messages[i], package_name);
 	}
 
-	fprintf(file,//TODOOOOOOOOOOO change name of topic (avoid conflicts with generated code)
-		"\t\tframe_sub_ = this->create_subscription<can_msgs::msg::Frame>(\n"
+	fprintf(file,
+		"\t\tframe_subscription_ = this->create_subscription<can_msgs::msg::Frame>(\n"
 		"\t\t\t\"/can/%s/read\", 10, [this](const can_msgs::msg::Frame::SharedPtr msg) {\n" // TODO choose appropriate QoS
 		"\t\t\t\tif (msg->is_error) return;\n" // TODO check rtr/extended ?
 		"\t\t\t\tuint64_t data;\n"
@@ -873,7 +873,7 @@ static void create_subscribers(const dbc_t *dbc, FILE *file, const char *package
 
 	if (generate_legacy_subscriber) {
 		fprintf(file,
-			"\t\tlegacy_frame_sub_ = this->create_subscription<raceup_msgs::msg::CanData>(\n"
+			"\t\tlegacy_frame_subscription_ = this->create_subscription<raceup_msgs::msg::CanData>(\n"
 			"\t\t\t\"/can_data_out\", 10, [this](const raceup_msgs::msg::CanData::SharedPtr msg) {\n"
 			"\t\t\t\tuint64_t data;\n"
 			"\t\t\t\tstd::memcpy(&data, msg->msg_body.data(), sizeof(data));\n"
@@ -890,7 +890,7 @@ static void create_subscribers(const dbc_t *dbc, FILE *file, const char *package
 		"\t\tmsg.dlc = dlc;\n"
 		"\t\tmsg.id = id;\n"
 		"\t\tstd::memcpy(msg.data.data(), &data, dlc);\n"
-		"\t\tframe_pub_->publish(msg);\n"
+		"\t\tframe_publisher_->publish(msg);\n"
 		"\t}\n\n"
 	);
 }
@@ -907,7 +907,7 @@ static void create_publishers(const dbc_t *dbc, FILE *file, const char *package_
 		fprintf(file, "(\"/%s/%s\", 10);\n", package_name, snake_msg_name);
 		free(snake_msg_name);
 	}
-	fprintf(file, "\t\tframe_pub_ = this->create_publisher<can_msgs::msg::Frame>(\"/can/%s/write\", 10);\n", package_name); // TODO choose appropriate QoS
+	fprintf(file, "\t\tframe_publisher_ = this->create_publisher<can_msgs::msg::Frame>(\"/can/%s/write\", 10);\n", package_name); // TODO choose appropriate QoS
 	fprintf(file, "\t}\n\n");
 
 	fprintf(file, "\tvoid decodeMessage(uint64_t data, uint8_t dlc, uint32_t id, const rclcpp::Time& timestamp) {\n");
@@ -929,11 +929,11 @@ static void create_variables(const dbc_t *dbc, FILE *file, const char *package_n
 		free(snake_msg_name);
 	}
 
-	fprintf(file, "\trclcpp::Subscription<can_msgs::msg::Frame>::SharedPtr frame_sub_;\n");
-	fprintf(file, "\trclcpp::Publisher<can_msgs::msg::Frame>::SharedPtr frame_pub_;\n");
+	fprintf(file, "\trclcpp::Subscription<can_msgs::msg::Frame>::SharedPtr frame_subscription_;\n");
+	fprintf(file, "\trclcpp::Publisher<can_msgs::msg::Frame>::SharedPtr frame_publisher_;\n");
 
 	if (generate_legacy_subscriber) {
-		fprintf(file, "\trclcpp::Subscription<raceup_msgs::msg::CanData>::SharedPtr legacy_frame_sub_;\n");
+		fprintf(file, "\trclcpp::Subscription<raceup_msgs::msg::CanData>::SharedPtr legacy_frame_subscription_;\n");
 	}
 }
 
