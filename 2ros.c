@@ -801,8 +801,7 @@ static int msg_pack(FILE *c, can_msg_t *msg, const char *package_name)
 		intel_used ? "(i)" : "",
 		message_has_signals ? "" : "0");
 
-	//fprintf(c, "\t\t\t\twriteToSocket(%ld, &data, %d);\n", msg->id, msg->dlc);
-	fprintf(c, "\t\t\t\t//TODO\n");
+	fprintf(c, "\t\t\t\tpublishFrame(data, %d, %ld);\n", msg->dlc, msg->id);
 	fprintf(c, "\t\t\t}\n\t\t);\n\n");
 	return 0;
 }
@@ -862,10 +861,10 @@ static void create_subscribers(const dbc_t *dbc, FILE *file, const char *package
 		msg_pack(file, dbc->messages[i], package_name);
 	}
 
-	fprintf(file,
+	fprintf(file,//TODOOOOOOOOOOO change name of topic (avoid conflicts with generated code)
 		"\t\tframe_sub_ = this->create_subscription<can_msgs::msg::Frame>(\n"
-		"\t\t\t\"/can/%s/read\", 10, [this](const can_msgs::msg::Frame::SharedPtr msg) {\n"
-		"\t\t\t\tif (msg->is_error) return;\n"
+		"\t\t\t\"/can/%s/read\", 10, [this](const can_msgs::msg::Frame::SharedPtr msg) {\n" // TODO choose appropriate QoS
+		"\t\t\t\tif (msg->is_error) return;\n" // TODO check rtr/extended ?
 		"\t\t\t\tuint64_t data;\n"
 		"\t\t\t\tstd::memcpy(&data, msg->data.data(), msg->dlc);\n"
 		"\t\t\t\tdecodeMessage(data, msg->dlc, msg->id, msg->header.stamp);\n"
@@ -884,6 +883,16 @@ static void create_subscribers(const dbc_t *dbc, FILE *file, const char *package
 	}
 
 	fprintf(file, "\t}\n\n");
+
+	fprintf(file,
+		"\tvoid publishFrame(uint64_t data, uint8_t dlc, uint32_t id) {\n"
+		"\t\tcan_msgs::msg::Frame msg;\n"
+		"\t\tmsg.dlc = dlc;\n"
+		"\t\tmsg.id = id;\n"
+		"\t\tstd::memcpy(msg.data.data(), &data, dlc);\n"
+		"\t\tframe_pub_->publish(msg);\n"
+		"\t}\n\n"
+	);
 }
 
 static void create_publishers(const dbc_t *dbc, FILE *file, const char *package_name) {
@@ -898,6 +907,7 @@ static void create_publishers(const dbc_t *dbc, FILE *file, const char *package_
 		fprintf(file, "(\"/%s/%s\", 10);\n", package_name, snake_msg_name);
 		free(snake_msg_name);
 	}
+	fprintf(file, "\t\tframe_pub_ = this->create_publisher<can_msgs::msg::Frame>(\"/can/%s/write\", 10);\n", package_name); // TODO choose appropriate QoS
 	fprintf(file, "\t}\n\n");
 
 	fprintf(file, "\tvoid decodeMessage(uint64_t data, uint8_t dlc, uint32_t id, const rclcpp::Time& timestamp) {\n");
@@ -920,6 +930,7 @@ static void create_variables(const dbc_t *dbc, FILE *file, const char *package_n
 	}
 
 	fprintf(file, "\trclcpp::Subscription<can_msgs::msg::Frame>::SharedPtr frame_sub_;\n");
+	fprintf(file, "\trclcpp::Publisher<can_msgs::msg::Frame>::SharedPtr frame_pub_;\n");
 
 	if (generate_legacy_subscriber) {
 		fprintf(file, "\trclcpp::Subscription<raceup_msgs::msg::CanData>::SharedPtr legacy_frame_sub_;\n");
