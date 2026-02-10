@@ -119,7 +119,7 @@ static const char *determine_type_rosmsg(unsigned length, bool is_signed, bool i
 		determine_unsigned_type_rosmsg(length);
 }
 
-static int comment(signal_t *sig, FILE *o, const char *indent)
+static int comment_sig(signal_t *sig, FILE *o, const char *indent)
 {
 	assert(sig);
 	assert(o);
@@ -131,6 +131,16 @@ static int comment(signal_t *sig, FILE *o, const char *indent)
 			sig->endianess == endianess_motorola_e ? "motorola" : "intel",
 			sig->scaling,
 			sig->offset) < 0 ? - 1 : 0;
+}
+
+static int comment_msg(can_msg_t *msg, FILE *o, const char *indent)
+{
+	assert(msg);
+	assert(o);
+	return fprintf(o, "%s/* 0x%03lx: %s */\n",
+			indent,
+			msg->id,
+			msg->name) < 0 ? - 1 : 0;
 }
 
 static char *duplicate_upper(const char *in) {
@@ -667,7 +677,7 @@ static int signal2serializer(signal_t *sig, FILE *o, const char *indent)
 		0xFFFFFFFFFFFFFFFFuLL :
 		(1uLL << sig->bit_length) - 1uLL;
 
-	if (comment(sig, o, indent) < 0)
+	if (comment_sig(sig, o, indent) < 0)
 		return -1;
 
 	if (sig->is_floating)
@@ -706,7 +716,7 @@ static int signal2deserializer(signal_t *sig, FILE *o, const char *indent)
 		0xFFFFFFFFFFFFFFFFuLL :
 		(1uLL << length) - 1uLL;
 
-	if (comment(sig, o, indent) < 0)
+	if (comment_sig(sig, o, indent) < 0)
 		return -1;
 
 	if (start) {
@@ -771,6 +781,8 @@ static int msg_pack(FILE *c, can_msg_t *msg, const char *package_name)
 
 	char *snake_msg_name = pascal2snake(msg->name); // snake_case message name
 
+	comment_msg(msg, c, "\t\t");
+
 	fprintf(c, "\t\t%s_sub_ = this->create_subscription<%s::msg::%s>(\n", snake_msg_name, package_name, msg->name);
 	fprintf(c, "\t\t\t\"/%s/%s\", 10, [this](const %s::msg::%s::SharedPtr%s) {\n",
 		package_name, snake_msg_name, package_name, msg->name, message_has_signals ? " msg" : "");
@@ -822,7 +834,8 @@ static int msg_unpack(FILE *c, can_msg_t *msg, const char *package_name)
 
 	const bool message_has_signals = motorola_used || intel_used;
 
-	fprintf(c, "\t\t\tcase %ld: {\n", msg->id);
+	fprintf(c, "\t\t\tcase %ld: {", msg->id);
+	comment_msg(msg, c, " ");
 
 	if (msg->dlc)
 		fprintf(c, "\t\t\t\tif (dlc < %u) return;\n", msg->dlc);
