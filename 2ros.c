@@ -626,10 +626,17 @@ static void generate_ros_msgs(const dbc_t *dbc, const char *outdir) {
 			
 			for (size_t k = 0; k < sig->val_list->val_list_item_count; k++) {
 				char *name = val[k]->name;
-				const unsigned value = val[k]->value;
-				const char *type = determine_type_rosmsg(sig->bit_length, sig->is_signed, sig->is_floating);
-				
-				fprintf(file, "%s %s=%d\n", type, name, value);
+				const unsigned value = val[k]->value; // it should have sign or even be floating for SIG_VALTYPE_ 1, but it's not !?!
+
+				if (sig->offset == 0.0 && sig->scaling == 1.0) {
+					const char *type = determine_type_rosmsg(sig->bit_length, sig->is_signed, sig->is_floating);
+
+					fprintf(file, "%s %s=%d\n", type, name, value);
+				} else {
+					double physical_value = value * sig->scaling + sig->offset;
+
+					fprintf(file, "float64 %s=%.17g\n", name, physical_value);
+				}
 			}
 		}
 
