@@ -57,7 +57,7 @@ Options:\n\
 \t-C     convert output to CSV instead of the default C code\n\
 \t-b     convert output to BSM (beSTORM) instead of the default C code\n\
 \t-j     convert output to JSON instead of the default C code\n\
-\t-r     convert output to ROS2 c++ node instead of the default C code\n\
+\t-r     convert output to ROS2 package instead of the default C code\n\
 \t-D     use 'double' for the encode/decode type messages\n\
 \t-o dir set the output directory\n\
 \t-p     generate only print code\n\

@@ -1,5 +1,3 @@
-/* @copyright SUBLEQ LTD. (2025)
- * @license MIT */
 #ifndef _2ROS_H
 #define _2ROS_H
 
