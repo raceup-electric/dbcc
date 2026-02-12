@@ -10,6 +10,7 @@
 #include <regex.h>
 
 static const bool swap_motorola = true;
+static const bool generate_bools = true;
 static const bool generate_legacy_subscriber = true;
 
 static const char *node_suffix = "_parser";
@@ -62,6 +63,8 @@ static const char *determine_unsigned_type_c(unsigned length)
 		type = "uint16_t";
 	if (length <= 8)
 		type = "uint8_t";
+	if (length <= 1 && generate_bools)
+		type = "bool";
 	return type;
 }
 
@@ -95,6 +98,8 @@ static const char *determine_unsigned_type_rosmsg(unsigned length)
 		type = "uint16";
 	if (length <= 8)
 		type = "uint8";
+	if (length <= 1 && generate_bools)
+		type = "bool";
 	return type;
 }
 
