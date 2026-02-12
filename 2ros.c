@@ -11,6 +11,7 @@
 
 static const bool swap_motorola = true;
 static const bool generate_bools = true;
+static const bool add_prefix_to_constants = false;
 static const bool generate_legacy_subscriber = true;
 
 static const char *node_suffix = "_parser";
@@ -516,29 +517,31 @@ static void check_naming_duplicates(const dbc_t *dbc) {
 	}
 }
 
-static void fix_duplicate_value_naming(const dbc_t *dbc) {
+static void add_constant_prefix(const dbc_t *dbc) {
 	// check for duplicate value names across different signals in the same message
 	for (size_t i = 0; i < dbc->message_count; i++) {
 		can_msg_t *msg = dbc->messages[i];
 		uint8_t *needs_prefix = allocate(msg->signal_count);
 
-		for (size_t j = 0; j < msg->signal_count; j++) {
-			signal_t *sig_a = msg->sigs[j];
-			if (!sig_a->val_list) continue;
+		if (!add_prefix_to_constants) {
+			for (size_t j = 0; j < msg->signal_count; j++) {
+				signal_t *sig_a = msg->sigs[j];
+				if (!sig_a->val_list) continue;
 
-			for (size_t k = j + 1; k < msg->signal_count; k++) {
-				signal_t *sig_b = msg->sigs[k];
-				if (!sig_b->val_list) continue;
+				for (size_t k = j + 1; k < msg->signal_count; k++) {
+					signal_t *sig_b = msg->sigs[k];
+					if (!sig_b->val_list) continue;
 
-				for (size_t va = 0; va < sig_a->val_list->val_list_item_count; va++) {
-					const char *name_a = sig_a->val_list->val_list_items[va]->name;
+					for (size_t va = 0; va < sig_a->val_list->val_list_item_count; va++) {
+						const char *name_a = sig_a->val_list->val_list_items[va]->name;
 
-					for (size_t vb = 0; vb < sig_b->val_list->val_list_item_count; vb++) {
-						const char *name_b = sig_b->val_list->val_list_items[vb]->name;
+						for (size_t vb = 0; vb < sig_b->val_list->val_list_item_count; vb++) {
+							const char *name_b = sig_b->val_list->val_list_items[vb]->name;
 
-						if (strcmp(name_a, name_b) == 0) {
-							needs_prefix[j] = 1;
-							needs_prefix[k] = 1;
+							if (strcmp(name_a, name_b) == 0) {
+								needs_prefix[j] = 1;
+								needs_prefix[k] = 1;
+							}
 						}
 					}
 				}
@@ -546,9 +549,10 @@ static void fix_duplicate_value_naming(const dbc_t *dbc) {
 		}
 
 		for (size_t j = 0; j < msg->signal_count; j++) {
-			if (!needs_prefix[j]) continue;
+			if (!add_prefix_to_constants && !needs_prefix[j]) continue;
 
 			signal_t *sig = msg->sigs[j];
+			if (!sig->val_list) continue;
 			char *sig_upper = duplicate_upper(sig->name);
 
 			for (size_t v = 0; v < sig->val_list->val_list_item_count; v++) {
@@ -588,7 +592,7 @@ static void check_input_naming(const dbc_t *dbc, const char *package_name) {
 	}
 	check_package_naming(package_name);
 	check_naming_duplicates(dbc);
-	fix_duplicate_value_naming(dbc);
+	add_constant_prefix(dbc);
 }
 
 static void generate_ros_msgs(const dbc_t *dbc, const char *outdir) {
