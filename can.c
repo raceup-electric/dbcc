@@ -104,6 +104,34 @@ static void units(mpc_ast_t *ast, signal_t *sig)
 	sig->units = duplicate(unit->contents);
 }
 
+static void nodes(mpc_ast_t *sig_ast, signal_t *sig)
+{
+	assert(sig_ast && sig);
+
+	mpc_ast_t *single_node = mpc_ast_get_child(sig_ast, "nodes|node|ident|regex");
+	if (single_node) {
+		sig->ecus = allocate(sizeof(*sig->ecus));
+		sig->ecus[0] = duplicate(single_node->contents);
+		sig->ecu_count = 1;
+		return;
+	}
+	
+	mpc_ast_t *multiple_nodes = mpc_ast_get_child(sig_ast, "nodes|>");
+	char **nodes = NULL;
+	size_t len = 0;
+	for (int i = 0; i >= 0;) {
+		i = mpc_ast_get_index_lb(multiple_nodes, "node|ident|regex", i);
+		if (i >= 0) {
+			mpc_ast_t *node_ast = mpc_ast_get_child_lb(multiple_nodes, "node|ident|regex", i);
+			nodes = reallocator(nodes, sizeof(*nodes)*++len);
+			nodes[len-1] = duplicate(node_ast->contents);
+			i++;
+		}
+	}
+	sig->ecus = nodes;
+	sig->ecu_count = len;
+}
+
 static int sigval(mpc_ast_t *top, unsigned id, const char *signal)
 {
 	assert(top);
@@ -161,7 +189,7 @@ static signal_t *ast2signal(mpc_ast_t *top, mpc_ast_t *ast, unsigned can_id)
 	y_mx_c(mpc_ast_get_child(ast, "y_mx_c|>"), sig);
 	range(mpc_ast_get_child(ast, "range|>"), sig);
 	units(mpc_ast_get_child(ast, "unit|string|>"), sig);
-	/*nodes(mpc_ast_get_child(ast, "nodes|node|ident|regex|>"), sig);*/
+	nodes(ast, sig);
 
 	/* process multiplexed values, if present */
 	sig->mul_num = 0;
