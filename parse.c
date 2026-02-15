@@ -47,6 +47,8 @@ static mpc_ast_t *_parse_dbc_file_by_handle(const char *name, FILE *handle);
 	X(vals,                 "vals")\
 	X(mul_val,              "mul_val")\
 	X(mul_vals,             "mul_vals")\
+	X(mul_range,            "mul_range")\
+	X(mul_ranges,           "mul_ranges")\
 	X(attribute_definition, "attribute_definition")\
 	X(attribute_value,      "attribute_value")\
 	X(comment,              "comment")\
@@ -84,10 +86,10 @@ static const char *dbc_grammar =
 " message              : \"BO_\" <s>+ <id> <s>+ <name>  <s>* ':' <s>* <dlc> <s>+ <ecu> <s>* <n> <signal>* ; \n"
 " messages             : (<message> <n>*)* ; \n"
 " version              : \"VERSION\" <s> <string> <n>+ ; \n"
-" ecus                 : \"BU_\" <s>* ':' (<ident>|<s>)* <n> ; \n"
-" symbols              : \"NS_\" <s>* ':' <s>* <n> ('\t'|' '* <ident> <n>)* <n> ; \n"
+" ecus                 : \"BU_\" <s>* ':' (<ident>|<s>)* <n>+ ; \n"
+" symbols              : \"NS_\" <s>* ':' <s>* <n> ('\t'|' '* <ident> <n>)* <n>+ ; \n"
 " sigtype              : <integer>  ;\n"
-" sigval               : <s>* \"SIG_VALTYPE_\" <s>+ <id> <s>+ <name> <s>* \":\" <s>* <sigtype> <s>* ';' <n>* ; \n"
+" sigval               : <s>* \"SIG_VALTYPE_\" <s>+ <id> <s>+ <name> <s>* \":\" <s>* <sigtype> <s>* ';' <n>+ ; \n"
 " whatever             : (<ident>|<string>|<integer>|<float>) ; \n"
 " bs                   : \"BS_\" <s>* ':' <s>* <n>+ ; "
 " types                : <s>* <ident> (<whatever>|<s>)+ ';' <n> ; \n"
@@ -95,13 +97,15 @@ static const char *dbc_grammar =
 " val_cnt              : <integer> ; \n"
 " val_name             : <string> ; \n"
 " val_index            : <integer> ; \n"
-" attribute_definition : \"BA_DEF_\" (<whatever>|<s>|',')* ';' <n> ; \n"
-" attribute_value      : \"BA_\" (<whatever>|<s>|',')* ';' <n> ; \n"
+" attribute_definition : \"BA_DEF_\" (<whatever>|<s>|',')* ';' <n>+ ; \n"
+" attribute_value      : \"BA_\" (<whatever>|<s>|',')* ';' <n>+ ; \n"
 " val_item             : (<s>+ <integer> <s>+ <string>) ; \n"
-" val                  : \"VAL_\" <s>+ <id> <s>+ <name> <val_item>* <s>* ';' <n> ; \n"
-" vals                 : <val>* ; \n"
-" mul_val     : \"SG_MUL_VAL_\" <s>+ <id> <s>+ <name> <s>+ <name> <s>+ <integer> '-' <integer> ';' <n> ; \n"
-" mul_vals     : <mul_val>* ; \n"
+" val                  : \"VAL_\" <s>+ <id> <s>+ <name> <val_item>* <s>* ';' <n>* ; \n"
+" vals                 : <val>*; \n"
+" mul_range            : (<integer> '-' <integer> ','? <s>*) ; \n"
+" mul_ranges           : <mul_range>* ; \n"
+" mul_val              : \"SG_MUL_VAL_\" <s>+ <id> <s>+ <name> <s>+ <name> <s>+ <mul_ranges> ';' <n> ; \n"
+" mul_vals             : <mul_val>* ; \n"
 " env_var_name         : <ident> ; \n"
 " comment_string       : <string> ; \n"
 " comment              : \"CM_\" <s>+ "
@@ -111,7 +115,7 @@ static const char *dbc_grammar =
 "                        |    \"BO_\" <s>+ <id> <s>+ <comment_string> "
 "                        |    \"EV_\" <s>+ <env_var_name> <s>+ <comment_string> "
 "                        |    <comment_string> "
-"                        ) <s>* ';' <n> ;\n "
+"                        ) <s>* ';' <n>+ ;\n "
 " comments              : <comment>* ; "
 " dbc       : <version> <symbols> <bs> <ecus> <values>* <n>* <messages> <comments> <sigval>* <attribute_definition>* <attribute_value>* <vals> <mul_vals>  ; \n" ;
 

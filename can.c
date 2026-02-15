@@ -69,6 +69,9 @@ static void mul_val_delete(mul_val_list_t *mul_val)
 		return;
 	free(mul_val->multiplexed);
 	free(mul_val->multiplexor);
+	for (size_t i = 0; i < mul_val->range_num; i++) {
+		free(mul_val->ranges[i]);
+	}
 	free(mul_val);
 }
 
@@ -101,6 +104,34 @@ static void units(mpc_ast_t *ast, signal_t *sig)
 	sig->units = duplicate(unit->contents);
 }
 
+static void nodes(mpc_ast_t *sig_ast, signal_t *sig)
+{
+	assert(sig_ast && sig);
+
+	mpc_ast_t *single_node = mpc_ast_get_child(sig_ast, "nodes|node|ident|regex");
+	if (single_node) {
+		sig->ecus = allocate(sizeof(*sig->ecus));
+		sig->ecus[0] = duplicate(single_node->contents);
+		sig->ecu_count = 1;
+		return;
+	}
+	
+	mpc_ast_t *multiple_nodes = mpc_ast_get_child(sig_ast, "nodes|>");
+	char **nodes = NULL;
+	size_t len = 0;
+	for (int i = 0; i >= 0;) {
+		i = mpc_ast_get_index_lb(multiple_nodes, "node|ident|regex", i);
+		if (i >= 0) {
+			mpc_ast_t *node_ast = mpc_ast_get_child_lb(multiple_nodes, "node|ident|regex", i);
+			nodes = reallocator(nodes, sizeof(*nodes)*++len);
+			nodes[len-1] = duplicate(node_ast->contents);
+			i++;
+		}
+	}
+	sig->ecus = nodes;
+	sig->ecu_count = len;
+}
+
 static int sigval(mpc_ast_t *top, unsigned id, const char *signal)
 {
 	assert(top);
@@ -108,9 +139,9 @@ static int sigval(mpc_ast_t *top, unsigned id, const char *signal)
 	for (int i = 0; i >= 0;) {
 		i = mpc_ast_get_index_lb(top, "sigval|>", i);
 		if (i >= 0) {
-			mpc_ast_t *sv = mpc_ast_get_child_lb(top, "sigval|>", i);
-			mpc_ast_t *name   = mpc_ast_get_child(sv, "name|ident|regex");
-			mpc_ast_t *svid = mpc_ast_get_child(sv,   "id|integer|regex");
+			mpc_ast_t *sv   = mpc_ast_get_child_lb(top, "sigval|>", i);
+			mpc_ast_t *name = mpc_ast_get_child(sv,     "name|ident|regex");
+			mpc_ast_t *svid = mpc_ast_get_child(sv,     "id|integer|regex");
 			assert(name);
 			assert(svid);
 			unsigned svidd = 0;
@@ -130,7 +161,6 @@ static int sigval(mpc_ast_t *top, unsigned id, const char *signal)
 
 static signal_t *ast2signal(mpc_ast_t *top, mpc_ast_t *ast, unsigned can_id)
 {
-	int r;
 	assert(ast);
 	signal_t *sig = signal_new();
 	mpc_ast_t *name   = mpc_ast_get_child(ast, "name|ident|regex");
@@ -140,8 +170,10 @@ static signal_t *ast2signal(mpc_ast_t *top, mpc_ast_t *ast, unsigned can_id)
 	mpc_ast_t *sign   = mpc_ast_get_child(ast, "sign|char");
 	sig->name = duplicate(name->contents);
 	sig->val_list = NULL;
-	r = sscanf(start->contents, "%u", &sig->start_bit);
-	/* BUG: Minor bug, an error should be returned here instead */
+	int r = sscanf(start->contents, "%u", &sig->start_bit);
+	/* BUG: Minor-medium bug, an error should be returned here instead,
+	 * using `assert` for error handling is something of faux pas in
+	 * more civilized circles. Here, were are barbarians, lazy ones. */
 	assert(r == 1 && sig->start_bit <= 64);
 	r = sscanf(length->contents, "%u", &sig->bit_length);
 	assert(r == 1 && sig->bit_length <= 64);
@@ -157,7 +189,7 @@ static signal_t *ast2signal(mpc_ast_t *top, mpc_ast_t *ast, unsigned can_id)
 	y_mx_c(mpc_ast_get_child(ast, "y_mx_c|>"), sig);
 	range(mpc_ast_get_child(ast, "range|>"), sig);
 	units(mpc_ast_get_child(ast, "unit|string|>"), sig);
-	/*nodes(mpc_ast_get_child(ast, "nodes|node|ident|regex|>"), sig);*/
+	nodes(ast, sig);
 
 	/* process multiplexed values, if present */
 	sig->mul_num = 0;
@@ -262,20 +294,66 @@ static mul_val_list_t *ast2mul_val(mpc_ast_t *top, mpc_ast_t *ast)
 	mpc_ast_t *multiplexor = mpc_ast_get_child_lb(ast, "name|ident|regex", i+1);
 	mul_val->multiplexor = duplicate(multiplexor->contents);
 
-	i = mpc_ast_get_index_lb(ast, "integer|regex", i);
-	mpc_ast_t *first_value = mpc_ast_get_child_lb(ast, "integer|regex", i);
-	r = sscanf(first_value->contents,  "%u",  &mul_val->min_value);
-	assert(r == 1);
+	mpc_ast_t *mul_ranges_ast = mpc_ast_get_child_lb(ast, "mul_ranges|>", 0);
+	if (mul_ranges_ast && mul_ranges_ast->children_num) {
+		mul_val_range_pair **ranges = allocate(sizeof(*ranges) * (mul_ranges_ast->children_num+1));
+		int j = 0;
+		for (int i = 0; i >= 0;) {
+			mpc_ast_t *mul_range = mpc_ast_get_child_lb(mul_ranges_ast, "mul_range|>", i);
+			if (mul_range) {
+				mul_val_range_pair *range = allocate(sizeof(mul_val_range_pair));
 
-	mpc_ast_t *second_value = mpc_ast_get_child_lb(ast, "integer|regex", i+1);
-	r = sscanf(second_value->contents,  "%u",  &mul_val->max_value);
-	assert(r == 1);
+				int k = 0;
+				k = mpc_ast_get_index_lb(mul_range, "integer|regex", 0);
+				mpc_ast_t *first_value = mpc_ast_get_child_lb(mul_range, "integer|regex", k);
+				r = sscanf(first_value->contents,  "%u",  &range->min_value);
+				assert(r == 1);
 
-	// swap inverted values
-	if (mul_val->min_value > mul_val->max_value) {
-		int tmp = mul_val->min_value;
-		mul_val->min_value = mul_val->max_value;
-		mul_val->max_value = tmp;
+				mpc_ast_t *second_value = mpc_ast_get_child_lb(mul_range, "integer|regex", k+1);
+				r = sscanf(second_value->contents,  "%u",  &range->max_value);
+				assert(r == 1);
+
+				// swap inverted values
+				if (range->min_value > range->max_value) {
+					int tmp = range->min_value;
+					range->min_value = range->max_value;
+					range->max_value = tmp;
+				}
+
+				ranges[j++] = range;
+				i++;
+			} else {
+				break;
+			}
+		}
+		mul_val->range_num = j;
+		mul_val->ranges = ranges;
+	} else {
+		mpc_ast_t *mul_range = mpc_ast_get_child_lb(ast, "mul_ranges|mul_range|>", 0);
+		if (mul_range) {
+			mul_val->range_num = 1;
+			mul_val_range_pair *range = allocate(sizeof(mul_val_range_pair));
+
+			int k = 0;
+			k = mpc_ast_get_index_lb(mul_range, "integer|regex", 0);
+			mpc_ast_t *first_value = mpc_ast_get_child_lb(mul_range, "integer|regex", k);
+			r = sscanf(first_value->contents,  "%u",  &range->min_value);
+			assert(r == 1);
+
+			mpc_ast_t *second_value = mpc_ast_get_child_lb(mul_range, "integer|regex", k+1);
+			r = sscanf(second_value->contents,  "%u",  &range->max_value);
+			assert(r == 1);
+
+			// swap inverted values
+			if (range->min_value > range->max_value) {
+				int tmp = range->min_value;
+				range->min_value = range->max_value;
+				range->max_value = tmp;
+			}
+
+			mul_val->ranges = allocate(sizeof(mul_val_range_pair*));
+			mul_val->ranges[0] = range;
+		}
 	}
 
 	return mul_val;
@@ -328,7 +406,7 @@ static can_msg_t *ast2msg(mpc_ast_t *top, mpc_ast_t *ast, dbc_t *dbc)
 	// assign val-s to the signals
 	for (size_t i = 0; i < c->signal_count; i++) {
 		for (size_t j = 0; j<dbc->val_count; j++) {
-			if (dbc->vals[j]->id == c->id && strcmp(dbc->vals[j]->name, c->sigs[i]->name) == 0) {
+			if (dbc->vals[j]->id == (c->id | (unsigned long)c->is_extended << 31) && strcmp(dbc->vals[j]->name, c->sigs[i]->name) == 0) {
 				c->sigs[i]->val_list = dbc->vals[j];
 				break;
 			}
@@ -339,11 +417,17 @@ static can_msg_t *ast2msg(mpc_ast_t *top, mpc_ast_t *ast, dbc_t *dbc)
 	for (size_t i = 0; i < c->signal_count; i++) {
 		for (size_t j = 0; j<dbc->mul_val_count; j++) {
 			if (dbc->mul_vals[j]->id == (c->id | (unsigned long)c->is_extended << 31) && strcmp(dbc->mul_vals[j]->multiplexed, c->sigs[i]->name) == 0) {
-				if (c->sigs[i]->switchval > dbc->mul_vals[j]->max_value || c->sigs[i]->switchval < dbc->mul_vals[j]->min_value)
+				bool muxMatch = false;
+				for (size_t k = 0; k<dbc->mul_vals[j]->range_num; k++) {
+					if (dbc->mul_vals[j]->ranges[k]->min_value <= c->sigs[i]->switchval && c->sigs[i]->switchval <= dbc->mul_vals[j]->ranges[k]->max_value) {
+						muxMatch = true;
+						break;
+					}
+				}
+				if (!muxMatch)
 					error("The multiplex value is wrong on message %s for signal %s (fix your DBC file)", c->name, c->sigs[i]->name);
 
 				c->sigs[i]->is_multiplexed = true;
-
 				for(size_t k = 0; k < c->signal_count; k++) {
 					if (strcmp(c->sigs[k]->name, dbc->mul_vals[j]->multiplexor) == 0) {
 						size_t last = c->sigs[k]->mul_num++;

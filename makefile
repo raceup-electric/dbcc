@@ -1,5 +1,5 @@
 LDFLAGS  = -lm
-CFLAGS   = -std=c99 -Wall -Wextra -g -O2 -pedantic -fwrapv -DDBCC_VERSION="\"v1.2.3\""
+CFLAGS   = -std=c99 -Wall -Wextra -g -O2 -pedantic -fwrapv -DDBCC_VERSION="\"v1.2.5\""
 RM      := rm
 OUTDIR  := out
 SOURCES := ${wildcard *.c}
@@ -21,16 +21,16 @@ TARGET  := dbcc
 
 all: ${TARGET}
 
-%.o: %.c
+%.o: %.c makefile
 	${CC} ${CFLAGS} ${INCLUDES} $< -c -o $@
 
-%.1: %.md
+%.1: %.md makefile
 	pandoc --standalone --to man -o$@ $<
 
-%.html: %.md
+%.html: %.md makefile
 	pandoc -o $@ $<
 
-%.pdf: %.md
+%.pdf: %.md makefile
 	pandoc -o $@ $<
 
 lib${TARGET}.a: ${OBJECTS}
@@ -69,7 +69,9 @@ TESTS=${OUTDIR}/ex1.c \
       ${OUTDIR}/ex2.csv \
       ${OUTDIR}/ex1.json \
       ${OUTDIR}/ex2.json \
-      ${OUTDIR}/enum.c
+      ${OUTDIR}/enum.c \
+      ${OUTDIR}/mul-val.c \
+      ${OUTDIR}/single-enum.c
 
 test: ${TESTS}
 	make -C ${OUTDIR}

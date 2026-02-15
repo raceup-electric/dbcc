@@ -10,6 +10,9 @@
  * code. The entire program really should be written in a language like Perl or
  * Python, but I wanted to use the MPC library for something, so here we are. */
 
+/* TODO: Add in version number and commit of `dbcc` to generated files, this
+ * should really go for all generators */
+
 #include "2c.h"
 #include "util.h"
 #include <assert.h>
@@ -507,11 +510,21 @@ static void recursively_process_multiplexed(signal_t *sig, FILE *c, const char *
 			fprintf(c, "} else ");
 		}
 		mul_val_list_t *mul_val = sig->mux_vals[i];
-		if (mul_val->min_value == mul_val->max_value) {
-			fprintf(c, "if (o->%s.%s == %u) {\n", name, sig->name, mul_val->min_value);
-		} else {
-			fprintf(c, "if (o->%s.%s >= %u && o->%s.%s <= %u) {\n", name, sig->name, mul_val->min_value, name, sig->name, mul_val->max_value);
+
+		fprintf(c, "if (");
+		for (size_t j = 0; j<mul_val->range_num; j++) {
+			if (j > 0) {
+				fprintf(c, " || \n");
+				fprintf(c, "%s\t", indent);
+			}
+			if (mul_val->ranges[j]->min_value == mul_val->ranges[j]->max_value) {
+						fprintf(c, "o->%s.%s == %u", name, sig->name, mul_val->ranges[j]->min_value);
+			} else {
+						fprintf(c, "(%u <= o->%s.%s  && o->%s.%s <= %u)", mul_val->ranges[j]->min_value, name, sig->name, name, sig->name, mul_val->ranges[j]->max_value);
+			}
 		}
+		fprintf(c, ") {\n");
+
 		recursively_process_multiplexed(sig->muxed[i], c, name, serialize, indent_level + 1);
 	}
 
