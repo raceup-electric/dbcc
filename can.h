@@ -101,6 +101,7 @@ typedef struct {
 
 dbc_t *ast2dbc(mpc_ast_t *ast);
 void dbc_delete(dbc_t *dbc);
+void whitelist_filter_dbc(dbc_t *dbc, char **ecu_whitelist, size_t ecu_whitelist_length);
 
 #ifdef __cplusplus
 }

@@ -68,6 +68,7 @@ Options:\n\
 \t-B     use bool type for 1 bit long unsigned signals (ROS code)\n\
 \t-L     generate legacy subscriber for backwards compatibility with raceup_msgs (ROS code)\n\
 \t-P     always add signal as prefix to constants. Default is only with name collision (ROS code)\n\
+\t-W [ecu] add ECU to whitelist. Only whitelisted ECUs messages are kept\n\
 \tfile   process a DBC file\n\
 \n\
 Files must come after the arguments have been processed.\n\
@@ -223,6 +224,8 @@ int main(int argc, char **argv)
 	log_level_e log_level = get_log_level();
 	conversion_type_e convert = CONVERT_TO_C;
 	const char *outdir = NULL;
+	char **ecu_whitelist = NULL;
+	size_t ecu_whitelist_length = 0;
 	// TODO: Copy copts to dbc_t, use that version threaded throughout
 	// system instead.
 	dbc2c_options_t copts = {
@@ -242,7 +245,7 @@ int main(int argc, char **argv)
 	};
 	int opt = 0;
 
-	while ((opt = dbcc_getopt(argc, argv, "hVvbjgxCrNtDpukso:n:O:BLP")) != -1) {
+	while ((opt = dbcc_getopt(argc, argv, "hVvbjgxCrNtDpukso:n:O:BLPW:")) != -1) {
 		switch (opt) {
 		case 'h':
 			usage(argv[0]);
@@ -329,6 +332,11 @@ int main(int argc, char **argv)
 			rosopts.generate_legacy_subscriber = true;
 			debug("generate legacy ROS subscriber (with dependency from raceup_msgs)");
 			break;
+		case 'W':
+			ecu_whitelist = reallocator(ecu_whitelist, sizeof(*ecu_whitelist) * ++ecu_whitelist_length);
+			ecu_whitelist[ecu_whitelist_length-1] = dbcc_optarg;
+			debug("%s added to whitelist", dbcc_optarg);
+			break;
 		default:
 			if (fprintf(stderr, "invalid options\n") < 0) return 1;
 			usage(argv[0]);
@@ -360,6 +368,7 @@ int main(int argc, char **argv)
 			return 1;
 		}
 		dbc->version = copts.version;
+		whitelist_filter_dbc(dbc, ecu_whitelist, ecu_whitelist_length);
 
 		char *outpath = dbcc_basename(argv[i]);
 		if (outdir) {
@@ -402,6 +411,7 @@ int main(int argc, char **argv)
 		dbc_delete(dbc);
 		mpc_ast_delete(ast);
 	}
+	free(ecu_whitelist);
 
 	return 0;
 }

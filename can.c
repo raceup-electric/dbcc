@@ -626,3 +626,49 @@ dbc_t *ast2dbc(mpc_ast_t *ast)
 }
 
 
+static bool is_whitelisted_ecu(const char* ecu, char **ecu_whitelist, size_t ecu_whitelist_length) {
+	for (size_t i = 0; i <ecu_whitelist_length; i++) {
+		if (strcmp(ecu, ecu_whitelist[i]) == 0) {
+			return true;
+		}
+	}
+	return false;
+}
+
+void whitelist_filter_dbc(dbc_t *dbc, char **ecu_whitelist, size_t ecu_whitelist_length)
+{
+	if (ecu_whitelist_length == 0)
+		return;
+
+	size_t write_index = 0;
+
+	for (size_t read_index = 0; read_index < dbc->message_count; read_index++) {
+
+		can_msg_t *msg = dbc->messages[read_index];
+		int keep = 0;
+
+		// message ECU is whitelisted
+		if (is_whitelisted_ecu(msg->ecu, ecu_whitelist, ecu_whitelist_length)) {
+			keep = 1;
+		} else {
+			// any signal has a whitelisted ECU
+			for (size_t j = 0; j < msg->signal_count && !keep; j++) {
+				signal_t *sig = msg->sigs[j];
+				for (size_t k = 0; k < sig->ecu_count; k++) {
+					if (is_whitelisted_ecu(sig->ecus[k], ecu_whitelist, ecu_whitelist_length)) {
+						keep = 1;
+						break;
+					}
+				}
+			}
+		}
+
+		if (keep) {
+			dbc->messages[write_index++] = msg;
+		} else {
+			can_msg_delete(msg);
+		}
+	}
+
+	dbc->message_count = write_index;
+}
