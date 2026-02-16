@@ -377,7 +377,7 @@ static void fix_message_naming(char** message) {
 	dst[j] = '\0';
 
 	if (strcmp(src, dst)) {
-		fprintf(stderr, "'%s' changed to '%s'. Messages should have the pattern %s.\n", src, dst, "^[A-Z][A-Za-z0-9]*$");
+		warning("'%s' changed to '%s'. Messages should have the pattern %s.", src, dst, "^[A-Z][A-Za-z0-9]*$");
 	}
 
 	free(*message);
@@ -424,11 +424,11 @@ static void fix_signal_naming(char** signal) {
 	dst[j] = '\0';
 
 	if (strcmp(src, dst)) {
-		fprintf(stderr, "'%s' changed to '%s'. Signals should have the pattern %s.\n", src, dst, "^(?!.*__)(?!.*_$)[a-z][a-z0-9_]*$");
+		warning("'%s' changed to '%s'. Signals should have the pattern %s.", src, dst, "^(?!.*__)(?!.*_$)[a-z][a-z0-9_]*$");
 	}
 
 	if (strcmp(dst, "timestamp") == 0) {
-		fprintf(stderr, "WARNING: illegal signal named '%s'. The generated code will not compile!\n", dst);
+		warning("illegal signal named '%s'. The generated code will not compile!", dst);
 	}
 
 	free(*signal);
@@ -475,7 +475,7 @@ static void fix_value_naming(char** value) {
 	dst[j] = '\0';
 
 	if (strcmp(src, dst)) {
-		fprintf(stderr, "'%s' changed to '%s'. Values should have the pattern %s.\n", src, dst, "^[A-Z]([A-Z0-9_]?[A-Z0-9]+)*$");
+		warning("'%s' changed to '%s'. Values should have the pattern %s.", src, dst, "^[A-Z]([A-Z0-9_]?[A-Z0-9]+)*$");
 	}
 
 	free(*value);
@@ -485,7 +485,7 @@ static void fix_value_naming(char** value) {
 static void check_package_naming(const char* package) {
 	int ok = check_regex_syntax("^[a-z][a-z0-9_]*[a-z0-9]$", package);
 	if (!ok) {
-		fprintf(stderr, "WARNING: '%s' is not a valid name. It should have the pattern %s. Please specify a valid name.\n", package, "^[a-z][a-z0-9_]*[a-z0-9]$");
+		warning("'%s' is not a valid name. It should have the pattern %s. Please specify a valid name.", package, "^[a-z][a-z0-9_]*[a-z0-9]$");
 	}
 }
 
@@ -494,7 +494,7 @@ static void check_naming_duplicates(const dbc_t *dbc) {
 	for (size_t i = 0; i < dbc->message_count; i++) {
 		for (size_t j = i+1; j < dbc->message_count; j++) {
 			if (strcmp(dbc->messages[i]->name, dbc->messages[j]->name) == 0) {
-				fprintf(stderr, "WARNING: duplicate message name '%s'. The generated code will not compile!\n",
+				warning("duplicate message name '%s'. The generated code will not compile!",
 					dbc->messages[i]->name);
 			}
 		}
@@ -504,7 +504,7 @@ static void check_naming_duplicates(const dbc_t *dbc) {
 		for (size_t j = 0; j < msg->signal_count; j++) {
 			for (size_t k = j+1; k < msg->signal_count; k++) {
 				if (strcmp(msg->sigs[j]->name, msg->sigs[k]->name) == 0) {
-					fprintf(stderr, "WARNING: duplicate signal name '%s' in message '%s'. The generated code will not compile!\n",
+					warning("duplicate signal name '%s' in message '%s'. The generated code will not compile!",
 						msg->sigs[j]->name, msg->name);
 				}
 			}
@@ -515,7 +515,7 @@ static void check_naming_duplicates(const dbc_t *dbc) {
 			for (size_t k = 0; k < sig->val_list->val_list_item_count; k++) {
 				for (size_t l = k+1; l < sig->val_list->val_list_item_count; l++) {
 					if (strcmp(sig->val_list->val_list_items[k]->name, sig->val_list->val_list_items[l]->name) == 0) {
-						fprintf(stderr, "WARNING: duplicate value name '%s' in signal '%s', message '%s'. The generated code will not compile!\n",
+						warning("duplicate value name '%s' in signal '%s', message '%s'. The generated code will not compile!",
 							sig->val_list->val_list_items[k]->name, sig->name, msg->name);
 					}
 				}
@@ -571,7 +571,7 @@ static void add_constant_prefix(const dbc_t *dbc) {
 
 				snprintf(new_name, new_len, "%s_%s", sig_upper, old_name);
 
-				//fprintf(stdout, "'%s' changed to '%s'.\n", old_name, new_name);
+				debug("'%s' changed to '%s'.", old_name, new_name);
 				item->name = new_name;
 				free(old_name);
 			}
@@ -822,7 +822,7 @@ static int msg_pack(FILE *c, can_msg_t *msg, const char *package_name)
 	for (size_t i = 0; i < msg->signal_count; i++) {
 		// TODO add multiplexed signal logic
 		if (msg->sigs[i]->is_multiplexed)
-			fprintf(stderr, "WARNING: multiplexed signal are not yet supported! (%ld - %s: %s)\n",
+			warning("multiplexed signal are not yet supported! (%ld - %s: %s)",
 				msg->id, msg->name, msg->sigs[i]->name);
 
 		signal2serializer(msg->sigs[i], c, "\t\t\t\t");
@@ -877,8 +877,7 @@ static int msg_unpack(FILE *c, can_msg_t *msg, const char *package_name)
 	for (size_t i = 0; i < msg->signal_count; i++) {
 		// TODO add multiplexed signal logic
 		if (msg->sigs[i]->is_multiplexed)
-			fprintf(stderr, "WARNING: multiplexed signal are not yet supported! (%ld - %s: %s)\n",
-				msg->id, msg->name, msg->sigs[i]->name);
+			warning("multiplexed signal are not yet supported! (%ld - %s: %s)", msg->id, msg->name, msg->sigs[i]->name);
 
 		signal2deserializer(msg->sigs[i], c, "\t\t\t\t");
 	}
