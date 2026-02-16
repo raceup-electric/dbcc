@@ -58,13 +58,16 @@ Options:\n\
 \t-b     convert output to BSM (beSTORM) instead of the default C code\n\
 \t-j     convert output to JSON instead of the default C code\n\
 \t-r     convert output to ROS2 package instead of the default C code\n\
-\t-D     use 'double' for the encode/decode type messages\n\
 \t-o dir set the output directory\n\
-\t-p     generate only print code\n\
-\t-k     generate only pack code\n\
-\t-u     generate only unpack code\n\
-\t-s     disable assert generation\n\
-\t-n [version] specify the version of the generated output. Defaults to the latest.\n\
+\t-D     use 'double' for the encode/decode type messages (C code)\n\
+\t-p     generate only print code (C code)\n\
+\t-k     generate only pack code (C code)\n\
+\t-u     generate only unpack code (C code)\n\
+\t-s     disable assert generation (C code)\n\
+\t-n [version] specify the version of the generated output. Defaults to the latest. (C code)\n\
+\t-B     use bool type for 1 bit long unsigned signals (ROS code)\n\
+\t-L     generate legacy subscriber for backwards compatibility with raceup_msgs (ROS code)\n\
+\t-P     always add signal as prefix to constants. Default is only with name collision (ROS code)\n\
 \tfile   process a DBC file\n\
 \n\
 Files must come after the arguments have been processed.\n\
@@ -166,13 +169,13 @@ static int dbc2jsonWrapper(dbc_t *dbc, const char *dbc_file, bool use_time_stamp
 	return r;
 }
 
-static int dbc2rosWrapper(dbc_t *dbc, const char *dbc_file, const char *file_only)
+static int dbc2rosWrapper(dbc_t *dbc, const char *dbc_file, const char *file_only, dbc2ros_options_t *rosopts)
 {
     assert(dbc);
     assert(dbc_file);
 	char *dname = replace_file_type(dbc_file,  "");
 	char *fname = replace_file_type(file_only,  "");
-    int r = dbc2ros(dbc, dname, fname);
+    int r = dbc2ros(dbc, dname, fname, rosopts);
     free(fname);
     free(dname);
     return r;
@@ -232,9 +235,14 @@ int main(int argc, char **argv)
 		.generate_asserts          =  true,
 		.version                   =  3,
 	};
+	dbc2ros_options_t rosopts = {
+		.generate_bools             = false,
+		.add_prefix_to_constants    = false,
+		.generate_legacy_subscriber = false,
+	};
 	int opt = 0;
 
-	while ((opt = dbcc_getopt(argc, argv, "hVvbjgxCrNtDpukso:n:O:")) != -1) {
+	while ((opt = dbcc_getopt(argc, argv, "hVvbjgxCrNtDpukso:n:O:BLP")) != -1) {
 		switch (opt) {
 		case 'h':
 			usage(argv[0]);
@@ -309,6 +317,18 @@ int main(int argc, char **argv)
 				error("Invalid version requested: %d. Version should be greater than %d and less than %d.", copts.version, min, max);
 			break;
 		}
+		case 'B':
+			rosopts.generate_bools = true;
+			debug("generate ROS bools");
+			break;
+		case 'P':
+			rosopts.add_prefix_to_constants = true;
+			debug("always add signals as prefix to ROS constants");
+			break;
+		case 'L':
+			rosopts.generate_legacy_subscriber = true;
+			debug("generate legacy ROS subscriber (with dependency from raceup_msgs)");
+			break;
 		default:
 			if (fprintf(stderr, "invalid options\n") < 0) return 1;
 			usage(argv[0]);
@@ -369,7 +389,7 @@ int main(int argc, char **argv)
 			r = dbc2jsonWrapper(dbc, outpath, copts.use_time_stamps);
 			break;
 		case CONVERT_TO_ROS:
-			r = dbc2rosWrapper(dbc, outpath, dbcc_basename(argv[i]));
+			r = dbc2rosWrapper(dbc, outpath, dbcc_basename(argv[i]), &rosopts);
 			break;
 		default:
 			error("invalid conversion type: %d", convert);

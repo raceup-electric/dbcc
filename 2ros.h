@@ -6,8 +6,15 @@ extern "C" {
 #endif
 
 #include "can.h"
+#include <stdbool.h>
 
-int dbc2ros(const dbc_t *dbc, const char *outdir, const char *name);
+typedef struct {
+    bool generate_bools;
+    bool add_prefix_to_constants;
+    bool generate_legacy_subscriber;
+} dbc2ros_options_t;
+
+int dbc2ros(const dbc_t *dbc, const char *outdir, const char *name, dbc2ros_options_t *rosopts);
 
 #ifdef __cplusplus
 }

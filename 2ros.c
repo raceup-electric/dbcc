@@ -17,9 +17,6 @@
 #include <regex.h>
 
 static const bool swap_motorola = true;
-static const bool generate_bools = true;
-static const bool add_prefix_to_constants = false;
-static const bool generate_legacy_subscriber = true;
 
 static const char *node_suffix = "_parser";
 
@@ -62,7 +59,7 @@ static unsigned fix_start_bit(bool motorola, unsigned start, unsigned siglen)
 	return start;
 }
 
-static const char *determine_unsigned_type_c(unsigned length)
+static const char *determine_unsigned_type_c(unsigned length, dbc2ros_options_t *rosopts)
 {
 	const char *type = "uint64_t";
 	if (length <= 32)
@@ -71,7 +68,7 @@ static const char *determine_unsigned_type_c(unsigned length)
 		type = "uint16_t";
 	if (length <= 8)
 		type = "uint8_t";
-	if (length <= 1 && generate_bools)
+	if (length <= 1 && rosopts->generate_bools)
 		type = "bool";
 	return type;
 }
@@ -88,16 +85,16 @@ static const char *determine_signed_type_c(unsigned length)
 	return type;
 }
 
-static const char *determine_type_c(unsigned length, bool is_signed, bool is_floating)
+static const char *determine_type_c(unsigned length, bool is_signed, bool is_floating, dbc2ros_options_t *rosopts)
 {
 	if (is_floating)
 		return length == 64 ? "double" : "float";
 	return is_signed ?
 		determine_signed_type_c(length) :
-		determine_unsigned_type_c(length);
+		determine_unsigned_type_c(length, rosopts);
 }
 
-static const char *determine_unsigned_type_rosmsg(unsigned length)
+static const char *determine_unsigned_type_rosmsg(unsigned length, dbc2ros_options_t *rosopts)
 {
 	const char *type = "uint64";
 	if (length <= 32)
@@ -106,7 +103,7 @@ static const char *determine_unsigned_type_rosmsg(unsigned length)
 		type = "uint16";
 	if (length <= 8)
 		type = "uint8";
-	if (length <= 1 && generate_bools)
+	if (length <= 1 && rosopts->generate_bools)
 		type = "bool";
 	return type;
 }
@@ -123,13 +120,13 @@ static const char *determine_signed_type_rosmsg(unsigned length)
 	return type;
 }
 
-static const char *determine_type_rosmsg(unsigned length, bool is_signed, bool is_floating)
+static const char *determine_type_rosmsg(unsigned length, bool is_signed, bool is_floating, dbc2ros_options_t *rosopts)
 {
 	if (is_floating)
 		return length == 64 ? "float64" : "float32";
 	return is_signed ?
 		determine_signed_type_rosmsg(length) :
-		determine_unsigned_type_rosmsg(length);
+		determine_unsigned_type_rosmsg(length, rosopts);
 }
 
 static int comment_sig(signal_t *sig, FILE *o, const char *indent)
@@ -237,7 +234,7 @@ static void generate_folders(const char *path) {
 	free(fullpath);
 }
 
-static void generate_package_xml(const char *outdir, const char *package_name) {
+static void generate_package_xml(const char *outdir, const char *package_name, dbc2ros_options_t *rosopts) {
 	size_t file_name_size = strlen(outdir) + strlen("/package.xml") + 1;
 	char *file_name = allocate(file_name_size);
 	snprintf(file_name, file_name_size, "%s%s", outdir, "/package.xml");
@@ -265,13 +262,13 @@ static void generate_package_xml(const char *outdir, const char *package_name) {
 		"    <build_type>ament_cmake</build_type>\n"
 		"  </export>\n"
 		"</package>\n",
-		package_name, generate_legacy_subscriber ? "  <depend>raceup_msgs</depend>\n" : "");
+		package_name, rosopts->generate_legacy_subscriber ? "  <depend>raceup_msgs</depend>\n" : "");
 
 	fclose(file);
 	free(file_name);
 }
 
-static void generate_cmakelists_txt(const dbc_t *dbc, const char *outdir, const char *package_name) {
+static void generate_cmakelists_txt(const dbc_t *dbc, const char *outdir, const char *package_name, dbc2ros_options_t *rosopts) {
 	size_t file_name_size = strlen(outdir) + strlen("/CMakeLists.txt") + 1;
 	char *file_name = allocate(file_name_size);
 	snprintf(file_name, file_name_size, "%s%s", outdir, "/CMakeLists.txt");
@@ -300,7 +297,7 @@ static void generate_cmakelists_txt(const dbc_t *dbc, const char *outdir, const 
 		"find_package(rosidl_default_generators REQUIRED)\n"
 		"find_package(builtin_interfaces REQUIRED)\n\n"
 		"set(msg_files\n",
-		package_name, generate_legacy_subscriber ? "find_package(raceup_msgs REQUIRED)\n" : "");
+		package_name, rosopts->generate_legacy_subscriber ? "find_package(raceup_msgs REQUIRED)\n" : "");
 
 	for (size_t i = 0; i < dbc->message_count; i++) {
 		const can_msg_t *msg = dbc->messages[i];
@@ -324,7 +321,7 @@ static void generate_cmakelists_txt(const dbc_t *dbc, const char *outdir, const 
 		"  DESTINATION lib/${PROJECT_NAME}\n"
 		")\n\n"
 		"ament_package()\n",
-		node_suffix, node_suffix, node_suffix, generate_legacy_subscriber ? " raceup_msgs" : "", node_suffix);
+		node_suffix, node_suffix, node_suffix, rosopts->generate_legacy_subscriber ? " raceup_msgs" : "", node_suffix);
 
 	fclose(file);
 	free(file_name);
@@ -524,13 +521,13 @@ static void check_naming_duplicates(const dbc_t *dbc) {
 	}
 }
 
-static void add_constant_prefix(const dbc_t *dbc) {
+static void add_constant_prefix(const dbc_t *dbc, dbc2ros_options_t *rosopts) {
 	// check for duplicate value names across different signals in the same message
 	for (size_t i = 0; i < dbc->message_count; i++) {
 		can_msg_t *msg = dbc->messages[i];
 		uint8_t *needs_prefix = allocate(msg->signal_count);
 
-		if (!add_prefix_to_constants) {
+		if (!rosopts->add_prefix_to_constants) {
 			for (size_t j = 0; j < msg->signal_count; j++) {
 				signal_t *sig_a = msg->sigs[j];
 				if (!sig_a->val_list) continue;
@@ -556,7 +553,7 @@ static void add_constant_prefix(const dbc_t *dbc) {
 		}
 
 		for (size_t j = 0; j < msg->signal_count; j++) {
-			if (!add_prefix_to_constants && !needs_prefix[j]) continue;
+			if (!rosopts->add_prefix_to_constants && !needs_prefix[j]) continue;
 
 			signal_t *sig = msg->sigs[j];
 			if (!sig->val_list) continue;
@@ -581,7 +578,7 @@ static void add_constant_prefix(const dbc_t *dbc) {
 	}
 }
 
-static void check_input_naming(const dbc_t *dbc, const char *package_name) {
+static void check_input_naming(const dbc_t *dbc, const char *package_name, dbc2ros_options_t *rosopts) {
 	for (size_t i = 0; i < dbc->message_count; i++) {
 		can_msg_t *msg = dbc->messages[i];
 		fix_message_naming(&msg->name);
@@ -599,10 +596,10 @@ static void check_input_naming(const dbc_t *dbc, const char *package_name) {
 	}
 	check_package_naming(package_name);
 	check_naming_duplicates(dbc);
-	add_constant_prefix(dbc);
+	add_constant_prefix(dbc, rosopts);
 }
 
-static void generate_ros_msgs(const dbc_t *dbc, const char *outdir) {
+static void generate_ros_msgs(const dbc_t *dbc, const char *outdir, dbc2ros_options_t *rosopts) {
 	for (size_t i = 0; i < dbc->message_count; i++) {
 		const can_msg_t *msg = dbc->messages[i];
 		size_t name_size = strlen(outdir) + strlen("/msg/") + strlen(msg->name) + strlen(".msg") + 1; /* + 1 for '\0' */
@@ -619,7 +616,7 @@ static void generate_ros_msgs(const dbc_t *dbc, const char *outdir) {
 			const signal_t *sig = msg->sigs[j];
 			const char *type = "float64";
 			if (sig->offset == 0.0 && sig->scaling == 1.0)
-				type = determine_type_rosmsg(sig->bit_length, sig->is_signed, sig->is_floating);
+				type = determine_type_rosmsg(sig->bit_length, sig->is_signed, sig->is_floating, rosopts);
 			const char *name = sig->name;
 			const char *comment = sig->comment;
 
@@ -645,7 +642,7 @@ static void generate_ros_msgs(const dbc_t *dbc, const char *outdir) {
 				const unsigned value = val[k]->value; // it should have sign or even be floating for SIG_VALTYPE_ 1, but it's not !?!
 
 				if (sig->offset == 0.0 && sig->scaling == 1.0) {
-					const char *type = determine_type_rosmsg(sig->bit_length, sig->is_signed, sig->is_floating);
+					const char *type = determine_type_rosmsg(sig->bit_length, sig->is_signed, sig->is_floating, rosopts);
 
 					fprintf(file, "%s %s=%d\n", type, name, value);
 				} else {
@@ -661,11 +658,11 @@ static void generate_ros_msgs(const dbc_t *dbc, const char *outdir) {
 	}
 }
 
-static void create_headers(const dbc_t *dbc, FILE *file, const char *package_name) {
+static void create_headers(const dbc_t *dbc, FILE *file, const char *package_name, dbc2ros_options_t *rosopts) {
 	fprintf(file, "#include <rclcpp/rclcpp.hpp>\n");
 	fprintf(file, "#include <cstring>\n");
 	fprintf(file, "#include <can_msgs/msg/frame.hpp>\n");
-	if (generate_legacy_subscriber) {
+	if (rosopts->generate_legacy_subscriber) {
 		fprintf(file, "#include <raceup_msgs/msg/can_data.hpp>\n");
 	}
 	fprintf(file, "\n");
@@ -689,7 +686,7 @@ static void create_constructor_destructor(FILE *file, const char *class_name, co
 	class_name, node_name);
 }
 
-static int signal2serializer(signal_t *sig, FILE *o, const char *indent)
+static int signal2serializer(signal_t *sig, FILE *o, const char *indent, dbc2ros_options_t *rosopts)
 {
 	assert(sig);
 	assert(o);
@@ -710,7 +707,7 @@ static int signal2serializer(signal_t *sig, FILE *o, const char *indent)
 	if (sig->is_floating)
 		fprintf(o, "pack754_%u", sig->bit_length);
 	else
-		fprintf(o, "(%s)", determine_unsigned_type_c(sig->bit_length));
+		fprintf(o, "(%s)", determine_unsigned_type_c(sig->bit_length, rosopts));
 	fprintf(o, "((msg->%s", sig->name);
 	if (sig->offset != 0.0)
 		fprintf(o, " + %g", -1.0 * sig->offset);
@@ -728,7 +725,7 @@ static int signal2serializer(signal_t *sig, FILE *o, const char *indent)
 	return 0;
 }
 
-static int signal2deserializer(signal_t *sig, FILE *o, const char *indent)
+static int signal2deserializer(signal_t *sig, FILE *o, const char *indent, dbc2ros_options_t *rosopts)
 {
 	assert(sig);
 	assert(o);
@@ -766,7 +763,7 @@ static int signal2deserializer(signal_t *sig, FILE *o, const char *indent)
 				return -1;
 	}
 
-	const char *type = determine_type_c(sig->bit_length, sig->is_signed, sig->is_floating);
+	const char *type = determine_type_c(sig->bit_length, sig->is_signed, sig->is_floating, rosopts);
 
 	// keep the following commented!!! explicitly casting to double messes with int sign
 	// if (sig->scaling != 1.0 || sig->offset != 0.0)
@@ -786,7 +783,7 @@ static int signal2deserializer(signal_t *sig, FILE *o, const char *indent)
 	return 0;
 }
 
-static int msg_pack(FILE *c, can_msg_t *msg, const char *package_name)
+static int msg_pack(FILE *c, can_msg_t *msg, const char *package_name, dbc2ros_options_t *rosopts)
 {
 	assert(msg);
 	assert(c);
@@ -825,7 +822,7 @@ static int msg_pack(FILE *c, can_msg_t *msg, const char *package_name)
 			warning("multiplexed signal are not yet supported! (%ld - %s: %s)",
 				msg->id, msg->name, msg->sigs[i]->name);
 
-		signal2serializer(msg->sigs[i], c, "\t\t\t\t");
+		signal2serializer(msg->sigs[i], c, "\t\t\t\t", rosopts);
 	}
 
 	fprintf(c, "\t\t\t\tuint64_t data = %s%s%s%s%s%s;\n",
@@ -841,7 +838,7 @@ static int msg_pack(FILE *c, can_msg_t *msg, const char *package_name)
 	return 0;
 }
 
-static int msg_unpack(FILE *c, can_msg_t *msg, const char *package_name)
+static int msg_unpack(FILE *c, can_msg_t *msg, const char *package_name, dbc2ros_options_t *rosopts)
 {
 	assert(msg);
 	assert(c);
@@ -879,7 +876,7 @@ static int msg_unpack(FILE *c, can_msg_t *msg, const char *package_name)
 		if (msg->sigs[i]->is_multiplexed)
 			warning("multiplexed signal are not yet supported! (%ld - %s: %s)", msg->id, msg->name, msg->sigs[i]->name);
 
-		signal2deserializer(msg->sigs[i], c, "\t\t\t\t");
+		signal2deserializer(msg->sigs[i], c, "\t\t\t\t", rosopts);
 	}
 
 	char *snake_msg_name = pascal2snake(msg->name);
@@ -890,10 +887,10 @@ static int msg_unpack(FILE *c, can_msg_t *msg, const char *package_name)
 	return 0;
 }
 
-static void create_subscribers(const dbc_t *dbc, FILE *file, const char *package_name) {
+static void create_subscribers(const dbc_t *dbc, FILE *file, const char *package_name, dbc2ros_options_t *rosopts) {
 	fprintf(file, "\tvoid createSubscriptions() {\n");
 	for (size_t i = 0; i < dbc->message_count; i++) {
-		msg_pack(file, dbc->messages[i], package_name);
+		msg_pack(file, dbc->messages[i], package_name, rosopts);
 	}
 
 	fprintf(file,
@@ -906,7 +903,7 @@ static void create_subscribers(const dbc_t *dbc, FILE *file, const char *package
 		"\t\t\t}\n\t\t);\n\n", package_name
 	);
 
-	if (generate_legacy_subscriber) {
+	if (rosopts->generate_legacy_subscriber) {
 		fprintf(file,
 			"\t\tlegacy_frame_subscription_ = this->create_subscription<raceup_msgs::msg::CanData>(\n"
 			"\t\t\t\"/can_data_out\", 10, [this](const raceup_msgs::msg::CanData::SharedPtr msg) {\n"
@@ -930,7 +927,7 @@ static void create_subscribers(const dbc_t *dbc, FILE *file, const char *package
 	);
 }
 
-static void create_publishers(const dbc_t *dbc, FILE *file, const char *package_name) {
+static void create_publishers(const dbc_t *dbc, FILE *file, const char *package_name, dbc2ros_options_t *rosopts) {
 	fprintf(file, "\tvoid createPublishers() {\n");
 
 	for (size_t i = 0; i < dbc->message_count; i++) {
@@ -948,13 +945,13 @@ static void create_publishers(const dbc_t *dbc, FILE *file, const char *package_
 	fprintf(file, "\tvoid decodeMessage(uint64_t data, uint8_t dlc, uint32_t id, const rclcpp::Time& timestamp) {\n");
 	fprintf(file, "\t\tswitch(id) {\n");
 	for (size_t i = 0; i < dbc->message_count; i++) {
-		msg_unpack(file, dbc->messages[i], package_name);
+		msg_unpack(file, dbc->messages[i], package_name, rosopts);
 	}
 	fprintf(file, "\t\t}\n");
 	fprintf(file, "\t}\n\n");
 }
 
-static void create_variables(const dbc_t *dbc, FILE *file, const char *package_name) {
+static void create_variables(const dbc_t *dbc, FILE *file, const char *package_name, dbc2ros_options_t *rosopts) {
 	for (size_t i = 0; i < dbc->message_count; i++) {
 		can_msg_t *msg = dbc->messages[i];
 		char *snake_msg_name = pascal2snake(msg->name); // snake_case message name
@@ -967,7 +964,7 @@ static void create_variables(const dbc_t *dbc, FILE *file, const char *package_n
 	fprintf(file, "\trclcpp::Subscription<can_msgs::msg::Frame>::SharedPtr frame_subscription_;\n");
 	fprintf(file, "\trclcpp::Publisher<can_msgs::msg::Frame>::SharedPtr frame_publisher_;\n");
 
-	if (generate_legacy_subscriber) {
+	if (rosopts->generate_legacy_subscriber) {
 		fprintf(file, "\trclcpp::Subscription<raceup_msgs::msg::CanData>::SharedPtr legacy_frame_subscription_;\n");
 	}
 }
@@ -983,7 +980,7 @@ static void create_main(FILE *file, const char *class_name) {
 		class_name);
 }
 
-static void generate_ros_node(const dbc_t *dbc, const char *outdir, const char *package_name) {
+static void generate_ros_node(const dbc_t *dbc, const char *outdir, const char *package_name, dbc2ros_options_t *rosopts) {
 	size_t node_name_size = strlen(package_name) + strlen(node_suffix) + 1; /* + 1 for '\0' */
 	char *node_name = allocate(node_name_size);
 	snprintf(node_name, node_name_size, "%s%s", package_name, node_suffix);
@@ -997,7 +994,7 @@ static void generate_ros_node(const dbc_t *dbc, const char *outdir, const char *
 	FILE *file = fopen_or_die(file_name, "wb");
 
 	fprintf(file, "/* CAN message encoder/decoder: automatically generated - do not edit. */\n\n");
-	create_headers(dbc, file, package_name);
+	create_headers(dbc, file, package_name, rosopts);
 	fprintf(file, "%s", float_pack);
 	fprintf(file, "%s", float_unpack);
 	fprintf(file, "%s", reverse_byte_order);
@@ -1005,9 +1002,9 @@ static void generate_ros_node(const dbc_t *dbc, const char *outdir, const char *
 	fprintf(file, "public:\n");
 	create_constructor_destructor(file, class_name, node_name);
 	fprintf(file, "private:\n");
-	create_subscribers(dbc, file, package_name);
-	create_publishers(dbc, file, package_name);
-	create_variables(dbc, file, package_name);
+	create_subscribers(dbc, file, package_name, rosopts);
+	create_publishers(dbc, file, package_name, rosopts);
+	create_variables(dbc, file, package_name, rosopts);
 	fprintf(file, "};\n\n");
 	create_main(file, class_name);
 
@@ -1017,17 +1014,17 @@ static void generate_ros_node(const dbc_t *dbc, const char *outdir, const char *
 	free(node_name);
 }
 
-int dbc2ros(const dbc_t *dbc, const char *outdir, const char *package_name) {
+int dbc2ros(const dbc_t *dbc, const char *outdir, const char *package_name, dbc2ros_options_t *rosopts) {
 	assert(dbc);
 	assert(outdir);
 	assert(package_name);
 
-	check_input_naming(dbc, package_name);
+	check_input_naming(dbc, package_name, rosopts);
 	generate_folders(outdir);
-	generate_package_xml(outdir, package_name);
-	generate_cmakelists_txt(dbc, outdir, package_name);
-	generate_ros_msgs(dbc, outdir);
-	generate_ros_node(dbc, outdir, package_name);
+	generate_package_xml(outdir, package_name, rosopts);
+	generate_cmakelists_txt(dbc, outdir, package_name, rosopts);
+	generate_ros_msgs(dbc, outdir, rosopts);
+	generate_ros_node(dbc, outdir, package_name, rosopts);
 
 	return 0;
 }
