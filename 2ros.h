@@ -14,7 +14,7 @@ typedef struct {
     bool generate_legacy_subscriber;
 } dbc2ros_options_t;
 
-int dbc2ros(const dbc_t *dbc, const char *outdir, const char *name, dbc2ros_options_t *rosopts);
+int dbc2ros(const dbc_t *dbc, const char *outdir, const char *package_name, dbc2ros_options_t *rosopts);
 
 #ifdef __cplusplus
 }

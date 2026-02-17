@@ -973,7 +973,9 @@ static void create_main(FILE *file, const char *class_name) {
 	fprintf(file,
 		"int main(int argc, char **argv) {\n"
 		"\trclcpp::init(argc, argv);\n"
-		"\trclcpp::spin(std::make_shared<%s>());\n"
+		"\trclcpp::executors::StaticSingleThreadedExecutor executor;\n"
+		"\texecutor.add_node(std::make_shared<%s>());\n"
+		"\texecutor.spin();\n"
 		"\trclcpp::shutdown();\n"
 		"\treturn 0;\n"
 		"}\n",
@@ -1018,6 +1020,7 @@ int dbc2ros(const dbc_t *dbc, const char *outdir, const char *package_name, dbc2
 	assert(dbc);
 	assert(outdir);
 	assert(package_name);
+	assert(rosopts);
 
 	check_input_naming(dbc, package_name, rosopts);
 	generate_folders(outdir);
