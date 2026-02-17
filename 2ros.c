@@ -896,7 +896,7 @@ static void create_subscribers(const dbc_t *dbc, FILE *file, const char *package
 	fprintf(file,
 		"\t\tframe_subscription_ = this->create_subscription<can_msgs::msg::Frame>(\n"
 		"\t\t\t\"/can/%s/read\", 10, [this](const can_msgs::msg::Frame::SharedPtr msg) {\n" // TODO choose appropriate QoS
-		"\t\t\t\tif (msg->is_error) return;\n" // TODO check rtr/extended ?
+		"\t\t\t\tif (msg->is_error || msg->is_extended || msg->is_rtr) return;\n" // not supported yet
 		"\t\t\t\tuint64_t data;\n"
 		"\t\t\t\tstd::memcpy(&data, msg->data.data(), msg->dlc);\n"
 		"\t\t\t\tdecodeMessage(data, msg->dlc, msg->id, msg->header.stamp);\n"
