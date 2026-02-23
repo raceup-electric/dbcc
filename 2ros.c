@@ -303,6 +303,7 @@ static void generate_cmakelists_txt(const dbc_t *dbc, const char *outdir, const 
 		const can_msg_t *msg = dbc->messages[i];
 		fprintf(file, "  \"msg/%s.msg\"\n", msg->name);
 	}
+	fprintf(file, "  \"msg/Header.msg\"\n");
 	fprintf(file,
 		")\n\n"
 		"rosidl_generate_interfaces(${PROJECT_NAME}\n"
@@ -377,6 +378,10 @@ static void fix_message_naming(char** message) {
 		warning("'%s' changed to '%s'. Messages should have the pattern %s.", src, dst, "^[A-Z][A-Za-z0-9]*$");
 	}
 
+	if (strcmp(dst, "Header") == 0) {
+		warning("illegal message named '%s'. The generated code will not compile!", dst);
+	}
+
 	free(*message);
 	*message = dst;
 }
@@ -424,7 +429,7 @@ static void fix_signal_naming(char** signal) {
 		warning("'%s' changed to '%s'. Signals should have the pattern %s.", src, dst, "^(?!.*__)(?!.*_$)[a-z][a-z0-9_]*$");
 	}
 
-	if (strcmp(dst, "timestamp") == 0) {
+	if (strcmp(dst, "header") == 0) {
 		warning("illegal signal named '%s'. The generated code will not compile!", dst);
 	}
 
@@ -610,7 +615,7 @@ static void generate_ros_msgs(const dbc_t *dbc, const char *outdir, dbc2ros_opti
 		if (msg->comment)
 			fprintf(file, "# %s\n\n", msg->comment);
 
-		fprintf(file, "builtin_interfaces/Time timestamp\n");
+		fprintf(file, "Header header\n");
 
 		for (size_t j = 0; j < msg->signal_count; j++) {
 			const signal_t *sig = msg->sigs[j];
@@ -656,6 +661,15 @@ static void generate_ros_msgs(const dbc_t *dbc, const char *outdir, dbc2ros_opti
 		fclose(file);
 		free(file_name);
 	}
+
+	size_t name_size = strlen(outdir) + strlen("/msg/Header.msg") + 1; /* + 1 for '\0' */
+	char *file_name = allocate(name_size);
+	snprintf(file_name, name_size, "%s%s", outdir, "/msg/Header.msg");
+	FILE *file = fopen_or_die(file_name, "wb");
+	fprintf(file, "builtin_interfaces/Time stamp\n");
+	fprintf(file, "bool received\n");
+	fclose(file);
+	free(file_name);
 }
 
 static void create_headers(const dbc_t *dbc, FILE *file, const char *package_name, dbc2ros_options_t *rosopts) {
@@ -804,11 +818,12 @@ static int msg_pack(FILE *c, can_msg_t *msg, const char *package_name, dbc2ros_o
 	comment_msg(msg, c, "\t\t");
 
 	fprintf(c, "\t\t%s_sub_ = this->create_subscription<%s::msg::%s>(\n", snake_msg_name, package_name, msg->name);
-	fprintf(c, "\t\t\t\"/%s/%s\", 10, [this](const %s::msg::%s::SharedPtr%s) {\n",
-		package_name, snake_msg_name, package_name, msg->name, message_has_signals ? " msg" : "");
+	fprintf(c, "\t\t\t\"/%s/%s\", 10, [this](const %s::msg::%s::SharedPtr msg) {\n",
+		package_name, snake_msg_name, package_name, msg->name);
 
 	free(snake_msg_name);
 
+	fprintf(c, "\t\t\t\tif (msg->header.received) return;\n");
 	if (message_has_signals)
 		fprintf(c, "\t\t\t\tuint64_t x;\n");
 	if (motorola_used)
@@ -861,7 +876,8 @@ static int msg_unpack(FILE *c, can_msg_t *msg, const char *package_name, dbc2ros
 		fprintf(c, "\t\t\t\tif (dlc < %u) return;\n", msg->dlc);
 
 	fprintf(c, "\t\t\t\t%s::msg::%s msg;\n", package_name, msg->name);
-	fprintf(c, "\t\t\t\tmsg.timestamp = timestamp;\n");
+	fprintf(c, "\t\t\t\tmsg.header.stamp = timestamp;\n");
+	fprintf(c, "\t\t\t\tmsg.header.received = true;\n");
 
 	if (message_has_signals)
 		fprintf(c, "\t\t\t\tuint64_t x;\n");
