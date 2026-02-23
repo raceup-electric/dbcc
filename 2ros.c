@@ -379,7 +379,7 @@ static void fix_message_naming(char** message) {
 	}
 
 	if (strcmp(dst, "Header") == 0) {
-		warning("illegal message named '%s'. The generated code will not compile!", dst);
+		error("illegal message named '%s'.", dst);
 	}
 
 	free(*message);
@@ -430,7 +430,7 @@ static void fix_signal_naming(char** signal) {
 	}
 
 	if (strcmp(dst, "header") == 0) {
-		warning("illegal signal named '%s'. The generated code will not compile!", dst);
+		error("illegal signal named '%s'.", dst);
 	}
 
 	free(*signal);
@@ -487,7 +487,7 @@ static void fix_value_naming(char** value) {
 static void check_package_naming(const char* package) {
 	int ok = check_regex_syntax("^[a-z][a-z0-9_]*[a-z0-9]$", package);
 	if (!ok) {
-		warning("'%s' is not a valid name. It should have the pattern %s. Please specify a valid name.", package, "^[a-z][a-z0-9_]*[a-z0-9]$");
+		error("'%s' is not a valid package name. It should have the pattern %s.", package, "^[a-z][a-z0-9_]*[a-z0-9]$");
 	}
 }
 
@@ -496,8 +496,7 @@ static void check_naming_duplicates(const dbc_t *dbc) {
 	for (size_t i = 0; i < dbc->message_count; i++) {
 		for (size_t j = i+1; j < dbc->message_count; j++) {
 			if (strcmp(dbc->messages[i]->name, dbc->messages[j]->name) == 0) {
-				warning("duplicate message name '%s'. The generated code will not compile!",
-					dbc->messages[i]->name);
+				error("duplicate message name '%s'.", dbc->messages[i]->name);
 			}
 		}
 
@@ -506,8 +505,7 @@ static void check_naming_duplicates(const dbc_t *dbc) {
 		for (size_t j = 0; j < msg->signal_count; j++) {
 			for (size_t k = j+1; k < msg->signal_count; k++) {
 				if (strcmp(msg->sigs[j]->name, msg->sigs[k]->name) == 0) {
-					warning("duplicate signal name '%s' in message '%s'. The generated code will not compile!",
-						msg->sigs[j]->name, msg->name);
+					error("duplicate signal name '%s' in message '%s'.", msg->sigs[j]->name, msg->name);
 				}
 			}
 
@@ -517,7 +515,7 @@ static void check_naming_duplicates(const dbc_t *dbc) {
 			for (size_t k = 0; k < sig->val_list->val_list_item_count; k++) {
 				for (size_t l = k+1; l < sig->val_list->val_list_item_count; l++) {
 					if (strcmp(sig->val_list->val_list_items[k]->name, sig->val_list->val_list_items[l]->name) == 0) {
-						warning("duplicate value name '%s' in signal '%s', message '%s'. The generated code will not compile!",
+						error("duplicate value name '%s' in signal '%s', message '%s'.",
 							sig->val_list->val_list_items[k]->name, sig->name, msg->name);
 					}
 				}
