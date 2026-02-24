@@ -689,13 +689,13 @@ static void create_headers(const dbc_t *dbc, FILE *file, const char *package_nam
 	fprintf(file, "\n\n");
 }
 
-static void create_constructor_destructor(FILE *file, const char *class_name, const char *node_name) {
+static void create_constructor_destructor(FILE *file, const char *class_name, const char *node_name, const char *package_name) {
 	fprintf(file, "\
-	%s() : Node(\"%s\") {\n\
+	%s() : Node(\"%s\", \"/%s\") {\n\
 		createPublishers();\n\
 		createSubscriptions();\n\
 	}\n\n",
-	class_name, node_name);
+	class_name, node_name, package_name);
 }
 
 static int signal2serializer(signal_t *sig, FILE *o, const char *indent, dbc2ros_options_t *rosopts)
@@ -816,8 +816,7 @@ static int msg_pack(FILE *c, can_msg_t *msg, const char *package_name, dbc2ros_o
 	comment_msg(msg, c, "\t\t");
 
 	fprintf(c, "\t\t%s_sub_ = this->create_subscription<%s::msg::%s>(\n", snake_msg_name, package_name, msg->name);
-	fprintf(c, "\t\t\t\"/%s/%s\", 10, [this](const %s::msg::%s::SharedPtr msg) {\n",
-		package_name, snake_msg_name, package_name, msg->name);
+	fprintf(c, "\t\t\t\"%s\", 10, [this](const %s::msg::%s::SharedPtr msg) {\n", snake_msg_name, package_name, msg->name);
 
 	free(snake_msg_name);
 
@@ -950,7 +949,7 @@ static void create_publishers(const dbc_t *dbc, FILE *file, const char *package_
 		char *snake_msg_name = pascal2snake(msg->name); // snake_case message name
 
 		fprintf(file, "\t\t%s_pub_ = this->create_publisher<%s::msg::%s>", snake_msg_name, package_name, msg->name);
-		fprintf(file, "(\"/%s/%s\", 10);\n", package_name, snake_msg_name);
+		fprintf(file, "(\"%s\", 10);\n", snake_msg_name);
 		free(snake_msg_name);
 	}
 	fprintf(file, "\t\tframe_publisher_ = this->create_publisher<can_msgs::msg::Frame>(\"/can/%s/write\", 10);\n", package_name); // TODO choose appropriate QoS
@@ -1017,7 +1016,7 @@ static void generate_ros_node(const dbc_t *dbc, const char *outdir, const char *
 	fprintf(file, "%s", reverse_byte_order);
 	fprintf(file, "class %s : public rclcpp::Node {\n", class_name);
 	fprintf(file, "public:\n");
-	create_constructor_destructor(file, class_name, node_name);
+	create_constructor_destructor(file, class_name, node_name, package_name);
 	fprintf(file, "private:\n");
 	create_subscribers(dbc, file, package_name, rosopts);
 	create_publishers(dbc, file, package_name, rosopts);
