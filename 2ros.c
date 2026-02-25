@@ -816,7 +816,7 @@ static int msg_pack(FILE *c, can_msg_t *msg, const char *package_name, dbc2ros_o
 	comment_msg(msg, c, "\t\t");
 
 	fprintf(c, "\t\t%s_sub_ = this->create_subscription<%s::msg::%s>(\n", snake_msg_name, package_name, msg->name);
-	fprintf(c, "\t\t\t\"%s\", 10, [this](const %s::msg::%s::SharedPtr msg) {\n", snake_msg_name, package_name, msg->name);
+	fprintf(c, "\t\t\t\"%s\", qos, [this](const %s::msg::%s::SharedPtr msg) {\n", snake_msg_name, package_name, msg->name);
 
 	free(snake_msg_name);
 
@@ -902,13 +902,14 @@ static int msg_unpack(FILE *c, can_msg_t *msg, const char *package_name, dbc2ros
 
 static void create_subscribers(const dbc_t *dbc, FILE *file, const char *package_name, dbc2ros_options_t *rosopts) {
 	fprintf(file, "\tvoid createSubscriptions() {\n");
+	fprintf(file, "\t\tauto qos = rclcpp::QoS(rclcpp::KeepLast(10)).best_effort().durability_volatile();\n\n");
 	for (size_t i = 0; i < dbc->message_count; i++) {
 		msg_pack(file, dbc->messages[i], package_name, rosopts);
 	}
 
 	fprintf(file,
 		"\t\tframe_subscription_ = this->create_subscription<can_msgs::msg::Frame>(\n"
-		"\t\t\t\"/can/%s/read\", 10, [this](const can_msgs::msg::Frame::SharedPtr msg) {\n" // TODO choose appropriate QoS
+		"\t\t\t\"/can/%s/read\", qos, [this](const can_msgs::msg::Frame::SharedPtr msg) {\n"
 		"\t\t\t\tif (msg->is_error || msg->is_extended || msg->is_rtr) return;\n" // not supported yet
 		"\t\t\t\tuint64_t data;\n"
 		"\t\t\t\tstd::memcpy(&data, msg->data.data(), msg->dlc);\n"
@@ -919,7 +920,7 @@ static void create_subscribers(const dbc_t *dbc, FILE *file, const char *package
 	if (rosopts->generate_legacy_subscriber) {
 		fprintf(file,
 			"\t\tlegacy_frame_subscription_ = this->create_subscription<raceup_msgs::msg::CanData>(\n"
-			"\t\t\t\"/can_data_out\", 10, [this](const raceup_msgs::msg::CanData::SharedPtr msg) {\n"
+			"\t\t\t\"/can_data_out\", qos, [this](const raceup_msgs::msg::CanData::SharedPtr msg) {\n"
 			"\t\t\t\tuint64_t data;\n"
 			"\t\t\t\tstd::memcpy(&data, msg->msg_body.data(), sizeof(data));\n"
 			"\t\t\t\tdecodeMessage(data, msg->length, msg->id, msg->header.stamp);\n"
@@ -942,6 +943,7 @@ static void create_subscribers(const dbc_t *dbc, FILE *file, const char *package
 
 static void create_publishers(const dbc_t *dbc, FILE *file, const char *package_name, dbc2ros_options_t *rosopts) {
 	fprintf(file, "\tvoid createPublishers() {\n");
+	fprintf(file, "\t\tauto qos = rclcpp::QoS(rclcpp::KeepLast(10)).best_effort().durability_volatile();\n\n");
 
 	for (size_t i = 0; i < dbc->message_count; i++) {
 		can_msg_t *msg = dbc->messages[i];
@@ -949,10 +951,10 @@ static void create_publishers(const dbc_t *dbc, FILE *file, const char *package_
 		char *snake_msg_name = pascal2snake(msg->name); // snake_case message name
 
 		fprintf(file, "\t\t%s_pub_ = this->create_publisher<%s::msg::%s>", snake_msg_name, package_name, msg->name);
-		fprintf(file, "(\"%s\", 10);\n", snake_msg_name);
+		fprintf(file, "(\"%s\", qos);\n", snake_msg_name);
 		free(snake_msg_name);
 	}
-	fprintf(file, "\t\tframe_publisher_ = this->create_publisher<can_msgs::msg::Frame>(\"/can/%s/write\", 10);\n", package_name); // TODO choose appropriate QoS
+	fprintf(file, "\t\tframe_publisher_ = this->create_publisher<can_msgs::msg::Frame>(\"/can/%s/write\", qos);\n", package_name);
 	fprintf(file, "\t}\n\n");
 
 	fprintf(file, "\tvoid decodeMessage(uint64_t data, uint8_t dlc, uint32_t id, const rclcpp::Time& timestamp) {\n");
