@@ -172,14 +172,14 @@ static int dbc2jsonWrapper(dbc_t *dbc, const char *dbc_file, bool use_time_stamp
 
 static int dbc2rosWrapper(dbc_t *dbc, const char *dbc_file, const char *file_only, dbc2ros_options_t *rosopts)
 {
-    assert(dbc);
-    assert(dbc_file);
+	assert(dbc);
+	assert(dbc_file);
 	char *dname = replace_file_type(dbc_file,  "");
 	char *fname = replace_file_type(file_only,  "");
-    int r = dbc2ros(dbc, dname, fname, rosopts);
-    free(fname);
-    free(dname);
-    return r;
+	int r = dbc2ros(dbc, dname, fname, rosopts);
+	free(fname);
+	free(dname);
+	return r;
 }
 
 static int flag(const char *v) { /* really should be case insensitive */
