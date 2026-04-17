@@ -33,6 +33,7 @@ typedef struct {
 	val_list_item_t **val_list_items;
 	unsigned id;   /**< identifier, 11 or 29 bit */
 	char *name;
+	bool is_val_table_reference;
 } val_list_t;
 
 typedef struct {
@@ -94,6 +95,8 @@ typedef struct {
 	can_msg_t **messages; /**< list of messages */
 	size_t val_count;     /**< count of vals */
 	val_list_t **vals;    /**< value list; used for enumerations in DBC file */
+	size_t val_table_count; /**< count of VAL_TABLE_ definitions */
+	val_list_t **val_tables; /**< named value tables in DBC file */
 	size_t mul_val_count; /**< count of mul_vals*/
 	mul_val_list_t **mul_vals; /**< multiplexed value list; used for multiplexed signals in DBC file */
 	int version;          /**< version information used for generating files (not just C) */

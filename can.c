@@ -60,6 +60,7 @@ static void val_delete(val_list_t *val)
 		free(val->val_list_items[i]->name);
 		free(val->val_list_items[i]);
 	}
+	free(val->val_list_items);
 	free(val);
 }
 
@@ -72,6 +73,7 @@ static void mul_val_delete(mul_val_list_t *mul_val)
 	for (size_t i = 0; i < mul_val->range_num; i++) {
 		free(mul_val->ranges[i]);
 	}
+	free(mul_val->ranges);
 	free(mul_val);
 }
 
@@ -221,43 +223,10 @@ static signal_t *ast2signal(mpc_ast_t *top, mpc_ast_t *ast, unsigned can_id)
 	return sig;
 }
 
-static val_list_t *ast2val(mpc_ast_t *top, mpc_ast_t *ast)
+static void sort_val_items(val_list_t *val)
 {
-	assert(top);
-	assert(ast);
-	val_list_t *val = allocate(sizeof(val_list_t));
+	assert(val);
 
-	mpc_ast_t *id   = mpc_ast_get_child(ast, "id|integer|regex");
-	int r = sscanf(id->contents,  "%u",  &val->id);
-	assert(r == 1);
-
-	mpc_ast_t *name = mpc_ast_get_child(ast, "name|ident|regex");
-	val->name = duplicate(name->contents);
-
-	val_list_item_t **items = allocate(sizeof(*items) * (ast->children_num+1));
-	int j = 0;
-	for (int i = 0; i >= 0;) {
-		i = mpc_ast_get_index_lb(ast, "val_item|>", i);
-		if (i >= 0) {
-			val_list_item_t *item = allocate(sizeof(val_list_item_t));
-			mpc_ast_t *val_item_ast = mpc_ast_get_child_lb(ast, "val_item|>", i);
-
-			mpc_ast_t *val_item_index = mpc_ast_get_child(val_item_ast, "integer|regex");
-			int r = sscanf(val_item_index->contents,  "%u",  &item->value);
-			assert(r == 1);
-
-			mpc_ast_t *val_item_name = mpc_ast_get_child(val_item_ast, "string|>");
-			val_item_name = mpc_ast_get_child_lb(val_item_name, "regex", 1);
-			item->name = duplicate(val_item_name->contents);
-			items[j++] = item;
-			i++;
-		}
-	}
-
-	val->val_list_item_count = j;
-	val->val_list_items = items;
-
-	// sort the value items by value
 	if (val->val_list_item_count) {
 		bool bFlip = false;
 		do {
@@ -272,6 +241,115 @@ static val_list_t *ast2val(mpc_ast_t *top, mpc_ast_t *ast)
 			}
 		} while (bFlip);
 	}
+}
+
+static void ast2val_items(mpc_ast_t *ast, val_list_t *val)
+{
+	assert(ast);
+	assert(val);
+	val_list_item_t **items = allocate(sizeof(*items) * (ast->children_num + 1));
+	size_t j = 0;
+	for (int i = 0; i >= 0;) {
+		i = mpc_ast_get_index_lb(ast, "val_item|>", i);
+		if (i >= 0) {
+			val_list_item_t *item = allocate(sizeof(val_list_item_t));
+			mpc_ast_t *val_item_ast = mpc_ast_get_child_lb(ast, "val_item|>", i);
+
+			mpc_ast_t *val_item_index = mpc_ast_get_child(val_item_ast, "integer|regex");
+			int r = sscanf(val_item_index->contents, "%u", &item->value);
+			assert(r == 1);
+
+			mpc_ast_t *val_item_name = mpc_ast_get_child(val_item_ast, "string|>");
+			val_item_name = mpc_ast_get_child_lb(val_item_name, "regex", 1);
+			item->name = duplicate(val_item_name->contents);
+			items[j++] = item;
+			i++;
+		}
+	}
+
+	val->val_list_item_count = j;
+	val->val_list_items = items;
+	sort_val_items(val);
+}
+
+static val_list_t *find_val_table(dbc_t *dbc, const char *name)
+{
+	assert(dbc);
+	assert(name);
+
+	for (size_t i = 0; i < dbc->val_table_count; i++)
+		if (!strcmp(dbc->val_tables[i]->name, name))
+			return dbc->val_tables[i];
+
+	return NULL;
+}
+
+static mpc_ast_t *child_with_tag(mpc_ast_t *ast, const char *tag)
+{
+	assert(ast);
+	assert(tag);
+
+	for (int i = 0; i < ast->children_num; i++)
+		if (!strcmp(ast->children[i]->tag, tag))
+			return ast->children[i];
+
+	return NULL;
+}
+
+static void copy_val_items(val_list_t *dst, const val_list_t *src)
+{
+	assert(dst);
+	assert(src);
+
+	dst->val_list_item_count = src->val_list_item_count;
+	dst->val_list_items = allocate(sizeof(*dst->val_list_items) * (src->val_list_item_count + 1));
+
+	for (size_t i = 0; i < src->val_list_item_count; i++) {
+		val_list_item_t *item = allocate(sizeof(*item));
+		item->name = duplicate(src->val_list_items[i]->name);
+		item->value = src->val_list_items[i]->value;
+		dst->val_list_items[i] = item;
+	}
+}
+
+static val_list_t *ast2val(mpc_ast_t *top, mpc_ast_t *ast, dbc_t *dbc)
+{
+	assert(top);
+	assert(ast);
+	assert(dbc);
+	val_list_t *val = allocate(sizeof(val_list_t));
+
+	mpc_ast_t *id = mpc_ast_get_child(ast, "id|integer|regex");
+	int r = sscanf(id->contents, "%u", &val->id);
+	assert(r == 1);
+
+	mpc_ast_t *name = mpc_ast_get_child(ast, "name|ident|regex");
+	val->name = duplicate(name->contents);
+
+	mpc_ast_t *table_ref = child_with_tag(ast, "val_table_ref|>");
+	if (table_ref) {
+		mpc_ast_t *table_name = child_with_tag(table_ref, "name|ident|regex");
+		assert(table_name);
+		val_list_t *table = find_val_table(dbc, table_name->contents);
+		if (!table)
+			error("unknown VAL_TABLE_ reference '%s' for signal %s", table_name->contents, val->name);
+		copy_val_items(val, table);
+		val->is_val_table_reference = true;
+	} else {
+		ast2val_items(ast, val);
+	}
+
+	return val;
+}
+
+static val_list_t *ast2val_table(mpc_ast_t *ast)
+{
+	assert(ast);
+	val_list_t *val = allocate(sizeof(val_list_t));
+
+	mpc_ast_t *name = mpc_ast_get_child(ast, "name|ident|regex");
+	val->name = duplicate(name->contents);
+	ast2val_items(ast, val);
 
 	return val;
 }
@@ -472,12 +550,19 @@ void dbc_delete(dbc_t *dbc)
 		return;
 	for (size_t i = 0; i < dbc->message_count; i++)
 		can_msg_delete(dbc->messages[i]);
+	free(dbc->messages);
 
 	for (size_t i = 0; i < dbc->val_count; i++)
 		val_delete(dbc->vals[i]);
+	free(dbc->vals);
+
+	for (size_t i = 0; i < dbc->val_table_count; i++)
+		val_delete(dbc->val_tables[i]);
+	free(dbc->val_tables);
 
 	for (size_t i = 0; i < dbc->mul_val_count; i++)
 		mul_val_delete(dbc->mul_vals[i]);
+	free(dbc->mul_vals);
 
 	free(dbc);
 }
@@ -510,6 +595,30 @@ dbc_t *ast2dbc(mpc_ast_t *ast)
 {
 	dbc_t *d = dbc_new();
 
+	/* find and store global VAL_TABLE_ definitions */
+	size_t len = 0;
+	for (int i = 0; i >= 0;) {
+		i = mpc_ast_get_index_lb(ast, "values|value_table|>", i);
+		if (i >= 0) {
+			len++;
+			i++;
+		}
+	}
+
+	if (len) {
+		d->val_tables = allocate(sizeof(*d->val_tables) * (len + 1));
+		d->val_table_count = len;
+		size_t j = 0;
+		for (int i = 0; i >= 0;) {
+			i = mpc_ast_get_index_lb(ast, "values|value_table|>", i);
+			if (i >= 0) {
+				mpc_ast_t *val_table_ast = mpc_ast_get_child_lb(ast, "values|value_table|>", i);
+				d->val_tables[j++] = ast2val_table(val_table_ast);
+				i++;
+			}
+		}
+	}
+
 	/* find and store the vals into the dbc: they will be assigned to
 	signals later */
 	mpc_ast_t *vals_ast = mpc_ast_get_child_lb(ast, "vals|>", 0);
@@ -522,7 +631,7 @@ dbc_t *ast2dbc(mpc_ast_t *ast)
 				i = mpc_ast_get_index_lb(vals_ast, "val|>", i);
 				if (i >= 0) {
 					mpc_ast_t *val_ast = mpc_ast_get_child_lb(vals_ast, "val|>", i);
-					d->vals[j++] = ast2val(ast, val_ast);
+					d->vals[j++] = ast2val(ast, val_ast, d);
 					i++;
 				}
 			}
@@ -532,7 +641,7 @@ dbc_t *ast2dbc(mpc_ast_t *ast)
 		if (val_ast) {
 			d->vals = allocate(sizeof(*d->vals) * (d->val_count+1));
 			d->val_count = 1;
-			d->vals[0] = ast2val(ast, val_ast);
+			d->vals[0] = ast2val(ast, val_ast, d);
 		}
 	}
 

@@ -39,8 +39,12 @@ The current grammar for the DBC parser is as follows:
 	 sigval    : <s>* "SIG_VALTYPE_" <s>+ <id> <s>+ <name> <s>* ":" <s>* <sigtype> <s>* ';' <n>* ;
 	 whatever  : (<ident>|<string>|<integer>|<float>) ;
 	 bs        : "BS_" <s>* ':' <n>+ ;  types     : <s>* <ident> (<whatever>|<s>)+ ';' (<n>*|/$/) ;
-	 values    : "VAL_TABLE_" (<whatever>|<s>)* ';' <n> ;
-	 dbc       : <version> <symbols> <bs> <ecus> <values>* <n>* <messages> (<sigval>|<types>)*  ;
+	 val_item  : (<s>+ <integer> <s>+ <string>) ;
+	 value_table : "VAL_TABLE_" <s>+ <name> <val_item>* <s>* ';' <n>* ;
+	 values    : <value_table>* ;
+	 val_table_ref : <s>+ <name> ;
+	 val       : "VAL_" <s>+ <id> <s>+ <name> (<val_item>+ | <val_table_ref>)? <s>* ';' <n>* ;
+	 dbc       : <version> <symbols> <bs> <ecus> <values> <n>* <messages> (<sigval>|<types>)* <values> <val>*  ;
 
 The file format contains significant whitespace, so the parsers grammar has to
 be made to be more complex than it should be, alternatively a parser could be

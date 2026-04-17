@@ -71,7 +71,8 @@ TESTS=${OUTDIR}/ex1.c \
       ${OUTDIR}/ex2.json \
       ${OUTDIR}/enum.c \
       ${OUTDIR}/mul-val.c \
-      ${OUTDIR}/single-enum.c
+      ${OUTDIR}/single-enum.c \
+      ${OUTDIR}/val-table.c
 
 test: ${TESTS}
 	make -C ${OUTDIR}

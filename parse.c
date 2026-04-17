@@ -42,7 +42,9 @@ static mpc_ast_t *_parse_dbc_file_by_handle(const char *name, FILE *handle);
 	X(sigval,               "sigval")\
 	X(whatever,             "whatever")\
 	X(values,               "values")\
+	X(value_table,          "value_table")\
 	X(val_item,             "val_item")\
+	X(val_table_ref,        "val_table_ref")\
 	X(val,                  "val")\
 	X(vals,                 "vals")\
 	X(mul_val,              "mul_val")\
@@ -93,14 +95,16 @@ static const char *dbc_grammar =
 " whatever             : (<ident>|<string>|<integer>|<float>) ; \n"
 " bs                   : \"BS_\" <s>* ':' <s>* <n>+ ; "
 " types                : <s>* <ident> (<whatever>|<s>)+ ';' <n> ; \n"
-" values               : \"VAL_TABLE_\" (<whatever>|<s>)* ';' <n> ; \n"
 " val_cnt              : <integer> ; \n"
 " val_name             : <string> ; \n"
 " val_index            : <integer> ; \n"
 " attribute_definition : \"BA_DEF_\" (<whatever>|<s>|',')* ';' <n>+ ; \n"
 " attribute_value      : \"BA_\" (<whatever>|<s>|',')* ';' <n>+ ; \n"
 " val_item             : (<s>+ <integer> <s>+ <string>) ; \n"
-" val                  : \"VAL_\" <s>+ <id> <s>+ <name> <val_item>* <s>* ';' <n>* ; \n"
+" value_table          : \"VAL_TABLE_\" <s>+ <name> <val_item>* <s>* ';' <n>* ; \n"
+" values               : <value_table>* ; \n"
+" val_table_ref        : <s>+ <name> ; \n"
+" val                  : \"VAL_\" <s>+ <id> <s>+ <name> (<val_item>+ | <val_table_ref>)? <s>* ';' <n>* ; \n"
 " vals                 : <val>*; \n"
 " mul_range            : (<integer> '-' <integer> ','? <s>*) ; \n"
 " mul_ranges           : <mul_range>* ; \n"
@@ -117,7 +121,7 @@ static const char *dbc_grammar =
 "                        |    <comment_string> "
 "                        ) <s>* ';' <n>+ ;\n "
 " comments              : <comment>* ; "
-" dbc       : <version> <symbols> <bs> <ecus> <values>* <n>* <messages> <comments> <sigval>* <attribute_definition>* <attribute_value>* <vals> <mul_vals>  ; \n" ;
+" dbc       : <version> <symbols> <bs> <ecus> <values> <n>* <messages> <comments> <sigval>* <attribute_definition>* <attribute_value>* <values> <vals> <mul_vals>  ; \n" ;
 
 const char *parse_get_grammar(void)
 {
@@ -206,4 +210,3 @@ static mpc_ast_t *_parse_dbc_string(const char *file_name, const char *string)
 #undef X
 	return ast;
 }
-

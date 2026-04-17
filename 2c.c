@@ -992,6 +992,66 @@ static char *escape_string(const char *s, int upper) {
 	return n;
 }
 
+static int val_list2h_enum(FILE *h, const char *prefix, val_list_t *list, dbc2c_options_t *copts)
+{
+	assert(h);
+	assert(list);
+	assert(copts);
+
+	if (list->val_list_item_count == 0)
+		return 0;
+
+	/* We really should use enum values in generated C codes/as types */
+	fprintf(h, "typedef enum {\n");
+	for (size_t j = 0; j < list->val_list_item_count; j++) {
+		val_list_item_t *item = list->val_list_items[j];
+		int r = 0;
+
+		if (copts->version >= 2) {
+			char *ename = escape_string(item->name, 0);
+			if (strlen(ename) != strlen(item->name))
+				warning("Non C-Ident characters in enumeration generation: '%s' -> '%s'", item->name, ename);
+			char enum_value_name[MAX_NAME_LENGTH] = { 0, };
+			if (prefix)
+				r = snprintf(enum_value_name, MAX_NAME_LENGTH-1, "%s_%s_%s", prefix, list->name, ename);
+			else
+				r = snprintf(enum_value_name, MAX_NAME_LENGTH-1, "val_table_%s_%s", list->name, ename);
+			for (int i = 0; enum_value_name[i]; i++)
+				enum_value_name[i] = toupper(enum_value_name[i]);
+			fprintf(h, "\t%s = %u,\n", enum_value_name, item->value);
+			free(ename);
+		} else {
+			r = fprintf(h, "\t%s_%s_e = %u,\n", list->name, item->name, item->value);
+		}
+		if (r < 0)
+			error("output failed");
+	}
+
+	if (copts->version >= 2) {
+		if (prefix)
+			fprintf(h, "} %s_%s_e;\n\n", prefix, list->name);
+		else
+			fprintf(h, "} val_table_%s_e;\n\n", list->name);
+	} else {
+		fprintf(h, "} %s_e;\n\n", list->name);
+	}
+
+	return 0;
+}
+
+static int val_tables2h_types(dbc_t *dbc, FILE *h, dbc2c_options_t *copts)
+{
+	assert(h);
+	assert(dbc);
+	assert(copts);
+
+	for (size_t i = 0; i < dbc->val_table_count; i++)
+		if (val_list2h_enum(h, NULL, dbc->val_tables[i], copts) < 0)
+			return -1;
+
+	return 0;
+}
+
 static int msg2h_types(dbc_t *dbc, FILE *h, dbc2c_options_t *copts)
 {
 	assert(h);
@@ -1018,36 +1078,11 @@ static int msg2h_types(dbc_t *dbc, FILE *h, dbc2c_options_t *copts)
 
 			if (!list)
 				continue;
+			if (list->is_val_table_reference)
+				continue;
 
-			/* We really should use enum values in generated C codes/as types */
-			fprintf(h, "typedef enum {\n");
-			for (size_t j = 0; j < list->val_list_item_count; j++) {
-				val_list_item_t *item = list->val_list_items[j];
-
-				int r = 0;
-
-				if (copts->version >= 2) {
-					char *ename = escape_string(item->name, 0);
-					if (strlen(ename) != strlen(item->name))
-						warning("Non C-Ident characters in enumeration generation: '%s' -> '%s'", item->name, ename);
-					char enum_value_name[MAX_NAME_LENGTH] = { 0, };
-					r = snprintf(enum_value_name, MAX_NAME_LENGTH-1, "%s_%s_%s", name, list->name, ename);
-					for (int i = 0; enum_value_name[i]; i++) 
-						enum_value_name[i] = toupper(enum_value_name[i]);
-					fprintf(h, "\t%s = %d,\n", enum_value_name, item->value);
-					free(ename);
-				} else {
-					r = fprintf(h, "\t%s_%s_e = %d,\n", list->name, item->name, item->value);
-				}
-				if (r < 0)
-					error("output failed");
-
-			}
-
-			if (copts->version >= 2)
-				fprintf(h, "} %s_%s_e;\n\n", name, list->name);
-			else
-				fprintf(h, "} %s_e;\n\n", list->name);
+			if (val_list2h_enum(h, name, list, copts) < 0)
+				return -1;
 		}
 	}
 
@@ -1173,6 +1208,11 @@ int dbc2c(dbc_t *dbc, FILE *c, FILE *h, const char *name, dbc2c_options_t *copts
 
 	msg2h_define_can_ids(dbc, h, copts);
 
+	if (val_tables2h_types(dbc, h, copts) < 0) {
+		rv = -1;
+		goto fail;
+	}
+
 	if (msg2h_types(dbc, h, copts) < 0) {
 		rv = -1;
 		goto fail;
@@ -1259,4 +1299,3 @@ fail:
 	free(god);
 	return rv;
 }
-
