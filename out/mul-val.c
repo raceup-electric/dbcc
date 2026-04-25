@@ -11,6 +11,7 @@ better MISRA-C support.
 
 #include "mul-val.h"
 #include <inttypes.h>
+#include <string.h>
 #include <assert.h>
 
 #define UNUSED(X) ((void)(X))
@@ -29,27 +30,29 @@ static inline int print_helper(int r, int print_return_value) {
 static int pack_can_0x000_extended_multiplex_w_ranges(can_obj_mul_val_h_t *o, uint64_t *data) {
 	assert(o);
 	assert(data);
+	if (o->can_id != 0x000)
+		memset(&o->messages, 0, sizeof(o->messages));
 	register uint64_t x;
 	register uint64_t i = 0;
 	/* muxer_w_multiple_ranges: start-bit 0, length 8, endianess intel, scaling 1, offset 0 */
-	x = ((uint8_t)(o->can_0x000_extended_multiplex_w_ranges.muxer_w_multiple_ranges)) & 0xff;
+	x = ((uint8_t)(o->messages.can_0x000_extended_multiplex_w_ranges.muxer_w_multiple_ranges)) & 0xff;
 	i |= x;
-	if ((1 <= o->can_0x000_extended_multiplex_w_ranges.muxer_w_multiple_ranges  && o->can_0x000_extended_multiplex_w_ranges.muxer_w_multiple_ranges <= 2) || 
-		o->can_0x000_extended_multiplex_w_ranges.muxer_w_multiple_ranges == 66 || 
-		o->can_0x000_extended_multiplex_w_ranges.muxer_w_multiple_ranges == 255) {
+	if ((1 <= o->messages.can_0x000_extended_multiplex_w_ranges.muxer_w_multiple_ranges  && o->messages.can_0x000_extended_multiplex_w_ranges.muxer_w_multiple_ranges <= 2) || 
+		o->messages.can_0x000_extended_multiplex_w_ranges.muxer_w_multiple_ranges == 66 || 
+		o->messages.can_0x000_extended_multiplex_w_ranges.muxer_w_multiple_ranges == 255) {
 		/* muxed_w_ranges: start-bit 8, length 8, endianess intel, scaling 1, offset 0 */
-		x = ((uint8_t)(o->can_0x000_extended_multiplex_w_ranges.muxed_w_ranges)) & 0xff;
+		x = ((uint8_t)(o->messages.can_0x000_extended_multiplex_w_ranges.muxed_w_ranges)) & 0xff;
 		x <<= 8; 
 		i |= x;
 	} else {
 		return -1;
 	}
 	*data = (i);
-	o->can_0x000_extended_multiplex_w_ranges_tx = 1;
+	o->can_id = 0x000;
 	return 2;
 }
 
-static int unpack_can_0x000_extended_multiplex_w_ranges(can_obj_mul_val_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x000_extended_multiplex_w_ranges(can_obj_mul_val_h_t *o, uint64_t data, uint8_t dlc) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -58,80 +61,89 @@ static int unpack_can_0x000_extended_multiplex_w_ranges(can_obj_mul_val_h_t *o, 
 		return -1;
 	/* muxer_w_multiple_ranges: start-bit 0, length 8, endianess intel, scaling 1, offset 0 */
 	x = i & 0xff;
-	o->can_0x000_extended_multiplex_w_ranges.muxer_w_multiple_ranges = x;
-	if ((1 <= o->can_0x000_extended_multiplex_w_ranges.muxer_w_multiple_ranges  && o->can_0x000_extended_multiplex_w_ranges.muxer_w_multiple_ranges <= 2) || 
-		o->can_0x000_extended_multiplex_w_ranges.muxer_w_multiple_ranges == 66 || 
-		o->can_0x000_extended_multiplex_w_ranges.muxer_w_multiple_ranges == 255) {
+	o->messages.can_0x000_extended_multiplex_w_ranges.muxer_w_multiple_ranges = x;
+	if ((1 <= o->messages.can_0x000_extended_multiplex_w_ranges.muxer_w_multiple_ranges  && o->messages.can_0x000_extended_multiplex_w_ranges.muxer_w_multiple_ranges <= 2) || 
+		o->messages.can_0x000_extended_multiplex_w_ranges.muxer_w_multiple_ranges == 66 || 
+		o->messages.can_0x000_extended_multiplex_w_ranges.muxer_w_multiple_ranges == 255) {
 		/* muxed_w_ranges: start-bit 8, length 8, endianess intel, scaling 1, offset 0 */
 		x = (i >> 8) & 0xff;
-		o->can_0x000_extended_multiplex_w_ranges.muxed_w_ranges = x;
+		o->messages.can_0x000_extended_multiplex_w_ranges.muxed_w_ranges = x;
 	} else {
 		return -1;
 	}
-	o->can_0x000_extended_multiplex_w_ranges_rx = 1;
-	o->can_0x000_extended_multiplex_w_ranges_time_stamp_rx = time_stamp;
+	o->can_id = 0x000;
 	return 2;
 }
 
 int decode_can_0x000_muxer_w_multiple_ranges(const can_obj_mul_val_h_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
-	uint8_t rval = (uint8_t)(o->can_0x000_extended_multiplex_w_ranges.muxer_w_multiple_ranges);
+	if (o->can_id != 0x000)
+		return -1;
+	uint8_t rval = (uint8_t)(o->messages.can_0x000_extended_multiplex_w_ranges.muxer_w_multiple_ranges);
 	*out = rval;
 	return 0;
 }
 
 int encode_can_0x000_muxer_w_multiple_ranges(can_obj_mul_val_h_t *o, uint8_t in) {
 	assert(o);
-	o->can_0x000_extended_multiplex_w_ranges.muxer_w_multiple_ranges = in;
+	o->can_id = 0x000;
+	o->messages.can_0x000_extended_multiplex_w_ranges.muxer_w_multiple_ranges = in;
 	return 0;
 }
 
 int decode_can_0x000_muxed_w_ranges(const can_obj_mul_val_h_t *o, int8_t *out) {
 	assert(o);
 	assert(out);
-	int8_t rval = (int8_t)(o->can_0x000_extended_multiplex_w_ranges.muxed_w_ranges);
+	if (o->can_id != 0x000)
+		return -1;
+	int8_t rval = (int8_t)(o->messages.can_0x000_extended_multiplex_w_ranges.muxed_w_ranges);
 	*out = rval;
 	return 0;
 }
 
 int encode_can_0x000_muxed_w_ranges(can_obj_mul_val_h_t *o, int8_t in) {
 	assert(o);
-	o->can_0x000_extended_multiplex_w_ranges.muxed_w_ranges = in;
+	o->can_id = 0x000;
+	o->messages.can_0x000_extended_multiplex_w_ranges.muxed_w_ranges = in;
 	return 0;
 }
 
 int print_can_0x000_extended_multiplex_w_ranges(const can_obj_mul_val_h_t *o, FILE *output) {
 	assert(o);
 	assert(output);
+	if (o->can_id != 0x000)
+		return -1;
 	int r = 0;
-	r = print_helper(r, fprintf(output, "muxer_w_multiple_ranges = (wire: %.0f)\n", (double)(o->can_0x000_extended_multiplex_w_ranges.muxer_w_multiple_ranges)));
-	r = print_helper(r, fprintf(output, "muxed_w_ranges = (wire: %.0f)\n", (double)(o->can_0x000_extended_multiplex_w_ranges.muxed_w_ranges)));
+	r = print_helper(r, fprintf(output, "muxer_w_multiple_ranges = (wire: %.0f)\n", (double)(o->messages.can_0x000_extended_multiplex_w_ranges.muxer_w_multiple_ranges)));
+	r = print_helper(r, fprintf(output, "muxed_w_ranges = (wire: %.0f)\n", (double)(o->messages.can_0x000_extended_multiplex_w_ranges.muxed_w_ranges)));
 	return r;
 }
 
 static int pack_can_0x692_extended_multiplex(can_obj_mul_val_h_t *o, uint64_t *data) {
 	assert(o);
 	assert(data);
+	if (o->can_id != 0x692)
+		memset(&o->messages, 0, sizeof(o->messages));
 	register uint64_t x;
 	register uint64_t i = 0;
 	/* simple_muxer: start-bit 8, length 16, endianess intel, scaling 1, offset 0 */
-	x = ((uint16_t)(o->can_0x692_extended_multiplex.simple_muxer)) & 0xffff;
+	x = ((uint16_t)(o->messages.can_0x692_extended_multiplex.simple_muxer)) & 0xffff;
 	x <<= 8; 
 	i |= x;
-	if (o->can_0x692_extended_multiplex.simple_muxer == 9216) {
+	if (o->messages.can_0x692_extended_multiplex.simple_muxer == 9216) {
 		/* muxed_muxer: start-bit 24, length 8, endianess intel, scaling 1, offset 0 */
-		x = ((uint8_t)(o->can_0x692_extended_multiplex.muxed_muxer)) & 0xff;
+		x = ((uint8_t)(o->messages.can_0x692_extended_multiplex.muxed_muxer)) & 0xff;
 		x <<= 24; 
 		i |= x;
-		if (o->can_0x692_extended_multiplex.muxed_muxer == 1) {
+		if (o->messages.can_0x692_extended_multiplex.muxed_muxer == 1) {
 			/* muxed1: start-bit 32, length 32, endianess intel, scaling 1, offset 0 */
-			x = ((uint32_t)(o->can_0x692_extended_multiplex.muxed1)) & 0xffffffff;
+			x = ((uint32_t)(o->messages.can_0x692_extended_multiplex.muxed1)) & 0xffffffff;
 			x <<= 32; 
 			i |= x;
-		} else if (o->can_0x692_extended_multiplex.muxed_muxer == 4) {
+		} else if (o->messages.can_0x692_extended_multiplex.muxed_muxer == 4) {
 			/* muxed2: start-bit 32, length 32, endianess intel, scaling 1, offset 0 */
-			x = ((uint32_t)(o->can_0x692_extended_multiplex.muxed2)) & 0xffffffff;
+			x = ((uint32_t)(o->messages.can_0x692_extended_multiplex.muxed2)) & 0xffffffff;
 			x <<= 32; 
 			i |= x;
 		} else {
@@ -141,22 +153,22 @@ static int pack_can_0x692_extended_multiplex(can_obj_mul_val_h_t *o, uint64_t *d
 		return -1;
 	}
 	/* sig3: start-bit 4, length 4, endianess intel, scaling 1, offset 0 */
-	x = ((uint8_t)(o->can_0x692_extended_multiplex.sig3)) & 0xf;
+	x = ((uint8_t)(o->messages.can_0x692_extended_multiplex.sig3)) & 0xf;
 	x <<= 4; 
 	i |= x;
 	/* sig1: start-bit 0, length 2, endianess intel, scaling 1, offset 0 */
-	x = ((uint8_t)(o->can_0x692_extended_multiplex.sig1)) & 0x3;
+	x = ((uint8_t)(o->messages.can_0x692_extended_multiplex.sig1)) & 0x3;
 	i |= x;
 	/* sig2: start-bit 2, length 2, endianess intel, scaling -1, offset 4 */
-	x = ((uint8_t)(o->can_0x692_extended_multiplex.sig2)) & 0x3;
+	x = ((uint8_t)(o->messages.can_0x692_extended_multiplex.sig2)) & 0x3;
 	x <<= 2; 
 	i |= x;
 	*data = (i);
-	o->can_0x692_extended_multiplex_tx = 1;
+	o->can_id = 0x692;
 	return 8;
 }
 
-static int unpack_can_0x692_extended_multiplex(can_obj_mul_val_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x692_extended_multiplex(can_obj_mul_val_h_t *o, uint64_t data, uint8_t dlc) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -165,19 +177,19 @@ static int unpack_can_0x692_extended_multiplex(can_obj_mul_val_h_t *o, uint64_t 
 		return -1;
 	/* simple_muxer: start-bit 8, length 16, endianess intel, scaling 1, offset 0 */
 	x = (i >> 8) & 0xffff;
-	o->can_0x692_extended_multiplex.simple_muxer = x;
-	if (o->can_0x692_extended_multiplex.simple_muxer == 9216) {
+	o->messages.can_0x692_extended_multiplex.simple_muxer = x;
+	if (o->messages.can_0x692_extended_multiplex.simple_muxer == 9216) {
 		/* muxed_muxer: start-bit 24, length 8, endianess intel, scaling 1, offset 0 */
 		x = (i >> 24) & 0xff;
-		o->can_0x692_extended_multiplex.muxed_muxer = x;
-		if (o->can_0x692_extended_multiplex.muxed_muxer == 1) {
+		o->messages.can_0x692_extended_multiplex.muxed_muxer = x;
+		if (o->messages.can_0x692_extended_multiplex.muxed_muxer == 1) {
 			/* muxed1: start-bit 32, length 32, endianess intel, scaling 1, offset 0 */
 			x = (i >> 32) & 0xffffffff;
-			o->can_0x692_extended_multiplex.muxed1 = x;
-		} else if (o->can_0x692_extended_multiplex.muxed_muxer == 4) {
+			o->messages.can_0x692_extended_multiplex.muxed1 = x;
+		} else if (o->messages.can_0x692_extended_multiplex.muxed_muxer == 4) {
 			/* muxed2: start-bit 32, length 32, endianess intel, scaling 1, offset 0 */
 			x = (i >> 32) & 0xffffffff;
-			o->can_0x692_extended_multiplex.muxed2 = x;
+			o->messages.can_0x692_extended_multiplex.muxed2 = x;
 		} else {
 			return -1;
 		}
@@ -186,106 +198,125 @@ static int unpack_can_0x692_extended_multiplex(can_obj_mul_val_h_t *o, uint64_t 
 	}
 	/* sig3: start-bit 4, length 4, endianess intel, scaling 1, offset 0 */
 	x = (i >> 4) & 0xf;
-	o->can_0x692_extended_multiplex.sig3 = x;
+	o->messages.can_0x692_extended_multiplex.sig3 = x;
 	/* sig1: start-bit 0, length 2, endianess intel, scaling 1, offset 0 */
 	x = i & 0x3;
-	o->can_0x692_extended_multiplex.sig1 = x;
+	o->messages.can_0x692_extended_multiplex.sig1 = x;
 	/* sig2: start-bit 2, length 2, endianess intel, scaling -1, offset 4 */
 	x = (i >> 2) & 0x3;
-	o->can_0x692_extended_multiplex.sig2 = x;
-	o->can_0x692_extended_multiplex_rx = 1;
-	o->can_0x692_extended_multiplex_time_stamp_rx = time_stamp;
+	o->messages.can_0x692_extended_multiplex.sig2 = x;
+	o->can_id = 0x692;
 	return 8;
 }
 
 int decode_can_0x692_muxed1(const can_obj_mul_val_h_t *o, uint32_t *out) {
 	assert(o);
 	assert(out);
-	uint32_t rval = (uint32_t)(o->can_0x692_extended_multiplex.muxed1);
+	if (o->can_id != 0x692)
+		return -1;
+	uint32_t rval = (uint32_t)(o->messages.can_0x692_extended_multiplex.muxed1);
 	*out = rval;
 	return 0;
 }
 
 int encode_can_0x692_muxed1(can_obj_mul_val_h_t *o, uint32_t in) {
 	assert(o);
-	o->can_0x692_extended_multiplex.muxed1 = in;
+	o->can_id = 0x692;
+	o->messages.can_0x692_extended_multiplex.muxed1 = in;
 	return 0;
 }
 
 int decode_can_0x692_muxed2(const can_obj_mul_val_h_t *o, uint32_t *out) {
 	assert(o);
 	assert(out);
-	uint32_t rval = (uint32_t)(o->can_0x692_extended_multiplex.muxed2);
+	if (o->can_id != 0x692)
+		return -1;
+	uint32_t rval = (uint32_t)(o->messages.can_0x692_extended_multiplex.muxed2);
 	*out = rval;
 	return 0;
 }
 
 int encode_can_0x692_muxed2(can_obj_mul_val_h_t *o, uint32_t in) {
 	assert(o);
-	o->can_0x692_extended_multiplex.muxed2 = in;
+	o->can_id = 0x692;
+	o->messages.can_0x692_extended_multiplex.muxed2 = in;
 	return 0;
 }
 
 int decode_can_0x692_simple_muxer(const can_obj_mul_val_h_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
-	uint16_t rval = (uint16_t)(o->can_0x692_extended_multiplex.simple_muxer);
+	if (o->can_id != 0x692)
+		return -1;
+	uint16_t rval = (uint16_t)(o->messages.can_0x692_extended_multiplex.simple_muxer);
 	*out = rval;
 	return 0;
 }
 
 int encode_can_0x692_simple_muxer(can_obj_mul_val_h_t *o, uint16_t in) {
 	assert(o);
-	o->can_0x692_extended_multiplex.simple_muxer = in;
+	o->can_id = 0x692;
+	o->messages.can_0x692_extended_multiplex.simple_muxer = in;
 	return 0;
 }
 
 int decode_can_0x692_muxed_muxer(const can_obj_mul_val_h_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
-	uint8_t rval = (uint8_t)(o->can_0x692_extended_multiplex.muxed_muxer);
+	if (o->can_id != 0x692)
+		return -1;
+	uint8_t rval = (uint8_t)(o->messages.can_0x692_extended_multiplex.muxed_muxer);
 	*out = rval;
 	return 0;
 }
 
 int encode_can_0x692_muxed_muxer(can_obj_mul_val_h_t *o, uint8_t in) {
 	assert(o);
-	o->can_0x692_extended_multiplex.muxed_muxer = in;
+	o->can_id = 0x692;
+	o->messages.can_0x692_extended_multiplex.muxed_muxer = in;
 	return 0;
 }
 
 int decode_can_0x692_sig3(const can_obj_mul_val_h_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
-	uint8_t rval = (uint8_t)(o->can_0x692_extended_multiplex.sig3);
+	if (o->can_id != 0x692)
+		return -1;
+	uint8_t rval = (uint8_t)(o->messages.can_0x692_extended_multiplex.sig3);
 	*out = rval;
 	return 0;
 }
 
 int encode_can_0x692_sig3(can_obj_mul_val_h_t *o, uint8_t in) {
 	assert(o);
-	o->can_0x692_extended_multiplex.sig3 = in;
+	o->can_id = 0x692;
+	o->messages.can_0x692_extended_multiplex.sig3 = in;
 	return 0;
 }
 
 int decode_can_0x692_sig1(const can_obj_mul_val_h_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
-	uint8_t rval = (uint8_t)(o->can_0x692_extended_multiplex.sig1);
+	if (o->can_id != 0x692)
+		return -1;
+	uint8_t rval = (uint8_t)(o->messages.can_0x692_extended_multiplex.sig1);
 	*out = rval;
 	return 0;
 }
 
 int encode_can_0x692_sig1(can_obj_mul_val_h_t *o, uint8_t in) {
 	assert(o);
-	o->can_0x692_extended_multiplex.sig1 = in;
+	o->can_id = 0x692;
+	o->messages.can_0x692_extended_multiplex.sig1 = in;
 	return 0;
 }
 
 int decode_can_0x692_sig2(const can_obj_mul_val_h_t *o, dbcc_double_t *out) {
 	assert(o);
 	assert(out);
-	dbcc_double_t rval = (dbcc_double_t)(o->can_0x692_extended_multiplex.sig2);
+	if (o->can_id != 0x692)
+		return -1;
+	dbcc_double_t rval = (dbcc_double_t)(o->messages.can_0x692_extended_multiplex.sig2);
 	rval *= -1;
 	rval += 4;
 	*out = rval;
@@ -296,31 +327,34 @@ int encode_can_0x692_sig2(can_obj_mul_val_h_t *o, dbcc_double_t in) {
 	assert(o);
 	in += -4;
 	in *= -1;
-	o->can_0x692_extended_multiplex.sig2 = in;
+	o->can_id = 0x692;
+	o->messages.can_0x692_extended_multiplex.sig2 = in;
 	return 0;
 }
 
 int print_can_0x692_extended_multiplex(const can_obj_mul_val_h_t *o, FILE *output) {
 	assert(o);
 	assert(output);
+	if (o->can_id != 0x692)
+		return -1;
 	int r = 0;
-	r = print_helper(r, fprintf(output, "muxed1 = (wire: %.0f)\n", (double)(o->can_0x692_extended_multiplex.muxed1)));
-	r = print_helper(r, fprintf(output, "muxed2 = (wire: %.0f)\n", (double)(o->can_0x692_extended_multiplex.muxed2)));
-	r = print_helper(r, fprintf(output, "simple_muxer = (wire: %.0f)\n", (double)(o->can_0x692_extended_multiplex.simple_muxer)));
-	r = print_helper(r, fprintf(output, "muxed_muxer = (wire: %.0f)\n", (double)(o->can_0x692_extended_multiplex.muxed_muxer)));
-	r = print_helper(r, fprintf(output, "sig3 = (wire: %.0f)\n", (double)(o->can_0x692_extended_multiplex.sig3)));
-	r = print_helper(r, fprintf(output, "sig1 = (wire: %.0f)\n", (double)(o->can_0x692_extended_multiplex.sig1)));
-	r = print_helper(r, fprintf(output, "sig2 = (wire: %.0f)\n", (double)(o->can_0x692_extended_multiplex.sig2)));
+	r = print_helper(r, fprintf(output, "muxed1 = (wire: %.0f)\n", (double)(o->messages.can_0x692_extended_multiplex.muxed1)));
+	r = print_helper(r, fprintf(output, "muxed2 = (wire: %.0f)\n", (double)(o->messages.can_0x692_extended_multiplex.muxed2)));
+	r = print_helper(r, fprintf(output, "simple_muxer = (wire: %.0f)\n", (double)(o->messages.can_0x692_extended_multiplex.simple_muxer)));
+	r = print_helper(r, fprintf(output, "muxed_muxer = (wire: %.0f)\n", (double)(o->messages.can_0x692_extended_multiplex.muxed_muxer)));
+	r = print_helper(r, fprintf(output, "sig3 = (wire: %.0f)\n", (double)(o->messages.can_0x692_extended_multiplex.sig3)));
+	r = print_helper(r, fprintf(output, "sig1 = (wire: %.0f)\n", (double)(o->messages.can_0x692_extended_multiplex.sig1)));
+	r = print_helper(r, fprintf(output, "sig2 = (wire: %.0f)\n", (double)(o->messages.can_0x692_extended_multiplex.sig2)));
 	return r;
 }
 
-int unpack_message(can_obj_mul_val_h_t *o, const unsigned long id, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+int unpack_message(can_obj_mul_val_h_t *o, const unsigned long id, uint64_t data, uint8_t dlc) {
 	assert(o);
 	assert(id < (1ul << 29)); /* 29-bit CAN ID is largest possible */
 	assert(dlc <= 8);         /* Maximum of 8 bytes in a CAN packet */
 	switch (id) {
-	case 0x000: return unpack_can_0x000_extended_multiplex_w_ranges(o, data, dlc, time_stamp);
-	case 0x692: return unpack_can_0x692_extended_multiplex(o, data, dlc, time_stamp);
+	case 0x000: return unpack_can_0x000_extended_multiplex_w_ranges(o, data, dlc);
+	case 0x692: return unpack_can_0x692_extended_multiplex(o, data, dlc);
 	default: break; 
 	}
 	return -1; 
@@ -351,6 +385,8 @@ int print_message(const can_obj_mul_val_h_t *o, const unsigned long id, FILE *ou
 	assert(o);
 	assert(id < (1ul << 29)); /* 29-bit CAN ID is largest possible */
 	assert(output);
+	if (o->can_id != id)
+		return -1;
 	switch (id) {
 	case 0x000: return print_can_0x000_extended_multiplex_w_ranges(o, output);
 	case 0x692: return print_can_0x692_extended_multiplex(o, output);

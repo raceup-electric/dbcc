@@ -11,6 +11,7 @@ better MISRA-C support.
 
 #include "single-enum.h"
 #include <inttypes.h>
+#include <string.h>
 #include <assert.h>
 
 #define UNUSED(X) ((void)(X))
@@ -29,17 +30,19 @@ static inline int print_helper(int r, int print_return_value) {
 static int pack_can_0x001_enum1(can_obj_single_enum_h_t *o, uint64_t *data) {
 	assert(o);
 	assert(data);
+	if (o->can_id != 0x001)
+		memset(&o->messages, 0, sizeof(o->messages));
 	register uint64_t x;
 	register uint64_t i = 0;
 	/* state: start-bit 0, length 4, endianess intel, scaling 1, offset 0 */
-	x = ((uint8_t)(o->can_0x001_enum1.state)) & 0xf;
+	x = ((uint8_t)(o->messages.can_0x001_enum1.state)) & 0xf;
 	i |= x;
 	*data = (i);
-	o->can_0x001_enum1_tx = 1;
+	o->can_id = 0x001;
 	return 8;
 }
 
-static int unpack_can_0x001_enum1(can_obj_single_enum_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x001_enum1(can_obj_single_enum_h_t *o, uint64_t data, uint8_t dlc) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -48,49 +51,55 @@ static int unpack_can_0x001_enum1(can_obj_single_enum_h_t *o, uint64_t data, uin
 		return -1;
 	/* state: start-bit 0, length 4, endianess intel, scaling 1, offset 0 */
 	x = i & 0xf;
-	o->can_0x001_enum1.state = x;
-	o->can_0x001_enum1_rx = 1;
-	o->can_0x001_enum1_time_stamp_rx = time_stamp;
+	o->messages.can_0x001_enum1.state = x;
+	o->can_id = 0x001;
 	return 8;
 }
 
 int decode_can_0x001_state(const can_obj_single_enum_h_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
-	uint8_t rval = (uint8_t)(o->can_0x001_enum1.state);
+	if (o->can_id != 0x001)
+		return -1;
+	uint8_t rval = (uint8_t)(o->messages.can_0x001_enum1.state);
 	*out = rval;
 	return 0;
 }
 
 int encode_can_0x001_state(can_obj_single_enum_h_t *o, uint8_t in) {
 	assert(o);
-	o->can_0x001_enum1.state = in;
+	o->can_id = 0x001;
+	o->messages.can_0x001_enum1.state = in;
 	return 0;
 }
 
 int print_can_0x001_enum1(const can_obj_single_enum_h_t *o, FILE *output) {
 	assert(o);
 	assert(output);
+	if (o->can_id != 0x001)
+		return -1;
 	int r = 0;
-	r = print_helper(r, fprintf(output, "state = (wire: %.0f)\n", (double)(o->can_0x001_enum1.state)));
+	r = print_helper(r, fprintf(output, "state = (wire: %.0f)\n", (double)(o->messages.can_0x001_enum1.state)));
 	return r;
 }
 
 static int pack_can_0x003_IVT_Ctrl(can_obj_single_enum_h_t *o, uint64_t *data) {
 	assert(o);
 	assert(data);
+	if (o->can_id != 0x003)
+		memset(&o->messages, 0, sizeof(o->messages));
 	register uint64_t x;
 	register uint64_t i = 0;
 	/* IVT_Ctrl_Fuse_State: start-bit 13, length 1, endianess intel, scaling 1, offset 0 */
-	x = ((uint8_t)(o->can_0x003_IVT_Ctrl.IVT_Ctrl_Fuse_State)) & 0x1;
+	x = ((uint8_t)(o->messages.can_0x003_IVT_Ctrl.IVT_Ctrl_Fuse_State)) & 0x1;
 	x <<= 13; 
 	i |= x;
 	*data = (i);
-	o->can_0x003_IVT_Ctrl_tx = 1;
+	o->can_id = 0x003;
 	return 8;
 }
 
-static int unpack_can_0x003_IVT_Ctrl(can_obj_single_enum_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x003_IVT_Ctrl(can_obj_single_enum_h_t *o, uint64_t data, uint8_t dlc) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -99,48 +108,54 @@ static int unpack_can_0x003_IVT_Ctrl(can_obj_single_enum_h_t *o, uint64_t data, 
 		return -1;
 	/* IVT_Ctrl_Fuse_State: start-bit 13, length 1, endianess intel, scaling 1, offset 0 */
 	x = (i >> 13) & 0x1;
-	o->can_0x003_IVT_Ctrl.IVT_Ctrl_Fuse_State = x;
-	o->can_0x003_IVT_Ctrl_rx = 1;
-	o->can_0x003_IVT_Ctrl_time_stamp_rx = time_stamp;
+	o->messages.can_0x003_IVT_Ctrl.IVT_Ctrl_Fuse_State = x;
+	o->can_id = 0x003;
 	return 8;
 }
 
 int decode_can_0x003_IVT_Ctrl_Fuse_State(const can_obj_single_enum_h_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
-	uint8_t rval = (uint8_t)(o->can_0x003_IVT_Ctrl.IVT_Ctrl_Fuse_State);
+	if (o->can_id != 0x003)
+		return -1;
+	uint8_t rval = (uint8_t)(o->messages.can_0x003_IVT_Ctrl.IVT_Ctrl_Fuse_State);
 	*out = rval;
 	return 0;
 }
 
 int encode_can_0x003_IVT_Ctrl_Fuse_State(can_obj_single_enum_h_t *o, uint8_t in) {
 	assert(o);
-	o->can_0x003_IVT_Ctrl.IVT_Ctrl_Fuse_State = in;
+	o->can_id = 0x003;
+	o->messages.can_0x003_IVT_Ctrl.IVT_Ctrl_Fuse_State = in;
 	return 0;
 }
 
 int print_can_0x003_IVT_Ctrl(const can_obj_single_enum_h_t *o, FILE *output) {
 	assert(o);
 	assert(output);
+	if (o->can_id != 0x003)
+		return -1;
 	int r = 0;
-	r = print_helper(r, fprintf(output, "IVT_Ctrl_Fuse_State = (wire: %.0f)\n", (double)(o->can_0x003_IVT_Ctrl.IVT_Ctrl_Fuse_State)));
+	r = print_helper(r, fprintf(output, "IVT_Ctrl_Fuse_State = (wire: %.0f)\n", (double)(o->messages.can_0x003_IVT_Ctrl.IVT_Ctrl_Fuse_State)));
 	return r;
 }
 
 static int pack_can_0x004_enum2(can_obj_single_enum_h_t *o, uint64_t *data) {
 	assert(o);
 	assert(data);
+	if (o->can_id != 0x004)
+		memset(&o->messages, 0, sizeof(o->messages));
 	register uint64_t x;
 	register uint64_t i = 0;
 	/* state: start-bit 0, length 4, endianess intel, scaling 1, offset 0 */
-	x = ((uint8_t)(o->can_0x004_enum2.state)) & 0xf;
+	x = ((uint8_t)(o->messages.can_0x004_enum2.state)) & 0xf;
 	i |= x;
 	*data = (i);
-	o->can_0x004_enum2_tx = 1;
+	o->can_id = 0x004;
 	return 8;
 }
 
-static int unpack_can_0x004_enum2(can_obj_single_enum_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x004_enum2(can_obj_single_enum_h_t *o, uint64_t data, uint8_t dlc) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -149,48 +164,54 @@ static int unpack_can_0x004_enum2(can_obj_single_enum_h_t *o, uint64_t data, uin
 		return -1;
 	/* state: start-bit 0, length 4, endianess intel, scaling 1, offset 0 */
 	x = i & 0xf;
-	o->can_0x004_enum2.state = x;
-	o->can_0x004_enum2_rx = 1;
-	o->can_0x004_enum2_time_stamp_rx = time_stamp;
+	o->messages.can_0x004_enum2.state = x;
+	o->can_id = 0x004;
 	return 8;
 }
 
 int decode_can_0x004_state(const can_obj_single_enum_h_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
-	uint8_t rval = (uint8_t)(o->can_0x004_enum2.state);
+	if (o->can_id != 0x004)
+		return -1;
+	uint8_t rval = (uint8_t)(o->messages.can_0x004_enum2.state);
 	*out = rval;
 	return 0;
 }
 
 int encode_can_0x004_state(can_obj_single_enum_h_t *o, uint8_t in) {
 	assert(o);
-	o->can_0x004_enum2.state = in;
+	o->can_id = 0x004;
+	o->messages.can_0x004_enum2.state = in;
 	return 0;
 }
 
 int print_can_0x004_enum2(const can_obj_single_enum_h_t *o, FILE *output) {
 	assert(o);
 	assert(output);
+	if (o->can_id != 0x004)
+		return -1;
 	int r = 0;
-	r = print_helper(r, fprintf(output, "state = (wire: %.0f)\n", (double)(o->can_0x004_enum2.state)));
+	r = print_helper(r, fprintf(output, "state = (wire: %.0f)\n", (double)(o->messages.can_0x004_enum2.state)));
 	return r;
 }
 
 static int pack_can_0x122_IVT_SleepAck(can_obj_single_enum_h_t *o, uint64_t *data) {
 	assert(o);
 	assert(data);
+	if (o->can_id != 0x122)
+		memset(&o->messages, 0, sizeof(o->messages));
 	register uint64_t x;
 	register uint64_t i = 0;
 	/* IVT_SleepAck: start-bit 0, length 4, endianess intel, scaling 1, offset 0 */
-	x = ((uint8_t)(o->can_0x122_IVT_SleepAck.IVT_SleepAck)) & 0xf;
+	x = ((uint8_t)(o->messages.can_0x122_IVT_SleepAck.IVT_SleepAck)) & 0xf;
 	i |= x;
 	*data = (i);
-	o->can_0x122_IVT_SleepAck_tx = 1;
+	o->can_id = 0x122;
 	return 1;
 }
 
-static int unpack_can_0x122_IVT_SleepAck(can_obj_single_enum_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x122_IVT_SleepAck(can_obj_single_enum_h_t *o, uint64_t data, uint8_t dlc) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -200,43 +221,47 @@ static int unpack_can_0x122_IVT_SleepAck(can_obj_single_enum_h_t *o, uint64_t da
 	/* IVT_SleepAck: start-bit 0, length 4, endianess intel, scaling 1, offset 0 */
 	x = i & 0xf;
 	x = (x & 0x8) ? (x | 0xf0) : x; 
-	o->can_0x122_IVT_SleepAck.IVT_SleepAck = x;
-	o->can_0x122_IVT_SleepAck_rx = 1;
-	o->can_0x122_IVT_SleepAck_time_stamp_rx = time_stamp;
+	o->messages.can_0x122_IVT_SleepAck.IVT_SleepAck = x;
+	o->can_id = 0x122;
 	return 1;
 }
 
 int decode_can_0x122_IVT_SleepAck(const can_obj_single_enum_h_t *o, int8_t *out) {
 	assert(o);
 	assert(out);
-	int8_t rval = (int8_t)(o->can_0x122_IVT_SleepAck.IVT_SleepAck);
+	if (o->can_id != 0x122)
+		return -1;
+	int8_t rval = (int8_t)(o->messages.can_0x122_IVT_SleepAck.IVT_SleepAck);
 	*out = rval;
 	return 0;
 }
 
 int encode_can_0x122_IVT_SleepAck(can_obj_single_enum_h_t *o, int8_t in) {
 	assert(o);
-	o->can_0x122_IVT_SleepAck.IVT_SleepAck = in;
+	o->can_id = 0x122;
+	o->messages.can_0x122_IVT_SleepAck.IVT_SleepAck = in;
 	return 0;
 }
 
 int print_can_0x122_IVT_SleepAck(const can_obj_single_enum_h_t *o, FILE *output) {
 	assert(o);
 	assert(output);
+	if (o->can_id != 0x122)
+		return -1;
 	int r = 0;
-	r = print_helper(r, fprintf(output, "IVT_SleepAck = (wire: %.0f)\n", (double)(o->can_0x122_IVT_SleepAck.IVT_SleepAck)));
+	r = print_helper(r, fprintf(output, "IVT_SleepAck = (wire: %.0f)\n", (double)(o->messages.can_0x122_IVT_SleepAck.IVT_SleepAck)));
 	return r;
 }
 
-int unpack_message(can_obj_single_enum_h_t *o, const unsigned long id, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+int unpack_message(can_obj_single_enum_h_t *o, const unsigned long id, uint64_t data, uint8_t dlc) {
 	assert(o);
 	assert(id < (1ul << 29)); /* 29-bit CAN ID is largest possible */
 	assert(dlc <= 8);         /* Maximum of 8 bytes in a CAN packet */
 	switch (id) {
-	case 0x001: return unpack_can_0x001_enum1(o, data, dlc, time_stamp);
-	case 0x003: return unpack_can_0x003_IVT_Ctrl(o, data, dlc, time_stamp);
-	case 0x004: return unpack_can_0x004_enum2(o, data, dlc, time_stamp);
-	case 0x122: return unpack_can_0x122_IVT_SleepAck(o, data, dlc, time_stamp);
+	case 0x001: return unpack_can_0x001_enum1(o, data, dlc);
+	case 0x003: return unpack_can_0x003_IVT_Ctrl(o, data, dlc);
+	case 0x004: return unpack_can_0x004_enum2(o, data, dlc);
+	case 0x122: return unpack_can_0x122_IVT_SleepAck(o, data, dlc);
 	default: break; 
 	}
 	return -1; 
@@ -271,6 +296,8 @@ int print_message(const can_obj_single_enum_h_t *o, const unsigned long id, FILE
 	assert(o);
 	assert(id < (1ul << 29)); /* 29-bit CAN ID is largest possible */
 	assert(output);
+	if (o->can_id != id)
+		return -1;
 	switch (id) {
 	case 0x001: return print_can_0x001_enum1(o, output);
 	case 0x003: return print_can_0x003_IVT_Ctrl(o, output);

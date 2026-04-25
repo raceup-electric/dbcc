@@ -42,20 +42,6 @@ typedef double dbcc_double_t;
 typedef float dbcc_float_t;
 #endif
 
-#ifndef DBCC_TIME_STAMP
-#define DBCC_TIME_STAMP
-typedef uint32_t dbcc_time_stamp_t; /* Time stamp for message; you decide on units */
-#endif
-
-#ifndef DBCC_STATUS_ENUM
-#define DBCC_STATUS_ENUM
-typedef enum {
-	DBCC_SIG_STAT_UNINITIALIZED_E = 0, /* Message never sent/received */
-	DBCC_SIG_STAT_OK_E            = 1, /* Message ok */
-	DBCC_SIG_STAT_ERROR_E         = 2, /* Encode/Decode/Timestamp/Any error */
-} dbcc_signal_status_e;
-#endif
-
 #define CAN_ID_NEWMESSAGE0 (1024) /* 0x400 */
 
 typedef PREPACK struct {
@@ -63,14 +49,13 @@ typedef PREPACK struct {
 } POSTPACK can_0x400_NewMessage0_t;
 
 typedef PREPACK struct {
-	dbcc_time_stamp_t can_0x400_NewMessage0_time_stamp_rx;
-	unsigned can_0x400_NewMessage0_status : 2;
-	unsigned can_0x400_NewMessage0_tx : 1;
-	unsigned can_0x400_NewMessage0_rx : 1;
-	can_0x400_NewMessage0_t can_0x400_NewMessage0;
+	unsigned long can_id; /* Identifier for the message currently stored in messages */
+	union {
+		can_0x400_NewMessage0_t can_0x400_NewMessage0;
+	} messages;
 } POSTPACK can_obj_double_signal_h_t;
 
-int unpack_message(can_obj_double_signal_h_t *o, const unsigned long id, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp);
+int unpack_message(can_obj_double_signal_h_t *o, const unsigned long id, uint64_t data, uint8_t dlc);
 int pack_message(can_obj_double_signal_h_t *o, const unsigned long id, uint64_t *data);
 int message_dlc(const unsigned long id);
 int print_message(const can_obj_double_signal_h_t *o, const unsigned long id, FILE *output);

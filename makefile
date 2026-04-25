@@ -72,7 +72,7 @@ TESTS=${OUTDIR}/ex1.c \
       ${OUTDIR}/enum.c \
       ${OUTDIR}/mul-val.c \
       ${OUTDIR}/single-enum.c \
-      ${OUTDIR}/val-table.c
+      ${OUTDIR}/bitfield-edge.c
 
 test: ${TESTS}
 	make -C ${OUTDIR}

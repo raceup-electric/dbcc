@@ -1,5 +1,6 @@
 dbcc
 *.dbc
+!bitfield-edge.dbc
 core
 vgcore.*
 *.o

@@ -11,6 +11,7 @@ better MISRA-C support.
 
 #include "float_signal.h"
 #include <inttypes.h>
+#include <string.h>
 #include <math.h> /* uses macros NAN, INFINITY, signbit, no need for -lm */
 #include <assert.h>
 
@@ -98,21 +99,23 @@ static inline uint64_t   pack754_64(const double f)   { return   pack754(f, 64, 
 static int pack_can_0x400_NewMessage0(can_obj_float_signal_h_t *o, uint64_t *data) {
 	assert(o);
 	assert(data);
+	if (o->can_id != 0x400)
+		memset(&o->messages, 0, sizeof(o->messages));
 	register uint64_t x;
 	register uint64_t i = 0;
 	/* FloatSignal0: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
-	x = pack754_32(o->can_0x400_NewMessage0.FloatSignal0) & 0xffffffff;
+	x = pack754_32(o->messages.can_0x400_NewMessage0.FloatSignal0) & 0xffffffff;
 	i |= x;
 	/* FloatSignal1: start-bit 32, length 32, endianess intel, scaling 1, offset 0 */
-	x = pack754_32(o->can_0x400_NewMessage0.FloatSignal1) & 0xffffffff;
+	x = pack754_32(o->messages.can_0x400_NewMessage0.FloatSignal1) & 0xffffffff;
 	x <<= 32; 
 	i |= x;
 	*data = (i);
-	o->can_0x400_NewMessage0_tx = 1;
+	o->can_id = 0x400;
 	return 8;
 }
 
-static int unpack_can_0x400_NewMessage0(can_obj_float_signal_h_t *o, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+static int unpack_can_0x400_NewMessage0(can_obj_float_signal_h_t *o, uint64_t data, uint8_t dlc) {
 	assert(o);
 	assert(dlc <= 8);
 	register uint64_t x;
@@ -121,58 +124,65 @@ static int unpack_can_0x400_NewMessage0(can_obj_float_signal_h_t *o, uint64_t da
 		return -1;
 	/* FloatSignal0: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
 	x = i & 0xffffffff;
-	o->can_0x400_NewMessage0.FloatSignal0 = unpack754_32(x);
+	o->messages.can_0x400_NewMessage0.FloatSignal0 = unpack754_32(x);
 	/* FloatSignal1: start-bit 32, length 32, endianess intel, scaling 1, offset 0 */
 	x = (i >> 32) & 0xffffffff;
-	o->can_0x400_NewMessage0.FloatSignal1 = unpack754_32(x);
-	o->can_0x400_NewMessage0_rx = 1;
-	o->can_0x400_NewMessage0_time_stamp_rx = time_stamp;
+	o->messages.can_0x400_NewMessage0.FloatSignal1 = unpack754_32(x);
+	o->can_id = 0x400;
 	return 8;
 }
 
 int decode_can_0x400_FloatSignal0(const can_obj_float_signal_h_t *o, dbcc_float_t *out) {
 	assert(o);
 	assert(out);
-	dbcc_float_t rval = (dbcc_float_t)(o->can_0x400_NewMessage0.FloatSignal0);
+	if (o->can_id != 0x400)
+		return -1;
+	dbcc_float_t rval = (dbcc_float_t)(o->messages.can_0x400_NewMessage0.FloatSignal0);
 	*out = rval;
 	return 0;
 }
 
 int encode_can_0x400_FloatSignal0(can_obj_float_signal_h_t *o, dbcc_float_t in) {
 	assert(o);
-	o->can_0x400_NewMessage0.FloatSignal0 = in;
+	o->can_id = 0x400;
+	o->messages.can_0x400_NewMessage0.FloatSignal0 = in;
 	return 0;
 }
 
 int decode_can_0x400_FloatSignal1(const can_obj_float_signal_h_t *o, dbcc_float_t *out) {
 	assert(o);
 	assert(out);
-	dbcc_float_t rval = (dbcc_float_t)(o->can_0x400_NewMessage0.FloatSignal1);
+	if (o->can_id != 0x400)
+		return -1;
+	dbcc_float_t rval = (dbcc_float_t)(o->messages.can_0x400_NewMessage0.FloatSignal1);
 	*out = rval;
 	return 0;
 }
 
 int encode_can_0x400_FloatSignal1(can_obj_float_signal_h_t *o, dbcc_float_t in) {
 	assert(o);
-	o->can_0x400_NewMessage0.FloatSignal1 = in;
+	o->can_id = 0x400;
+	o->messages.can_0x400_NewMessage0.FloatSignal1 = in;
 	return 0;
 }
 
 int print_can_0x400_NewMessage0(const can_obj_float_signal_h_t *o, FILE *output) {
 	assert(o);
 	assert(output);
+	if (o->can_id != 0x400)
+		return -1;
 	int r = 0;
-	r = print_helper(r, fprintf(output, "FloatSignal0 = (wire: %g)\n", (double)(o->can_0x400_NewMessage0.FloatSignal0)));
-	r = print_helper(r, fprintf(output, "FloatSignal1 = (wire: %g)\n", (double)(o->can_0x400_NewMessage0.FloatSignal1)));
+	r = print_helper(r, fprintf(output, "FloatSignal0 = (wire: %g)\n", (double)(o->messages.can_0x400_NewMessage0.FloatSignal0)));
+	r = print_helper(r, fprintf(output, "FloatSignal1 = (wire: %g)\n", (double)(o->messages.can_0x400_NewMessage0.FloatSignal1)));
 	return r;
 }
 
-int unpack_message(can_obj_float_signal_h_t *o, const unsigned long id, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp) {
+int unpack_message(can_obj_float_signal_h_t *o, const unsigned long id, uint64_t data, uint8_t dlc) {
 	assert(o);
 	assert(id < (1ul << 29)); /* 29-bit CAN ID is largest possible */
 	assert(dlc <= 8);         /* Maximum of 8 bytes in a CAN packet */
 	switch (id) {
-	case 0x400: return unpack_can_0x400_NewMessage0(o, data, dlc, time_stamp);
+	case 0x400: return unpack_can_0x400_NewMessage0(o, data, dlc);
 	default: break; 
 	}
 	return -1; 
@@ -201,6 +211,8 @@ int print_message(const can_obj_float_signal_h_t *o, const unsigned long id, FIL
 	assert(o);
 	assert(id < (1ul << 29)); /* 29-bit CAN ID is largest possible */
 	assert(output);
+	if (o->can_id != id)
+		return -1;
 	switch (id) {
 	case 0x400: return print_can_0x400_NewMessage0(o, output);
 	default: break; 

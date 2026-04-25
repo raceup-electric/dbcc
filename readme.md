@@ -70,10 +70,18 @@ a better chance of not having breaking changes.
 
 **Version 2:**
 
-- Latest version
-
 - Enum names are qualified with the CAN message name
 - encode/decode function names are also qualified with the message name
+
+**Version 3:**
+
+- Latest version
+- The generated `can_obj_*_t` stores message payloads in a union so its data
+  storage is bounded by the largest CAN message, not by the number of messages
+  in the DBC.
+- Only the currently active message payload is valid. `unpack_message`,
+  `pack_message`, and signal encoders update the active CAN ID stored in the
+  object after a successful operation.
 
 ## How to use the generated code
 
@@ -112,10 +120,11 @@ You can use the following functions to convert to/from a CAN message:
 
 The code generator will make a structure based on the file name of the DBC
 file, so for the example DBC file 'ex1.dbc' a data structure called
-'can\_obj\_ex1\_h\_t' is made. This structure contains all of the CAN message
-structures, which in turn contain all of the signals. Having all of the
-messages/signals in one structure has advantages and disadvantages, one of the
-things it makes easier is defining the data structures needed.
+'can\_obj\_ex1\_h\_t' is made. In version 3 this structure contains the active
+CAN ID and a `messages` union with all CAN message structures. This keeps the
+object size close to the largest generated message structure instead of growing
+with every message in the DBC. Because the payload is a union, only the payload
+for the active CAN ID is valid at any time.
 
 	/* reminder of the 'unpack_message' prototype */
 	int unpack_message(can_obj_ex1_h_t *o, const unsigned long id, uint64_t data, uint8_t dlc);
@@ -134,11 +143,12 @@ things it makes easier is defining the data structures needed.
 'unpack\_message' calls the correct unpack function for that ID, as an example
 for ID '0x020':
 
-	case 0x020: return unpack_can_0x020_MagicCanNode1RBootloaderAddress(&o->can_0x020_MagicCanNode1RBootloaderAddress, data, dlc);
+	case 0x020: return unpack_can_0x020_MagicCanNode1RBootloaderAddress(o, data, dlc);
 
-The unpack function populates the message object in the 'can\_obj\_ex1\_h\_t'
-structure for that ID. The individual signals can then be decoded with the
-appropriate functions for that signal. For example:
+The unpack function populates the union member in `can_obj_ex1_h_t.messages`
+for that ID. The individual signals can then be decoded with the appropriate
+functions for that signal. A decode function returns an error if the active
+CAN ID in the object does not match the signal's message. For example:
 
 	uint16_t b = 0;
 	if (decode_can_0x020_MagicNode1R_BLAddy(o, &b)) {
@@ -214,10 +224,6 @@ does not have to make them as either an enumeration or a define.
 should be packed/unpacked correctly, however the encode/decode and printing
 functions will not as they use doubles for calculations (pack/unpack do not).
 This affects numbers larger than 2^53. 
-* There are two pieces of information that are useful to any CAN stack for
-received messages; the time stamp of the received message, and the status
-(error CRC/timeout, message okay, or message never set). This information could
-be included in the generated C code.
 * Enumeration values could be checked for and only correct values should
 be decoded, and encoded. There is more stuff that can be done with the
 enumeration values, along with command line options to enumeration generation.
@@ -226,8 +232,8 @@ decoding, and other callbacks in general, could be added. Packing and unpacking
 floats is done in what should be a portable, but not fast, way.
 * A mechanism and system for error handling should be added, that is, a simple
 communications manager that does the following:
-  - Each signal should have three values associated with it; Unknown (the
-    signal has never been set), Valid, and Error (for *any* error).
+  - Each signal operation should report Unknown (the signal has never been
+    set), Valid, or Error (for *any* error) through return values.
   - If the time out for a message goes out, or a CRC check fails, then
     all of the messages child messages should get invalidated and set the
     error state.

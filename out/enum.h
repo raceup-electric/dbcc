@@ -42,27 +42,13 @@ typedef double dbcc_double_t;
 typedef float dbcc_float_t;
 #endif
 
-#ifndef DBCC_TIME_STAMP
-#define DBCC_TIME_STAMP
-typedef uint32_t dbcc_time_stamp_t; /* Time stamp for message; you decide on units */
-#endif
-
-#ifndef DBCC_STATUS_ENUM
-#define DBCC_STATUS_ENUM
-typedef enum {
-	DBCC_SIG_STAT_UNINITIALIZED_E = 0, /* Message never sent/received */
-	DBCC_SIG_STAT_OK_E            = 1, /* Message ok */
-	DBCC_SIG_STAT_ERROR_E         = 2, /* Encode/Decode/Timestamp/Any error */
-} dbcc_signal_status_e;
-#endif
-
 #define CAN_ID_ENUM1 (1) /* 0x1 */
 #define CAN_ID_IVT_CTRL (3) /* 0x3 */
 #define CAN_ID_ENUM2 (4) /* 0x4 */
 #define CAN_ID_IVT_SLEEPACK (290) /* 0x122 */
 
 typedef PREPACK struct {
-	uint8_t state; /* scaling 1.0, offset 0.0, units none */
+	unsigned long long state : 4; /* scaling 1.0, offset 0.0, units none */
 } POSTPACK can_0x001_enum1_t;
 
 typedef enum {
@@ -74,7 +60,7 @@ typedef enum {
 typedef PREPACK struct {
 	/* IVT_Ctrl_Fuse_State: cm 1 */
 	/* scaling 1.0, offset 0.0, units none */
-	uint8_t IVT_Ctrl_Fuse_State;
+	unsigned long long IVT_Ctrl_Fuse_State : 1;
 } POSTPACK can_0x003_IVT_Ctrl_t;
 
 typedef enum {
@@ -83,11 +69,11 @@ typedef enum {
 } can_0x003_IVT_Ctrl_IVT_Ctrl_Fuse_State_e;
 
 typedef PREPACK struct {
-	uint8_t state; /* scaling 1.0, offset 0.0, units none */
+	unsigned long long state : 4; /* scaling 1.0, offset 0.0, units none */
 } POSTPACK can_0x004_enum2_t;
 
 typedef PREPACK struct {
-	int8_t IVT_SleepAck; /* scaling 1.0, offset 0.0, units none */
+	signed long long IVT_SleepAck : 4; /* scaling 1.0, offset 0.0, units none */
 } POSTPACK can_0x122_IVT_SleepAck_t;
 
 typedef enum {
@@ -110,29 +96,16 @@ typedef enum {
 } can_0x122_IVT_SleepAck_IVT_SleepAck_e;
 
 typedef PREPACK struct {
-	dbcc_time_stamp_t can_0x001_enum1_time_stamp_rx;
-	dbcc_time_stamp_t can_0x003_IVT_Ctrl_time_stamp_rx;
-	dbcc_time_stamp_t can_0x004_enum2_time_stamp_rx;
-	dbcc_time_stamp_t can_0x122_IVT_SleepAck_time_stamp_rx;
-	unsigned can_0x001_enum1_status : 2;
-	unsigned can_0x001_enum1_tx : 1;
-	unsigned can_0x001_enum1_rx : 1;
-	unsigned can_0x003_IVT_Ctrl_status : 2;
-	unsigned can_0x003_IVT_Ctrl_tx : 1;
-	unsigned can_0x003_IVT_Ctrl_rx : 1;
-	unsigned can_0x004_enum2_status : 2;
-	unsigned can_0x004_enum2_tx : 1;
-	unsigned can_0x004_enum2_rx : 1;
-	unsigned can_0x122_IVT_SleepAck_status : 2;
-	unsigned can_0x122_IVT_SleepAck_tx : 1;
-	unsigned can_0x122_IVT_SleepAck_rx : 1;
-	can_0x001_enum1_t can_0x001_enum1;
-	can_0x003_IVT_Ctrl_t can_0x003_IVT_Ctrl;
-	can_0x004_enum2_t can_0x004_enum2;
-	can_0x122_IVT_SleepAck_t can_0x122_IVT_SleepAck;
+	unsigned long can_id; /* Identifier for the message currently stored in messages */
+	union {
+		can_0x001_enum1_t can_0x001_enum1;
+		can_0x003_IVT_Ctrl_t can_0x003_IVT_Ctrl;
+		can_0x004_enum2_t can_0x004_enum2;
+		can_0x122_IVT_SleepAck_t can_0x122_IVT_SleepAck;
+	} messages;
 } POSTPACK can_obj_enum_h_t;
 
-int unpack_message(can_obj_enum_h_t *o, const unsigned long id, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp);
+int unpack_message(can_obj_enum_h_t *o, const unsigned long id, uint64_t data, uint8_t dlc);
 int pack_message(can_obj_enum_h_t *o, const unsigned long id, uint64_t *data);
 int message_dlc(const unsigned long id);
 int print_message(const can_obj_enum_h_t *o, const unsigned long id, FILE *output);

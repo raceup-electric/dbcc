@@ -42,52 +42,33 @@ typedef double dbcc_double_t;
 typedef float dbcc_float_t;
 #endif
 
-#ifndef DBCC_TIME_STAMP
-#define DBCC_TIME_STAMP
-typedef uint32_t dbcc_time_stamp_t; /* Time stamp for message; you decide on units */
-#endif
-
-#ifndef DBCC_STATUS_ENUM
-#define DBCC_STATUS_ENUM
-typedef enum {
-	DBCC_SIG_STAT_UNINITIALIZED_E = 0, /* Message never sent/received */
-	DBCC_SIG_STAT_OK_E            = 1, /* Message ok */
-	DBCC_SIG_STAT_ERROR_E         = 2, /* Encode/Decode/Timestamp/Any error */
-} dbcc_signal_status_e;
-#endif
-
 #define CAN_ID_EXTENDED_MULTIPLEX_W_RANGES (0) /* 0x0 */
 #define CAN_ID_EXTENDED_MULTIPLEX (1682) /* 0x692 */
 
 typedef PREPACK struct {
-	uint8_t muxer_w_multiple_ranges; /* scaling 1.0, offset 0.0, units none */
-	int8_t muxed_w_ranges; /* scaling 1.0, offset 0.0, units none */
+	unsigned long long muxer_w_multiple_ranges : 8; /* scaling 1.0, offset 0.0, units none */
+	signed long long muxed_w_ranges : 8; /* scaling 1.0, offset 0.0, units none */
 } POSTPACK can_0x000_extended_multiplex_w_ranges_t;
 
 typedef PREPACK struct {
-	uint32_t muxed1; /* scaling 1.0, offset 0.0, units none */
-	uint32_t muxed2; /* scaling 1.0, offset 0.0, units none */
-	uint16_t simple_muxer; /* scaling 1.0, offset 0.0, units none */
-	uint8_t muxed_muxer; /* scaling 1.0, offset 0.0, units none */
-	uint8_t sig3; /* scaling 1.0, offset 0.0, units none */
-	uint8_t sig1; /* scaling 1.0, offset 0.0, units none */
-	uint8_t sig2; /* scaling -1.0, offset 4.0, units none */
+	unsigned long long muxed1 : 32; /* scaling 1.0, offset 0.0, units none */
+	unsigned long long muxed2 : 32; /* scaling 1.0, offset 0.0, units none */
+	unsigned long long simple_muxer : 16; /* scaling 1.0, offset 0.0, units none */
+	unsigned long long muxed_muxer : 8; /* scaling 1.0, offset 0.0, units none */
+	unsigned long long sig3 : 4; /* scaling 1.0, offset 0.0, units none */
+	unsigned long long sig1 : 2; /* scaling 1.0, offset 0.0, units none */
+	unsigned long long sig2 : 2; /* scaling -1.0, offset 4.0, units none */
 } POSTPACK can_0x692_extended_multiplex_t;
 
 typedef PREPACK struct {
-	dbcc_time_stamp_t can_0x000_extended_multiplex_w_ranges_time_stamp_rx;
-	dbcc_time_stamp_t can_0x692_extended_multiplex_time_stamp_rx;
-	unsigned can_0x000_extended_multiplex_w_ranges_status : 2;
-	unsigned can_0x000_extended_multiplex_w_ranges_tx : 1;
-	unsigned can_0x000_extended_multiplex_w_ranges_rx : 1;
-	unsigned can_0x692_extended_multiplex_status : 2;
-	unsigned can_0x692_extended_multiplex_tx : 1;
-	unsigned can_0x692_extended_multiplex_rx : 1;
-	can_0x000_extended_multiplex_w_ranges_t can_0x000_extended_multiplex_w_ranges;
-	can_0x692_extended_multiplex_t can_0x692_extended_multiplex;
+	unsigned long can_id; /* Identifier for the message currently stored in messages */
+	union {
+		can_0x000_extended_multiplex_w_ranges_t can_0x000_extended_multiplex_w_ranges;
+		can_0x692_extended_multiplex_t can_0x692_extended_multiplex;
+	} messages;
 } POSTPACK can_obj_mul_val_h_t;
 
-int unpack_message(can_obj_mul_val_h_t *o, const unsigned long id, uint64_t data, uint8_t dlc, dbcc_time_stamp_t time_stamp);
+int unpack_message(can_obj_mul_val_h_t *o, const unsigned long id, uint64_t data, uint8_t dlc);
 int pack_message(can_obj_mul_val_h_t *o, const unsigned long id, uint64_t *data);
 int message_dlc(const unsigned long id);
 int print_message(const can_obj_mul_val_h_t *o, const unsigned long id, FILE *output);
