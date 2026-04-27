@@ -1,0 +1,78 @@
+VERSION ""
+
+
+NS_ :
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+
+BS_:
+
+BU_: TEST_NODE
+
+VAL_TABLE_ MatrixState 0 "OFF" 1 "ON" 2 "ERROR";
+
+BO_ 200 MatrixIntelTypes: 8 TEST_NODE
+ SG_ u8 : 0|8@1+ (1,0) [0|255] "" TEST_NODE
+ SG_ s8 : 8|8@1- (1,0) [-128|127] "" TEST_NODE
+ SG_ u12 : 16|12@1+ (1,0) [0|4095] "" TEST_NODE
+ SG_ s12 : 28|12@1- (-1,100) [-1947|2148] "" TEST_NODE
+ SG_ state : 40|2@1+ (1,0) [0|2] "" TEST_NODE
+ SG_ inline_enum : 42|2@1+ (1,0) [0|3] "" TEST_NODE
+
+BO_ 201 MatrixIntelScaled: 8 TEST_NODE
+ SG_ scale_0p1 : 0|16@1+ (0.1,0) [0|6553.5] "" TEST_NODE
+ SG_ scale_0p01_offset_m40 : 16|16@1+ (0.01,-40) [-40|615.35] "" TEST_NODE
+ SG_ scale_0p5_offset_1p5 : 32|8@1+ (0.5,1.5) [1.5|129] "" TEST_NODE
+
+BO_ 202 MatrixMotorolaTypes: 8 TEST_NODE
+ SG_ u8_be : 7|8@0+ (1,0) [0|255] "" TEST_NODE
+ SG_ s8_be : 15|8@0- (1,0) [-128|127] "" TEST_NODE
+ SG_ u12_be : 23|12@0+ (1,0) [0|4095] "" TEST_NODE
+ SG_ s12_be : 27|12@0- (-1,100) [-1947|2148] "" TEST_NODE
+ SG_ state_be : 47|2@0+ (1,0) [0|2] "" TEST_NODE
+ SG_ inline_enum_be : 45|2@0+ (1,0) [0|3] "" TEST_NODE
+
+BO_ 203 MatrixMotorolaScaled: 8 TEST_NODE
+ SG_ scale_0p1_be : 7|16@0+ (0.1,0) [0|6553.5] "" TEST_NODE
+ SG_ scale_0p01_offset_m40_be : 23|16@0+ (0.01,-40) [-40|615.35] "" TEST_NODE
+ SG_ scale_0p5_offset_1p5_be : 39|8@0+ (0.5,1.5) [1.5|129] "" TEST_NODE
+
+BO_ 204 MatrixFloat: 8 TEST_NODE
+ SG_ f32 : 0|32@1+ (1,0) [0|0] "" TEST_NODE
+ SG_ raw32 : 32|32@1+ (1,0) [0|4294967295] "" TEST_NODE
+
+BO_ 205 MatrixDouble: 8 TEST_NODE
+ SG_ d64 : 0|64@1+ (1,0) [0|0] "" TEST_NODE
+
+SIG_VALTYPE_ 204 f32 : 1;
+SIG_VALTYPE_ 205 d64 : 2;
+
+VAL_ 200 state MatrixState;
+VAL_ 200 inline_enum 0 "ZERO" 1 "ONE" 2 "TWO";
+VAL_ 202 state_be MatrixState;
+VAL_ 202 inline_enum_be 0 "ZERO" 1 "ONE" 2 "TWO";

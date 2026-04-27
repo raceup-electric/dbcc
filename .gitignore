@@ -1,6 +1,10 @@
 dbcc
 *.dbc
 !bitfield-edge.dbc
+!bitfield_edge.dbc
+!codec_matrix.dbc
+!mul_val.dbc
+!single_enum.dbc
 core
 vgcore.*
 *.o
@@ -9,7 +13,6 @@ vgcore.*
 *.conf
 *.out
 *.htm
-ex*
 *.1
 *.pdf
 *.html
@@ -40,3 +43,5 @@ Release/
 .project
 
 *.json
+.codex
+out/test_c/test_2c*

@@ -29,140 +29,140 @@ BU_: WS200 MCN_Powertrain
 
 
 BO_ 1024 WS200IDInfo: 8 WS200
- SG_ TritiumID : 0|32@1+ (1,0) [0|0] "" Vector__XXX
- SG_ SerialNumber : 32|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ tritium_id : 0|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ serial_number : 32|32@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 1025 WS200Status: 8 WS200
- SG_ LimitFlags : 0|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ ErrorFlags : 16|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ ActiveMotor : 32|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ TransmitErrorCount : 48|8@1+ (1,0) [0|0] "" Vector__XXX
- SG_ ReceiveErrorCount : 56|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ limit_flags : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ error_flags : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ active_motor : 32|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ transmit_error_count : 48|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ receive_error_count : 56|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 1026 WS200BusMeasurement: 8 WS200
- SG_ BusVoltage : 0|32@1- (1,0) [0|0] "" Vector__XXX
- SG_ BusCurrent : 32|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ bus_voltage : 0|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ bus_current : 32|32@1- (1,0) [0|0] "" Vector__XXX
 
 BO_ 1027 VelocityMeasurement: 8 WS200
- SG_ MotorVelocity : 0|32@1- (1,0) [0|0] "" Vector__XXX
- SG_ VehicleVelocity : 32|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ motor_velocity : 0|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ vehicle_velocity : 32|32@1- (1,0) [0|0] "" Vector__XXX
 
 BO_ 1028 PhaseCurrent: 8 WS200
- SG_ PhaseCurrentB : 0|32@1- (1,0) [0|0] "" Vector__XXX
- SG_ PhaseCurrentC : 32|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ phase_current_b : 0|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ phase_current_c : 32|32@1- (1,0) [0|0] "" Vector__XXX
 
 BO_ 1029 MotorVoltage: 8 WS200
- SG_ Vq : 0|32@1- (1,0) [0|0] "" Vector__XXX
- SG_ Vd : 32|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ vq : 0|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ vd : 32|32@1- (1,0) [0|0] "" Vector__XXX
 
 BO_ 1030 MotorCurrent: 8 WS200
- SG_ Iq : 0|32@1- (1,0) [0|0] "" Vector__XXX
- SG_ Id : 32|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ iq : 0|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ id : 32|32@1- (1,0) [0|0] "" Vector__XXX
 
 BO_ 1031 MotorBackEMF: 8 WS200
- SG_ BEMFq : 0|32@1- (1,0) [0|0] "" Vector__XXX
- SG_ BEMFd : 32|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ bemf_q : 0|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ bemf_d : 32|32@1- (1,0) [0|0] "" Vector__XXX
 
 BO_ 1032 WS200Rail15V: 8 WS200
- SG_ Supply15V : 32|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ supply_15v : 32|32@1- (1,0) [0|0] "" Vector__XXX
 
 BO_ 1033 WS200LowRail: 8 WS200
- SG_ Rail2V : 0|32@1- (1,0) [0|0] "" Vector__XXX
- SG_ Rail3V : 32|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ rail_2v : 0|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ rail_3v : 32|32@1- (1,0) [0|0] "" Vector__XXX
 
 BO_ 994 DynoCoolantFlow: 4 MCN_Powertrain
- SG_ CoolantFlow : 0|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ coolant_flow : 0|32@1- (1,0) [0|0] "" Vector__XXX
 
 BO_ 995 DynoMotorCoolantTemp: 4 MCN_Powertrain
- SG_ MotorCoolantTemp : 0|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ motor_coolant_temp : 0|32@1- (1,0) [0|0] "" Vector__XXX
 
 BO_ 996 DynoMotorControllerCoolantTemp: 4 MCN_Powertrain
- SG_ MotorControllerCoolantTemp : 0|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ motor_controller_coolant_temp : 0|32@1- (1,0) [0|0] "" Vector__XXX
 
 BO_ 997 DynoRadiatorCoolantTemp: 4 MCN_Powertrain
- SG_ RadiatorCoolantTemp : 0|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ radiator_coolant_temp : 0|32@1- (1,0) [0|0] "" Vector__XXX
 
 BO_ 998 DynoCoolantPressures: 8 MCN_Powertrain
- SG_ CoolantPressure1 : 0|32@1- (1,0) [0|0] "" Vector__XXX
- SG_ CoolantPressure2 : 32|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ coolant_pressure_1 : 0|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ coolant_pressure_2 : 32|32@1- (1,0) [0|0] "" Vector__XXX
 
 BO_ 100 DynLoc: 8 Vector__XXX
- SG_ Speed : 0|32@1- (1,0) [0|0] "MPH" Vector__XXX
- SG_ Torque : 32|32@1- (1,0) [0|0] "Nm" Vector__XXX
+ SG_ speed : 0|32@1- (1,0) [0|0] "MPH" Vector__XXX
+ SG_ torque : 32|32@1- (1,0) [0|0] "Nm" Vector__XXX
 
 BO_ 999 DynoMCNStatus: 8 MCN_Powertrain
- SG_ DynoMCNSystemFlags : 0|32@1+ (1,0) [0|0] "" Vector__XXX
- SG_ DynoMCNUserFlags : 32|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ dyno_mcn_system_flags : 0|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ dyno_mcn_user_flags : 32|32@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 992 DynoAmbientTemp: 4 MCN_Powertrain
- SG_ DynoMCNAmbientTemp : 0|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ dyno_mcn_ambient_temp : 0|32@1- (1,0) [0|0] "" Vector__XXX
 
 BO_ 991 DynoMotorTemp: 4 MCN_Powertrain
- SG_ DynoMCNMotorTemp : 0|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ dyno_mcn_motor_temp : 0|32@1- (1,0) [0|0] "" Vector__XXX
 
 BO_ 993 DynoMotorPlateTemps: 8 MCN_Powertrain
- SG_ DynoMotorPlateTemp1 : 0|32@1- (1,0) [0|0] "" Vector__XXX
- SG_ DynoMotorPlateTemp2 : 32|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ dyno_motor_plate_temp_1 : 0|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ dyno_motor_plate_temp_2 : 32|32@1- (1,0) [0|0] "" Vector__XXX
 
 BO_ 1035 WS200MotorTemp: 8 WS200
- SG_ IPMPhaseATemp : 32|32@1- (1,0) [0|0] "" Vector__XXX
- SG_ MotorTemp : 0|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ ipm_phase_a_temp : 32|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ motor_temp : 0|32@1- (1,0) [0|0] "" Vector__XXX
 
 BO_ 1036 WS200DSPBoardTemp: 8 WS200
- SG_ IPMPhaseBTemp : 0|32@1- (1,0) [0|0] "" Vector__XXX
- SG_ DSPBoardTemp : 32|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ ipm_phase_b_temp : 0|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ dsp_board_temp : 32|32@1- (1,0) [0|0] "" Vector__XXX
 
 BO_ 1037 WS200PhaseCTemp: 8 WS200
- SG_ IMPPhaseCTemp : 32|32@1- (1,0) [0|0] "" Vector__XXX
- SG_ Reserved1 : 0|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ ipm_phase_c_temp : 32|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ reserved_1 : 0|32@1- (1,0) [0|0] "" Vector__XXX
 
 BO_ 1038 WS200BusAmpHours: 8 WS200
- SG_ DCBusAmpHours : 32|32@1- (1,0) [0|0] "" Vector__XXX
- SG_ Odometer : 0|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ dc_bus_amp_hours : 32|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ odometer : 0|32@1- (1,0) [0|0] "" Vector__XXX
 
 BO_ 1047 WS200SlipSpeed: 8 WS200
- SG_ SlipSpeed : 0|32@1- (1,0) [0|0] "" Vector__XXX
- SG_ Reserved2 : 32|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ slip_speed : 0|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ reserved_2 : 32|32@1- (1,0) [0|0] "" Vector__XXX
 
 
-CM_ SG_ 1025 ActiveMotor "[0,10]";
-CM_ SG_ 100 Speed "[-10,10]";
-CM_ SG_ 100 Torque "[-20,50]";
+CM_ SG_ 1025 active_motor "[0,10]";
+CM_ SG_ 100 speed "[-10,10]";
+CM_ SG_ 100 torque "[-20,50]";
 CM_ BO_ 991 "";
-SIG_VALTYPE_ 1026 BusVoltage : 1;
-SIG_VALTYPE_ 1026 BusCurrent : 1;
-SIG_VALTYPE_ 1027 MotorVelocity : 1;
-SIG_VALTYPE_ 1027 VehicleVelocity : 1;
-SIG_VALTYPE_ 1028 PhaseCurrentB : 1;
-SIG_VALTYPE_ 1028 PhaseCurrentC : 1;
-SIG_VALTYPE_ 1029 Vq : 1;
-SIG_VALTYPE_ 1029 Vd : 1;
-SIG_VALTYPE_ 1030 Iq : 1;
-SIG_VALTYPE_ 1030 Id : 1;
-SIG_VALTYPE_ 1031 BEMFq : 1;
-SIG_VALTYPE_ 1031 BEMFd : 1;
-SIG_VALTYPE_ 1032 Supply15V : 1;
-SIG_VALTYPE_ 1033 Rail2V : 1;
-SIG_VALTYPE_ 1033 Rail3V : 1;
-SIG_VALTYPE_ 994 CoolantFlow : 1;
-SIG_VALTYPE_ 995 MotorCoolantTemp : 1;
-SIG_VALTYPE_ 996 MotorControllerCoolantTemp : 1;
-SIG_VALTYPE_ 997 RadiatorCoolantTemp : 1;
-SIG_VALTYPE_ 998 CoolantPressure1 : 1;
-SIG_VALTYPE_ 998 CoolantPressure2 : 1;
-SIG_VALTYPE_ 100 Speed : 1;
-SIG_VALTYPE_ 100 Torque : 1;
-SIG_VALTYPE_ 992 DynoMCNAmbientTemp : 1;
-SIG_VALTYPE_ 991 DynoMCNMotorTemp : 1;
-SIG_VALTYPE_ 993 DynoMotorPlateTemp1 : 1;
-SIG_VALTYPE_ 993 DynoMotorPlateTemp2 : 1;
-SIG_VALTYPE_ 1035 IPMPhaseATemp : 1;
-SIG_VALTYPE_ 1035 MotorTemp : 1;
-SIG_VALTYPE_ 1036 IPMPhaseBTemp : 1;
-SIG_VALTYPE_ 1036 DSPBoardTemp : 1;
-SIG_VALTYPE_ 1037 IMPPhaseCTemp : 1;
-SIG_VALTYPE_ 1037 Reserved : 1;
-SIG_VALTYPE_ 1038 DCBusAmpHours : 1;
-SIG_VALTYPE_ 1038 Odometer : 1;
-SIG_VALTYPE_ 1047 SlipSpeed : 1;
-SIG_VALTYPE_ 1047 Reserved : 1;
+SIG_VALTYPE_ 1026 bus_voltage : 1;
+SIG_VALTYPE_ 1026 bus_current : 1;
+SIG_VALTYPE_ 1027 motor_velocity : 1;
+SIG_VALTYPE_ 1027 vehicle_velocity : 1;
+SIG_VALTYPE_ 1028 phase_current_b : 1;
+SIG_VALTYPE_ 1028 phase_current_c : 1;
+SIG_VALTYPE_ 1029 vq : 1;
+SIG_VALTYPE_ 1029 vd : 1;
+SIG_VALTYPE_ 1030 iq : 1;
+SIG_VALTYPE_ 1030 id : 1;
+SIG_VALTYPE_ 1031 bemf_q : 1;
+SIG_VALTYPE_ 1031 bemf_d : 1;
+SIG_VALTYPE_ 1032 supply_15v : 1;
+SIG_VALTYPE_ 1033 rail_2v : 1;
+SIG_VALTYPE_ 1033 rail_3v : 1;
+SIG_VALTYPE_ 994 coolant_flow : 1;
+SIG_VALTYPE_ 995 motor_coolant_temp : 1;
+SIG_VALTYPE_ 996 motor_controller_coolant_temp : 1;
+SIG_VALTYPE_ 997 radiator_coolant_temp : 1;
+SIG_VALTYPE_ 998 coolant_pressure_1 : 1;
+SIG_VALTYPE_ 998 coolant_pressure_2 : 1;
+SIG_VALTYPE_ 100 speed : 1;
+SIG_VALTYPE_ 100 torque : 1;
+SIG_VALTYPE_ 992 dyno_mcn_ambient_temp : 1;
+SIG_VALTYPE_ 991 dyno_mcn_motor_temp : 1;
+SIG_VALTYPE_ 993 dyno_motor_plate_temp_1 : 1;
+SIG_VALTYPE_ 993 dyno_motor_plate_temp_2 : 1;
+SIG_VALTYPE_ 1035 ipm_phase_a_temp : 1;
+SIG_VALTYPE_ 1035 motor_temp : 1;
+SIG_VALTYPE_ 1036 ipm_phase_b_temp : 1;
+SIG_VALTYPE_ 1036 dsp_board_temp : 1;
+SIG_VALTYPE_ 1037 ipm_phase_c_temp : 1;
+SIG_VALTYPE_ 1037 reserved_1 : 1;
+SIG_VALTYPE_ 1038 dc_bus_amp_hours : 1;
+SIG_VALTYPE_ 1038 odometer : 1;
+SIG_VALTYPE_ 1047 slip_speed : 1;
+SIG_VALTYPE_ 1047 reserved_2 : 1;

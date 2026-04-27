@@ -29,7 +29,7 @@ BU_: NewNode0
 
 
 BO_ 1024 NewMessage0: 8 NewNode0
- SG_ DoubleSignal0 : 0|64@1- (1,0) [0|0] "" Vector__XXX
+ SG_ double_signal_0 : 0|64@1- (1,0) [0|0] "" Vector__XXX
 
 
-SIG_VALTYPE_ 1024 DoubleSignal0 : 2;
+SIG_VALTYPE_ 1024 double_signal_0 : 2;

@@ -1,0 +1,4 @@
+Header header
+float32 estimatedpackframeresistance
+uint16 faultstatus
+

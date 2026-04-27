@@ -61,6 +61,8 @@ static void val_delete(val_list_t *val)
 		free(val->val_list_items[i]);
 	}
 	free(val->val_list_items);
+	free(val->name);
+	free(val->val_table_name);
 	free(val);
 }
 
@@ -197,6 +199,7 @@ static signal_t *ast2signal(mpc_ast_t *top, mpc_ast_t *ast, unsigned can_id)
 	sig->mul_num = 0;
 	sig->muxed = NULL;
 	sig->mux_vals = NULL;
+	sig->mux_parent = NULL;
 	mpc_ast_t *multiplex = mpc_ast_get_child(ast, "multiplexor|>");
 	if (multiplex) {
 		sig->is_multiplexed = true;
@@ -335,6 +338,7 @@ static val_list_t *ast2val(mpc_ast_t *top, mpc_ast_t *ast, dbc_t *dbc)
 			error("unknown VAL_TABLE_ reference '%s' for signal %s", table_name->contents, val->name);
 		copy_val_items(val, table);
 		val->is_val_table_reference = true;
+		val->val_table_name = duplicate(table_name->contents);
 	} else {
 		ast2val_items(ast, val);
 	}
@@ -509,13 +513,14 @@ static can_msg_t *ast2msg(mpc_ast_t *top, mpc_ast_t *ast, dbc_t *dbc)
 				for(size_t k = 0; k < c->signal_count; k++) {
 					if (strcmp(c->sigs[k]->name, dbc->mul_vals[j]->multiplexor) == 0) {
 						size_t last = c->sigs[k]->mul_num++;
-						c->sigs[k]->muxed = reallocator(c->sigs[k]->muxed, sizeof(signal_t*) * c->sigs[k]->mul_num);
-						c->sigs[k]->mux_vals = reallocator(c->sigs[k]->mux_vals, sizeof(mul_val_list_t*) * c->sigs[k]->mul_num);
-						c->sigs[k]->muxed[last] = c->sigs[i];
-						c->sigs[k]->mux_vals[last] = dbc->mul_vals[j];
-						break; // I assume a signal can be multiplexed by only one signal
+							c->sigs[k]->muxed = reallocator(c->sigs[k]->muxed, sizeof(signal_t*) * c->sigs[k]->mul_num);
+							c->sigs[k]->mux_vals = reallocator(c->sigs[k]->mux_vals, sizeof(mul_val_list_t*) * c->sigs[k]->mul_num);
+							c->sigs[k]->muxed[last] = c->sigs[i];
+							c->sigs[k]->mux_vals[last] = dbc->mul_vals[j];
+							c->sigs[i]->mux_parent = c->sigs[k];
+							break; // I assume a signal can be multiplexed by only one signal
+						}
 					}
-				}
 			}
 		}
 	}

@@ -1,0 +1,21 @@
+# increments
+
+Header header
+uint8 limit_outputvolt_pwm
+uint8 limit_motor_current
+uint8 limit_velocity
+uint8 limit_bus_current
+uint8 limit_bus_volt_upper
+uint8 limit_bus_volt_lower
+uint8 limit_temp
+uint16 reserved_limit
+uint8 error_hardware_over_current
+uint8 error_software_over_current
+uint8 error_dc_over_volt
+uint8 error_bad_position
+uint8 error_watchdog
+uint8 error_configread
+uint8 error_15v_under_volt
+uint8 error_desaturation
+uint8 reserved_error
+

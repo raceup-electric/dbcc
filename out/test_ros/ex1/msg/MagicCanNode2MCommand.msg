@@ -1,0 +1,4 @@
+Header header
+int32 magiccannode2commandvalue
+uint32 magiccannode2commandcode
+

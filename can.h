@@ -34,6 +34,7 @@ typedef struct {
 	unsigned id;   /**< identifier, 11 or 29 bit */
 	char *name;
 	bool is_val_table_reference;
+	char *val_table_name;
 } val_list_t;
 
 typedef struct {
@@ -74,6 +75,7 @@ struct signal_t {
 	size_t mul_num;      /**< number of multiplexed signals */
 	signal_t **muxed;    /**< list of multiplexed signals */
 	mul_val_list_t **mux_vals; /**< list of mux_vals relative to signals */
+	signal_t *mux_parent; /**< parent multiplexor for this signal, NULL if none */
 	char *comment;
 };
 

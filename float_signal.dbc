@@ -29,8 +29,8 @@ BU_: NewNode0
 
 
 BO_ 1024 NewMessage0: 8 NewNode0
- SG_ FloatSignal0 : 0|32@1- (1,0) [0|0] "" Vector__XXX
- SG_ FloatSignal1 : 32|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ float_signal_0 : 0|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ float_signal_1 : 32|32@1- (1,0) [0|0] "" Vector__XXX
 
-SIG_VALTYPE_ 1024 FloatSignal0 : 1;
-SIG_VALTYPE_ 1024 FloatSignal1 : 1;
+SIG_VALTYPE_ 1024 float_signal_0 : 1;
+SIG_VALTYPE_ 1024 float_signal_1 : 1;

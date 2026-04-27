@@ -1,0 +1,6 @@
+Header header
+uint16 bim4maxcellvoltage
+uint8 bim4maxcellnumber
+uint16 bim4mincellvoltage
+uint8 bim4mincellnumber
+

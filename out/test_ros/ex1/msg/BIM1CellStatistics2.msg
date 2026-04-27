@@ -1,0 +1,5 @@
+Header header
+uint16 bim1avgcellvoltage
+uint16 bim1stdevcellvoltage
+uint8 bim1numberbalancingcells
+

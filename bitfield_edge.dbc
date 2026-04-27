@@ -1,0 +1,81 @@
+VERSION ""
+
+
+NS_ :
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: ECU_A ECU_B
+
+VAL_TABLE_ SwitchState 0 "OFF" 1 "ON";
+
+BO_ 100 EdgePacked: 8 ECU_A
+ SG_ flag0 : 0|1@1+ (1,0) [0|1] "" ECU_B
+ SG_ byte_a : 1|8@1+ (1,0) [0|255] "" ECU_B
+ SG_ flag1 : 9|1@1+ (1,0) [0|1] "" ECU_B
+ SG_ byte_b : 10|8@1+ (1,0) [0|255] "" ECU_B
+ SG_ flag2 : 18|1@1+ (1,0) [0|1] "" ECU_B
+ SG_ byte_c : 19|8@1+ (1,0) [0|255] "" ECU_B
+ SG_ flag3 : 27|1@1+ (1,0) [0|1] "" ECU_B
+ SG_ byte_d : 28|8@1+ (1,0) [0|255] "" ECU_B
+ SG_ signed3 : 36|3@1- (1,0) [-4|3] "" ECU_B
+ SG_ unsigned5 : 39|5@1+ (1,0) [0|31] "" ECU_B
+ SG_ signed8 : 44|8@1- (1,0) [-128|127] "" ECU_B
+ SG_ unsigned12 : 52|12@1+ (1,0) [0|4095] "" ECU_B
+
+BO_ 101 EdgeFloat: 8 ECU_A
+ SG_ f32 : 0|32@1+ (1,0) [0|0] "" ECU_B
+ SG_ raw32 : 32|32@1+ (1,0) [0|4294967295] "" ECU_B
+
+BO_ 102 EdgeDouble: 8 ECU_A
+ SG_ d64 : 0|64@1+ (1,0) [0|0] "" ECU_B
+
+BO_ 103 EdgeEnums: 2 ECU_B
+ SG_ mode : 0|2@1+ (1,0) [0|3] "" ECU_A
+ SG_ state : 2|1@1+ (1,0) [0|1] "" ECU_A
+ SG_ inline_enum : 3|3@1+ (1,0) [0|7] "" ECU_A
+
+BO_ 104 EdgeMux: 8 ECU_A
+ SG_ mux M : 0|8@1+ (1,0) [0|255] "" ECU_B
+ SG_ muxed_a m1 : 8|8@1+ (1,0) [0|255] "" ECU_B
+ SG_ muxed_b m2 : 8|8@1+ (1,0) [0|255] "" ECU_B
+
+SIG_VALTYPE_ 101 f32 : 1;
+SIG_VALTYPE_ 102 d64 : 2;
+
+VAL_TABLE_ ModeTable 0 "IDLE" 1 "RUN" 2 "FAULT";
+
+VAL_ 103 mode ModeTable;
+VAL_ 103 state SwitchState;
+VAL_ 103 inline_enum 0 "ZERO" 1 "ONE" 2 "TWO";
+
+SG_MUL_VAL_ 104 muxed_a mux 1-1;
+SG_MUL_VAL_ 104 muxed_b mux 2-2;
