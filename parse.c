@@ -85,7 +85,7 @@ static const char *dbc_grammar =
 " signal               : <s>* \"SG_\" <s>+ <name> <s>* <multiplexor>? <s>* ':' <s>* <startbit> <s>* '|' <s>* \n"
 "                        <length> <s>* '@' <s>* <endianess> <s>* <sign> <s>* <y_mx_c> <s>* \n"
 "                        <range> <s>* <unit> <s>* <nodes> <s>* <n> ; \n"
-" message              : \"BO_\" <s>+ <id> <s>+ <name>  <s>* ':' <s>* <dlc> <s>+ <ecu> <s>* <n> <signal>* ; \n"
+" message              : \"BO_\" <s>+ <id> <s>+ <name>  <s>* ':' <s>* <dlc> <s>+ <nodes> <s>* <n> <signal>* ; \n"
 " messages             : (<message> <n>*)* ; \n"
 " version              : \"VERSION\" <s> <string> <n>+ ; \n"
 " ecus                 : \"BU_\" <s>* ':' (<ident>|<s>)* <n>+ ; \n"

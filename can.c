@@ -45,6 +45,9 @@ static void can_msg_delete(can_msg_t *msg)
 		return;
 	for (size_t i = 0; i < msg->signal_count; i++)
 		signal_delete(msg->sigs[i]);
+	for (size_t i = 0; i < msg->ecu_count; i++)
+		free(msg->ecus[i]);
+	free(msg->ecus);
 	free(msg->sigs);
 	free(msg->name);
 	free(msg->ecu);
@@ -134,6 +137,37 @@ static void nodes(mpc_ast_t *sig_ast, signal_t *sig)
 	}
 	sig->ecus = nodes;
 	sig->ecu_count = len;
+}
+
+static void message_nodes(mpc_ast_t *msg_ast, can_msg_t *msg)
+{
+	assert(msg_ast && msg);
+
+	mpc_ast_t *single_node = mpc_ast_get_child(msg_ast, "nodes|node|ident|regex");
+	if (single_node) {
+		msg->ecus = allocate(sizeof(*msg->ecus));
+		msg->ecus[0] = duplicate(single_node->contents);
+		msg->ecu_count = 1;
+		msg->ecu = duplicate(single_node->contents);
+		return;
+	}
+
+	mpc_ast_t *multiple_nodes = mpc_ast_get_child(msg_ast, "nodes|>");
+	char **nodes = NULL;
+	size_t len = 0;
+	for (int i = 0; i >= 0;) {
+		i = mpc_ast_get_index_lb(multiple_nodes, "node|ident|regex", i);
+		if (i >= 0) {
+			mpc_ast_t *node_ast = mpc_ast_get_child_lb(multiple_nodes, "node|ident|regex", i);
+			nodes = reallocator(nodes, sizeof(*nodes) * ++len);
+			nodes[len - 1] = duplicate(node_ast->contents);
+			i++;
+		}
+	}
+	msg->ecus = nodes;
+	msg->ecu_count = len;
+	if (len)
+		msg->ecu = duplicate(nodes[0]);
 }
 
 static int sigval(mpc_ast_t *top, unsigned id, const char *signal)
@@ -447,15 +481,14 @@ static can_msg_t *ast2msg(mpc_ast_t *top, mpc_ast_t *ast, dbc_t *dbc)
 	assert(ast);
 	can_msg_t *c = can_msg_new();
 	mpc_ast_t *name = mpc_ast_get_child(ast, "name|ident|regex");
-	mpc_ast_t *ecu  = mpc_ast_get_child(ast, "ecu|ident|regex");
 	mpc_ast_t *dlc  = mpc_ast_get_child(ast, "dlc|integer|regex");
 	mpc_ast_t *id   = mpc_ast_get_child(ast, "id|integer|regex");
 	c->name = duplicate(name->contents);
-	c->ecu  = duplicate(ecu->contents);
 	int r = sscanf(dlc->contents, "%u", &c->dlc);
 	assert(r == 1);
 	r = sscanf(id->contents,  "%lu", &c->id);
 	assert(r == 1);
+	message_nodes(ast, c);
 
 	/* Extended CAN messages use the top most bit (which should
 	 * not normally be set) to indicate that they are extended
@@ -540,7 +573,7 @@ static can_msg_t *ast2msg(mpc_ast_t *top, mpc_ast_t *ast, dbc_t *dbc)
 		} while (bFlip);
 	}
 
-	debug("%s id:%u dlc:%u signals:%zu ecu:%s", c->name, c->id, c->dlc, c->signal_count, c->ecu);
+	debug("%s id:%u dlc:%u signals:%zu ecu:%s tx_count:%zu", c->name, c->id, c->dlc, c->signal_count, c->ecu, c->ecu_count);
 	return c;
 }
 
@@ -762,9 +795,12 @@ void whitelist_filter_dbc(dbc_t *dbc, char **ecu_whitelist, size_t ecu_whitelist
 		int keep = 0;
 
 		// message ECU is whitelisted
-		if (is_whitelisted_ecu(msg->ecu, ecu_whitelist, ecu_whitelist_length)) {
-			keep = 1;
-		} else {
+		for (size_t j = 0; j < msg->ecu_count && !keep; j++) {
+			if (is_whitelisted_ecu(msg->ecus[j], ecu_whitelist, ecu_whitelist_length)) {
+				keep = 1;
+			}
+		}
+		if (!keep) {
 			// any signal has a whitelisted ECU
 			for (size_t j = 0; j < msg->signal_count && !keep; j++) {
 				signal_t *sig = msg->sigs[j];

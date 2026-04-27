@@ -81,7 +81,9 @@ struct signal_t {
 
 typedef struct {
 	char *name;          /**< can message name */
-	char *ecu;           /**< name of ECU */
+	size_t ecu_count;    /**< transmitter ECU count */
+	char **ecus;         /**< transmitter ECU list */
+	char *ecu;           /**< first transmitter ECU, kept for compatibility */
 	signal_t **sigs;     /**< signals that can decode/encode this message*/
 	uint64_t data;       /**< data, up to eight bytes, not used for generation */
 	size_t signal_count; /**< number of signals */

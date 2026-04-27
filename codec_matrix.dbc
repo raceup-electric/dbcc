@@ -32,11 +32,11 @@ NS_ :
 
 BS_:
 
-BU_: TEST_NODE
+BU_: TEST_NODE AUX_NODE
 
 VAL_TABLE_ MatrixState 0 "OFF" 1 "ON" 2 "ERROR";
 
-BO_ 200 MatrixIntelTypes: 8 TEST_NODE
+BO_ 200 MatrixIntelTypes: 8 TEST_NODE,AUX_NODE
  SG_ u8 : 0|8@1+ (1,0) [0|255] "" TEST_NODE
  SG_ s8 : 8|8@1- (1,0) [-128|127] "" TEST_NODE
  SG_ u12 : 16|12@1+ (1,0) [0|4095] "" TEST_NODE
@@ -57,7 +57,7 @@ BO_ 202 MatrixMotorolaTypes: 8 TEST_NODE
  SG_ state_be : 47|2@0+ (1,0) [0|2] "" TEST_NODE
  SG_ inline_enum_be : 45|2@0+ (1,0) [0|3] "" TEST_NODE
 
-BO_ 203 MatrixMotorolaScaled: 8 TEST_NODE
+BO_ 203 MatrixMotorolaScaled: 8 TEST_NODE,AUX_NODE
  SG_ scale_0p1_be : 7|16@0+ (0.1,0) [0|6553.5] "" TEST_NODE
  SG_ scale_0p01_offset_m40_be : 23|16@0+ (0.01,-40) [-40|615.35] "" TEST_NODE
  SG_ scale_0p5_offset_1p5_be : 39|8@0+ (0.5,1.5) [1.5|129] "" TEST_NODE

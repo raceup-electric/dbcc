@@ -39,7 +39,7 @@ BU_: Destination IVT_30_Node
 BO_ 2147483938 IVTSleepAck: 1 IVT_30_Node
  SG_ ivt_sleep_ack : 0|4@1- (1,0) [0|0] ""  Destination
 
-BO_ 3 IVTCtrl: 8 Destination
+BO_ 3 IVTCtrl: 8 Destination , IVT_30_Node
  SG_ ivt_ctrl_fuse_state : 13|1@1+ (1,0) [0|0] ""  IVT_30_Node
 
 BO_ 1 Enum1: 8 Destination

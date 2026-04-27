@@ -37,7 +37,7 @@ BU_: ECU_A ECU_B
 
 VAL_TABLE_ SwitchState 0 "OFF" 1 "ON";
 
-BO_ 100 EdgePacked: 8 ECU_A
+BO_ 100 EdgePacked: 8 ECU_A, ECU_B
  SG_ flag0 : 0|1@1+ (1,0) [0|1] "" ECU_B
  SG_ byte_a : 1|8@1+ (1,0) [0|255] "" ECU_B
  SG_ flag1 : 9|1@1+ (1,0) [0|1] "" ECU_B
@@ -63,7 +63,7 @@ BO_ 103 EdgeEnums: 2 ECU_B
  SG_ state : 2|1@1+ (1,0) [0|1] "" ECU_A
  SG_ inline_enum : 3|3@1+ (1,0) [0|7] "" ECU_A
 
-BO_ 104 EdgeMux: 8 ECU_A
+BO_ 104 EdgeMux: 8 ECU_A,ECU_B
  SG_ mux M : 0|8@1+ (1,0) [0|255] "" ECU_B
  SG_ muxed_a m1 : 8|8@1+ (1,0) [0|255] "" ECU_B
  SG_ muxed_b m2 : 8|8@1+ (1,0) [0|255] "" ECU_B
