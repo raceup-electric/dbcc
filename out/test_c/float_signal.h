@@ -24,6 +24,13 @@ better MISRA-C support.
 extern "C" { 
 #endif
 
+#define DBCC_NODE_COUNT (2u)
+#define DBCC_MESSAGE_COUNT (1u)
+#define DBCC_SIGNAL_COUNT (2u)
+#define DBCC_HASH_EMB (0x3d2674aau)
+#define DBCC_NODE_HASH_NEWNODE0 (0x439bf961u)
+#define DBCC_NODE_HASH_VECTOR__XXX (0xcd0a431au)
+
 #define CAN_ID_NEWMESSAGE0 (1024) /* 0x400 */
 
 typedef struct {

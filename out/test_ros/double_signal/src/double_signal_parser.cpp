@@ -2,6 +2,7 @@
 
 #include <rclcpp/rclcpp.hpp>
 #include <cstring>
+#include <cstdint>
 #include <can_msgs/msg/frame.hpp>
 
 #include <double_signal/msg/new_message0.hpp>

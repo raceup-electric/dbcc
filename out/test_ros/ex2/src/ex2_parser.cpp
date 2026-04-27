@@ -2,6 +2,7 @@
 
 #include <rclcpp/rclcpp.hpp>
 #include <cstring>
+#include <cstdint>
 #include <can_msgs/msg/frame.hpp>
 
 #include <ex2/msg/ws200_id_info.hpp>

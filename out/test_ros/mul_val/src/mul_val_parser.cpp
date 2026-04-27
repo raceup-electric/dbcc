@@ -2,6 +2,7 @@
 
 #include <rclcpp/rclcpp.hpp>
 #include <cstring>
+#include <cstdint>
 #include <can_msgs/msg/frame.hpp>
 
 #include <mul_val/msg/extendedmultiplexwranges.hpp>

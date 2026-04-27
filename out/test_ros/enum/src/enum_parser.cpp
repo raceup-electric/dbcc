@@ -2,6 +2,7 @@
 
 #include <rclcpp/rclcpp.hpp>
 #include <cstring>
+#include <cstdint>
 #include <can_msgs/msg/frame.hpp>
 
 #include <enum/msg/ivt_sleep_ack.hpp>

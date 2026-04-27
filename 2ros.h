@@ -12,6 +12,8 @@ typedef struct {
     bool generate_bools;
     bool add_prefix_to_constants;
     bool generate_legacy_subscriber;
+    char **ecu_whitelist;
+    size_t ecu_whitelist_length;
 } dbc2ros_options_t;
 
 int dbc2ros(const dbc_t *dbc, const char *outdir, const char *package_name, dbc2ros_options_t *rosopts);

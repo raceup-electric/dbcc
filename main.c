@@ -4,6 +4,9 @@
  * @license MIT */
 #include <assert.h>
 #include <stdint.h>
+#include <string.h>
+#include <inttypes.h>
+#include <stdarg.h>
 #include "mpc.h"
 #include "util.h"
 #include "can.h"
@@ -28,6 +31,250 @@ typedef enum {
 	CONVERT_TO_JSON,
 	CONVERT_TO_ROS,
 } conversion_type_e;
+
+static bool string_in_list(char **items, size_t count, const char *value)
+{
+	assert(value);
+	for (size_t i = 0; i < count; i++) {
+		if (!strcmp(items[i], value))
+			return true;
+	}
+	return false;
+}
+
+static void add_unique_string(char ***items, size_t *count, const char *value)
+{
+	assert(items);
+	assert(count);
+	assert(value);
+	if (string_in_list(*items, *count, value))
+		return;
+	*items = reallocator(*items, sizeof(**items) * (*count + 1));
+	(*items)[(*count)++] = (char *)value;
+}
+
+static size_t dbc_signal_count(const dbc_t *dbc)
+{
+	assert(dbc);
+	size_t count = 0;
+	for (size_t i = 0; i < dbc->message_count; i++)
+		count += dbc->messages[i]->signal_count;
+	return count;
+}
+
+static uint32_t hash32_update_bytes(uint32_t hash, const void *data, size_t size)
+{
+	const unsigned char *bytes = data;
+	for (size_t i = 0; i < size; i++) {
+		hash ^= bytes[i];
+		hash *= 16777619u;
+	}
+	return hash;
+}
+
+static uint32_t hash32_update_cstr(uint32_t hash, const char *s)
+{
+	assert(s);
+	return hash32_update_bytes(hash, s, strlen(s));
+}
+
+static uint32_t hash32_update_format(uint32_t hash, const char *fmt, ...)
+{
+	assert(fmt);
+	va_list ap;
+	va_start(ap, fmt);
+	va_list ap_copy;
+	va_copy(ap_copy, ap);
+	int needed = vsnprintf(NULL, 0, fmt, ap);
+	va_end(ap);
+	if (needed < 0)
+		error("vsnprintf failed while computing node hash");
+	char *buf = allocate((size_t)needed + 1);
+	vsnprintf(buf, (size_t)needed + 1, fmt, ap_copy);
+	va_end(ap_copy);
+	hash = hash32_update_bytes(hash, buf, (size_t)needed);
+	free(buf);
+	return hash;
+}
+
+static bool node_matches_signal(const signal_t *sig, const char *node)
+{
+	assert(sig);
+	assert(node);
+	for (size_t i = 0; i < sig->ecu_count; i++) {
+		if (!strcmp(sig->ecus[i], node))
+			return true;
+	}
+	return false;
+}
+
+static bool node_matches_message_tx(const can_msg_t *msg, const char *node)
+{
+	assert(msg);
+	assert(node);
+	for (size_t i = 0; i < msg->ecu_count; i++) {
+		if (!strcmp(msg->ecus[i], node))
+			return true;
+	}
+	return false;
+}
+
+static bool node_matches_message(const can_msg_t *msg, const char *node)
+{
+	assert(msg);
+	assert(node);
+	if (node_matches_message_tx(msg, node))
+		return true;
+	for (size_t i = 0; i < msg->signal_count; i++) {
+		if (node_matches_signal(msg->sigs[i], node))
+			return true;
+	}
+	return false;
+}
+
+static uint32_t hash_val_list(uint32_t hash, const val_list_t *val_list)
+{
+	if (!val_list)
+		return hash32_update_cstr(hash, "VAL:none\n");
+
+	hash = hash32_update_format(hash, "VAL:%s:%u:%d:",
+		val_list->name ? val_list->name : "",
+		val_list->id,
+		(int)val_list->is_val_table_reference);
+	if (val_list->val_table_name)
+		hash = hash32_update_format(hash, "table=%s:", val_list->val_table_name);
+	for (size_t i = 0; i < val_list->val_list_item_count; i++) {
+		val_list_item_t *item = val_list->val_list_items[i];
+		hash = hash32_update_format(hash, "%u=%s;", item->value, item->name);
+	}
+	return hash32_update_cstr(hash, "\n");
+}
+
+static uint32_t hash_mul_ranges(uint32_t hash, const signal_t *sig)
+{
+	assert(sig);
+	hash = hash32_update_format(hash, "MUX:%d:%d:%u:%zu:",
+		(int)sig->is_multiplexor,
+		(int)sig->is_multiplexed,
+		sig->switchval,
+		sig->mul_num);
+	if (sig->mux_parent)
+		hash = hash32_update_format(hash, "parent=%s:", sig->mux_parent->name);
+	for (size_t i = 0; i < sig->mul_num; i++) {
+		mul_val_list_t *mv = sig->mux_vals[i];
+		hash = hash32_update_format(hash, "%s:", sig->muxed[i]->name);
+		if (mv) {
+			hash = hash32_update_format(hash, "%s:%s:",
+				mv->multiplexed ? mv->multiplexed : "",
+				mv->multiplexor ? mv->multiplexor : "");
+			for (size_t j = 0; j < mv->range_num; j++) {
+				hash = hash32_update_format(hash, "%u-%u,",
+					mv->ranges[j]->min_value, mv->ranges[j]->max_value);
+			}
+		}
+		hash = hash32_update_cstr(hash, ";");
+	}
+	return hash32_update_cstr(hash, "\n");
+}
+
+static uint32_t hash_signal(uint32_t hash, const signal_t *sig)
+{
+	assert(sig);
+	hash = hash32_update_format(hash,
+		"SIG:%s:%u:%u:%d:%d:%d:%u:%.17g:%.17g:%.17g:%.17g:%s:",
+		sig->name,
+		sig->start_bit,
+		sig->bit_length,
+		(int)sig->endianess,
+		(int)sig->is_signed,
+		(int)sig->is_floating,
+		sig->sigval,
+		sig->scaling,
+		sig->offset,
+		sig->minimum,
+		sig->maximum,
+		sig->units ? sig->units : "");
+	for (size_t i = 0; i < sig->ecu_count; i++)
+		hash = hash32_update_format(hash, "%s,", sig->ecus[i]);
+	hash = hash32_update_cstr(hash, "\n");
+	hash = hash_mul_ranges(hash, sig);
+	hash = hash_val_list(hash, sig->val_list);
+	hash = hash32_update_format(hash, "COMMENT:%s\n", sig->comment ? sig->comment : "");
+	return hash;
+}
+
+static uint32_t hash_message(uint32_t hash, const can_msg_t *msg)
+{
+	assert(msg);
+	hash = hash32_update_format(hash, "MSG:%s:%lu:%u:%d:",
+		msg->name, msg->id, msg->dlc, (int)msg->is_extended);
+	for (size_t i = 0; i < msg->ecu_count; i++)
+		hash = hash32_update_format(hash, "%s,", msg->ecus[i]);
+	hash = hash32_update_cstr(hash, "\n");
+	hash = hash32_update_format(hash, "COMMENT:%s\n", msg->comment ? msg->comment : "");
+	for (size_t i = 0; i < msg->signal_count; i++)
+		hash = hash_signal(hash, msg->sigs[i]);
+	return hash;
+}
+
+static uint32_t dbc_node_hash32(const dbc_t *dbc, const char *node)
+{
+	assert(dbc);
+	assert(node);
+	uint32_t hash = 2166136261u;
+	hash = hash32_update_format(hash, "NODE:%s\n", node);
+	for (size_t i = 0; i < dbc->message_count; i++) {
+		can_msg_t *msg = dbc->messages[i];
+		if (node_matches_message(msg, node))
+			hash = hash_message(hash, msg);
+	}
+	return hash;
+}
+
+static uint32_t dbc_emb_hash32(const dbc_t *dbc)
+{
+	assert(dbc);
+	uint32_t hash = 2166136261u;
+	hash = hash32_update_cstr(hash, "DBC\n");
+	for (size_t i = 0; i < dbc->message_count; i++)
+		hash = hash_message(hash, dbc->messages[i]);
+	return hash;
+}
+
+static void print_dbc_summary_block(const dbc_t *dbc, const char *file_name)
+{
+	assert(dbc);
+	assert(file_name);
+	char **nodes = NULL;
+	size_t count = 0;
+
+	for (size_t i = 0; i < dbc->message_count; i++) {
+		can_msg_t *msg = dbc->messages[i];
+		for (size_t j = 0; j < msg->ecu_count; j++)
+			add_unique_string(&nodes, &count, msg->ecus[j]);
+		for (size_t j = 0; j < msg->signal_count; j++) {
+			signal_t *sig = msg->sigs[j];
+			for (size_t k = 0; k < sig->ecu_count; k++)
+				add_unique_string(&nodes, &count, sig->ecus[k]);
+		}
+	}
+
+	fprintf(stdout, "##########\n");
+	fprintf(stdout, "%s\n", file_name);
+	fprintf(stdout, "%-24s%zu\n", "nodes", count);
+	fprintf(stdout, "%-24s%zu\n", "messages", dbc->message_count);
+	fprintf(stdout, "%-24s%zu\n", "signals", dbc_signal_count(dbc));
+	fprintf(stdout, "%-24s0x%08" PRIx32 "\n", "hash DBC", dbc_emb_hash32(dbc));
+	for (size_t i = 0; i < count; i++) {
+		char label[256] = {0};
+		snprintf(label, sizeof(label), "hash %s", nodes[i]);
+		fprintf(stdout, "%-24s0x%08" PRIx32 "\n",
+			label, dbc_node_hash32(dbc, nodes[i]));
+	}
+	fprintf(stdout, "\n");
+
+	free(nodes);
+}
 
 static void usage(const char *arg0)
 {
@@ -242,6 +489,8 @@ int main(int argc, char **argv)
 		.generate_bools             = false,
 		.add_prefix_to_constants    = false,
 		.generate_legacy_subscriber = false,
+		.ecu_whitelist              = NULL,
+		.ecu_whitelist_length       = 0,
 	};
 	int opt = 0;
 
@@ -335,6 +584,8 @@ int main(int argc, char **argv)
 		case 'W':
 			ecu_whitelist = reallocator(ecu_whitelist, sizeof(*ecu_whitelist) * ++ecu_whitelist_length);
 			ecu_whitelist[ecu_whitelist_length-1] = dbcc_optarg;
+			rosopts.ecu_whitelist = ecu_whitelist;
+			rosopts.ecu_whitelist_length = ecu_whitelist_length;
 			debug("%s added to whitelist", dbcc_optarg);
 			break;
 		default:
@@ -368,6 +619,7 @@ int main(int argc, char **argv)
 		}
 		dbc->version = copts.version;
 		whitelist_filter_dbc(dbc, ecu_whitelist, ecu_whitelist_length);
+		print_dbc_summary_block(dbc, argv[i]);
 
 		char *outpath = dbcc_basename(argv[i]);
 		if (outdir) {
@@ -414,4 +666,3 @@ int main(int argc, char **argv)
 
 	return 0;
 }
-

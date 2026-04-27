@@ -109,6 +109,10 @@ TEST_ROS_FILES=${TEST_ROS_DIR}/bitfield_edge/bitfield_edge/package.xml \
                ${TEST_ROS_DIR}/mul_val/mul_val/package.xml \
                ${TEST_ROS_DIR}/single_enum/single_enum/package.xml
 
+${TEST_ROS_DIR}/COLCON_IGNORE:
+	@mkdir -p ${TEST_ROS_DIR}
+	@touch $@
+
 ${TEST_ROS_DIR}/double_signal/double_signal/package.xml: double_signal.dbc ${TARGET}
 	@mkdir -p ${TEST_ROS_DIR}
 	./${TARGET} ${DBCCFLAGS} -r -o ${TEST_ROS_DIR} $<
@@ -158,7 +162,7 @@ test_c_run: ${TEST_2C_BIN} ${TEST_2C_SINGLE_ENUM_BIN}
 
 test_c: test_c_compile test_c_run
 
-test_ros: ${TEST_ROS_FILES}
+test_ros: ${TEST_ROS_FILES} ${TEST_ROS_DIR}/COLCON_IGNORE
 
 test:
 	@set -e; \

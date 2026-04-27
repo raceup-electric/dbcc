@@ -18,10 +18,232 @@
 #include <assert.h>
 #include <ctype.h>
 #include <inttypes.h>
+#include <stdarg.h>
 #include <string.h>
 
 #define MAX_NAME_LENGTH (512u)
 #define CAN_OBJ_MESSAGE_UNION_FIELD "messages"
+
+static bool string_in_list(char **items, size_t count, const char *value)
+{
+	assert(value);
+	for (size_t i = 0; i < count; i++) {
+		if (!strcmp(items[i], value))
+			return true;
+	}
+	return false;
+}
+
+static void add_unique_string(char ***items, size_t *count, const char *value)
+{
+	assert(items);
+	assert(count);
+	assert(value);
+	if (string_in_list(*items, *count, value))
+		return;
+	*items = reallocator(*items, sizeof(**items) * (*count + 1));
+	(*items)[(*count)++] = (char *)value;
+}
+
+static size_t dbc_signal_count(const dbc_t *dbc)
+{
+	assert(dbc);
+	size_t count = 0;
+	for (size_t i = 0; i < dbc->message_count; i++)
+		count += dbc->messages[i]->signal_count;
+	return count;
+}
+
+static uint32_t hash32_update_bytes(uint32_t hash, const void *data, size_t size)
+{
+	const unsigned char *bytes = data;
+	for (size_t i = 0; i < size; i++) {
+		hash ^= bytes[i];
+		hash *= 16777619u;
+	}
+	return hash;
+}
+
+static uint32_t hash32_update_cstr(uint32_t hash, const char *s)
+{
+	assert(s);
+	return hash32_update_bytes(hash, s, strlen(s));
+}
+
+static uint32_t hash32_update_format(uint32_t hash, const char *fmt, ...)
+{
+	assert(fmt);
+	va_list ap;
+	va_start(ap, fmt);
+	va_list ap_copy;
+	va_copy(ap_copy, ap);
+	int needed = vsnprintf(NULL, 0, fmt, ap);
+	va_end(ap);
+	if (needed < 0)
+		error("vsnprintf failed while computing node hash");
+	char *buf = allocate((size_t)needed + 1);
+	vsnprintf(buf, (size_t)needed + 1, fmt, ap_copy);
+	va_end(ap_copy);
+	hash = hash32_update_bytes(hash, buf, (size_t)needed);
+	free(buf);
+	return hash;
+}
+
+static bool node_matches_signal(const signal_t *sig, const char *node)
+{
+	assert(sig);
+	assert(node);
+	for (size_t i = 0; i < sig->ecu_count; i++) {
+		if (!strcmp(sig->ecus[i], node))
+			return true;
+	}
+	return false;
+}
+
+static bool node_matches_message_tx(const can_msg_t *msg, const char *node)
+{
+	assert(msg);
+	assert(node);
+	for (size_t i = 0; i < msg->ecu_count; i++) {
+		if (!strcmp(msg->ecus[i], node))
+			return true;
+	}
+	return false;
+}
+
+static bool node_matches_message(const can_msg_t *msg, const char *node)
+{
+	assert(msg);
+	assert(node);
+	if (node_matches_message_tx(msg, node))
+		return true;
+	for (size_t i = 0; i < msg->signal_count; i++) {
+		if (node_matches_signal(msg->sigs[i], node))
+			return true;
+	}
+	return false;
+}
+
+static uint32_t hash_val_list(uint32_t hash, const val_list_t *val_list)
+{
+	if (!val_list)
+		return hash32_update_cstr(hash, "VAL:none\n");
+
+	hash = hash32_update_format(hash, "VAL:%s:%u:%d:",
+		val_list->name ? val_list->name : "",
+		val_list->id,
+		(int)val_list->is_val_table_reference);
+	if (val_list->val_table_name)
+		hash = hash32_update_format(hash, "table=%s:", val_list->val_table_name);
+	for (size_t i = 0; i < val_list->val_list_item_count; i++) {
+		val_list_item_t *item = val_list->val_list_items[i];
+		hash = hash32_update_format(hash, "%u=%s;", item->value, item->name);
+	}
+	return hash32_update_cstr(hash, "\n");
+}
+
+static uint32_t hash_mul_ranges(uint32_t hash, const signal_t *sig)
+{
+	assert(sig);
+	hash = hash32_update_format(hash, "MUX:%d:%d:%u:%zu:",
+		(int)sig->is_multiplexor,
+		(int)sig->is_multiplexed,
+		sig->switchval,
+		sig->mul_num);
+	if (sig->mux_parent)
+		hash = hash32_update_format(hash, "parent=%s:", sig->mux_parent->name);
+	for (size_t i = 0; i < sig->mul_num; i++) {
+		mul_val_list_t *mv = sig->mux_vals[i];
+		hash = hash32_update_format(hash, "%s:", sig->muxed[i]->name);
+		if (mv) {
+			hash = hash32_update_format(hash, "%s:%s:",
+				mv->multiplexed ? mv->multiplexed : "",
+				mv->multiplexor ? mv->multiplexor : "");
+			for (size_t j = 0; j < mv->range_num; j++)
+				hash = hash32_update_format(hash, "%u-%u,",
+					mv->ranges[j]->min_value, mv->ranges[j]->max_value);
+		}
+		hash = hash32_update_cstr(hash, ";");
+	}
+	return hash32_update_cstr(hash, "\n");
+}
+
+static uint32_t hash_signal(uint32_t hash, const signal_t *sig)
+{
+	assert(sig);
+	hash = hash32_update_format(hash,
+		"SIG:%s:%u:%u:%d:%d:%d:%u:%.17g:%.17g:%.17g:%.17g:%s:",
+		sig->name,
+		sig->start_bit,
+		sig->bit_length,
+		(int)sig->endianess,
+		(int)sig->is_signed,
+		(int)sig->is_floating,
+		sig->sigval,
+		sig->scaling,
+		sig->offset,
+		sig->minimum,
+		sig->maximum,
+		sig->units ? sig->units : "");
+	for (size_t i = 0; i < sig->ecu_count; i++)
+		hash = hash32_update_format(hash, "%s,", sig->ecus[i]);
+	hash = hash32_update_cstr(hash, "\n");
+	hash = hash_mul_ranges(hash, sig);
+	hash = hash_val_list(hash, sig->val_list);
+	hash = hash32_update_format(hash, "COMMENT:%s\n", sig->comment ? sig->comment : "");
+	return hash;
+}
+
+static uint32_t hash_message(uint32_t hash, const can_msg_t *msg)
+{
+	assert(msg);
+	hash = hash32_update_format(hash, "MSG:%s:%lu:%u:%d:",
+		msg->name, msg->id, msg->dlc, (int)msg->is_extended);
+	for (size_t i = 0; i < msg->ecu_count; i++)
+		hash = hash32_update_format(hash, "%s,", msg->ecus[i]);
+	hash = hash32_update_cstr(hash, "\n");
+	hash = hash32_update_format(hash, "COMMENT:%s\n", msg->comment ? msg->comment : "");
+	for (size_t i = 0; i < msg->signal_count; i++)
+		hash = hash_signal(hash, msg->sigs[i]);
+	return hash;
+}
+
+static uint32_t dbc_node_hash32(const dbc_t *dbc, const char *node)
+{
+	assert(dbc);
+	assert(node);
+	uint32_t hash = 2166136261u;
+	hash = hash32_update_format(hash, "NODE:%s\n", node);
+	for (size_t i = 0; i < dbc->message_count; i++) {
+		can_msg_t *msg = dbc->messages[i];
+		if (node_matches_message(msg, node))
+			hash = hash_message(hash, msg);
+	}
+	return hash;
+}
+
+static uint32_t dbc_emb_hash32(const dbc_t *dbc)
+{
+	assert(dbc);
+	uint32_t hash = 2166136261u;
+	hash = hash32_update_cstr(hash, "DBC\n");
+	for (size_t i = 0; i < dbc->message_count; i++)
+		hash = hash_message(hash, dbc->messages[i]);
+	return hash;
+}
+
+static void node_name_to_macro(const char *node, char *out, size_t out_size)
+{
+	assert(node);
+	assert(out);
+	assert(out_size > 0);
+	size_t j = 0;
+	for (size_t i = 0; node[i] && j + 1 < out_size; i++) {
+		unsigned char c = (unsigned char)node[i];
+		out[j++] = isalnum(c) ? (char)toupper(c) : '_';
+	}
+	out[j] = '\0';
+}
 
 static int fprintf_mux_group_name(FILE *o, signal_t *sig)
 {
@@ -841,6 +1063,39 @@ static int msg2h_objects(dbc_t *dbc, FILE *h, dbc2c_options_t *copts)
 	return 0;
 }
 
+static int msg2h_hashes(dbc_t *dbc, FILE *h)
+{
+	assert(dbc);
+	assert(h);
+
+	char **nodes = NULL;
+	size_t node_count = 0;
+	for (size_t i = 0; i < dbc->message_count; i++) {
+		can_msg_t *msg = dbc->messages[i];
+		for (size_t j = 0; j < msg->ecu_count; j++)
+			add_unique_string(&nodes, &node_count, msg->ecus[j]);
+		for (size_t j = 0; j < msg->signal_count; j++) {
+			signal_t *sig = msg->sigs[j];
+			for (size_t k = 0; k < sig->ecu_count; k++)
+				add_unique_string(&nodes, &node_count, sig->ecus[k]);
+		}
+	}
+
+	fprintf(h, "#define DBCC_NODE_COUNT (%zuu)\n", node_count);
+	fprintf(h, "#define DBCC_MESSAGE_COUNT (%zuu)\n", dbc->message_count);
+	fprintf(h, "#define DBCC_SIGNAL_COUNT (%zuu)\n", dbc_signal_count(dbc));
+	fprintf(h, "#define DBCC_HASH_EMB (0x%08" PRIx32 "u)\n", dbc_emb_hash32(dbc));
+	for (size_t i = 0; i < node_count; i++) {
+		char macro[MAX_NAME_LENGTH] = {0};
+		node_name_to_macro(nodes[i], macro, sizeof(macro));
+		fprintf(h, "#define DBCC_NODE_HASH_%s (0x%08" PRIx32 "u)\n",
+			macro, dbc_node_hash32(dbc, nodes[i]));
+	}
+	fputc('\n', h);
+	free(nodes);
+	return 0;
+}
+
 static int msg2c_objects(dbc_t *dbc, FILE *c, dbc2c_options_t *copts)
 {
 	assert(dbc);
@@ -898,16 +1153,6 @@ int dbc2c(dbc_t *dbc, FILE *c, FILE *h, const char *name, dbc2c_options_t *copts
 	for (size_t i = 0; i < file_guard_len; i++)
 		file_guard[i] = (isalnum(file_guard[i])) ?  toupper(file_guard[i]) : '_';
 
-	/* sort signals by id */
-	qsort(dbc->messages, dbc->message_count, sizeof(dbc->messages[0]), message_compare_function);
-
-	/* sort by size for better struct packing */
-	for (size_t i = 0; i < dbc->message_count; i++) {
-		can_msg_t *msg = dbc->messages[i];
-		normalize_multiplexed_flags(msg);
-		qsort(msg->sigs, msg->signal_count, sizeof(msg->sigs[0]), signal_compare_function);
-	}
-
 	/* header file (begin) */
 	fprintf(h, "/* CAN message encoder/decoder: automatically generated - do not edit.\n\n");
 
@@ -938,6 +1183,21 @@ int dbc2c(dbc_t *dbc, FILE *c, FILE *h, const char *name, dbc2c_options_t *copts
 	if (!god) {
 		rv = -1;
 		goto fail;
+	}
+
+	if (msg2h_hashes(dbc, h) < 0) {
+		rv = -1;
+		goto fail;
+	}
+
+	/* sort signals by id */
+	qsort(dbc->messages, dbc->message_count, sizeof(dbc->messages[0]), message_compare_function);
+
+	/* sort by size for better struct packing */
+	for (size_t i = 0; i < dbc->message_count; i++) {
+		can_msg_t *msg = dbc->messages[i];
+		normalize_multiplexed_flags(msg);
+		qsort(msg->sigs, msg->signal_count, sizeof(msg->sigs[0]), signal_compare_function);
 	}
 
 	msg2h_define_can_ids(dbc, h, copts);

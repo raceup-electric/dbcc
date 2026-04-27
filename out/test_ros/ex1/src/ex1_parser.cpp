@@ -2,6 +2,7 @@
 
 #include <rclcpp/rclcpp.hpp>
 #include <cstring>
+#include <cstdint>
 #include <can_msgs/msg/frame.hpp>
 
 #include <ex1/msg/magic_can_node1_r_heartbeat.hpp>

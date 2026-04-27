@@ -15,10 +15,234 @@
 #include <string.h>
 #include <time.h>
 #include <regex.h>
+#include <stdarg.h>
 
 static const bool swap_motorola = true;
 
 static const char *node_suffix = "_parser";
+
+static bool string_in_list(char **items, size_t count, const char *value)
+{
+	assert(value);
+	for (size_t i = 0; i < count; i++) {
+		if (!strcmp(items[i], value))
+			return true;
+	}
+	return false;
+}
+
+static void add_unique_string(char ***items, size_t *count, const char *value)
+{
+	assert(items);
+	assert(count);
+	assert(value);
+	if (string_in_list(*items, *count, value))
+		return;
+	*items = reallocator(*items, sizeof(**items) * (*count + 1));
+	(*items)[(*count)++] = (char *)value;
+}
+
+static uint32_t hash32_update_bytes(uint32_t hash, const void *data, size_t size)
+{
+	const unsigned char *bytes = data;
+	for (size_t i = 0; i < size; i++) {
+		hash ^= bytes[i];
+		hash *= 16777619u;
+	}
+	return hash;
+}
+
+static uint32_t hash32_update_cstr(uint32_t hash, const char *s)
+{
+	assert(s);
+	return hash32_update_bytes(hash, s, strlen(s));
+}
+
+static uint32_t hash32_update_format(uint32_t hash, const char *fmt, ...)
+{
+	assert(fmt);
+	va_list ap;
+	va_start(ap, fmt);
+	va_list ap_copy;
+	va_copy(ap_copy, ap);
+	int needed = vsnprintf(NULL, 0, fmt, ap);
+	va_end(ap);
+	if (needed < 0)
+		error("vsnprintf failed while computing ROS node hash");
+	char *buf = allocate((size_t)needed + 1);
+	vsnprintf(buf, (size_t)needed + 1, fmt, ap_copy);
+	va_end(ap_copy);
+	hash = hash32_update_bytes(hash, buf, (size_t)needed);
+	free(buf);
+	return hash;
+}
+
+static bool node_matches_signal(const signal_t *sig, const char *node)
+{
+	assert(sig);
+	assert(node);
+	for (size_t i = 0; i < sig->ecu_count; i++) {
+		if (!strcmp(sig->ecus[i], node))
+			return true;
+	}
+	return false;
+}
+
+static bool node_matches_message_tx(const can_msg_t *msg, const char *node)
+{
+	assert(msg);
+	assert(node);
+	for (size_t i = 0; i < msg->ecu_count; i++) {
+		if (!strcmp(msg->ecus[i], node))
+			return true;
+	}
+	return false;
+}
+
+static bool node_matches_message(const can_msg_t *msg, const char *node)
+{
+	assert(msg);
+	assert(node);
+	if (node_matches_message_tx(msg, node))
+		return true;
+	for (size_t i = 0; i < msg->signal_count; i++) {
+		if (node_matches_signal(msg->sigs[i], node))
+			return true;
+	}
+	return false;
+}
+
+static uint32_t hash_val_list(uint32_t hash, const val_list_t *val_list)
+{
+	if (!val_list)
+		return hash32_update_cstr(hash, "VAL:none\n");
+
+	hash = hash32_update_format(hash, "VAL:%s:%u:%d:",
+		val_list->name ? val_list->name : "",
+		val_list->id,
+		(int)val_list->is_val_table_reference);
+	if (val_list->val_table_name)
+		hash = hash32_update_format(hash, "table=%s:", val_list->val_table_name);
+	for (size_t i = 0; i < val_list->val_list_item_count; i++) {
+		val_list_item_t *item = val_list->val_list_items[i];
+		hash = hash32_update_format(hash, "%u=%s;", item->value, item->name);
+	}
+	return hash32_update_cstr(hash, "\n");
+}
+
+static uint32_t hash_mul_ranges(uint32_t hash, const signal_t *sig)
+{
+	assert(sig);
+	hash = hash32_update_format(hash, "MUX:%d:%d:%u:%zu:",
+		(int)sig->is_multiplexor,
+		(int)sig->is_multiplexed,
+		sig->switchval,
+		sig->mul_num);
+	if (sig->mux_parent)
+		hash = hash32_update_format(hash, "parent=%s:", sig->mux_parent->name);
+	for (size_t i = 0; i < sig->mul_num; i++) {
+		mul_val_list_t *mv = sig->mux_vals[i];
+		hash = hash32_update_format(hash, "%s:", sig->muxed[i]->name);
+		if (mv) {
+			hash = hash32_update_format(hash, "%s:%s:",
+				mv->multiplexed ? mv->multiplexed : "",
+				mv->multiplexor ? mv->multiplexor : "");
+			for (size_t j = 0; j < mv->range_num; j++)
+				hash = hash32_update_format(hash, "%u-%u,",
+					mv->ranges[j]->min_value, mv->ranges[j]->max_value);
+		}
+		hash = hash32_update_cstr(hash, ";");
+	}
+	return hash32_update_cstr(hash, "\n");
+}
+
+static uint32_t hash_signal(uint32_t hash, const signal_t *sig)
+{
+	assert(sig);
+	hash = hash32_update_format(hash,
+		"SIG:%s:%u:%u:%d:%d:%d:%u:%.17g:%.17g:%.17g:%.17g:%s:",
+		sig->name,
+		sig->start_bit,
+		sig->bit_length,
+		(int)sig->endianess,
+		(int)sig->is_signed,
+		(int)sig->is_floating,
+		sig->sigval,
+		sig->scaling,
+		sig->offset,
+		sig->minimum,
+		sig->maximum,
+		sig->units ? sig->units : "");
+	for (size_t i = 0; i < sig->ecu_count; i++)
+		hash = hash32_update_format(hash, "%s,", sig->ecus[i]);
+	hash = hash32_update_cstr(hash, "\n");
+	hash = hash_mul_ranges(hash, sig);
+	hash = hash_val_list(hash, sig->val_list);
+	hash = hash32_update_format(hash, "COMMENT:%s\n", sig->comment ? sig->comment : "");
+	return hash;
+}
+
+static uint32_t hash_message(uint32_t hash, const can_msg_t *msg)
+{
+	assert(msg);
+	hash = hash32_update_format(hash, "MSG:%s:%lu:%u:%d:",
+		msg->name, msg->id, msg->dlc, (int)msg->is_extended);
+	for (size_t i = 0; i < msg->ecu_count; i++)
+		hash = hash32_update_format(hash, "%s,", msg->ecus[i]);
+	hash = hash32_update_cstr(hash, "\n");
+	hash = hash32_update_format(hash, "COMMENT:%s\n", msg->comment ? msg->comment : "");
+	for (size_t i = 0; i < msg->signal_count; i++)
+		hash = hash_signal(hash, msg->sigs[i]);
+	return hash;
+}
+
+static uint32_t dbc_node_hash32(const dbc_t *dbc, const char *node)
+{
+	assert(dbc);
+	assert(node);
+	uint32_t hash = 2166136261u;
+	hash = hash32_update_format(hash, "NODE:%s\n", node);
+	for (size_t i = 0; i < dbc->message_count; i++) {
+		can_msg_t *msg = dbc->messages[i];
+		if (node_matches_message(msg, node))
+			hash = hash_message(hash, msg);
+	}
+	return hash;
+}
+
+static uint32_t dbc_emb_hash32(const dbc_t *dbc)
+{
+	assert(dbc);
+	uint32_t hash = 2166136261u;
+	hash = hash32_update_cstr(hash, "DBC\n");
+	for (size_t i = 0; i < dbc->message_count; i++)
+		hash = hash_message(hash, dbc->messages[i]);
+	return hash;
+}
+
+static bool dbc_has_node(const dbc_t *dbc, const char *node)
+{
+	assert(dbc);
+	assert(node);
+	for (size_t i = 0; i < dbc->message_count; i++) {
+		if (node_matches_message(dbc->messages[i], node))
+			return true;
+	}
+	return false;
+}
+
+static void node_name_to_macro(const char *node, char *out, size_t out_size)
+{
+	assert(node);
+	assert(out);
+	assert(out_size > 0);
+	size_t j = 0;
+	for (size_t i = 0; node[i] && j + 1 < out_size; i++) {
+		unsigned char c = (unsigned char)node[i];
+		out[j++] = isalnum(c) ? (char)toupper(c) : '_';
+	}
+	out[j] = '\0';
+}
 
 static const char *float_pack = "\
 static inline uint32_t pack754_32(const float f) {\n\
@@ -232,6 +456,18 @@ static void generate_folders(const char *path) {
 		}
 	}
 	free(fullpath);
+
+	fullpath = duplicate(path);
+	name_size = strlen(path) + strlen("/include") + 1;
+	fullpath = reallocator(fullpath, name_size);
+	strcat(fullpath, "/include");
+	if (mkdir(fullpath, 0777) == -1) {
+		if (errno != EEXIST) {
+			free(fullpath);
+			error("error creating folder");
+		}
+	}
+	free(fullpath);
 }
 
 static void generate_package_xml(const char *outdir, const char *package_name, dbc2ros_options_t *rosopts) {
@@ -313,16 +549,20 @@ static void generate_cmakelists_txt(const dbc_t *dbc, const char *outdir, const 
 		"# Ensure that C++ nodes can use the generated message headers\n"
 		"ament_export_dependencies(rosidl_default_runtime)\n\n\n"
 		"add_executable(${PROJECT_NAME}%s src/${PROJECT_NAME}%s.cpp)\n"
+		"target_include_directories(${PROJECT_NAME}%s PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)\n"
 		"ament_target_dependencies(${PROJECT_NAME}%s rclcpp builtin_interfaces can_msgs%s)\n"
 		"rosidl_target_interfaces(${PROJECT_NAME}_parser\n"
 		"  ${PROJECT_NAME} \"rosidl_typesupport_cpp\"\n"
+		")\n\n"
+		"install(DIRECTORY include/\n"
+		"  DESTINATION include\n"
 		")\n\n"
 		"install(TARGETS\n"
 		"  ${PROJECT_NAME}%s\n"
 		"  DESTINATION lib/${PROJECT_NAME}\n"
 		")\n\n"
 		"ament_package()\n",
-		node_suffix, node_suffix, node_suffix, rosopts->generate_legacy_subscriber ? " raceup_msgs" : "", node_suffix);
+		node_suffix, node_suffix, node_suffix, node_suffix, rosopts->generate_legacy_subscriber ? " raceup_msgs" : "", node_suffix);
 
 	fclose(file);
 	free(file_name);
@@ -673,6 +913,7 @@ static void generate_ros_msgs(const dbc_t *dbc, const char *outdir, dbc2ros_opti
 static void create_headers(const dbc_t *dbc, FILE *file, const char *package_name, dbc2ros_options_t *rosopts) {
 	fprintf(file, "#include <rclcpp/rclcpp.hpp>\n");
 	fprintf(file, "#include <cstring>\n");
+	fprintf(file, "#include <cstdint>\n");
 	fprintf(file, "#include <can_msgs/msg/frame.hpp>\n");
 	if (rosopts->generate_legacy_subscriber) {
 		fprintf(file, "#include <raceup_msgs/msg/can_data.hpp>\n");
@@ -687,6 +928,47 @@ static void create_headers(const dbc_t *dbc, FILE *file, const char *package_nam
 		free(snake_msg_name);
 	}
 	fprintf(file, "\n\n");
+}
+
+static void generate_hash_header(const dbc_t *dbc, const char *outdir, const char *package_name, dbc2ros_options_t *rosopts) {
+	size_t dir_name_size = strlen(outdir) + strlen("/include/") + strlen(package_name) + 1;
+	char *dir_name = allocate(dir_name_size);
+	snprintf(dir_name, dir_name_size, "%s/include/%s", outdir, package_name);
+	if (mkdir(dir_name, 0777) == -1 && errno != EEXIST) {
+		free(dir_name);
+		error("error creating folder");
+	}
+
+	size_t file_name_size = strlen(dir_name) + strlen("/dbcc_hashes.hpp") + 1;
+	char *file_name = allocate(file_name_size);
+	snprintf(file_name, file_name_size, "%s/dbcc_hashes.hpp", dir_name);
+	FILE *file = fopen_or_die(file_name, "wb");
+
+	fprintf(file,
+		"#ifndef DBCC_HASHES_HPP\n"
+		"#define DBCC_HASHES_HPP\n\n"
+		"#include <cstdint>\n\n"
+		"namespace dbcc_hashes {\n"
+		"static constexpr std::uint32_t HASH_EMB = 0x%08" PRIx32 "u;\n",
+		dbc_emb_hash32(dbc));
+
+	for (size_t i = 0; i < rosopts->ecu_whitelist_length; i++) {
+		const char *node = rosopts->ecu_whitelist[i];
+		if (!dbc_has_node(dbc, node))
+			continue;
+		char macro[256] = {0};
+		node_name_to_macro(node, macro, sizeof(macro));
+		fprintf(file, "static constexpr std::uint32_t NODE_HASH_%s = 0x%08" PRIx32 "u;\n",
+			macro, dbc_node_hash32(dbc, node));
+	}
+
+	fprintf(file,
+		"} // namespace dbcc_hashes\n\n"
+		"#endif\n");
+
+	fclose(file);
+	free(file_name);
+	free(dir_name);
 }
 
 static void create_constructor_destructor(FILE *file, const char *class_name, const char *node_name, const char *package_name) {
@@ -1043,6 +1325,7 @@ int dbc2ros(const dbc_t *dbc, const char *outdir, const char *package_name, dbc2
 	generate_package_xml(outdir, package_name, rosopts);
 	generate_cmakelists_txt(dbc, outdir, package_name, rosopts);
 	generate_ros_msgs(dbc, outdir, rosopts);
+	generate_hash_header(dbc, outdir, package_name, rosopts);
 	generate_ros_node(dbc, outdir, package_name, rosopts);
 
 	return 0;
