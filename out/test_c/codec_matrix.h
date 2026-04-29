@@ -26,10 +26,10 @@ extern "C" {
 
 #define DBCC_NODE_COUNT (2u)
 #define DBCC_MESSAGE_COUNT (6u)
-#define DBCC_SIGNAL_COUNT (21u)
-#define DBCC_HASH_EMB (0x12057895u)
-#define DBCC_NODE_HASH_TEST_NODE (0x889b859bu)
-#define DBCC_NODE_HASH_AUX_NODE (0x187ba136u)
+#define DBCC_SIGNAL_COUNT (22u)
+#define DBCC_HASH_EMB (0xf4ccf1efu)
+#define DBCC_NODE_HASH_TEST_NODE (0x4d052911u)
+#define DBCC_NODE_HASH_AUX_NODE (0x0984bfe0u)
 
 #define CAN_ID_MATRIXINTELTYPES (200) /* 0xc8 */
 #define CAN_ID_MATRIXINTELSCALED (201) /* 0xc9 */
@@ -43,6 +43,11 @@ typedef enum {
 	VAL_TABLE_MATRIXSTATE_ON = 1,
 	VAL_TABLE_MATRIXSTATE_ERROR = 2,
 } val_table_MatrixState_e;
+
+typedef enum {
+	VAL_TABLE_MATRIXOPCODE_GET_REQ = 1,
+	VAL_TABLE_MATRIXOPCODE_SET_REQ = 2,
+} val_table_MatrixOpcode_e;
 
 typedef enum {
 	CAN_0X0C8_MATRIXINTELTYPES_INLINE_ENUM_ZERO = 0,
@@ -93,6 +98,8 @@ void decode_can_0x0c8_state(can_0x0c8_MatrixIntelTypes_obj_t *o, val_table_Matri
 void encode_can_0x0c8_state(can_0x0c8_MatrixIntelTypes_obj_t *o, val_table_MatrixState_e in);
 void decode_can_0x0c8_inline_enum(can_0x0c8_MatrixIntelTypes_obj_t *o, can_0x0c8_MatrixIntelTypes_inline_enum_e *out);
 void encode_can_0x0c8_inline_enum(can_0x0c8_MatrixIntelTypes_obj_t *o, can_0x0c8_MatrixIntelTypes_inline_enum_e in);
+void decode_can_0x0c8_opcode(can_0x0c8_MatrixIntelTypes_obj_t *o, val_table_MatrixOpcode_e *out);
+void encode_can_0x0c8_opcode(can_0x0c8_MatrixIntelTypes_obj_t *o, val_table_MatrixOpcode_e in);
 
 
 void decode_can_0x0c9_scale_0p1(can_0x0c9_MatrixIntelScaled_obj_t *o, double *out);

@@ -8,6 +8,7 @@ int test_2c_codec_matrix(void) {
 	uint8_t u8 = 0;
 	int8_t s8 = 0;
 	val_table_MatrixState_e state = VAL_TABLE_MATRIXSTATE_OFF;
+	val_table_MatrixOpcode_e opcode = VAL_TABLE_MATRIXOPCODE_GET_REQ;
 	can_0x0c8_MatrixIntelTypes_inline_enum_e inline_enum = CAN_0X0C8_MATRIXINTELTYPES_INLINE_ENUM_ZERO;
 
 	encode_can_0x0c8_u8(&intel_types, 0xa5u);
@@ -16,6 +17,7 @@ int test_2c_codec_matrix(void) {
 	encode_can_0x0c8_s12(&intel_types, 112.0);
 	encode_can_0x0c8_state(&intel_types, VAL_TABLE_MATRIXSTATE_ERROR);
 	encode_can_0x0c8_inline_enum(&intel_types, CAN_0X0C8_MATRIXINTELTYPES_INLINE_ENUM_TWO);
+	encode_can_0x0c8_opcode(&intel_types, VAL_TABLE_MATRIXOPCODE_SET_REQ);
 
 	decode_can_0x0c8_u8(&intel_types, &u8);
 	decode_can_0x0c8_s8(&intel_types, &s8);
@@ -23,6 +25,7 @@ int test_2c_codec_matrix(void) {
 	decode_can_0x0c8_s12(&intel_types, &s12);
 	decode_can_0x0c8_state(&intel_types, &state);
 	decode_can_0x0c8_inline_enum(&intel_types, &inline_enum);
+	decode_can_0x0c8_opcode(&intel_types, &opcode);
 
 	CHECK(u8 == 0xa5u);
 	CHECK(s8 == -42);
@@ -30,6 +33,7 @@ int test_2c_codec_matrix(void) {
 	CHECK(check_double_eq(s12, 112.0, 1e-12));
 	CHECK(state == VAL_TABLE_MATRIXSTATE_ERROR);
 	CHECK(inline_enum == CAN_0X0C8_MATRIXINTELTYPES_INLINE_ENUM_TWO);
+	CHECK(opcode == VAL_TABLE_MATRIXOPCODE_SET_REQ);
 
 	can_0x0c9_MatrixIntelScaled_obj_t intel_scaled = {0};
 	double scale_0p1 = 0.0;

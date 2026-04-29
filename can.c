@@ -392,6 +392,71 @@ static val_list_t *ast2val_table(mpc_ast_t *ast)
 	return val;
 }
 
+static size_t count_val_tables(mpc_ast_t *ast)
+{
+	assert(ast);
+	size_t count = 0;
+
+	for (int i = 0; i < ast->children_num; i++) {
+		mpc_ast_t *child = ast->children[i];
+		if (!child || !child->tag)
+			continue;
+
+		if (!strcmp(child->tag, "values|value_table|>")) {
+			count++;
+			continue;
+		}
+
+		if (!strcmp(child->tag, "values|>")) {
+			for (int j = 0; j >= 0;) {
+				j = mpc_ast_get_index_lb(child, "value_table|>", j);
+				if (j >= 0) {
+					count++;
+					j++;
+				}
+			}
+		}
+	}
+
+	return count;
+}
+
+static void collect_val_tables(mpc_ast_t *ast, dbc_t *dbc)
+{
+	assert(ast);
+	assert(dbc);
+
+	size_t count = count_val_tables(ast);
+	if (!count)
+		return;
+
+	dbc->val_tables = allocate(sizeof(*dbc->val_tables) * (count + 1));
+	dbc->val_table_count = count;
+
+	size_t index = 0;
+	for (int i = 0; i < ast->children_num; i++) {
+		mpc_ast_t *child = ast->children[i];
+		if (!child || !child->tag)
+			continue;
+
+		if (!strcmp(child->tag, "values|value_table|>")) {
+			dbc->val_tables[index++] = ast2val_table(child);
+			continue;
+		}
+
+		if (!strcmp(child->tag, "values|>")) {
+			for (int j = 0; j >= 0;) {
+				j = mpc_ast_get_index_lb(child, "value_table|>", j);
+				if (j >= 0) {
+					mpc_ast_t *val_table_ast = mpc_ast_get_child_lb(child, "value_table|>", j);
+					dbc->val_tables[index++] = ast2val_table(val_table_ast);
+					j++;
+				}
+			}
+		}
+	}
+}
+
 static mul_val_list_t *ast2mul_val(mpc_ast_t *top, mpc_ast_t *ast)
 {
 	assert(top);
@@ -634,28 +699,7 @@ dbc_t *ast2dbc(mpc_ast_t *ast)
 	dbc_t *d = dbc_new();
 
 	/* find and store global VAL_TABLE_ definitions */
-	size_t len = 0;
-	for (int i = 0; i >= 0;) {
-		i = mpc_ast_get_index_lb(ast, "values|value_table|>", i);
-		if (i >= 0) {
-			len++;
-			i++;
-		}
-	}
-
-	if (len) {
-		d->val_tables = allocate(sizeof(*d->val_tables) * (len + 1));
-		d->val_table_count = len;
-		size_t j = 0;
-		for (int i = 0; i >= 0;) {
-			i = mpc_ast_get_index_lb(ast, "values|value_table|>", i);
-			if (i >= 0) {
-				mpc_ast_t *val_table_ast = mpc_ast_get_child_lb(ast, "values|value_table|>", i);
-				d->val_tables[j++] = ast2val_table(val_table_ast);
-				i++;
-			}
-		}
-	}
+	collect_val_tables(ast, d);
 
 	/* find and store the vals into the dbc: they will be assigned to
 	signals later */

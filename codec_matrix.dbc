@@ -35,6 +35,7 @@ BS_:
 BU_: TEST_NODE AUX_NODE
 
 VAL_TABLE_ MatrixState 0 "OFF" 1 "ON" 2 "ERROR";
+VAL_TABLE_ MatrixOpcode 1 "GET_REQ" 2 "SET_REQ";
 
 BO_ 200 MatrixIntelTypes: 8 TEST_NODE,AUX_NODE
  SG_ u8 : 0|8@1+ (1,0) [0|255] "" TEST_NODE
@@ -43,6 +44,7 @@ BO_ 200 MatrixIntelTypes: 8 TEST_NODE,AUX_NODE
  SG_ s12 : 28|12@1- (-1,100) [-1947|2148] "" TEST_NODE
  SG_ state : 40|2@1+ (1,0) [0|2] "" TEST_NODE
  SG_ inline_enum : 42|2@1+ (1,0) [0|3] "" TEST_NODE
+ SG_ opcode : 44|2@1+ (1,0) [0|3] "" TEST_NODE
 
 BO_ 201 MatrixIntelScaled: 8 TEST_NODE
  SG_ scale_0p1 : 0|16@1+ (0.1,0) [0|6553.5] "" TEST_NODE
@@ -74,5 +76,6 @@ SIG_VALTYPE_ 205 d64 : 2;
 
 VAL_ 200 state MatrixState;
 VAL_ 200 inline_enum 0 "ZERO" 1 "ONE" 2 "TWO";
+VAL_ 200 opcode MatrixOpcode;
 VAL_ 202 state_be MatrixState;
 VAL_ 202 inline_enum_be 0 "ZERO" 1 "ONE" 2 "TWO";

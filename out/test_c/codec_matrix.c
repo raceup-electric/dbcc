@@ -142,6 +142,24 @@ void encode_can_0x0c8_inline_enum(can_0x0c8_MatrixIntelTypes_obj_t *o, can_0x0c8
 	return;
 }
 
+void decode_can_0x0c8_opcode(can_0x0c8_MatrixIntelTypes_obj_t *o, val_table_MatrixOpcode_e *out) {
+	assert(o);
+	assert(out);
+	uint64_t _payload_sig = (uint64_t)(o->payload);
+	uint64_t _lane_sig = _payload_sig;
+	uint64_t x = (_lane_sig >> 44) & 0x3uLL;
+	val_table_MatrixOpcode_e rval = (val_table_MatrixOpcode_e)x;
+	*out = rval;
+	return;
+}
+
+void encode_can_0x0c8_opcode(can_0x0c8_MatrixIntelTypes_obj_t *o, val_table_MatrixOpcode_e in) {
+	assert(o);
+	uint64_t x = ((uint64_t)in) & 0x3uLL;
+	o->payload = (((uint64_t)o->payload) & ~(0x3uLL << 44)) | ((x & 0x3uLL) << 44);
+	return;
+}
+
 void decode_can_0x0c9_scale_0p1(can_0x0c9_MatrixIntelScaled_obj_t *o, double *out) {
 	assert(o);
 	assert(out);
