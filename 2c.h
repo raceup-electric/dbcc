@@ -12,11 +12,14 @@ extern "C" {
 
 typedef struct {
 	bool use_id_in_name;
+	bool namespace_from_filename;
 	bool use_time_stamps;
 	bool use_doubles_for_encoding;
 	bool generate_print, generate_pack, generate_unpack;
 	bool generate_asserts;
 	bool generate_enum_can_ids;
+	const char *symbol_namespace;
+	const char *macro_namespace;
 	int version;
 } dbc2c_options_t;
 

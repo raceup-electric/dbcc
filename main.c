@@ -311,6 +311,7 @@ Options:\n\
 \t-k     generate only pack code (C code)\n\
 \t-u     generate only unpack code (C code)\n\
 \t-s     disable assert generation (C code)\n\
+\t-O     prefix all public C symbols with the output filename basename\n\
 \t-n [version] specify the version of the generated output. Defaults to the latest. (C code)\n\
 \t-B     use bool type for 1 bit long unsigned signals (ROS code)\n\
 \t-L     generate legacy subscriber for backwards compatibility with raceup_msgs (ROS code)\n\
@@ -429,42 +430,6 @@ static int dbc2rosWrapper(dbc_t *dbc, const char *dbc_file, const char *file_onl
 	return r;
 }
 
-static int flag(const char *v) { /* really should be case insensitive */
-	static char *y[] = { "yes", "on", "true", };
-	static char *n[] = { "no",  "off", "false", };
-
-	for (size_t i = 0; i < NELEMS(y); i++) {
-		if (!strcmp(y[i], v))
-			return 1;
-		if (!strcmp(n[i], v))
-			return 0;
-	}
-	return -1;
-}
-
-static int set_option(dbc2c_options_t *s, char *kv) {
-	assert(s);
-	assert(kv);
-	char *k = kv, *v = NULL;
-	if ((v = strchr(kv, '=')) == NULL || *v == '\0') {
-		return -1;
-	}
-	*v++ = '\0';
-
-	int r = flag(v);
-	if (r < 0) return -1;
-
-	if (!strcmp(k, "use-id-in-name"))        { s->use_id_in_name           = r; }
-	else if (!strcmp(k, "use-time-stamps"))  { s->use_time_stamps          = r; }
-	else if (!strcmp(k, "use-doubles"))      { s->use_doubles_for_encoding = r; }
-	else if (!strcmp(k, "generate-print"))   { s->generate_print           = r; }
-	else if (!strcmp(k, "generate-pack"))    { s->generate_pack            = r; }
-	else if (!strcmp(k, "generate-unpack"))  { s->generate_unpack          = r; }
-	else if (!strcmp(k, "generate-asserts")) { s->generate_asserts         = r; }
-	else { return -2; }
-	return 0;
-}
-
 // TODO: Formatting, new printing functions
 int main(int argc, char **argv)
 {
@@ -477,12 +442,15 @@ int main(int argc, char **argv)
 	// system instead.
 	dbc2c_options_t copts = {
 		.use_id_in_name            =  true,
+		.namespace_from_filename   =  false,
 		.use_time_stamps           =  false,
 		.use_doubles_for_encoding  =  false,
 		.generate_print            =  false,
 		.generate_pack             =  false,
 		.generate_unpack           =  false,
 		.generate_asserts          =  true,
+		.symbol_namespace          =  NULL,
+		.macro_namespace           =  NULL,
 		.version                   =  3,
 	};
 	dbc2ros_options_t rosopts = {
@@ -494,7 +462,7 @@ int main(int argc, char **argv)
 	};
 	int opt = 0;
 
-	while ((opt = dbcc_getopt(argc, argv, "hVvbjgxCrNtDpukso:n:O:BLPW:")) != -1) {
+	while ((opt = dbcc_getopt(argc, argv, "hVvbjgxCrNtDpukso:n:OBLPW:")) != -1) {
 		switch (opt) {
 		case 'h':
 			usage(argv[0]);
@@ -552,8 +520,8 @@ int main(int argc, char **argv)
 			debug("output directory: %s", outdir);
 			break;
 		case 'O':
-			if (set_option(&copts, dbcc_optarg) < 0)
-				error("Invalid -O option setting: %s", dbcc_optarg);
+			copts.namespace_from_filename = true;
+			debug("prefix public C symbols with output filename basename");
 			break;
 		case 's':
 			copts.generate_asserts = false;

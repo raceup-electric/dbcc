@@ -45,13 +45,63 @@ static void add_unique_string(char ***items, size_t *count, const char *value)
 	(*items)[(*count)++] = (char *)value;
 }
 
-static size_t dbc_signal_count(const dbc_t *dbc)
+static char *basename_without_extension(const char *name)
 {
-	assert(dbc);
-	size_t count = 0;
-	for (size_t i = 0; i < dbc->message_count; i++)
-		count += dbc->messages[i]->signal_count;
-	return count;
+	assert(name);
+	char *base = duplicate(name);
+	char *dot = strrchr(base, '.');
+	if (dot)
+		*dot = '\0';
+	return base;
+}
+
+static char *sanitize_identifier(const char *name, int upper)
+{
+	assert(name);
+	char *id = duplicate(name);
+	const size_t len = strlen(id);
+	if (!len)
+		return id;
+	if (!isalpha(id[0]) && id[0] != '_')
+		id[0] = '_';
+	for (size_t i = 0; i < len; i++) {
+		if (!isalnum(id[i]) && id[i] != '_') {
+			id[i] = '_';
+			continue;
+		}
+		id[i] = upper ? toupper(id[i]) : tolower(id[i]);
+	}
+	return id;
+}
+
+static int format_identifier(char *dst, size_t dst_len, dbc2c_options_t *copts, const char *base)
+{
+	assert(dst);
+	assert(dst_len);
+	assert(copts);
+	assert(base);
+	if (copts->symbol_namespace) {
+		const size_t ns_len = strlen(copts->symbol_namespace);
+		if (!strncmp(base, copts->symbol_namespace, ns_len) && base[ns_len] == '_')
+			return snprintf(dst, dst_len, "%s", base);
+		return snprintf(dst, dst_len, "%s_%s", copts->symbol_namespace, base);
+	}
+	return snprintf(dst, dst_len, "%s", base);
+}
+
+static int format_macro_identifier(char *dst, size_t dst_len, dbc2c_options_t *copts, const char *base)
+{
+	assert(dst);
+	assert(dst_len);
+	assert(copts);
+	assert(base);
+	if (copts->macro_namespace) {
+		const size_t ns_len = strlen(copts->macro_namespace);
+		if (!strncmp(base, copts->macro_namespace, ns_len) && base[ns_len] == '_')
+			return snprintf(dst, dst_len, "%s", base);
+		return snprintf(dst, dst_len, "%s_%s", copts->macro_namespace, base);
+	}
+	return snprintf(dst, dst_len, "%s", base);
 }
 
 static uint32_t hash32_update_bytes(uint32_t hash, const void *data, size_t size)
@@ -380,7 +430,9 @@ static const char *signal_api_type(const char *msgname, signal_t *sig, dbc2c_opt
 		return type;
 
 	if (sig->val_list->is_val_table_reference && sig->val_list->val_table_name) {
-		snprintf(buf, buflen, "val_table_%s_e", sig->val_list->val_table_name);
+		char base[MAX_NAME_LENGTH] = { 0 };
+		snprintf(base, sizeof(base), "val_table_%s_e", sig->val_list->val_table_name);
+		format_identifier(buf, buflen, copts, base);
 		return buf;
 	}
 	snprintf(buf, buflen, "%s_%s_e", msgname, sig->val_list->name);
@@ -572,14 +624,18 @@ static int signal2scaling_encode(can_msg_t *msg, const char *msgname, unsigned i
 	assert(o);
 	assert(copts);
 	char api_type_buf[MAX_NAME_LENGTH] = { 0 };
+	char function_name[MAX_NAME_LENGTH] = { 0 };
+	char function_base[MAX_NAME_LENGTH] = { 0 };
 	const char *type = signal_api_type(msgname, sig, copts, api_type_buf, sizeof api_type_buf);
 	(void)god;
 	if (copts->use_id_in_name)
-		fprintf(o, "void encode_can_0x%03x_%s(", id, sig->name);
+		snprintf(function_base, sizeof(function_base), "encode_can_0x%03x_%s", id, sig->name);
 	else if (copts->version >= 2)
-		fprintf(o, "void encode_%s_%s(", msgname, sig->name);
+		snprintf(function_base, sizeof(function_base), "encode_%s_%s", msgname, sig->name);
 	else
-		fprintf(o, "void encode_can_%s(", sig->name);
+		snprintf(function_base, sizeof(function_base), "encode_can_%s", sig->name);
+	format_identifier(function_name, sizeof(function_name), copts, function_base);
+	fprintf(o, "void %s(", function_name);
 	if (fprintf_msg_obj_type(o, msgname) < 0)
 		return -1;
 	fprintf(o, " *o, %s in)", type);
@@ -635,13 +691,17 @@ static int signal2scaling_decode(can_msg_t *msg, const char *msgname, unsigned i
 	assert(copts);
 	(void)god;
 	char api_type_buf[MAX_NAME_LENGTH] = { 0 };
+	char function_name[MAX_NAME_LENGTH] = { 0 };
+	char function_base[MAX_NAME_LENGTH] = { 0 };
 	const char *type = signal_api_type(msgname, sig, copts, api_type_buf, sizeof api_type_buf);
 	if (copts->use_id_in_name)
-		fprintf(o, "void decode_can_0x%03x_%s(", id, sig->name);
+		snprintf(function_base, sizeof(function_base), "decode_can_0x%03x_%s", id, sig->name);
 	else if (copts->version >= 2)
-		fprintf(o, "void decode_%s_%s(", msgname, sig->name);
+		snprintf(function_base, sizeof(function_base), "decode_%s_%s", msgname, sig->name);
 	else
-		fprintf(o, "void decode_can_%s(", sig->name);
+		snprintf(function_base, sizeof(function_base), "decode_can_%s", sig->name);
+	format_identifier(function_name, sizeof(function_name), copts, function_base);
+	fprintf(o, "void %s(", function_name);
 	if (fprintf_msg_obj_type(o, msgname) < 0)
 		return -1;
 	fprintf(o, " *o, %s *out)", type);
@@ -726,10 +786,12 @@ static void make_name(char *newname, size_t maxlen, const char *name, unsigned i
 	assert(newname);
 	assert(name);
 	assert(copts);
+	char base[MAX_NAME_LENGTH] = { 0 };
 	if (copts->use_id_in_name)
-		snprintf(newname, maxlen-1, "can_0x%03x_%s", id, name);
+		snprintf(base, sizeof(base), "can_0x%03x_%s", id, name);
 	else
-		snprintf(newname, maxlen-1, "can_%s", name);
+		snprintf(base, sizeof(base), "can_%s", name);
+	format_identifier(newname, maxlen, copts, base);
 }
 
 static signal_t *find_multiplexor(can_msg_t *msg) {
@@ -753,7 +815,9 @@ static int msg_print(can_msg_t *msg, FILE *c, const char *name, const char *god,
 	assert(name);
 	UNUSED(god);
 	assert(copts);
-	fprintf(c, "int print_%s(const %s_t *o, FILE *output) {\n", name, name);
+	char print_name[MAX_NAME_LENGTH] = { 0 };
+	format_identifier(print_name, sizeof(print_name), copts, name);
+	fprintf(c, "int %s(const %s_t *o, FILE *output) {\n", print_name, name);
 	if (copts->generate_asserts) {
 		fputs("\tassert(o);\n", c);
 		fputs("\tassert(output);\n", c);
@@ -917,13 +981,17 @@ static void msg2h_define_can_ids(dbc_t *dbc, FILE *h, dbc2c_options_t *copts) {
 	for (size_t i = 0; i < dbc->message_count; i++) {
 		can_msg_t *msg = dbc->messages[i];
 		char *name = duplicate(msg->name);
+		char macro_name[MAX_NAME_LENGTH] = { 0 };
+		char macro_base[MAX_NAME_LENGTH] = { 0 };
 
 		for (size_t i = 0; name[i] != 0; i++)
 			name[i] = toupper(name[i]);
+		snprintf(macro_base, sizeof(macro_base), "CAN_ID_%s", name);
+		format_macro_identifier(macro_name, sizeof(macro_name), copts, macro_base);
 		if (ens) {
-			fprintf(h, "\tCAN_ID_%s = %lu, /* 0x%lx */\n", name, msg->id, msg->id);
+			fprintf(h, "\t%s = %lu, /* 0x%lx */\n", macro_name, msg->id, msg->id);
 		} else {
-			fprintf(h, "#define CAN_ID_%s (%lu) /* 0x%lx */\n", name, msg->id, msg->id);
+			fprintf(h, "#define %s (%lu) /* 0x%lx */\n", macro_name, msg->id, msg->id);
 		}
 
 		free(name);
@@ -978,28 +1046,54 @@ static int val_list2h_enum(FILE *h, const char *prefix, val_list_t *list, dbc2c_
 			if (strlen(ename) != strlen(item->name))
 				warning("Non C-Ident characters in enumeration generation: '%s' -> '%s'", item->name, ename);
 			char enum_value_name[MAX_NAME_LENGTH] = { 0, };
+			char enum_value_base[MAX_NAME_LENGTH] = { 0, };
 			if (prefix)
-				r = snprintf(enum_value_name, MAX_NAME_LENGTH-1, "%s_%s_%s", prefix, list->name, ename);
+				r = snprintf(enum_value_base, MAX_NAME_LENGTH-1, "%s_%s_%s", prefix, list->name, ename);
 			else
-				r = snprintf(enum_value_name, MAX_NAME_LENGTH-1, "val_table_%s_%s", list->name, ename);
+				r = snprintf(enum_value_base, MAX_NAME_LENGTH-1, "val_table_%s_%s", list->name, ename);
+			if (prefix)
+				snprintf(enum_value_name, sizeof(enum_value_name), "%s", enum_value_base);
+			else
+				format_identifier(enum_value_name, sizeof(enum_value_name), copts, enum_value_base);
 			for (int i = 0; enum_value_name[i]; i++)
 				enum_value_name[i] = toupper(enum_value_name[i]);
 			fprintf(h, "\t%s = %u,\n", enum_value_name, item->value);
 			free(ename);
 		} else {
-			r = fprintf(h, "\t%s_%s_e = %u,\n", list->name, item->name, item->value);
+			char enum_value_name[MAX_NAME_LENGTH] = { 0, };
+			char enum_value_base[MAX_NAME_LENGTH] = { 0, };
+			snprintf(enum_value_base, sizeof(enum_value_base), "%s_%s_e", list->name, item->name);
+			if (prefix)
+				snprintf(enum_value_name, sizeof(enum_value_name), "%s", enum_value_base);
+			else
+				format_identifier(enum_value_name, sizeof(enum_value_name), copts, enum_value_base);
+			r = fprintf(h, "\t%s = %u,\n", enum_value_name, item->value);
 		}
 		if (r < 0)
 			error("output failed");
 	}
 
 	if (copts->version >= 2) {
+		char enum_type_name[MAX_NAME_LENGTH] = { 0, };
+		char enum_type_base[MAX_NAME_LENGTH] = { 0, };
 		if (prefix)
-			fprintf(h, "} %s_%s_e;\n\n", prefix, list->name);
+			snprintf(enum_type_base, sizeof(enum_type_base), "%s_%s_e", prefix, list->name);
 		else
-			fprintf(h, "} val_table_%s_e;\n\n", list->name);
+			snprintf(enum_type_base, sizeof(enum_type_base), "val_table_%s_e", list->name);
+		if (prefix)
+			snprintf(enum_type_name, sizeof(enum_type_name), "%s", enum_type_base);
+		else
+			format_identifier(enum_type_name, sizeof(enum_type_name), copts, enum_type_base);
+		fprintf(h, "} %s;\n\n", enum_type_name);
 	} else {
-		fprintf(h, "} %s_e;\n\n", list->name);
+		char enum_type_name[MAX_NAME_LENGTH] = { 0, };
+		char enum_type_base[MAX_NAME_LENGTH] = { 0, };
+		snprintf(enum_type_base, sizeof(enum_type_base), "%s_e", list->name);
+		if (prefix)
+			snprintf(enum_type_name, sizeof(enum_type_name), "%s", enum_type_base);
+		else
+			format_identifier(enum_type_name, sizeof(enum_type_name), copts, enum_type_base);
+		fprintf(h, "} %s;\n\n", enum_type_name);
 	}
 
 	return 0;
@@ -1063,10 +1157,11 @@ static int msg2h_objects(dbc_t *dbc, FILE *h, dbc2c_options_t *copts)
 	return 0;
 }
 
-static int msg2h_hashes(dbc_t *dbc, FILE *h)
+static int msg2h_hashes(dbc_t *dbc, FILE *h, dbc2c_options_t *copts)
 {
 	assert(dbc);
 	assert(h);
+	assert(copts);
 
 	char **nodes = NULL;
 	size_t node_count = 0;
@@ -1081,15 +1176,17 @@ static int msg2h_hashes(dbc_t *dbc, FILE *h)
 		}
 	}
 
-	fprintf(h, "#define DBCC_NODE_COUNT (%zuu)\n", node_count);
-	fprintf(h, "#define DBCC_MESSAGE_COUNT (%zuu)\n", dbc->message_count);
-	fprintf(h, "#define DBCC_SIGNAL_COUNT (%zuu)\n", dbc_signal_count(dbc));
-	fprintf(h, "#define DBCC_HASH_EMB (0x%08" PRIx32 "u)\n", dbc_emb_hash32(dbc));
+	char macro[MAX_NAME_LENGTH] = {0};
+	format_macro_identifier(macro, sizeof(macro), copts, "DBCC_HASH_EMB");
+	fprintf(h, "#define %s (0x%08" PRIx32 "u)\n", macro, dbc_emb_hash32(dbc));
 	for (size_t i = 0; i < node_count; i++) {
-		char macro[MAX_NAME_LENGTH] = {0};
-		node_name_to_macro(nodes[i], macro, sizeof(macro));
-		fprintf(h, "#define DBCC_NODE_HASH_%s (0x%08" PRIx32 "u)\n",
-			macro, dbc_node_hash32(dbc, nodes[i]));
+		char node_macro[MAX_NAME_LENGTH] = {0};
+		char base_macro[MAX_NAME_LENGTH] = {0};
+		node_name_to_macro(nodes[i], node_macro, sizeof(node_macro));
+		snprintf(base_macro, sizeof(base_macro), "DBCC_NODE_HASH_%s", node_macro);
+		format_macro_identifier(node_macro, sizeof(node_macro), copts, base_macro);
+		fprintf(h, "#define %s (0x%08" PRIx32 "u)\n",
+			node_macro, dbc_node_hash32(dbc, nodes[i]));
 	}
 	fputc('\n', h);
 	free(nodes);
@@ -1144,7 +1241,20 @@ int dbc2c(dbc_t *dbc, FILE *c, FILE *h, const char *name, dbc2c_options_t *copts
 	int rv = 0;
 	char *god = NULL;
 	char *file_guard = duplicate(name);
+	char *symbol_namespace = NULL;
+	char *macro_namespace = NULL;
+	char generator_version_macro[MAX_NAME_LENGTH] = { 0 };
 	const size_t file_guard_len = strlen(file_guard);
+
+	if (copts->namespace_from_filename) {
+		char *base_name = basename_without_extension(name);
+		symbol_namespace = sanitize_identifier(base_name, 0);
+		macro_namespace = sanitize_identifier(base_name, 1);
+		copts->symbol_namespace = symbol_namespace;
+		copts->macro_namespace = macro_namespace;
+		free(base_name);
+	}
+	format_macro_identifier(generator_version_macro, sizeof(generator_version_macro), copts, "DBCC_GENERATOR_VERSION");
 
 	/* make file guard all upper case alphanumeric only, first character
 	 * alpha only*/
@@ -1167,7 +1277,7 @@ int dbc2c(dbc_t *dbc, FILE *c, FILE *h, const char *name, dbc2c_options_t *copts
 		"/* If the contents of this file have caused breaking changes for you, you could try using\n"
 		"   an older version of the generator. You can specify this on the command line with\n"
 		"   the -n option. */\n"
-		"#define DBCC_GENERATOR_VERSION (%d)\n\n"
+		"#define %s (%d)\n\n"
 		"#include <stdint.h>\n"
 		"%s\n\n"
 		"#ifdef __cplusplus\n"
@@ -1175,6 +1285,7 @@ int dbc2c(dbc_t *dbc, FILE *c, FILE *h, const char *name, dbc2c_options_t *copts
 		"#endif\n\n",
 		file_guard,
 		file_guard,
+		generator_version_macro,
 		copts->version,
 		copts->generate_print   ? "#include <stdio.h>"  : "") < 0)
 			return -1;
@@ -1185,7 +1296,7 @@ int dbc2c(dbc_t *dbc, FILE *c, FILE *h, const char *name, dbc2c_options_t *copts
 		goto fail;
 	}
 
-	if (msg2h_hashes(dbc, h) < 0) {
+	if (msg2h_hashes(dbc, h, copts) < 0) {
 		rv = -1;
 		goto fail;
 	}
@@ -1266,6 +1377,10 @@ int dbc2c(dbc_t *dbc, FILE *c, FILE *h, const char *name, dbc2c_options_t *copts
 		}
 
 fail:
+	copts->symbol_namespace = NULL;
+	copts->macro_namespace = NULL;
+	free(symbol_namespace);
+	free(macro_namespace);
 	free(file_guard);
 	free(god);
 	return rv;

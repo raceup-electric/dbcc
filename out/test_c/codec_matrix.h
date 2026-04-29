@@ -24,9 +24,6 @@ better MISRA-C support.
 extern "C" { 
 #endif
 
-#define DBCC_NODE_COUNT (2u)
-#define DBCC_MESSAGE_COUNT (6u)
-#define DBCC_SIGNAL_COUNT (22u)
 #define DBCC_HASH_EMB (0xf4ccf1efu)
 #define DBCC_NODE_HASH_TEST_NODE (0x4d052911u)
 #define DBCC_NODE_HASH_AUX_NODE (0x0984bfe0u)
