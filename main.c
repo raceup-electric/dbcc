@@ -231,7 +231,7 @@ static uint32_t dbc_node_hash32(const dbc_t *dbc, const char *node)
 	return hash;
 }
 
-static uint32_t dbc_emb_hash32(const dbc_t *dbc)
+static uint32_t dbc_hash32(const dbc_t *dbc)
 {
 	assert(dbc);
 	uint32_t hash = 2166136261u;
@@ -264,7 +264,7 @@ static void print_dbc_summary_block(const dbc_t *dbc, const char *file_name)
 	fprintf(stdout, "%-24s%zu\n", "nodes", count);
 	fprintf(stdout, "%-24s%zu\n", "messages", dbc->message_count);
 	fprintf(stdout, "%-24s%zu\n", "signals", dbc_signal_count(dbc));
-	fprintf(stdout, "%-24s0x%08" PRIx32 "\n", "hash DBC", dbc_emb_hash32(dbc));
+	fprintf(stdout, "%-24s0x%08" PRIx32 "\n", "hash DBC", dbc_hash32(dbc));
 	for (size_t i = 0; i < count; i++) {
 		char label[256] = {0};
 		snprintf(label, sizeof(label), "hash %s", nodes[i]);

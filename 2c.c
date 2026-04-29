@@ -272,7 +272,7 @@ static uint32_t dbc_node_hash32(const dbc_t *dbc, const char *node)
 	return hash;
 }
 
-static uint32_t dbc_emb_hash32(const dbc_t *dbc)
+static uint32_t dbc_hash32(const dbc_t *dbc)
 {
 	assert(dbc);
 	uint32_t hash = 2166136261u;
@@ -1177,8 +1177,8 @@ static int msg2h_hashes(dbc_t *dbc, FILE *h, dbc2c_options_t *copts)
 	}
 
 	char macro[MAX_NAME_LENGTH] = {0};
-	format_macro_identifier(macro, sizeof(macro), copts, "DBCC_HASH_EMB");
-	fprintf(h, "#define %s (0x%08" PRIx32 "u)\n", macro, dbc_emb_hash32(dbc));
+	format_macro_identifier(macro, sizeof(macro), copts, "DBCC_HASH");
+	fprintf(h, "#define %s (0x%08" PRIx32 "u)\n", macro, dbc_hash32(dbc));
 	for (size_t i = 0; i < node_count; i++) {
 		char node_macro[MAX_NAME_LENGTH] = {0};
 		char base_macro[MAX_NAME_LENGTH] = {0};

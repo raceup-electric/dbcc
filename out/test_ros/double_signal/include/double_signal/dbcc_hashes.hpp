@@ -4,7 +4,7 @@
 #include <cstdint>
 
 namespace dbcc_hashes {
-static constexpr std::uint32_t HASH_EMB = 0xbf1ea669u;
+static constexpr std::uint32_t HASH = 0xbf1ea669u;
 } // namespace dbcc_hashes
 
 #endif

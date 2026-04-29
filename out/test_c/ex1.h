@@ -24,7 +24,7 @@ better MISRA-C support.
 extern "C" { 
 #endif
 
-#define DBCC_HASH_EMB (0xa737817eu)
+#define DBCC_HASH (0xa737817eu)
 #define DBCC_NODE_HASH_VECTOR__XXX (0xf618896fu)
 #define DBCC_NODE_HASH_IMAR (0x1e183e41u)
 #define DBCC_NODE_HASH_MESSAGE_SENDER (0xa32c02fcu)

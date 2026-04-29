@@ -210,7 +210,7 @@ static uint32_t dbc_node_hash32(const dbc_t *dbc, const char *node)
 	return hash;
 }
 
-static uint32_t dbc_emb_hash32(const dbc_t *dbc)
+static uint32_t dbc_hash32(const dbc_t *dbc)
 {
 	assert(dbc);
 	uint32_t hash = 2166136261u;
@@ -949,8 +949,8 @@ static void generate_hash_header(const dbc_t *dbc, const char *outdir, const cha
 		"#define DBCC_HASHES_HPP\n\n"
 		"#include <cstdint>\n\n"
 		"namespace dbcc_hashes {\n"
-		"static constexpr std::uint32_t HASH_EMB = 0x%08" PRIx32 "u;\n",
-		dbc_emb_hash32(dbc));
+		"static constexpr std::uint32_t HASH = 0x%08" PRIx32 "u;\n",
+		dbc_hash32(dbc));
 
 	for (size_t i = 0; i < rosopts->ecu_whitelist_length; i++) {
 		const char *node = rosopts->ecu_whitelist[i];
