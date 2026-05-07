@@ -17,6 +17,7 @@
 #include "2bsm.h"
 #include "2json.h"
 #include "2ros.h"
+#include "2sdodps.h"
 #include "options.h"
 
 #ifndef NELEMS
@@ -30,6 +31,7 @@ typedef enum {
 	CONVERT_TO_BSM,
 	CONVERT_TO_JSON,
 	CONVERT_TO_ROS,
+	CONVERT_TO_SDO_DPS,
 } conversion_type_e;
 
 static bool string_in_list(char **items, size_t count, const char *value)
@@ -279,7 +281,7 @@ static void print_dbc_summary_block(const dbc_t *dbc, const char *file_name)
 static void usage(const char *arg0)
 {
 	assert(arg0);
-	fprintf(stderr, "%s: [-] [-hvjgtxpkuDC] [-o dir] file*\n", arg0);
+	fprintf(stderr, "%s: [-] [-hvjgtxpkuDCd] [-o dir] file*\n", arg0);
 }
 
 static void help(void)
@@ -305,6 +307,7 @@ Options:\n\
 \t-b     convert output to BSM (beSTORM) instead of the default C code\n\
 \t-j     convert output to JSON instead of the default C code\n\
 \t-r     convert output to ROS2 package instead of the default C code\n\
+\t-d     convert output to SDO_DPS package instead of the default C code\n\
 \t-o dir set the output directory\n\
 \t-D     use 'double' for the encode/decode type messages (C code)\n\
 \t-p     generate only print code (C code)\n\
@@ -430,6 +433,17 @@ static int dbc2rosWrapper(dbc_t *dbc, const char *dbc_file, const char *file_onl
 	return r;
 }
 
+static int dbc2sdodpsWrapper(dbc_t *dbc, const char *src_dbc_file, const char *out_dbc_file)
+{
+	assert(dbc);
+	assert(src_dbc_file);
+	assert(out_dbc_file);
+	char *dname = replace_file_type(out_dbc_file, "");
+	int r = dbc2sdodps(dbc, src_dbc_file, dname);
+	free(dname);
+	return r;
+}
+
 // TODO: Formatting, new printing functions
 int main(int argc, char **argv)
 {
@@ -462,7 +476,7 @@ int main(int argc, char **argv)
 	};
 	int opt = 0;
 
-	while ((opt = dbcc_getopt(argc, argv, "hVvbjgxCrNtDpukso:n:OBLPW:")) != -1) {
+	while ((opt = dbcc_getopt(argc, argv, "hVvbjgxCrNtDpukso:n:OBLPW:d")) != -1) {
 		switch (opt) {
 		case 'h':
 			usage(argv[0]);
@@ -491,6 +505,9 @@ int main(int argc, char **argv)
 			break;
 		case 'r':
 			convert = CONVERT_TO_ROS;
+			break;
+		case 'd':
+			convert = CONVERT_TO_SDO_DPS;
 			break;
 		case 'N':
 			copts.use_id_in_name = false;
@@ -618,6 +635,9 @@ int main(int argc, char **argv)
 			break;
 		case CONVERT_TO_ROS:
 			r = dbc2rosWrapper(dbc, outpath, dbcc_basename(argv[i]), &rosopts);
+			break;
+		case CONVERT_TO_SDO_DPS:
+			r = dbc2sdodpsWrapper(dbc, argv[i], outpath);
 			break;
 		default:
 			error("invalid conversion type: %d", convert);

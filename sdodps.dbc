@@ -1,0 +1,84 @@
+VERSION ""
+
+NS_ :
+    NS_DESC_
+    CM_
+    BA_DEF_
+    BA_
+    VAL_
+    CAT_DEF_
+    CAT_
+    FILTER
+    BA_DEF_DEF_
+    EV_DATA_
+    ENVVAR_DATA_
+    SGTYPE_
+    SGTYPE_VAL_
+    BA_DEF_SGTYPE_
+    BA_SGTYPE_
+    SIG_TYPE_REF_
+    VAL_TABLE_
+    SIG_GROUP_
+    SIG_VALTYPE_
+    SIGTYPE_VALTYPE_
+    BO_TX_BU_
+    BA_DEF_REL_
+    BA_REL_
+    BA_DEF_DEF_REL_
+    BU_SG_REL_
+    BU_EV_REL_
+    BU_BO_REL_
+    SG_MUL_VAL_
+
+BS_:
+BU_: TCU MCU PCU
+
+VAL_TABLE_ OPCODES 1 "GET_REQ" 2 "SET_REQ" 3 "GET_ALL_REQ" 128 "RES" 253 "ERR_OUT_OF_RANGE" 254 "ERR_WRTIE_RO" 255 "ERR";
+
+BO_ 512 SDO_PCU: 7 PCU, TCU
+ SG_ opcode             : 0|8@1+ (1,0) [0|255] "" VECTOR__XXX
+ SG_ var_id M           : 8|10@1+ (1,0) [0|1023] "" VECTOR__XXX
+ SG_ flags              : 18|6@1+ (1,0) [0|63] "" VECTOR__XXX
+ SG_ dbc_hash m0        : 24|32@1+ (1,0) [0|0] "" VECTOR__XXX
+ SG_ send_asms m1       : 24|1@1+ (1,0) [0|0] "" VECTOR__XXX
+ SG_ Kp_batt m2         : 24|32@1+ (1,0) [0|0] "" VECTOR__XXX
+ SG_ Ki_batt m3         : 24|32@1+ (1,0) [0|0] "" VECTOR__XXX
+ SG_ T_0_batt m4        : 24|32@1+ (1,0) [0|0] "C" VECTOR__XXX
+ SG_ T_100_batt m5      : 24|32@1+ (1,0) [0|0] "C" VECTOR__XXX
+ SG_ droni_perf m6      : 24|8@1+ (1,0) [0|100] "%" VECTOR__XXX
+ SG_ pump_l_max m7      : 24|8@1+ (1,0) [0|100] "%" VECTOR__XXX
+ SG_ pump_r_max m8      : 24|8@1+ (1,0) [0|100] "%" VECTOR__XXX
+ SG_ rain_mode m9       : 24|1@1+ (1,0) [0|0] "" VECTOR__XXX
+ SG_ limit_fan_curr m10 : 24|1@1+ (1,0) [0|0] "" VECTOR__XXX
+ SG_ debug_sense m11    : 24|1@1+ (1,0) [0|0] "" VECTOR__XXX
+
+BO_ 513 SDO_MCU: 7 MCU, TCU
+ SG_ opcode                   : 0|8@1+ (1,0) [0|255] "" VECTOR__XXX
+ SG_ var_id M                 : 8|10@1+ (1,0) [0|1023] "" VECTOR__XXX
+ SG_ flags                    : 18|6@1+ (1,0) [0|63] "" VECTOR__XXX
+ SG_ dbc_hash m0              : 24|32@1+ (1,0) [0|0] "" VECTOR__XXX
+ SG_ is_pos_torque_allowed m1 : 24|1@1+ (1,0) [0|0] "" VECTOR__XXX
+ SG_ is_neg_torque_allowed m2 : 24|1@1+ (1,0) [0|0] "" VECTOR__XXX
+ SG_ motor_max_torque m3      : 24|32@1+ (1,0) [0|0] "N" VECTOR__XXX
+ SG_ lim_pos_torque m4        : 24|32@1+ (1,0) [0|0] "N" VECTOR__XXX
+ SG_ lim_neg_torque m5        : 24|32@1+ (1,0) [0|0] "N" VECTOR__XXX
+ SG_ lim_rpm m6               : 24|16@1+ (1,0) [0|0] "rpm" VECTOR__XXX
+ SG_ speed_limitation m7      : 24|16@1+ (1,0) [0|0] "rpm" VECTOR__XXX
+ SG_ scs_active m8            : 24|1@1+ (1,0) [0|0] "" VECTOR__XXX
+ SG_ scs_monitor_bmsLv m9     : 24|1@1+ (1,0) [0|0] "" VECTOR__XXX
+ SG_ scs_monitor_bmsHv m10    : 24|1@1+ (1,0) [0|0] "" VECTOR__XXX
+ SG_ scs_monitor_ebs m11      : 24|1@1+ (1,0) [0|0] "" VECTOR__XXX
+ SG_ serial_core_usb m12      : 24|8@1+ (1,0) [0|2] "" VECTOR__XXX
+
+VAL_ 512 opcode OPCODES;
+VAL_ 513 opcode OPCODES;
+VAL_ 512 var_id 0 "dbc_hash" 1 "send_asms" 2 "Kp_batt" 3 "Ki_batt" 4 "T_0_batt" 5 "T_100_batt" 6 "droni_perf" 7 "pump_l_max" 8 "pump_r_max" 9 "rain_mode" 10 "limit_fan_curr" 11 "debug_sense";
+VAL_ 513 var_id 0 "dbc_hash" 1 "is_pos_torque_allowed" 2 "is_neg_torque_allowed" 3 "motor_max_torque" 4 "lim_pos_torque" 5 "lim_neg_torque" 6 "lim_rpm" 7 "speed_limitation" 8 "scs_active" 9 "scs_monitor_bmsLv" 10 "scs_monitor_bmsHv" 11 "scs_monitor_ebs" 12 "serial_core_usb";
+
+SIG_VALTYPE_ 512 Kp_batt : 1;
+SIG_VALTYPE_ 512 Ki_batt : 1;
+SIG_VALTYPE_ 512 T_0_batt : 1;
+SIG_VALTYPE_ 512 T_100_batt : 1;
+SIG_VALTYPE_ 513 motor_max_torque : 1;
+SIG_VALTYPE_ 513 lim_pos_torque : 1;
+SIG_VALTYPE_ 513 lim_neg_torque : 1;

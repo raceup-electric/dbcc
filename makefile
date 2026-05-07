@@ -1,9 +1,11 @@
 LDFLAGS  = -lm
 CFLAGS   = -std=c99 -Wall -Wextra -g -O2 -pedantic -fwrapv -DDBCC_VERSION="\"v1.2.5\""
+CXXFLAGS = -std=c++17 -Wall -Wextra -g -O2 -pedantic
 RM      := rm
 OUTDIR  := out
 TEST_C_DIR := ${OUTDIR}/test_c
 TEST_ROS_DIR := ${OUTDIR}/test_ros
+TEST_SDODPS_DIR := ${OUTDIR}/test_sdodps
 SOURCES := ${wildcard *.c}
 MDS     := ${wildcard *.md}
 HTMLS   := ${MDS:%.md=%.html}
@@ -19,7 +21,7 @@ CODECS  := ${DBCS:%.dbc=${OUTDIR}/%.c}
 CFLAGS  += -MMD
 TARGET  := dbcc
 
-.PHONY: doc all run clean test test_c test_c_codegen test_c_compile test_c_run test_ros
+.PHONY: doc all run clean test test_c test_c_codegen test_c_compile test_c_run test_ros test_sdodps
 
 all: ${TARGET}
 
@@ -73,6 +75,7 @@ TEST_C_FILES=${TEST_C_DIR}/ex1.c \
             ${TEST_C_DIR}/enum.c \
             ${TEST_C_DIR}/mul_val.c \
             ${TEST_C_DIR}/single_enum.c \
+            ${TEST_C_DIR}/sdodps.c \
             ${TEST_C_DIR}/bitfield_edge.c
 
 TEST_C_FILES_MAIN=${TEST_C_DIR}/ex1.c \
@@ -82,6 +85,7 @@ TEST_C_FILES_MAIN=${TEST_C_DIR}/ex1.c \
                   ${TEST_C_DIR}/float_signal.c \
                   ${TEST_C_DIR}/enum.c \
                   ${TEST_C_DIR}/mul_val.c \
+                  ${TEST_C_DIR}/sdodps.c \
                   ${TEST_C_DIR}/bitfield_edge.c
 
 TEST_2C_SRCS=tests/test_2c_main.c \
@@ -164,6 +168,17 @@ test_c: test_c_compile test_c_run
 
 test_ros: ${TEST_ROS_FILES} ${TEST_ROS_DIR}/COLCON_IGNORE
 
+test_sdodps: ${TARGET}
+	@mkdir -p ${TEST_SDODPS_DIR}
+	./${TARGET} ${DBCCFLAGS} -d -o ${TEST_SDODPS_DIR} sdodps.dbc
+	${CXX} ${CXXFLAGS} -I${TEST_SDODPS_DIR}/sdodps \
+		${TEST_SDODPS_DIR}/sdodps/sdodps_master.cpp \
+		${TEST_SDODPS_DIR}/sdodps/sdodps_slave_pcu.cpp \
+		${TEST_SDODPS_DIR}/sdodps/sdodps_slave_mcu.cpp \
+		tests/test_sdodps_generated.cpp \
+		-o ${TEST_SDODPS_DIR}/test_sdodps_generated
+	./${TEST_SDODPS_DIR}/test_sdodps_generated
+
 test:
 	@set -e; \
 	t0=$$(date +%s%3N); \
@@ -175,6 +190,8 @@ test:
 	printf '[time] compile_generated_c: %d ms\n' "$$((t2-t1))"; \
 	t1=$$(date +%s%3N); $(MAKE) --no-print-directory test_c_run; t2=$$(date +%s%3N); \
 	printf '[time] run_generated_c: %d ms\n' "$$((t2-t1))"; \
+	t1=$$(date +%s%3N); $(MAKE) --no-print-directory test_sdodps; t2=$$(date +%s%3N); \
+	printf '[time] test_sdodps: %d ms\n' "$$((t2-t1))"; \
 	tf=$$(date +%s%3N); \
 	printf '[time] total_test: %d ms\n' "$$((tf-t0))"
 
@@ -184,4 +201,4 @@ doc: ${HTMLS} ${MANS} ${PDFS}
 
 clean:
 	${RM} -f *.o *.d *.out ${TARGET} *.htm vgcore.* core
-	${RM} -rf ${TEST_C_DIR} ${TEST_ROS_DIR}
+	${RM} -rf ${TEST_C_DIR} ${TEST_ROS_DIR} ${TEST_SDODPS_DIR}

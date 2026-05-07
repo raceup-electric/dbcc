@@ -45,3 +45,4 @@ Release/
 *.json
 .codex
 out/test_c/test_2c*
+out/test_sdodps/test_sdodps_generated

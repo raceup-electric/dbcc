@@ -170,31 +170,50 @@ static void message_nodes(mpc_ast_t *msg_ast, can_msg_t *msg)
 		msg->ecu = duplicate(nodes[0]);
 }
 
+static int sigval_from_ast(mpc_ast_t *ast, unsigned id, const char *signal)
+{
+	assert(ast);
+	assert(signal);
+	if (ast->tag && !strcmp(ast->tag, "sigval|>")) {
+		mpc_ast_t *name = mpc_ast_get_child(ast, "name|ident|regex");
+		mpc_ast_t *svid = mpc_ast_get_child(ast, "id|integer|regex");
+		assert(name);
+		assert(svid);
+		unsigned svidd = 0;
+		sscanf(svid->contents, "%u", &svidd);
+		if (id == svidd && !strcmp(signal, name->contents)) {
+			unsigned typed = 0;
+			mpc_ast_t *type = mpc_ast_get_child(ast, "sigtype|integer|regex");
+			sscanf(type->contents, "%u", &typed);
+			debug("floating -> %s:%u:%u\n", name->contents, id, typed);
+			return typed;
+		}
+	}
+
+	for (int i = 0; i < ast->children_num; i++) {
+		int typed = sigval_from_ast(ast->children[i], id, signal);
+		if (typed >= 0)
+			return typed;
+	}
+
+	return -1;
+}
+
 static int sigval(mpc_ast_t *top, unsigned id, const char *signal)
 {
 	assert(top);
-	assert(signal);
-	for (int i = 0; i >= 0;) {
-		i = mpc_ast_get_index_lb(top, "sigval|>", i);
-		if (i >= 0) {
-			mpc_ast_t *sv   = mpc_ast_get_child_lb(top, "sigval|>", i);
-			mpc_ast_t *name = mpc_ast_get_child(sv,     "name|ident|regex");
-			mpc_ast_t *svid = mpc_ast_get_child(sv,     "id|integer|regex");
-			assert(name);
-			assert(svid);
-			unsigned svidd = 0;
-			sscanf(svid->contents, "%u", &svidd);
-			if (id == svidd && !strcmp(signal, name->contents)) {
-				unsigned typed = 0;
-				mpc_ast_t *type = mpc_ast_get_child(sv, "sigtype|integer|regex");
-				sscanf(type->contents, "%u", &typed);
-				debug("floating -> %s:%u:%u\n", name->contents, id, typed);
-				return typed;
-			}
-			i++;
-		}
-	}
-	return -1;
+	return sigval_from_ast(top, id, signal);
+}
+
+static bool ast_contains_sigval(mpc_ast_t *ast)
+{
+	assert(ast);
+	if (ast->tag && !strcmp(ast->tag, "sigval|>"))
+		return true;
+	for (int i = 0; i < ast->children_num; i++)
+		if (ast_contains_sigval(ast->children[i]))
+			return true;
+	return false;
 }
 
 static signal_t *ast2signal(mpc_ast_t *top, mpc_ast_t *ast, unsigned can_id)
@@ -779,8 +798,7 @@ dbc_t *ast2dbc(mpc_ast_t *ast)
 	d->message_count = j;
 	d->messages = r;
 
-	int i = mpc_ast_get_index_lb(ast, "sigval|>", 0);
-	if (i >= 0)
+	if (ast_contains_sigval(ast))
 		d->use_float = true;
 
 	// find and store the vals into the dbc: they will be assigned to
