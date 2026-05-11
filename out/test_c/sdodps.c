@@ -21,7 +21,7 @@ static inline uint64_t reverse_byte_order(uint64_t x) {
 	return x;
 }
 
-void decode_can_0x200_dbc_hash(can_0x200_SDO_PCU_obj_t *o, uint32_t *out) {
+void decode_can_0x200_dbc_hash(can_0x200_SDOPCU_obj_t *o, uint32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
@@ -36,7 +36,7 @@ void decode_can_0x200_dbc_hash(can_0x200_SDO_PCU_obj_t *o, uint32_t *out) {
 	return;
 }
 
-void encode_can_0x200_dbc_hash(can_0x200_SDO_PCU_obj_t *o, uint32_t in) {
+void encode_can_0x200_dbc_hash(can_0x200_SDOPCU_obj_t *o, uint32_t in) {
 	assert(o);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
 	uint64_t _lane_mux = _payload_mux;
@@ -47,7 +47,7 @@ void encode_can_0x200_dbc_hash(can_0x200_SDO_PCU_obj_t *o, uint32_t in) {
 	return;
 }
 
-void decode_can_0x200_Kp_batt(can_0x200_SDO_PCU_obj_t *o, uint32_t *out) {
+void decode_can_0x200_Kp_batt(can_0x200_SDOPCU_obj_t *o, uint32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
@@ -62,7 +62,7 @@ void decode_can_0x200_Kp_batt(can_0x200_SDO_PCU_obj_t *o, uint32_t *out) {
 	return;
 }
 
-void encode_can_0x200_Kp_batt(can_0x200_SDO_PCU_obj_t *o, uint32_t in) {
+void encode_can_0x200_Kp_batt(can_0x200_SDOPCU_obj_t *o, uint32_t in) {
 	assert(o);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
 	uint64_t _lane_mux = _payload_mux;
@@ -73,7 +73,7 @@ void encode_can_0x200_Kp_batt(can_0x200_SDO_PCU_obj_t *o, uint32_t in) {
 	return;
 }
 
-void decode_can_0x200_Ki_batt(can_0x200_SDO_PCU_obj_t *o, uint32_t *out) {
+void decode_can_0x200_Ki_batt(can_0x200_SDOPCU_obj_t *o, uint32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
@@ -88,7 +88,7 @@ void decode_can_0x200_Ki_batt(can_0x200_SDO_PCU_obj_t *o, uint32_t *out) {
 	return;
 }
 
-void encode_can_0x200_Ki_batt(can_0x200_SDO_PCU_obj_t *o, uint32_t in) {
+void encode_can_0x200_Ki_batt(can_0x200_SDOPCU_obj_t *o, uint32_t in) {
 	assert(o);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
 	uint64_t _lane_mux = _payload_mux;
@@ -99,7 +99,7 @@ void encode_can_0x200_Ki_batt(can_0x200_SDO_PCU_obj_t *o, uint32_t in) {
 	return;
 }
 
-void decode_can_0x200_T_0_batt(can_0x200_SDO_PCU_obj_t *o, uint32_t *out) {
+void decode_can_0x200_T_0_batt(can_0x200_SDOPCU_obj_t *o, uint32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
@@ -114,7 +114,7 @@ void decode_can_0x200_T_0_batt(can_0x200_SDO_PCU_obj_t *o, uint32_t *out) {
 	return;
 }
 
-void encode_can_0x200_T_0_batt(can_0x200_SDO_PCU_obj_t *o, uint32_t in) {
+void encode_can_0x200_T_0_batt(can_0x200_SDOPCU_obj_t *o, uint32_t in) {
 	assert(o);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
 	uint64_t _lane_mux = _payload_mux;
@@ -125,7 +125,7 @@ void encode_can_0x200_T_0_batt(can_0x200_SDO_PCU_obj_t *o, uint32_t in) {
 	return;
 }
 
-void decode_can_0x200_T_100_batt(can_0x200_SDO_PCU_obj_t *o, uint32_t *out) {
+void decode_can_0x200_T_100_batt(can_0x200_SDOPCU_obj_t *o, uint32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
@@ -140,7 +140,7 @@ void decode_can_0x200_T_100_batt(can_0x200_SDO_PCU_obj_t *o, uint32_t *out) {
 	return;
 }
 
-void encode_can_0x200_T_100_batt(can_0x200_SDO_PCU_obj_t *o, uint32_t in) {
+void encode_can_0x200_T_100_batt(can_0x200_SDOPCU_obj_t *o, uint32_t in) {
 	assert(o);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
 	uint64_t _lane_mux = _payload_mux;
@@ -151,25 +151,25 @@ void encode_can_0x200_T_100_batt(can_0x200_SDO_PCU_obj_t *o, uint32_t in) {
 	return;
 }
 
-void decode_can_0x200_var_id(can_0x200_SDO_PCU_obj_t *o, can_0x200_SDO_PCU_var_id_e *out) {
+void decode_can_0x200_var_id(can_0x200_SDOPCU_obj_t *o, can_0x200_SDOPCU_var_id_e *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
 	uint64_t _lane_sig = _payload_sig;
 	uint64_t x = (_lane_sig >> 8) & 0x3ffuLL;
-	can_0x200_SDO_PCU_var_id_e rval = (can_0x200_SDO_PCU_var_id_e)x;
+	can_0x200_SDOPCU_var_id_e rval = (can_0x200_SDOPCU_var_id_e)x;
 	*out = rval;
 	return;
 }
 
-void encode_can_0x200_var_id(can_0x200_SDO_PCU_obj_t *o, can_0x200_SDO_PCU_var_id_e in) {
+void encode_can_0x200_var_id(can_0x200_SDOPCU_obj_t *o, can_0x200_SDOPCU_var_id_e in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x3ffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x3ffuLL << 8)) | ((x & 0x3ffuLL) << 8);
 	return;
 }
 
-void decode_can_0x200_opcode(can_0x200_SDO_PCU_obj_t *o, val_table_OPCODES_e *out) {
+void decode_can_0x200_opcode(can_0x200_SDOPCU_obj_t *o, val_table_OPCODES_e *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -180,14 +180,14 @@ void decode_can_0x200_opcode(can_0x200_SDO_PCU_obj_t *o, val_table_OPCODES_e *ou
 	return;
 }
 
-void encode_can_0x200_opcode(can_0x200_SDO_PCU_obj_t *o, val_table_OPCODES_e in) {
+void encode_can_0x200_opcode(can_0x200_SDOPCU_obj_t *o, val_table_OPCODES_e in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffuLL) | (x & 0xffuLL);
 	return;
 }
 
-void decode_can_0x200_droni_perf(can_0x200_SDO_PCU_obj_t *o, uint8_t *out) {
+void decode_can_0x200_droni_perf(can_0x200_SDOPCU_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
@@ -203,7 +203,7 @@ void decode_can_0x200_droni_perf(can_0x200_SDO_PCU_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x200_droni_perf(can_0x200_SDO_PCU_obj_t *o, uint8_t in) {
+void encode_can_0x200_droni_perf(can_0x200_SDOPCU_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
 	uint64_t _lane_mux = _payload_mux;
@@ -215,7 +215,7 @@ void encode_can_0x200_droni_perf(can_0x200_SDO_PCU_obj_t *o, uint8_t in) {
 	return;
 }
 
-void decode_can_0x200_pump_l_max(can_0x200_SDO_PCU_obj_t *o, uint8_t *out) {
+void decode_can_0x200_pump_l_max(can_0x200_SDOPCU_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
@@ -231,7 +231,7 @@ void decode_can_0x200_pump_l_max(can_0x200_SDO_PCU_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x200_pump_l_max(can_0x200_SDO_PCU_obj_t *o, uint8_t in) {
+void encode_can_0x200_pump_l_max(can_0x200_SDOPCU_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
 	uint64_t _lane_mux = _payload_mux;
@@ -243,7 +243,7 @@ void encode_can_0x200_pump_l_max(can_0x200_SDO_PCU_obj_t *o, uint8_t in) {
 	return;
 }
 
-void decode_can_0x200_pump_r_max(can_0x200_SDO_PCU_obj_t *o, uint8_t *out) {
+void decode_can_0x200_pump_r_max(can_0x200_SDOPCU_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
@@ -259,7 +259,7 @@ void decode_can_0x200_pump_r_max(can_0x200_SDO_PCU_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x200_pump_r_max(can_0x200_SDO_PCU_obj_t *o, uint8_t in) {
+void encode_can_0x200_pump_r_max(can_0x200_SDOPCU_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
 	uint64_t _lane_mux = _payload_mux;
@@ -271,7 +271,7 @@ void encode_can_0x200_pump_r_max(can_0x200_SDO_PCU_obj_t *o, uint8_t in) {
 	return;
 }
 
-void decode_can_0x200_flags(can_0x200_SDO_PCU_obj_t *o, uint8_t *out) {
+void decode_can_0x200_flags(can_0x200_SDOPCU_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -282,14 +282,14 @@ void decode_can_0x200_flags(can_0x200_SDO_PCU_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x200_flags(can_0x200_SDO_PCU_obj_t *o, uint8_t in) {
+void encode_can_0x200_flags(can_0x200_SDOPCU_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x3fuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x3fuLL << 18)) | ((x & 0x3fuLL) << 18);
 	return;
 }
 
-void decode_can_0x200_send_asms(can_0x200_SDO_PCU_obj_t *o, uint8_t *out) {
+void decode_can_0x200_send_asms(can_0x200_SDOPCU_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
@@ -304,7 +304,7 @@ void decode_can_0x200_send_asms(can_0x200_SDO_PCU_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x200_send_asms(can_0x200_SDO_PCU_obj_t *o, uint8_t in) {
+void encode_can_0x200_send_asms(can_0x200_SDOPCU_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
 	uint64_t _lane_mux = _payload_mux;
@@ -315,7 +315,7 @@ void encode_can_0x200_send_asms(can_0x200_SDO_PCU_obj_t *o, uint8_t in) {
 	return;
 }
 
-void decode_can_0x200_rain_mode(can_0x200_SDO_PCU_obj_t *o, uint8_t *out) {
+void decode_can_0x200_rain_mode(can_0x200_SDOPCU_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
@@ -330,7 +330,7 @@ void decode_can_0x200_rain_mode(can_0x200_SDO_PCU_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x200_rain_mode(can_0x200_SDO_PCU_obj_t *o, uint8_t in) {
+void encode_can_0x200_rain_mode(can_0x200_SDOPCU_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
 	uint64_t _lane_mux = _payload_mux;
@@ -341,7 +341,7 @@ void encode_can_0x200_rain_mode(can_0x200_SDO_PCU_obj_t *o, uint8_t in) {
 	return;
 }
 
-void decode_can_0x200_limit_fan_curr(can_0x200_SDO_PCU_obj_t *o, uint8_t *out) {
+void decode_can_0x200_limit_fan_curr(can_0x200_SDOPCU_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
@@ -356,7 +356,7 @@ void decode_can_0x200_limit_fan_curr(can_0x200_SDO_PCU_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x200_limit_fan_curr(can_0x200_SDO_PCU_obj_t *o, uint8_t in) {
+void encode_can_0x200_limit_fan_curr(can_0x200_SDOPCU_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
 	uint64_t _lane_mux = _payload_mux;
@@ -367,7 +367,7 @@ void encode_can_0x200_limit_fan_curr(can_0x200_SDO_PCU_obj_t *o, uint8_t in) {
 	return;
 }
 
-void decode_can_0x200_debug_sense(can_0x200_SDO_PCU_obj_t *o, uint8_t *out) {
+void decode_can_0x200_debug_sense(can_0x200_SDOPCU_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
@@ -382,7 +382,7 @@ void decode_can_0x200_debug_sense(can_0x200_SDO_PCU_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x200_debug_sense(can_0x200_SDO_PCU_obj_t *o, uint8_t in) {
+void encode_can_0x200_debug_sense(can_0x200_SDOPCU_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
 	uint64_t _lane_mux = _payload_mux;
@@ -393,7 +393,7 @@ void encode_can_0x200_debug_sense(can_0x200_SDO_PCU_obj_t *o, uint8_t in) {
 	return;
 }
 
-void decode_can_0x201_dbc_hash(can_0x201_SDO_MCU_obj_t *o, uint32_t *out) {
+void decode_can_0x201_dbc_hash(can_0x201_SDOMCU_obj_t *o, uint32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
@@ -408,7 +408,7 @@ void decode_can_0x201_dbc_hash(can_0x201_SDO_MCU_obj_t *o, uint32_t *out) {
 	return;
 }
 
-void encode_can_0x201_dbc_hash(can_0x201_SDO_MCU_obj_t *o, uint32_t in) {
+void encode_can_0x201_dbc_hash(can_0x201_SDOMCU_obj_t *o, uint32_t in) {
 	assert(o);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
 	uint64_t _lane_mux = _payload_mux;
@@ -419,7 +419,7 @@ void encode_can_0x201_dbc_hash(can_0x201_SDO_MCU_obj_t *o, uint32_t in) {
 	return;
 }
 
-void decode_can_0x201_motor_max_torque(can_0x201_SDO_MCU_obj_t *o, uint32_t *out) {
+void decode_can_0x201_motor_max_torque(can_0x201_SDOMCU_obj_t *o, uint32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
@@ -434,7 +434,7 @@ void decode_can_0x201_motor_max_torque(can_0x201_SDO_MCU_obj_t *o, uint32_t *out
 	return;
 }
 
-void encode_can_0x201_motor_max_torque(can_0x201_SDO_MCU_obj_t *o, uint32_t in) {
+void encode_can_0x201_motor_max_torque(can_0x201_SDOMCU_obj_t *o, uint32_t in) {
 	assert(o);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
 	uint64_t _lane_mux = _payload_mux;
@@ -445,7 +445,7 @@ void encode_can_0x201_motor_max_torque(can_0x201_SDO_MCU_obj_t *o, uint32_t in) 
 	return;
 }
 
-void decode_can_0x201_lim_pos_torque(can_0x201_SDO_MCU_obj_t *o, uint32_t *out) {
+void decode_can_0x201_lim_pos_torque(can_0x201_SDOMCU_obj_t *o, uint32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
@@ -460,7 +460,7 @@ void decode_can_0x201_lim_pos_torque(can_0x201_SDO_MCU_obj_t *o, uint32_t *out) 
 	return;
 }
 
-void encode_can_0x201_lim_pos_torque(can_0x201_SDO_MCU_obj_t *o, uint32_t in) {
+void encode_can_0x201_lim_pos_torque(can_0x201_SDOMCU_obj_t *o, uint32_t in) {
 	assert(o);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
 	uint64_t _lane_mux = _payload_mux;
@@ -471,7 +471,7 @@ void encode_can_0x201_lim_pos_torque(can_0x201_SDO_MCU_obj_t *o, uint32_t in) {
 	return;
 }
 
-void decode_can_0x201_lim_neg_torque(can_0x201_SDO_MCU_obj_t *o, uint32_t *out) {
+void decode_can_0x201_lim_neg_torque(can_0x201_SDOMCU_obj_t *o, uint32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
@@ -486,7 +486,7 @@ void decode_can_0x201_lim_neg_torque(can_0x201_SDO_MCU_obj_t *o, uint32_t *out) 
 	return;
 }
 
-void encode_can_0x201_lim_neg_torque(can_0x201_SDO_MCU_obj_t *o, uint32_t in) {
+void encode_can_0x201_lim_neg_torque(can_0x201_SDOMCU_obj_t *o, uint32_t in) {
 	assert(o);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
 	uint64_t _lane_mux = _payload_mux;
@@ -497,7 +497,7 @@ void encode_can_0x201_lim_neg_torque(can_0x201_SDO_MCU_obj_t *o, uint32_t in) {
 	return;
 }
 
-void decode_can_0x201_lim_rpm(can_0x201_SDO_MCU_obj_t *o, uint16_t *out) {
+void decode_can_0x201_lim_rpm(can_0x201_SDOMCU_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
@@ -512,7 +512,7 @@ void decode_can_0x201_lim_rpm(can_0x201_SDO_MCU_obj_t *o, uint16_t *out) {
 	return;
 }
 
-void encode_can_0x201_lim_rpm(can_0x201_SDO_MCU_obj_t *o, uint16_t in) {
+void encode_can_0x201_lim_rpm(can_0x201_SDOMCU_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
 	uint64_t _lane_mux = _payload_mux;
@@ -523,7 +523,7 @@ void encode_can_0x201_lim_rpm(can_0x201_SDO_MCU_obj_t *o, uint16_t in) {
 	return;
 }
 
-void decode_can_0x201_speed_limitation(can_0x201_SDO_MCU_obj_t *o, uint16_t *out) {
+void decode_can_0x201_speed_limitation(can_0x201_SDOMCU_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
@@ -538,7 +538,7 @@ void decode_can_0x201_speed_limitation(can_0x201_SDO_MCU_obj_t *o, uint16_t *out
 	return;
 }
 
-void encode_can_0x201_speed_limitation(can_0x201_SDO_MCU_obj_t *o, uint16_t in) {
+void encode_can_0x201_speed_limitation(can_0x201_SDOMCU_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
 	uint64_t _lane_mux = _payload_mux;
@@ -549,25 +549,25 @@ void encode_can_0x201_speed_limitation(can_0x201_SDO_MCU_obj_t *o, uint16_t in) 
 	return;
 }
 
-void decode_can_0x201_var_id(can_0x201_SDO_MCU_obj_t *o, can_0x201_SDO_MCU_var_id_e *out) {
+void decode_can_0x201_var_id(can_0x201_SDOMCU_obj_t *o, can_0x201_SDOMCU_var_id_e *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
 	uint64_t _lane_sig = _payload_sig;
 	uint64_t x = (_lane_sig >> 8) & 0x3ffuLL;
-	can_0x201_SDO_MCU_var_id_e rval = (can_0x201_SDO_MCU_var_id_e)x;
+	can_0x201_SDOMCU_var_id_e rval = (can_0x201_SDOMCU_var_id_e)x;
 	*out = rval;
 	return;
 }
 
-void encode_can_0x201_var_id(can_0x201_SDO_MCU_obj_t *o, can_0x201_SDO_MCU_var_id_e in) {
+void encode_can_0x201_var_id(can_0x201_SDOMCU_obj_t *o, can_0x201_SDOMCU_var_id_e in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x3ffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x3ffuLL << 8)) | ((x & 0x3ffuLL) << 8);
 	return;
 }
 
-void decode_can_0x201_opcode(can_0x201_SDO_MCU_obj_t *o, val_table_OPCODES_e *out) {
+void decode_can_0x201_opcode(can_0x201_SDOMCU_obj_t *o, val_table_OPCODES_e *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -578,14 +578,14 @@ void decode_can_0x201_opcode(can_0x201_SDO_MCU_obj_t *o, val_table_OPCODES_e *ou
 	return;
 }
 
-void encode_can_0x201_opcode(can_0x201_SDO_MCU_obj_t *o, val_table_OPCODES_e in) {
+void encode_can_0x201_opcode(can_0x201_SDOMCU_obj_t *o, val_table_OPCODES_e in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffuLL) | (x & 0xffuLL);
 	return;
 }
 
-void decode_can_0x201_serial_core_usb(can_0x201_SDO_MCU_obj_t *o, uint8_t *out) {
+void decode_can_0x201_serial_core_usb(can_0x201_SDOMCU_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
@@ -601,7 +601,7 @@ void decode_can_0x201_serial_core_usb(can_0x201_SDO_MCU_obj_t *o, uint8_t *out) 
 	return;
 }
 
-void encode_can_0x201_serial_core_usb(can_0x201_SDO_MCU_obj_t *o, uint8_t in) {
+void encode_can_0x201_serial_core_usb(can_0x201_SDOMCU_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
 	uint64_t _lane_mux = _payload_mux;
@@ -613,7 +613,7 @@ void encode_can_0x201_serial_core_usb(can_0x201_SDO_MCU_obj_t *o, uint8_t in) {
 	return;
 }
 
-void decode_can_0x201_flags(can_0x201_SDO_MCU_obj_t *o, uint8_t *out) {
+void decode_can_0x201_flags(can_0x201_SDOMCU_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -624,14 +624,14 @@ void decode_can_0x201_flags(can_0x201_SDO_MCU_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x201_flags(can_0x201_SDO_MCU_obj_t *o, uint8_t in) {
+void encode_can_0x201_flags(can_0x201_SDOMCU_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x3fuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x3fuLL << 18)) | ((x & 0x3fuLL) << 18);
 	return;
 }
 
-void decode_can_0x201_is_pos_torque_allowed(can_0x201_SDO_MCU_obj_t *o, uint8_t *out) {
+void decode_can_0x201_is_pos_torque_allowed(can_0x201_SDOMCU_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
@@ -646,7 +646,7 @@ void decode_can_0x201_is_pos_torque_allowed(can_0x201_SDO_MCU_obj_t *o, uint8_t 
 	return;
 }
 
-void encode_can_0x201_is_pos_torque_allowed(can_0x201_SDO_MCU_obj_t *o, uint8_t in) {
+void encode_can_0x201_is_pos_torque_allowed(can_0x201_SDOMCU_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
 	uint64_t _lane_mux = _payload_mux;
@@ -657,7 +657,7 @@ void encode_can_0x201_is_pos_torque_allowed(can_0x201_SDO_MCU_obj_t *o, uint8_t 
 	return;
 }
 
-void decode_can_0x201_is_neg_torque_allowed(can_0x201_SDO_MCU_obj_t *o, uint8_t *out) {
+void decode_can_0x201_is_neg_torque_allowed(can_0x201_SDOMCU_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
@@ -672,7 +672,7 @@ void decode_can_0x201_is_neg_torque_allowed(can_0x201_SDO_MCU_obj_t *o, uint8_t 
 	return;
 }
 
-void encode_can_0x201_is_neg_torque_allowed(can_0x201_SDO_MCU_obj_t *o, uint8_t in) {
+void encode_can_0x201_is_neg_torque_allowed(can_0x201_SDOMCU_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
 	uint64_t _lane_mux = _payload_mux;
@@ -683,7 +683,7 @@ void encode_can_0x201_is_neg_torque_allowed(can_0x201_SDO_MCU_obj_t *o, uint8_t 
 	return;
 }
 
-void decode_can_0x201_scs_active(can_0x201_SDO_MCU_obj_t *o, uint8_t *out) {
+void decode_can_0x201_scs_active(can_0x201_SDOMCU_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
@@ -698,7 +698,7 @@ void decode_can_0x201_scs_active(can_0x201_SDO_MCU_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x201_scs_active(can_0x201_SDO_MCU_obj_t *o, uint8_t in) {
+void encode_can_0x201_scs_active(can_0x201_SDOMCU_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
 	uint64_t _lane_mux = _payload_mux;
@@ -709,7 +709,7 @@ void encode_can_0x201_scs_active(can_0x201_SDO_MCU_obj_t *o, uint8_t in) {
 	return;
 }
 
-void decode_can_0x201_scs_monitor_bmsLv(can_0x201_SDO_MCU_obj_t *o, uint8_t *out) {
+void decode_can_0x201_scs_monitor_bmsLv(can_0x201_SDOMCU_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
@@ -724,7 +724,7 @@ void decode_can_0x201_scs_monitor_bmsLv(can_0x201_SDO_MCU_obj_t *o, uint8_t *out
 	return;
 }
 
-void encode_can_0x201_scs_monitor_bmsLv(can_0x201_SDO_MCU_obj_t *o, uint8_t in) {
+void encode_can_0x201_scs_monitor_bmsLv(can_0x201_SDOMCU_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
 	uint64_t _lane_mux = _payload_mux;
@@ -735,7 +735,7 @@ void encode_can_0x201_scs_monitor_bmsLv(can_0x201_SDO_MCU_obj_t *o, uint8_t in) 
 	return;
 }
 
-void decode_can_0x201_scs_monitor_bmsHv(can_0x201_SDO_MCU_obj_t *o, uint8_t *out) {
+void decode_can_0x201_scs_monitor_bmsHv(can_0x201_SDOMCU_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
@@ -750,7 +750,7 @@ void decode_can_0x201_scs_monitor_bmsHv(can_0x201_SDO_MCU_obj_t *o, uint8_t *out
 	return;
 }
 
-void encode_can_0x201_scs_monitor_bmsHv(can_0x201_SDO_MCU_obj_t *o, uint8_t in) {
+void encode_can_0x201_scs_monitor_bmsHv(can_0x201_SDOMCU_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
 	uint64_t _lane_mux = _payload_mux;
@@ -761,7 +761,7 @@ void encode_can_0x201_scs_monitor_bmsHv(can_0x201_SDO_MCU_obj_t *o, uint8_t in) 
 	return;
 }
 
-void decode_can_0x201_scs_monitor_ebs(can_0x201_SDO_MCU_obj_t *o, uint8_t *out) {
+void decode_can_0x201_scs_monitor_ebs(can_0x201_SDOMCU_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
@@ -776,7 +776,7 @@ void decode_can_0x201_scs_monitor_ebs(can_0x201_SDO_MCU_obj_t *o, uint8_t *out) 
 	return;
 }
 
-void encode_can_0x201_scs_monitor_ebs(can_0x201_SDO_MCU_obj_t *o, uint8_t in) {
+void encode_can_0x201_scs_monitor_ebs(can_0x201_SDOMCU_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
 	uint64_t _lane_mux = _payload_mux;

@@ -14,7 +14,7 @@ enum class Opcode : std::uint8_t {
 	GET_ALL_REQ = 3u,
 	RES = 128u,
 	ERR_OUT_OF_RANGE = 253u,
-	ERR_WRTIE_RO = 254u,
+	ERR_WRITE_RO = 254u,
 	ERR = 255u,
 };
 
@@ -36,7 +36,7 @@ struct Frame {
 using TxCallback = bool (*)(std::uint32_t id, std::uint8_t dlc, std::uint64_t payload);
 using ValueHook = void (*)(std::uint32_t id, std::uint16_t var_id);
 
-static constexpr std::uint32_t SDO_Pcu_CAN_ID = 512u;
+static constexpr std::uint32_t SDOPcu_CAN_ID = 512u;
 enum class PcuVar : std::uint16_t {
 	dbc_hash = 0u,
 	send_asms = 1u,
@@ -53,7 +53,7 @@ enum class PcuVar : std::uint16_t {
 };
 const char *to_string(PcuVar value);
 
-static constexpr std::uint32_t SDO_Mcu_CAN_ID = 513u;
+static constexpr std::uint32_t SDOMcu_CAN_ID = 513u;
 enum class McuVar : std::uint16_t {
 	dbc_hash = 0u,
 	is_pos_torque_allowed = 1u,

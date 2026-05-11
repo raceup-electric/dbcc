@@ -33,9 +33,9 @@ NS_ :
 BS_:
 BU_: TCU MCU PCU
 
-VAL_TABLE_ OPCODES 1 "GET_REQ" 2 "SET_REQ" 3 "GET_ALL_REQ" 128 "RES" 253 "ERR_OUT_OF_RANGE" 254 "ERR_WRTIE_RO" 255 "ERR";
+VAL_TABLE_ OPCODES 1 "GET_REQ" 2 "SET_REQ" 3 "GET_ALL_REQ" 128 "RES" 253 "ERR_OUT_OF_RANGE" 254 "ERR_WRITE_RO" 255 "ERR";
 
-BO_ 512 SDO_PCU: 7 PCU, TCU
+BO_ 512 SDOPCU: 7 PCU, TCU
  SG_ opcode             : 0|8@1+ (1,0) [0|255] "" VECTOR__XXX
  SG_ var_id M           : 8|10@1+ (1,0) [0|1023] "" VECTOR__XXX
  SG_ flags              : 18|6@1+ (1,0) [0|63] "" VECTOR__XXX
@@ -52,7 +52,7 @@ BO_ 512 SDO_PCU: 7 PCU, TCU
  SG_ limit_fan_curr m10 : 24|1@1+ (1,0) [0|0] "" VECTOR__XXX
  SG_ debug_sense m11    : 24|1@1+ (1,0) [0|0] "" VECTOR__XXX
 
-BO_ 513 SDO_MCU: 7 MCU, TCU
+BO_ 513 SDOMCU: 7 MCU, TCU
  SG_ opcode                   : 0|8@1+ (1,0) [0|255] "" VECTOR__XXX
  SG_ var_id M                 : 8|10@1+ (1,0) [0|1023] "" VECTOR__XXX
  SG_ flags                    : 18|6@1+ (1,0) [0|63] "" VECTOR__XXX

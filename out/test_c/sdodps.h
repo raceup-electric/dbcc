@@ -24,14 +24,14 @@ better MISRA-C support.
 extern "C" { 
 #endif
 
-#define DBCC_HASH (0x9b38e7b2u)
-#define DBCC_NODE_HASH_PCU (0xb2eddbfcu)
-#define DBCC_NODE_HASH_TCU (0xbca85957u)
-#define DBCC_NODE_HASH_VECTOR__XXX (0xa8be1c62u)
-#define DBCC_NODE_HASH_MCU (0x425b11c5u)
+#define DBCC_HASH (0x3bc4c246u)
+#define DBCC_NODE_HASH_PCU (0xcdba3a77u)
+#define DBCC_NODE_HASH_TCU (0x4ae02747u)
+#define DBCC_NODE_HASH_VECTOR__XXX (0x785524b6u)
+#define DBCC_NODE_HASH_MCU (0xeb6cf5b8u)
 
-#define CAN_ID_SDO_PCU (512) /* 0x200 */
-#define CAN_ID_SDO_MCU (513) /* 0x201 */
+#define CAN_ID_SDOPCU (512) /* 0x200 */
+#define CAN_ID_SDOMCU (513) /* 0x201 */
 
 typedef enum {
 	VAL_TABLE_OPCODES_GET_REQ = 1,
@@ -39,114 +39,114 @@ typedef enum {
 	VAL_TABLE_OPCODES_GET_ALL_REQ = 3,
 	VAL_TABLE_OPCODES_RES = 128,
 	VAL_TABLE_OPCODES_ERR_OUT_OF_RANGE = 253,
-	VAL_TABLE_OPCODES_ERR_WRTIE_RO = 254,
+	VAL_TABLE_OPCODES_ERR_WRITE_RO = 254,
 	VAL_TABLE_OPCODES_ERR = 255,
 } val_table_OPCODES_e;
 
 typedef enum {
-	CAN_0X200_SDO_PCU_VAR_ID_DBC_HASH = 0,
-	CAN_0X200_SDO_PCU_VAR_ID_SEND_ASMS = 1,
-	CAN_0X200_SDO_PCU_VAR_ID_KP_BATT = 2,
-	CAN_0X200_SDO_PCU_VAR_ID_KI_BATT = 3,
-	CAN_0X200_SDO_PCU_VAR_ID_T_0_BATT = 4,
-	CAN_0X200_SDO_PCU_VAR_ID_T_100_BATT = 5,
-	CAN_0X200_SDO_PCU_VAR_ID_DRONI_PERF = 6,
-	CAN_0X200_SDO_PCU_VAR_ID_PUMP_L_MAX = 7,
-	CAN_0X200_SDO_PCU_VAR_ID_PUMP_R_MAX = 8,
-	CAN_0X200_SDO_PCU_VAR_ID_RAIN_MODE = 9,
-	CAN_0X200_SDO_PCU_VAR_ID_LIMIT_FAN_CURR = 10,
-	CAN_0X200_SDO_PCU_VAR_ID_DEBUG_SENSE = 11,
-} can_0x200_SDO_PCU_var_id_e;
+	CAN_0X200_SDOPCU_VAR_ID_DBC_HASH = 0,
+	CAN_0X200_SDOPCU_VAR_ID_SEND_ASMS = 1,
+	CAN_0X200_SDOPCU_VAR_ID_KP_BATT = 2,
+	CAN_0X200_SDOPCU_VAR_ID_KI_BATT = 3,
+	CAN_0X200_SDOPCU_VAR_ID_T_0_BATT = 4,
+	CAN_0X200_SDOPCU_VAR_ID_T_100_BATT = 5,
+	CAN_0X200_SDOPCU_VAR_ID_DRONI_PERF = 6,
+	CAN_0X200_SDOPCU_VAR_ID_PUMP_L_MAX = 7,
+	CAN_0X200_SDOPCU_VAR_ID_PUMP_R_MAX = 8,
+	CAN_0X200_SDOPCU_VAR_ID_RAIN_MODE = 9,
+	CAN_0X200_SDOPCU_VAR_ID_LIMIT_FAN_CURR = 10,
+	CAN_0X200_SDOPCU_VAR_ID_DEBUG_SENSE = 11,
+} can_0x200_SDOPCU_var_id_e;
 
 typedef enum {
-	CAN_0X201_SDO_MCU_VAR_ID_DBC_HASH = 0,
-	CAN_0X201_SDO_MCU_VAR_ID_IS_POS_TORQUE_ALLOWED = 1,
-	CAN_0X201_SDO_MCU_VAR_ID_IS_NEG_TORQUE_ALLOWED = 2,
-	CAN_0X201_SDO_MCU_VAR_ID_MOTOR_MAX_TORQUE = 3,
-	CAN_0X201_SDO_MCU_VAR_ID_LIM_POS_TORQUE = 4,
-	CAN_0X201_SDO_MCU_VAR_ID_LIM_NEG_TORQUE = 5,
-	CAN_0X201_SDO_MCU_VAR_ID_LIM_RPM = 6,
-	CAN_0X201_SDO_MCU_VAR_ID_SPEED_LIMITATION = 7,
-	CAN_0X201_SDO_MCU_VAR_ID_SCS_ACTIVE = 8,
-	CAN_0X201_SDO_MCU_VAR_ID_SCS_MONITOR_BMSLV = 9,
-	CAN_0X201_SDO_MCU_VAR_ID_SCS_MONITOR_BMSHV = 10,
-	CAN_0X201_SDO_MCU_VAR_ID_SCS_MONITOR_EBS = 11,
-	CAN_0X201_SDO_MCU_VAR_ID_SERIAL_CORE_USB = 12,
-} can_0x201_SDO_MCU_var_id_e;
+	CAN_0X201_SDOMCU_VAR_ID_DBC_HASH = 0,
+	CAN_0X201_SDOMCU_VAR_ID_IS_POS_TORQUE_ALLOWED = 1,
+	CAN_0X201_SDOMCU_VAR_ID_IS_NEG_TORQUE_ALLOWED = 2,
+	CAN_0X201_SDOMCU_VAR_ID_MOTOR_MAX_TORQUE = 3,
+	CAN_0X201_SDOMCU_VAR_ID_LIM_POS_TORQUE = 4,
+	CAN_0X201_SDOMCU_VAR_ID_LIM_NEG_TORQUE = 5,
+	CAN_0X201_SDOMCU_VAR_ID_LIM_RPM = 6,
+	CAN_0X201_SDOMCU_VAR_ID_SPEED_LIMITATION = 7,
+	CAN_0X201_SDOMCU_VAR_ID_SCS_ACTIVE = 8,
+	CAN_0X201_SDOMCU_VAR_ID_SCS_MONITOR_BMSLV = 9,
+	CAN_0X201_SDOMCU_VAR_ID_SCS_MONITOR_BMSHV = 10,
+	CAN_0X201_SDOMCU_VAR_ID_SCS_MONITOR_EBS = 11,
+	CAN_0X201_SDOMCU_VAR_ID_SERIAL_CORE_USB = 12,
+} can_0x201_SDOMCU_var_id_e;
 
 typedef struct {
 	uint64_t payload;
-} can_0x200_SDO_PCU_obj_t;
+} can_0x200_SDOPCU_obj_t;
 
 typedef struct {
 	uint64_t payload;
-} can_0x201_SDO_MCU_obj_t;
+} can_0x201_SDOMCU_obj_t;
 
 
-void decode_can_0x200_dbc_hash(can_0x200_SDO_PCU_obj_t *o, uint32_t *out);
-void encode_can_0x200_dbc_hash(can_0x200_SDO_PCU_obj_t *o, uint32_t in);
-void decode_can_0x200_Kp_batt(can_0x200_SDO_PCU_obj_t *o, uint32_t *out);
-void encode_can_0x200_Kp_batt(can_0x200_SDO_PCU_obj_t *o, uint32_t in);
-void decode_can_0x200_Ki_batt(can_0x200_SDO_PCU_obj_t *o, uint32_t *out);
-void encode_can_0x200_Ki_batt(can_0x200_SDO_PCU_obj_t *o, uint32_t in);
-void decode_can_0x200_T_0_batt(can_0x200_SDO_PCU_obj_t *o, uint32_t *out);
-void encode_can_0x200_T_0_batt(can_0x200_SDO_PCU_obj_t *o, uint32_t in);
-void decode_can_0x200_T_100_batt(can_0x200_SDO_PCU_obj_t *o, uint32_t *out);
-void encode_can_0x200_T_100_batt(can_0x200_SDO_PCU_obj_t *o, uint32_t in);
-void decode_can_0x200_var_id(can_0x200_SDO_PCU_obj_t *o, can_0x200_SDO_PCU_var_id_e *out);
-void encode_can_0x200_var_id(can_0x200_SDO_PCU_obj_t *o, can_0x200_SDO_PCU_var_id_e in);
-void decode_can_0x200_opcode(can_0x200_SDO_PCU_obj_t *o, val_table_OPCODES_e *out);
-void encode_can_0x200_opcode(can_0x200_SDO_PCU_obj_t *o, val_table_OPCODES_e in);
-void decode_can_0x200_droni_perf(can_0x200_SDO_PCU_obj_t *o, uint8_t *out);
-void encode_can_0x200_droni_perf(can_0x200_SDO_PCU_obj_t *o, uint8_t in);
-void decode_can_0x200_pump_l_max(can_0x200_SDO_PCU_obj_t *o, uint8_t *out);
-void encode_can_0x200_pump_l_max(can_0x200_SDO_PCU_obj_t *o, uint8_t in);
-void decode_can_0x200_pump_r_max(can_0x200_SDO_PCU_obj_t *o, uint8_t *out);
-void encode_can_0x200_pump_r_max(can_0x200_SDO_PCU_obj_t *o, uint8_t in);
-void decode_can_0x200_flags(can_0x200_SDO_PCU_obj_t *o, uint8_t *out);
-void encode_can_0x200_flags(can_0x200_SDO_PCU_obj_t *o, uint8_t in);
-void decode_can_0x200_send_asms(can_0x200_SDO_PCU_obj_t *o, uint8_t *out);
-void encode_can_0x200_send_asms(can_0x200_SDO_PCU_obj_t *o, uint8_t in);
-void decode_can_0x200_rain_mode(can_0x200_SDO_PCU_obj_t *o, uint8_t *out);
-void encode_can_0x200_rain_mode(can_0x200_SDO_PCU_obj_t *o, uint8_t in);
-void decode_can_0x200_limit_fan_curr(can_0x200_SDO_PCU_obj_t *o, uint8_t *out);
-void encode_can_0x200_limit_fan_curr(can_0x200_SDO_PCU_obj_t *o, uint8_t in);
-void decode_can_0x200_debug_sense(can_0x200_SDO_PCU_obj_t *o, uint8_t *out);
-void encode_can_0x200_debug_sense(can_0x200_SDO_PCU_obj_t *o, uint8_t in);
+void decode_can_0x200_dbc_hash(can_0x200_SDOPCU_obj_t *o, uint32_t *out);
+void encode_can_0x200_dbc_hash(can_0x200_SDOPCU_obj_t *o, uint32_t in);
+void decode_can_0x200_Kp_batt(can_0x200_SDOPCU_obj_t *o, uint32_t *out);
+void encode_can_0x200_Kp_batt(can_0x200_SDOPCU_obj_t *o, uint32_t in);
+void decode_can_0x200_Ki_batt(can_0x200_SDOPCU_obj_t *o, uint32_t *out);
+void encode_can_0x200_Ki_batt(can_0x200_SDOPCU_obj_t *o, uint32_t in);
+void decode_can_0x200_T_0_batt(can_0x200_SDOPCU_obj_t *o, uint32_t *out);
+void encode_can_0x200_T_0_batt(can_0x200_SDOPCU_obj_t *o, uint32_t in);
+void decode_can_0x200_T_100_batt(can_0x200_SDOPCU_obj_t *o, uint32_t *out);
+void encode_can_0x200_T_100_batt(can_0x200_SDOPCU_obj_t *o, uint32_t in);
+void decode_can_0x200_var_id(can_0x200_SDOPCU_obj_t *o, can_0x200_SDOPCU_var_id_e *out);
+void encode_can_0x200_var_id(can_0x200_SDOPCU_obj_t *o, can_0x200_SDOPCU_var_id_e in);
+void decode_can_0x200_opcode(can_0x200_SDOPCU_obj_t *o, val_table_OPCODES_e *out);
+void encode_can_0x200_opcode(can_0x200_SDOPCU_obj_t *o, val_table_OPCODES_e in);
+void decode_can_0x200_droni_perf(can_0x200_SDOPCU_obj_t *o, uint8_t *out);
+void encode_can_0x200_droni_perf(can_0x200_SDOPCU_obj_t *o, uint8_t in);
+void decode_can_0x200_pump_l_max(can_0x200_SDOPCU_obj_t *o, uint8_t *out);
+void encode_can_0x200_pump_l_max(can_0x200_SDOPCU_obj_t *o, uint8_t in);
+void decode_can_0x200_pump_r_max(can_0x200_SDOPCU_obj_t *o, uint8_t *out);
+void encode_can_0x200_pump_r_max(can_0x200_SDOPCU_obj_t *o, uint8_t in);
+void decode_can_0x200_flags(can_0x200_SDOPCU_obj_t *o, uint8_t *out);
+void encode_can_0x200_flags(can_0x200_SDOPCU_obj_t *o, uint8_t in);
+void decode_can_0x200_send_asms(can_0x200_SDOPCU_obj_t *o, uint8_t *out);
+void encode_can_0x200_send_asms(can_0x200_SDOPCU_obj_t *o, uint8_t in);
+void decode_can_0x200_rain_mode(can_0x200_SDOPCU_obj_t *o, uint8_t *out);
+void encode_can_0x200_rain_mode(can_0x200_SDOPCU_obj_t *o, uint8_t in);
+void decode_can_0x200_limit_fan_curr(can_0x200_SDOPCU_obj_t *o, uint8_t *out);
+void encode_can_0x200_limit_fan_curr(can_0x200_SDOPCU_obj_t *o, uint8_t in);
+void decode_can_0x200_debug_sense(can_0x200_SDOPCU_obj_t *o, uint8_t *out);
+void encode_can_0x200_debug_sense(can_0x200_SDOPCU_obj_t *o, uint8_t in);
 
 
-void decode_can_0x201_dbc_hash(can_0x201_SDO_MCU_obj_t *o, uint32_t *out);
-void encode_can_0x201_dbc_hash(can_0x201_SDO_MCU_obj_t *o, uint32_t in);
-void decode_can_0x201_motor_max_torque(can_0x201_SDO_MCU_obj_t *o, uint32_t *out);
-void encode_can_0x201_motor_max_torque(can_0x201_SDO_MCU_obj_t *o, uint32_t in);
-void decode_can_0x201_lim_pos_torque(can_0x201_SDO_MCU_obj_t *o, uint32_t *out);
-void encode_can_0x201_lim_pos_torque(can_0x201_SDO_MCU_obj_t *o, uint32_t in);
-void decode_can_0x201_lim_neg_torque(can_0x201_SDO_MCU_obj_t *o, uint32_t *out);
-void encode_can_0x201_lim_neg_torque(can_0x201_SDO_MCU_obj_t *o, uint32_t in);
-void decode_can_0x201_lim_rpm(can_0x201_SDO_MCU_obj_t *o, uint16_t *out);
-void encode_can_0x201_lim_rpm(can_0x201_SDO_MCU_obj_t *o, uint16_t in);
-void decode_can_0x201_speed_limitation(can_0x201_SDO_MCU_obj_t *o, uint16_t *out);
-void encode_can_0x201_speed_limitation(can_0x201_SDO_MCU_obj_t *o, uint16_t in);
-void decode_can_0x201_var_id(can_0x201_SDO_MCU_obj_t *o, can_0x201_SDO_MCU_var_id_e *out);
-void encode_can_0x201_var_id(can_0x201_SDO_MCU_obj_t *o, can_0x201_SDO_MCU_var_id_e in);
-void decode_can_0x201_opcode(can_0x201_SDO_MCU_obj_t *o, val_table_OPCODES_e *out);
-void encode_can_0x201_opcode(can_0x201_SDO_MCU_obj_t *o, val_table_OPCODES_e in);
-void decode_can_0x201_serial_core_usb(can_0x201_SDO_MCU_obj_t *o, uint8_t *out);
-void encode_can_0x201_serial_core_usb(can_0x201_SDO_MCU_obj_t *o, uint8_t in);
-void decode_can_0x201_flags(can_0x201_SDO_MCU_obj_t *o, uint8_t *out);
-void encode_can_0x201_flags(can_0x201_SDO_MCU_obj_t *o, uint8_t in);
-void decode_can_0x201_is_pos_torque_allowed(can_0x201_SDO_MCU_obj_t *o, uint8_t *out);
-void encode_can_0x201_is_pos_torque_allowed(can_0x201_SDO_MCU_obj_t *o, uint8_t in);
-void decode_can_0x201_is_neg_torque_allowed(can_0x201_SDO_MCU_obj_t *o, uint8_t *out);
-void encode_can_0x201_is_neg_torque_allowed(can_0x201_SDO_MCU_obj_t *o, uint8_t in);
-void decode_can_0x201_scs_active(can_0x201_SDO_MCU_obj_t *o, uint8_t *out);
-void encode_can_0x201_scs_active(can_0x201_SDO_MCU_obj_t *o, uint8_t in);
-void decode_can_0x201_scs_monitor_bmsLv(can_0x201_SDO_MCU_obj_t *o, uint8_t *out);
-void encode_can_0x201_scs_monitor_bmsLv(can_0x201_SDO_MCU_obj_t *o, uint8_t in);
-void decode_can_0x201_scs_monitor_bmsHv(can_0x201_SDO_MCU_obj_t *o, uint8_t *out);
-void encode_can_0x201_scs_monitor_bmsHv(can_0x201_SDO_MCU_obj_t *o, uint8_t in);
-void decode_can_0x201_scs_monitor_ebs(can_0x201_SDO_MCU_obj_t *o, uint8_t *out);
-void encode_can_0x201_scs_monitor_ebs(can_0x201_SDO_MCU_obj_t *o, uint8_t in);
+void decode_can_0x201_dbc_hash(can_0x201_SDOMCU_obj_t *o, uint32_t *out);
+void encode_can_0x201_dbc_hash(can_0x201_SDOMCU_obj_t *o, uint32_t in);
+void decode_can_0x201_motor_max_torque(can_0x201_SDOMCU_obj_t *o, uint32_t *out);
+void encode_can_0x201_motor_max_torque(can_0x201_SDOMCU_obj_t *o, uint32_t in);
+void decode_can_0x201_lim_pos_torque(can_0x201_SDOMCU_obj_t *o, uint32_t *out);
+void encode_can_0x201_lim_pos_torque(can_0x201_SDOMCU_obj_t *o, uint32_t in);
+void decode_can_0x201_lim_neg_torque(can_0x201_SDOMCU_obj_t *o, uint32_t *out);
+void encode_can_0x201_lim_neg_torque(can_0x201_SDOMCU_obj_t *o, uint32_t in);
+void decode_can_0x201_lim_rpm(can_0x201_SDOMCU_obj_t *o, uint16_t *out);
+void encode_can_0x201_lim_rpm(can_0x201_SDOMCU_obj_t *o, uint16_t in);
+void decode_can_0x201_speed_limitation(can_0x201_SDOMCU_obj_t *o, uint16_t *out);
+void encode_can_0x201_speed_limitation(can_0x201_SDOMCU_obj_t *o, uint16_t in);
+void decode_can_0x201_var_id(can_0x201_SDOMCU_obj_t *o, can_0x201_SDOMCU_var_id_e *out);
+void encode_can_0x201_var_id(can_0x201_SDOMCU_obj_t *o, can_0x201_SDOMCU_var_id_e in);
+void decode_can_0x201_opcode(can_0x201_SDOMCU_obj_t *o, val_table_OPCODES_e *out);
+void encode_can_0x201_opcode(can_0x201_SDOMCU_obj_t *o, val_table_OPCODES_e in);
+void decode_can_0x201_serial_core_usb(can_0x201_SDOMCU_obj_t *o, uint8_t *out);
+void encode_can_0x201_serial_core_usb(can_0x201_SDOMCU_obj_t *o, uint8_t in);
+void decode_can_0x201_flags(can_0x201_SDOMCU_obj_t *o, uint8_t *out);
+void encode_can_0x201_flags(can_0x201_SDOMCU_obj_t *o, uint8_t in);
+void decode_can_0x201_is_pos_torque_allowed(can_0x201_SDOMCU_obj_t *o, uint8_t *out);
+void encode_can_0x201_is_pos_torque_allowed(can_0x201_SDOMCU_obj_t *o, uint8_t in);
+void decode_can_0x201_is_neg_torque_allowed(can_0x201_SDOMCU_obj_t *o, uint8_t *out);
+void encode_can_0x201_is_neg_torque_allowed(can_0x201_SDOMCU_obj_t *o, uint8_t in);
+void decode_can_0x201_scs_active(can_0x201_SDOMCU_obj_t *o, uint8_t *out);
+void encode_can_0x201_scs_active(can_0x201_SDOMCU_obj_t *o, uint8_t in);
+void decode_can_0x201_scs_monitor_bmsLv(can_0x201_SDOMCU_obj_t *o, uint8_t *out);
+void encode_can_0x201_scs_monitor_bmsLv(can_0x201_SDOMCU_obj_t *o, uint8_t in);
+void decode_can_0x201_scs_monitor_bmsHv(can_0x201_SDOMCU_obj_t *o, uint8_t *out);
+void encode_can_0x201_scs_monitor_bmsHv(can_0x201_SDOMCU_obj_t *o, uint8_t in);
+void decode_can_0x201_scs_monitor_ebs(can_0x201_SDOMCU_obj_t *o, uint8_t *out);
+void encode_can_0x201_scs_monitor_ebs(can_0x201_SDOMCU_obj_t *o, uint8_t in);
 
 
 #ifdef __cplusplus

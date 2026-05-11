@@ -403,7 +403,7 @@ unsigned Master::pcu_bit_length(PcuVar var) {
 
 bool Master::request_pcu(PcuVar var) {
 	if (var != PcuVar::dbc_hash && !pcu_.hash_verified) return false;
-	return send(SDO_Pcu_CAN_ID, Opcode::GET_REQ, static_cast<std::uint16_t>(var), 0u, pcu_bit_length(var));
+	return send(SDOPcu_CAN_ID, Opcode::GET_REQ, static_cast<std::uint16_t>(var), 0u, pcu_bit_length(var));
 }
 
 bool Master::has_pcu_value(PcuVar var) const {
@@ -426,7 +426,7 @@ bool Master::has_pcu_value(PcuVar var) const {
 }
 
 bool Master::set_pcu_dbc_hash(std::uint32_t value) {
-	return send(SDO_Pcu_CAN_ID, Opcode::SET_REQ, 0u, sdodps_encode_pcu_dbc_hash(value), 32u);
+	return send(SDOPcu_CAN_ID, Opcode::SET_REQ, 0u, sdodps_encode_pcu_dbc_hash(value), 32u);
 }
 
 bool Master::take_pcu_dbc_hash(std::uint32_t *out) {
@@ -438,7 +438,7 @@ bool Master::take_pcu_dbc_hash(std::uint32_t *out) {
 }
 
 bool Master::set_pcu_send_asms(std::uint8_t value) {
-	return send(SDO_Pcu_CAN_ID, Opcode::SET_REQ, 1u, sdodps_encode_pcu_send_asms(value), 1u);
+	return send(SDOPcu_CAN_ID, Opcode::SET_REQ, 1u, sdodps_encode_pcu_send_asms(value), 1u);
 }
 
 bool Master::take_pcu_send_asms(std::uint8_t *out) {
@@ -450,7 +450,7 @@ bool Master::take_pcu_send_asms(std::uint8_t *out) {
 }
 
 bool Master::set_pcu_Kp_batt(float value) {
-	return send(SDO_Pcu_CAN_ID, Opcode::SET_REQ, 2u, sdodps_encode_pcu_Kp_batt(value), 32u);
+	return send(SDOPcu_CAN_ID, Opcode::SET_REQ, 2u, sdodps_encode_pcu_Kp_batt(value), 32u);
 }
 
 bool Master::take_pcu_Kp_batt(float *out) {
@@ -462,7 +462,7 @@ bool Master::take_pcu_Kp_batt(float *out) {
 }
 
 bool Master::set_pcu_Ki_batt(float value) {
-	return send(SDO_Pcu_CAN_ID, Opcode::SET_REQ, 3u, sdodps_encode_pcu_Ki_batt(value), 32u);
+	return send(SDOPcu_CAN_ID, Opcode::SET_REQ, 3u, sdodps_encode_pcu_Ki_batt(value), 32u);
 }
 
 bool Master::take_pcu_Ki_batt(float *out) {
@@ -474,7 +474,7 @@ bool Master::take_pcu_Ki_batt(float *out) {
 }
 
 bool Master::set_pcu_T_0_batt(float value) {
-	return send(SDO_Pcu_CAN_ID, Opcode::SET_REQ, 4u, sdodps_encode_pcu_T_0_batt(value), 32u);
+	return send(SDOPcu_CAN_ID, Opcode::SET_REQ, 4u, sdodps_encode_pcu_T_0_batt(value), 32u);
 }
 
 bool Master::take_pcu_T_0_batt(float *out) {
@@ -486,7 +486,7 @@ bool Master::take_pcu_T_0_batt(float *out) {
 }
 
 bool Master::set_pcu_T_100_batt(float value) {
-	return send(SDO_Pcu_CAN_ID, Opcode::SET_REQ, 5u, sdodps_encode_pcu_T_100_batt(value), 32u);
+	return send(SDOPcu_CAN_ID, Opcode::SET_REQ, 5u, sdodps_encode_pcu_T_100_batt(value), 32u);
 }
 
 bool Master::take_pcu_T_100_batt(float *out) {
@@ -498,7 +498,7 @@ bool Master::take_pcu_T_100_batt(float *out) {
 }
 
 bool Master::set_pcu_droni_perf(std::uint8_t value) {
-	return send(SDO_Pcu_CAN_ID, Opcode::SET_REQ, 6u, sdodps_encode_pcu_droni_perf(value), 8u);
+	return send(SDOPcu_CAN_ID, Opcode::SET_REQ, 6u, sdodps_encode_pcu_droni_perf(value), 8u);
 }
 
 bool Master::take_pcu_droni_perf(std::uint8_t *out) {
@@ -510,7 +510,7 @@ bool Master::take_pcu_droni_perf(std::uint8_t *out) {
 }
 
 bool Master::set_pcu_pump_l_max(std::uint8_t value) {
-	return send(SDO_Pcu_CAN_ID, Opcode::SET_REQ, 7u, sdodps_encode_pcu_pump_l_max(value), 8u);
+	return send(SDOPcu_CAN_ID, Opcode::SET_REQ, 7u, sdodps_encode_pcu_pump_l_max(value), 8u);
 }
 
 bool Master::take_pcu_pump_l_max(std::uint8_t *out) {
@@ -522,7 +522,7 @@ bool Master::take_pcu_pump_l_max(std::uint8_t *out) {
 }
 
 bool Master::set_pcu_pump_r_max(std::uint8_t value) {
-	return send(SDO_Pcu_CAN_ID, Opcode::SET_REQ, 8u, sdodps_encode_pcu_pump_r_max(value), 8u);
+	return send(SDOPcu_CAN_ID, Opcode::SET_REQ, 8u, sdodps_encode_pcu_pump_r_max(value), 8u);
 }
 
 bool Master::take_pcu_pump_r_max(std::uint8_t *out) {
@@ -534,7 +534,7 @@ bool Master::take_pcu_pump_r_max(std::uint8_t *out) {
 }
 
 bool Master::set_pcu_rain_mode(std::uint8_t value) {
-	return send(SDO_Pcu_CAN_ID, Opcode::SET_REQ, 9u, sdodps_encode_pcu_rain_mode(value), 1u);
+	return send(SDOPcu_CAN_ID, Opcode::SET_REQ, 9u, sdodps_encode_pcu_rain_mode(value), 1u);
 }
 
 bool Master::take_pcu_rain_mode(std::uint8_t *out) {
@@ -546,7 +546,7 @@ bool Master::take_pcu_rain_mode(std::uint8_t *out) {
 }
 
 bool Master::set_pcu_limit_fan_curr(std::uint8_t value) {
-	return send(SDO_Pcu_CAN_ID, Opcode::SET_REQ, 10u, sdodps_encode_pcu_limit_fan_curr(value), 1u);
+	return send(SDOPcu_CAN_ID, Opcode::SET_REQ, 10u, sdodps_encode_pcu_limit_fan_curr(value), 1u);
 }
 
 bool Master::take_pcu_limit_fan_curr(std::uint8_t *out) {
@@ -558,7 +558,7 @@ bool Master::take_pcu_limit_fan_curr(std::uint8_t *out) {
 }
 
 bool Master::set_pcu_debug_sense(std::uint8_t value) {
-	return send(SDO_Pcu_CAN_ID, Opcode::SET_REQ, 11u, sdodps_encode_pcu_debug_sense(value), 1u);
+	return send(SDOPcu_CAN_ID, Opcode::SET_REQ, 11u, sdodps_encode_pcu_debug_sense(value), 1u);
 }
 
 bool Master::take_pcu_debug_sense(std::uint8_t *out) {
@@ -600,7 +600,7 @@ unsigned Master::mcu_bit_length(McuVar var) {
 
 bool Master::request_mcu(McuVar var) {
 	if (var != McuVar::dbc_hash && !mcu_.hash_verified) return false;
-	return send(SDO_Mcu_CAN_ID, Opcode::GET_REQ, static_cast<std::uint16_t>(var), 0u, mcu_bit_length(var));
+	return send(SDOMcu_CAN_ID, Opcode::GET_REQ, static_cast<std::uint16_t>(var), 0u, mcu_bit_length(var));
 }
 
 bool Master::has_mcu_value(McuVar var) const {
@@ -624,7 +624,7 @@ bool Master::has_mcu_value(McuVar var) const {
 }
 
 bool Master::set_mcu_dbc_hash(std::uint32_t value) {
-	return send(SDO_Mcu_CAN_ID, Opcode::SET_REQ, 0u, sdodps_encode_mcu_dbc_hash(value), 32u);
+	return send(SDOMcu_CAN_ID, Opcode::SET_REQ, 0u, sdodps_encode_mcu_dbc_hash(value), 32u);
 }
 
 bool Master::take_mcu_dbc_hash(std::uint32_t *out) {
@@ -636,7 +636,7 @@ bool Master::take_mcu_dbc_hash(std::uint32_t *out) {
 }
 
 bool Master::set_mcu_is_pos_torque_allowed(std::uint8_t value) {
-	return send(SDO_Mcu_CAN_ID, Opcode::SET_REQ, 1u, sdodps_encode_mcu_is_pos_torque_allowed(value), 1u);
+	return send(SDOMcu_CAN_ID, Opcode::SET_REQ, 1u, sdodps_encode_mcu_is_pos_torque_allowed(value), 1u);
 }
 
 bool Master::take_mcu_is_pos_torque_allowed(std::uint8_t *out) {
@@ -648,7 +648,7 @@ bool Master::take_mcu_is_pos_torque_allowed(std::uint8_t *out) {
 }
 
 bool Master::set_mcu_is_neg_torque_allowed(std::uint8_t value) {
-	return send(SDO_Mcu_CAN_ID, Opcode::SET_REQ, 2u, sdodps_encode_mcu_is_neg_torque_allowed(value), 1u);
+	return send(SDOMcu_CAN_ID, Opcode::SET_REQ, 2u, sdodps_encode_mcu_is_neg_torque_allowed(value), 1u);
 }
 
 bool Master::take_mcu_is_neg_torque_allowed(std::uint8_t *out) {
@@ -660,7 +660,7 @@ bool Master::take_mcu_is_neg_torque_allowed(std::uint8_t *out) {
 }
 
 bool Master::set_mcu_motor_max_torque(float value) {
-	return send(SDO_Mcu_CAN_ID, Opcode::SET_REQ, 3u, sdodps_encode_mcu_motor_max_torque(value), 32u);
+	return send(SDOMcu_CAN_ID, Opcode::SET_REQ, 3u, sdodps_encode_mcu_motor_max_torque(value), 32u);
 }
 
 bool Master::take_mcu_motor_max_torque(float *out) {
@@ -672,7 +672,7 @@ bool Master::take_mcu_motor_max_torque(float *out) {
 }
 
 bool Master::set_mcu_lim_pos_torque(float value) {
-	return send(SDO_Mcu_CAN_ID, Opcode::SET_REQ, 4u, sdodps_encode_mcu_lim_pos_torque(value), 32u);
+	return send(SDOMcu_CAN_ID, Opcode::SET_REQ, 4u, sdodps_encode_mcu_lim_pos_torque(value), 32u);
 }
 
 bool Master::take_mcu_lim_pos_torque(float *out) {
@@ -684,7 +684,7 @@ bool Master::take_mcu_lim_pos_torque(float *out) {
 }
 
 bool Master::set_mcu_lim_neg_torque(float value) {
-	return send(SDO_Mcu_CAN_ID, Opcode::SET_REQ, 5u, sdodps_encode_mcu_lim_neg_torque(value), 32u);
+	return send(SDOMcu_CAN_ID, Opcode::SET_REQ, 5u, sdodps_encode_mcu_lim_neg_torque(value), 32u);
 }
 
 bool Master::take_mcu_lim_neg_torque(float *out) {
@@ -696,7 +696,7 @@ bool Master::take_mcu_lim_neg_torque(float *out) {
 }
 
 bool Master::set_mcu_lim_rpm(std::uint16_t value) {
-	return send(SDO_Mcu_CAN_ID, Opcode::SET_REQ, 6u, sdodps_encode_mcu_lim_rpm(value), 16u);
+	return send(SDOMcu_CAN_ID, Opcode::SET_REQ, 6u, sdodps_encode_mcu_lim_rpm(value), 16u);
 }
 
 bool Master::take_mcu_lim_rpm(std::uint16_t *out) {
@@ -708,7 +708,7 @@ bool Master::take_mcu_lim_rpm(std::uint16_t *out) {
 }
 
 bool Master::set_mcu_speed_limitation(std::uint16_t value) {
-	return send(SDO_Mcu_CAN_ID, Opcode::SET_REQ, 7u, sdodps_encode_mcu_speed_limitation(value), 16u);
+	return send(SDOMcu_CAN_ID, Opcode::SET_REQ, 7u, sdodps_encode_mcu_speed_limitation(value), 16u);
 }
 
 bool Master::take_mcu_speed_limitation(std::uint16_t *out) {
@@ -720,7 +720,7 @@ bool Master::take_mcu_speed_limitation(std::uint16_t *out) {
 }
 
 bool Master::set_mcu_scs_active(std::uint8_t value) {
-	return send(SDO_Mcu_CAN_ID, Opcode::SET_REQ, 8u, sdodps_encode_mcu_scs_active(value), 1u);
+	return send(SDOMcu_CAN_ID, Opcode::SET_REQ, 8u, sdodps_encode_mcu_scs_active(value), 1u);
 }
 
 bool Master::take_mcu_scs_active(std::uint8_t *out) {
@@ -732,7 +732,7 @@ bool Master::take_mcu_scs_active(std::uint8_t *out) {
 }
 
 bool Master::set_mcu_scs_monitor_bmsLv(std::uint8_t value) {
-	return send(SDO_Mcu_CAN_ID, Opcode::SET_REQ, 9u, sdodps_encode_mcu_scs_monitor_bmsLv(value), 1u);
+	return send(SDOMcu_CAN_ID, Opcode::SET_REQ, 9u, sdodps_encode_mcu_scs_monitor_bmsLv(value), 1u);
 }
 
 bool Master::take_mcu_scs_monitor_bmsLv(std::uint8_t *out) {
@@ -744,7 +744,7 @@ bool Master::take_mcu_scs_monitor_bmsLv(std::uint8_t *out) {
 }
 
 bool Master::set_mcu_scs_monitor_bmsHv(std::uint8_t value) {
-	return send(SDO_Mcu_CAN_ID, Opcode::SET_REQ, 10u, sdodps_encode_mcu_scs_monitor_bmsHv(value), 1u);
+	return send(SDOMcu_CAN_ID, Opcode::SET_REQ, 10u, sdodps_encode_mcu_scs_monitor_bmsHv(value), 1u);
 }
 
 bool Master::take_mcu_scs_monitor_bmsHv(std::uint8_t *out) {
@@ -756,7 +756,7 @@ bool Master::take_mcu_scs_monitor_bmsHv(std::uint8_t *out) {
 }
 
 bool Master::set_mcu_scs_monitor_ebs(std::uint8_t value) {
-	return send(SDO_Mcu_CAN_ID, Opcode::SET_REQ, 11u, sdodps_encode_mcu_scs_monitor_ebs(value), 1u);
+	return send(SDOMcu_CAN_ID, Opcode::SET_REQ, 11u, sdodps_encode_mcu_scs_monitor_ebs(value), 1u);
 }
 
 bool Master::take_mcu_scs_monitor_ebs(std::uint8_t *out) {
@@ -768,7 +768,7 @@ bool Master::take_mcu_scs_monitor_ebs(std::uint8_t *out) {
 }
 
 bool Master::set_mcu_serial_core_usb(std::uint8_t value) {
-	return send(SDO_Mcu_CAN_ID, Opcode::SET_REQ, 12u, sdodps_encode_mcu_serial_core_usb(value), 8u);
+	return send(SDOMcu_CAN_ID, Opcode::SET_REQ, 12u, sdodps_encode_mcu_serial_core_usb(value), 8u);
 }
 
 bool Master::take_mcu_serial_core_usb(std::uint8_t *out) {
@@ -923,8 +923,8 @@ bool Master::process_mcu_response(std::uint32_t id, std::uint64_t payload) {
 bool Master::process(std::uint32_t id, std::uint64_t payload) {
 	if (static_cast<Opcode>(sdodps_get_bits(payload, 0u, 8u)) != Opcode::RES) return false;
 	switch (id) {
-	case SDO_Pcu_CAN_ID: return process_pcu_response(id, payload);
-	case SDO_Mcu_CAN_ID: return process_mcu_response(id, payload);
+	case SDOPcu_CAN_ID: return process_pcu_response(id, payload);
+	case SDOMcu_CAN_ID: return process_mcu_response(id, payload);
 	}
 	return false;
 }

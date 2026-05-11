@@ -157,7 +157,7 @@ int main()
 	CHECK(kp_batt == 4.25f);
 
 	const sdodps::Frame req = make_frame(
-		sdodps::SDO_Pcu_CAN_ID,
+		sdodps::SDOPcu_CAN_ID,
 		sdodps::Opcode::GET_REQ,
 		static_cast<std::uint16_t>(sdodps::PcuVar::send_asms),
 		0u,

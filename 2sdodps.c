@@ -28,7 +28,7 @@ static bool check_opcode_valtable(dbc_t *dbc)
 		{ 3u,   "GET_ALL_REQ" },
 		{ 128u, "RES" },
 		{ 253u, "ERR_OUT_OF_RANGE" },
-		{ 254u, "ERR_WRTIE_RO" },
+		{ 254u, "ERR_WRITE_RO" },
 		{ 255u, "ERR" },
 	};
 
@@ -62,7 +62,7 @@ static bool check_opcode_valtable(dbc_t *dbc)
 static bool has_sdo_prefix(const char *name)
 {
 	assert(name);
-	return strncmp(name, "SDO_", 4) == 0;
+	return strncmp(name, "SDO", 3) == 0;
 }
 
 static signal_t *find_signal_by_name(can_msg_t *msg, const char *name)
@@ -325,7 +325,7 @@ static const char *board_name(const can_msg_t *msg)
 	assert(msg);
 	assert(msg->name);
 	assert(has_sdo_prefix(msg->name));
-	return msg->name + 4;
+	return msg->name + 3;
 }
 
 static char *board_file_name(const can_msg_t *msg)
@@ -643,7 +643,7 @@ static void emit_master_header_boards(FILE *o, can_msg_t **msgs, size_t count)
 		can_msg_t *msg = msgs[i];
 		char *board = board_type_name(msg);
 		char *enum_name = format_alloc("%sVar", board);
-		fprintf(o, "static constexpr std::uint32_t SDO_%s_CAN_ID = %" PRIu64 "u;\n",
+		fprintf(o, "static constexpr std::uint32_t SDO%s_CAN_ID = %" PRIu64 "u;\n",
 			board, (uint64_t)msg->id);
 		fprintf(o, "enum class %s : std::uint16_t {\n", enum_name);
 		signal_t *var_id = find_signal_by_name(msg, "var_id");
@@ -742,7 +742,7 @@ static void generate_master_hpp(can_msg_t **msgs, size_t count, const char *outd
 		"\tGET_ALL_REQ = 3u,\n"
 		"\tRES = 128u,\n"
 		"\tERR_OUT_OF_RANGE = 253u,\n"
-		"\tERR_WRTIE_RO = 254u,\n"
+		"\tERR_WRITE_RO = 254u,\n"
 		"\tERR = 255u,\n"
 		"};\n\n"
 		"enum class Status : std::uint8_t {\n"
@@ -824,7 +824,7 @@ static void emit_master_cpp_board_methods(FILE *o, can_msg_t *msg)
 
 	fprintf(o, "bool Master::request_%s(%sVar var) {\n", board_file, board_type);
 	fprintf(o, "\tif (var != %sVar::dbc_hash && !%s_.hash_verified) return false;\n", board_type, board_file);
-	fprintf(o, "\treturn send(SDO_%s_CAN_ID, Opcode::GET_REQ, static_cast<std::uint16_t>(var), 0u, %s_bit_length(var));\n",
+	fprintf(o, "\treturn send(SDO%s_CAN_ID, Opcode::GET_REQ, static_cast<std::uint16_t>(var), 0u, %s_bit_length(var));\n",
 		board_type, board_file);
 	fprintf(o, "}\n\n");
 
@@ -844,7 +844,7 @@ static void emit_master_cpp_board_methods(FILE *o, can_msg_t *msg)
 		signal_t *sig = find_multiplexed_signal_by_value(msg, item->value);
 		char *name = sanitize_identifier(item->name, false);
 		fprintf(o, "bool Master::set_%s_%s(%s value) {\n", board_file, name, signal_api_type(sig));
-		fprintf(o, "\treturn send(SDO_%s_CAN_ID, Opcode::SET_REQ, %uu, sdodps_encode_%s_%s(value), %uu);\n",
+		fprintf(o, "\treturn send(SDO%s_CAN_ID, Opcode::SET_REQ, %uu, sdodps_encode_%s_%s(value), %uu);\n",
 			board_type, item->value, board_file, name, sig->bit_length);
 		fprintf(o, "}\n\n");
 
@@ -929,7 +929,7 @@ static void generate_master_cpp(can_msg_t **msgs, size_t count, const char *outd
 	for (size_t i = 0; i < count; i++) {
 		char *board_file = board_file_name(msgs[i]);
 		char *board_type = board_type_name(msgs[i]);
-		fprintf(o, "\tcase SDO_%s_CAN_ID: return process_%s_response(id, payload);\n", board_type, board_file);
+		fprintf(o, "\tcase SDO%s_CAN_ID: return process_%s_response(id, payload);\n", board_type, board_file);
 		free(board_type);
 		free(board_file);
 	}
@@ -1108,7 +1108,7 @@ static void emit_slave_cpp_process_set(FILE *o, can_msg_t *msg)
 		fprintf(o, "\tcase %sVar::%s: {\n", board_type, name);
 		fprintf(o, "\t\tconst %s value = sdodps_decode_%s_%s(payload);\n", signal_api_type(sig), board_file, name);
 		fprintf(o, "\t\tconst Status status = write_%s(value);\n", name);
-		fprintf(o, "\t\tconst Opcode opcode = status == Status::ok ? Opcode::RES : (status == Status::read_only ? Opcode::ERR_WRTIE_RO : Opcode::ERR);\n");
+		fprintf(o, "\t\tconst Opcode opcode = status == Status::ok ? Opcode::RES : (status == Status::read_only ? Opcode::ERR_WRITE_RO : Opcode::ERR);\n");
 		fprintf(o, "\t\tconst std::uint64_t raw = status == Status::ok ? sdodps_encode_%s_%s(value) : 0u;\n", board_file, name);
 		fprintf(o, "\t\treturn send_response(opcode, var, raw);\n");
 		fprintf(o, "\t}\n");
@@ -1146,13 +1146,13 @@ static void generate_slave_cpp(can_msg_t *msg, const char *outdir)
 	fprintf(o, "bool Slave%s::send_response(Opcode opcode, %sVar var, std::uint64_t raw_value) {\n", board_type, board_type);
 	fprintf(o, "\tState &state = instance();\n");
 	fprintf(o, "\tif (!state.tx) return false;\n");
-	fprintf(o, "\tconst Frame frame = sdodps_make_frame(SDO_%s_CAN_ID, opcode, static_cast<std::uint16_t>(var), 0u, raw_value, Master::%s_bit_length(var));\n",
+	fprintf(o, "\tconst Frame frame = sdodps_make_frame(SDO%s_CAN_ID, opcode, static_cast<std::uint16_t>(var), 0u, raw_value, Master::%s_bit_length(var));\n",
 		board_type, board_file);
 	fprintf(o, "\treturn state.tx(frame.id, frame.dlc, frame.payload);\n");
 	fprintf(o, "}\n\n");
 
 	fprintf(o, "bool Slave%s::process(std::uint32_t id, std::uint64_t payload) {\n", board_type);
-	fprintf(o, "\tif (id != SDO_%s_CAN_ID) return false;\n", board_type);
+	fprintf(o, "\tif (id != SDO%s_CAN_ID) return false;\n", board_type);
 	fprintf(o, "\tconst Opcode opcode = static_cast<Opcode>(sdodps_get_bits(payload, 0u, 8u));\n");
 	fprintf(o, "\tconst %sVar var = static_cast<%sVar>(sdodps_get_bits(payload, 8u, 10u));\n", board_type, board_type);
 	fprintf(o, "\tif (opcode == Opcode::GET_REQ) return process_get(var);\n");
@@ -1183,7 +1183,7 @@ int dbc2sdodps(dbc_t *dbc, const char *dbc_file, const char *outdir)
 	can_msg_t **sdo_msgs = filter_sdo_messages(dbc, &sdo_count);
 	if (sdo_count == 0) {
 		free(sdo_msgs);
-		warning("SDO_DPS generation skipped: no valid SDO_ messages found");
+		warning("SDO_DPS generation skipped: no valid SDO messages found");
 		return -1;
 	}
 
