@@ -983,16 +983,21 @@ static void msg2h_define_can_ids(dbc_t *dbc, FILE *h, dbc2c_options_t *copts) {
 		char *name = duplicate(msg->name);
 		char macro_name[MAX_NAME_LENGTH] = { 0 };
 		char macro_base[MAX_NAME_LENGTH] = { 0 };
+		char dlc_macro_name[MAX_NAME_LENGTH] = { 0 };
+		char dlc_macro_base[MAX_NAME_LENGTH] = { 0 };
 
 		for (size_t i = 0; name[i] != 0; i++)
 			name[i] = toupper(name[i]);
 		snprintf(macro_base, sizeof(macro_base), "CAN_ID_%s", name);
+		snprintf(dlc_macro_base, sizeof(dlc_macro_base), "CAN_DLC_%s", name);
 		format_macro_identifier(macro_name, sizeof(macro_name), copts, macro_base);
+		format_macro_identifier(dlc_macro_name, sizeof(dlc_macro_name), copts, dlc_macro_base);
 		if (ens) {
 			fprintf(h, "\t%s = %lu, /* 0x%lx */\n", macro_name, msg->id, msg->id);
 		} else {
 			fprintf(h, "#define %s (%lu) /* 0x%lx */\n", macro_name, msg->id, msg->id);
 		}
+		fprintf(h, "#define %s (%u)\n", dlc_macro_name, msg->dlc);
 
 		free(name);
 	}
@@ -1001,6 +1006,48 @@ static void msg2h_define_can_ids(dbc_t *dbc, FILE *h, dbc2c_options_t *copts) {
 	}
 
 	fprintf(h, "\n");
+}
+
+static int msg2h_message_dlc_switch(dbc_t *dbc, FILE *h, dbc2c_options_t *copts)
+{
+	assert(dbc);
+	assert(h);
+	assert(copts);
+
+	if (fprintf(h, "static inline int message_dlc_can2(const unsigned long id) {\n") < 0)
+		return -1;
+	if (fprintf(h, "\tswitch (id) {\n") < 0)
+		return -1;
+
+	for (size_t i = 0; i < dbc->message_count; i++) {
+		can_msg_t *msg = dbc->messages[i];
+		char *name = duplicate(msg->name);
+		char id_macro_name[MAX_NAME_LENGTH] = { 0 };
+		char id_macro_base[MAX_NAME_LENGTH] = { 0 };
+		char dlc_macro_name[MAX_NAME_LENGTH] = { 0 };
+		char dlc_macro_base[MAX_NAME_LENGTH] = { 0 };
+
+		for (size_t j = 0; name[j] != 0; j++)
+			name[j] = toupper(name[j]);
+		snprintf(id_macro_base, sizeof(id_macro_base), "CAN_ID_%s", name);
+		snprintf(dlc_macro_base, sizeof(dlc_macro_base), "CAN_DLC_%s", name);
+		format_macro_identifier(id_macro_name, sizeof(id_macro_name), copts, id_macro_base);
+		format_macro_identifier(dlc_macro_name, sizeof(dlc_macro_name), copts, dlc_macro_base);
+		if (fprintf(h, "\tcase %s: return %s;\n", id_macro_name, dlc_macro_name) < 0) {
+			free(name);
+			return -1;
+		}
+
+		free(name);
+	}
+
+	if (fprintf(h,
+		"\tdefault: return -1;\n"
+		"\t}\n"
+		"}\n\n") < 0)
+		return -1;
+
+	return 0;
 }
 
 static char *escape_string(const char *s, int upper) {
@@ -1312,6 +1359,10 @@ int dbc2c(dbc_t *dbc, FILE *c, FILE *h, const char *name, dbc2c_options_t *copts
 	}
 
 	msg2h_define_can_ids(dbc, h, copts);
+	if (msg2h_message_dlc_switch(dbc, h, copts) < 0) {
+		rv = -1;
+		goto fail;
+	}
 
 	if (val_tables2h_types(dbc, h, copts) < 0) {
 		rv = -1;

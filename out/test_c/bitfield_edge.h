@@ -29,10 +29,26 @@ extern "C" {
 #define DBCC_NODE_HASH_ECU_B (0xc39db0e4u)
 
 #define CAN_ID_EDGEPACKED (100) /* 0x64 */
+#define CAN_DLC_EDGEPACKED (8)
 #define CAN_ID_EDGEFLOAT (101) /* 0x65 */
+#define CAN_DLC_EDGEFLOAT (8)
 #define CAN_ID_EDGEDOUBLE (102) /* 0x66 */
+#define CAN_DLC_EDGEDOUBLE (8)
 #define CAN_ID_EDGEENUMS (103) /* 0x67 */
+#define CAN_DLC_EDGEENUMS (2)
 #define CAN_ID_EDGEMUX (104) /* 0x68 */
+#define CAN_DLC_EDGEMUX (8)
+
+static inline int message_dlc_can2(const unsigned long id) {
+	switch (id) {
+	case CAN_ID_EDGEPACKED: return CAN_DLC_EDGEPACKED;
+	case CAN_ID_EDGEFLOAT: return CAN_DLC_EDGEFLOAT;
+	case CAN_ID_EDGEDOUBLE: return CAN_DLC_EDGEDOUBLE;
+	case CAN_ID_EDGEENUMS: return CAN_DLC_EDGEENUMS;
+	case CAN_ID_EDGEMUX: return CAN_DLC_EDGEMUX;
+	default: return -1;
+	}
+}
 
 typedef enum {
 	VAL_TABLE_SWITCHSTATE_OFF = 0,

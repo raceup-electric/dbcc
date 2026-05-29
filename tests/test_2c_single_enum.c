@@ -2,6 +2,11 @@
 #include "test_2c_common.h"
 
 int test_2c_single_enum(void) {
+	CHECK(CAN_DLC_ENUM1 == 8u);
+	CHECK(CAN_DLC_IVTSLEEPACK == 1u);
+	CHECK(message_dlc_can2(CAN_ID_ENUM1) == 8);
+	CHECK(message_dlc_can2(CAN_ID_IVTSLEEPACK) == 1);
+
 	can_0x001_Enum1_obj_t enum1 = {0};
 	can_0x003_IVTCtrl_obj_t ivtctrl = {0};
 	can_0x004_Enum2_obj_t enum2 = {0};

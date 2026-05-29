@@ -28,7 +28,17 @@ extern "C" {
 #define DBCC_NODE_HASH_VECTOR__XXX (0xc719dc00u)
 
 #define CAN_ID_EXTENDED_MULTIPLEX_W_RANGES (0) /* 0x0 */
+#define CAN_DLC_EXTENDED_MULTIPLEX_W_RANGES (2)
 #define CAN_ID_EXTENDED_MULTIPLEX (1682) /* 0x692 */
+#define CAN_DLC_EXTENDED_MULTIPLEX (8)
+
+static inline int message_dlc_can2(const unsigned long id) {
+	switch (id) {
+	case CAN_ID_EXTENDED_MULTIPLEX_W_RANGES: return CAN_DLC_EXTENDED_MULTIPLEX_W_RANGES;
+	case CAN_ID_EXTENDED_MULTIPLEX: return CAN_DLC_EXTENDED_MULTIPLEX;
+	default: return -1;
+	}
+}
 
 typedef struct {
 	uint64_t payload;

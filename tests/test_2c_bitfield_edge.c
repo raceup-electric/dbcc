@@ -2,6 +2,12 @@
 #include "test_2c_common.h"
 
 int test_2c_bitfield_edge(void) {
+	CHECK(CAN_DLC_EDGEPACKED == 8u);
+	CHECK(CAN_DLC_EDGEENUMS == 2u);
+	CHECK(message_dlc_can2(CAN_ID_EDGEPACKED) == 8);
+	CHECK(message_dlc_can2(CAN_ID_EDGEENUMS) == 2);
+	CHECK(message_dlc_can2(0xffffffffu) == -1);
+
 	can_0x064_EdgePacked_obj_t packed = {0};
 	uint16_t unsigned12 = 0;
 	uint8_t byte_a = 0, byte_b = 0, byte_c = 0, byte_d = 0;

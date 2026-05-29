@@ -29,6 +29,14 @@ extern "C" {
 #define DBCC_NODE_HASH_VECTOR__XXX (0xcd0a431au)
 
 #define CAN_ID_NEWMESSAGE0 (1024) /* 0x400 */
+#define CAN_DLC_NEWMESSAGE0 (8)
+
+static inline int message_dlc_can2(const unsigned long id) {
+	switch (id) {
+	case CAN_ID_NEWMESSAGE0: return CAN_DLC_NEWMESSAGE0;
+	default: return -1;
+	}
+}
 
 typedef struct {
 	uint64_t payload;

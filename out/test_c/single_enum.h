@@ -30,9 +30,23 @@ extern "C" {
 #define DBCC_NODE_HASH_A_NODE (0xb0cd5c35u)
 
 #define CAN_ID_ENUM1 (1) /* 0x1 */
+#define CAN_DLC_ENUM1 (8)
 #define CAN_ID_IVTCTRL (3) /* 0x3 */
+#define CAN_DLC_IVTCTRL (8)
 #define CAN_ID_ENUM2 (4) /* 0x4 */
+#define CAN_DLC_ENUM2 (8)
 #define CAN_ID_IVTSLEEPACK (290) /* 0x122 */
+#define CAN_DLC_IVTSLEEPACK (1)
+
+static inline int message_dlc_can2(const unsigned long id) {
+	switch (id) {
+	case CAN_ID_ENUM1: return CAN_DLC_ENUM1;
+	case CAN_ID_IVTCTRL: return CAN_DLC_IVTCTRL;
+	case CAN_ID_ENUM2: return CAN_DLC_ENUM2;
+	case CAN_ID_IVTSLEEPACK: return CAN_DLC_IVTSLEEPACK;
+	default: return -1;
+	}
+}
 
 typedef enum {
 	CAN_0X001_ENUM1_STATE_INACTIVE = 0,
