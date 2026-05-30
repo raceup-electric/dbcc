@@ -1,4 +1,4 @@
 Header header
-int32 imuaccelz
-float32 gravityx
+int32 imuaccelz # (unit)
+float32 gravityx # (%)
 

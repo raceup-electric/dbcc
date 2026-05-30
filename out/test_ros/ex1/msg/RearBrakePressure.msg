@@ -1,3 +1,3 @@
 Header header
-float32 rearbrakepressure
+float32 rearbrakepressure # (psi)
 

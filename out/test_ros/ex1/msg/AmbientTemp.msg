@@ -1,3 +1,3 @@
 Header header
-float32 ambienttemp
+float32 ambienttemp # (°C)
 

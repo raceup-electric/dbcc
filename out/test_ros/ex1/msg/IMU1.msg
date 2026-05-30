@@ -1,4 +1,4 @@
 Header header
-int32 imuaccelx
-int32 imuaceely
+int32 imuaccelx # (unit)
+int32 imuaceely # (unit)
 

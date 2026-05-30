@@ -62,7 +62,7 @@ public:
 
 private:
 	void createSubscriptions() {
-		auto qos = rclcpp::QoS(rclcpp::KeepLast(10)).best_effort().durability_volatile();
+		auto qos = rclcpp::SensorDataQoS();
 
 		/* 0x400: WS200IDInfo */
 		ws200_id_info_sub_ = this->create_subscription<ex2::msg::WS200IDInfo>(
@@ -363,7 +363,7 @@ private:
 	}
 
 	void createPublishers() {
-		auto qos = rclcpp::QoS(rclcpp::KeepLast(10)).best_effort().durability_volatile();
+		auto qos = rclcpp::SensorDataQoS();
 
 		ws200_id_info_pub_ = this->create_publisher<ex2::msg::WS200IDInfo>("ws200_id_info", qos);
 		ws200_status_pub_ = this->create_publisher<ex2::msg::WS200Status>("ws200_status", qos);

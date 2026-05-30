@@ -49,7 +49,7 @@ public:
 
 private:
 	void createSubscriptions() {
-		auto qos = rclcpp::QoS(rclcpp::KeepLast(10)).best_effort().durability_volatile();
+		auto qos = rclcpp::SensorDataQoS();
 
 		/* 0x000: Extendedmultiplexwranges */
 		extendedmultiplexwranges_sub_ = this->create_subscription<mul_val::msg::Extendedmultiplexwranges>(
@@ -127,7 +127,7 @@ private:
 	}
 
 	void createPublishers() {
-		auto qos = rclcpp::QoS(rclcpp::KeepLast(10)).best_effort().durability_volatile();
+		auto qos = rclcpp::SensorDataQoS();
 
 		extendedmultiplexwranges_pub_ = this->create_publisher<mul_val::msg::Extendedmultiplexwranges>("extendedmultiplexwranges", qos);
 		extendedmultiplex_pub_ = this->create_publisher<mul_val::msg::Extendedmultiplex>("extendedmultiplex", qos);

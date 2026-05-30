@@ -168,7 +168,7 @@ public:
 
 private:
 	void createSubscriptions() {
-		auto qos = rclcpp::QoS(rclcpp::KeepLast(10)).best_effort().durability_volatile();
+		auto qos = rclcpp::SensorDataQoS();
 
 		/* 0xcc0016e: MagicCanNode1RHeartbeat */
 		magic_can_node1_r_heartbeat_sub_ = this->create_subscription<ex1::msg::MagicCanNode1RHeartbeat>(
@@ -3157,7 +3157,7 @@ private:
 	}
 
 	void createPublishers() {
-		auto qos = rclcpp::QoS(rclcpp::KeepLast(10)).best_effort().durability_volatile();
+		auto qos = rclcpp::SensorDataQoS();
 
 		magic_can_node1_r_heartbeat_pub_ = this->create_publisher<ex1::msg::MagicCanNode1RHeartbeat>("magic_can_node1_r_heartbeat", qos);
 		magic_can_node2_heartbeat_pub_ = this->create_publisher<ex1::msg::MagicCanNode2Heartbeat>("magic_can_node2_heartbeat", qos);

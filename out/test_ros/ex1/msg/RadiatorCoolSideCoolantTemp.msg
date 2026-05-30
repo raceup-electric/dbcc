@@ -1,3 +1,3 @@
 Header header
-float32 radiatorcoolsidecoolanttemp
+float32 radiatorcoolsidecoolanttemp # (°C)
 

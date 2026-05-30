@@ -1,4 +1,4 @@
 Header header
-float32 gpslatitude
+float32 gpslatitude # (DDD)
 uint8 gpsvaliditystatus
 

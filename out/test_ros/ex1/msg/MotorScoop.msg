@@ -1,3 +1,3 @@
 Header header
-float32 motorscoop
+float32 motorscoop # (kpa)
 

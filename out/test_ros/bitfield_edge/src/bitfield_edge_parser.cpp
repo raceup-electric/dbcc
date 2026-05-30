@@ -52,7 +52,7 @@ public:
 
 private:
 	void createSubscriptions() {
-		auto qos = rclcpp::QoS(rclcpp::KeepLast(10)).best_effort().durability_volatile();
+		auto qos = rclcpp::SensorDataQoS();
 
 		/* 0x064: EdgePacked */
 		edge_packed_sub_ = this->create_subscription<bitfield_edge::msg::EdgePacked>(
@@ -208,7 +208,7 @@ private:
 	}
 
 	void createPublishers() {
-		auto qos = rclcpp::QoS(rclcpp::KeepLast(10)).best_effort().durability_volatile();
+		auto qos = rclcpp::SensorDataQoS();
 
 		edge_packed_pub_ = this->create_publisher<bitfield_edge::msg::EdgePacked>("edge_packed", qos);
 		edge_float_pub_ = this->create_publisher<bitfield_edge::msg::EdgeFloat>("edge_float", qos);

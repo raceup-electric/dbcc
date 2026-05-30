@@ -1,4 +1,4 @@
 Header header
-float32 motoriq
-float32 motorid
+float32 motoriq # (AImaginary)
+float32 motorid # (A)
 

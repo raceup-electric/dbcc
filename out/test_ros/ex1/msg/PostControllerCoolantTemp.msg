@@ -1,3 +1,3 @@
 Header header
-float32 postcontrollercoolanttemp
+float32 postcontrollercoolanttemp # (°C)
 

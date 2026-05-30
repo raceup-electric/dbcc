@@ -1,4 +1,4 @@
 Header header
-float32 phasebcurrent
-float32 phaseccurrent
+float32 phasebcurrent # (A)
+float32 phaseccurrent # (A)
 

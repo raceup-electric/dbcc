@@ -1,3 +1,3 @@
 Header header
-float32 postmotorcoolanttemp
+float32 postmotorcoolanttemp # (°C)
 

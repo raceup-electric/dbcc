@@ -1,6 +1,6 @@
 Header header
-int16 temp35
-int16 temp36
-int16 temp37
-int16 temo38
+int16 temp35 # (cÂ°C)
+int16 temp36 # (cÂ°C)
+int16 temp37 # (cÂ°C)
+int16 temo38 # (cÂ°C)
 

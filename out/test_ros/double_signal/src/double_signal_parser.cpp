@@ -48,7 +48,7 @@ public:
 
 private:
 	void createSubscriptions() {
-		auto qos = rclcpp::QoS(rclcpp::KeepLast(10)).best_effort().durability_volatile();
+		auto qos = rclcpp::SensorDataQoS();
 
 		/* 0x400: NewMessage0 */
 		new_message0_sub_ = this->create_subscription<double_signal::msg::NewMessage0>(
@@ -84,7 +84,7 @@ private:
 	}
 
 	void createPublishers() {
-		auto qos = rclcpp::QoS(rclcpp::KeepLast(10)).best_effort().durability_volatile();
+		auto qos = rclcpp::SensorDataQoS();
 
 		new_message0_pub_ = this->create_publisher<double_signal::msg::NewMessage0>("new_message0", qos);
 		frame_publisher_ = this->create_publisher<can_msgs::msg::Frame>("/can/double_signal/write", qos);

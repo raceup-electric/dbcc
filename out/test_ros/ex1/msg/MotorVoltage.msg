@@ -1,4 +1,4 @@
 Header header
-float32 motorvq
-float32 motorvd
+float32 motorvq # (VImaginary)
+float32 motorvd # (V)
 

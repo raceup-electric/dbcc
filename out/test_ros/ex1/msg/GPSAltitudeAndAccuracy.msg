@@ -1,4 +1,4 @@
 Header header
-float32 gpsaltitude
+float32 gpsaltitude # (meters)
 float32 positiondop
 

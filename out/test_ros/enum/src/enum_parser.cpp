@@ -51,7 +51,7 @@ public:
 
 private:
 	void createSubscriptions() {
-		auto qos = rclcpp::QoS(rclcpp::KeepLast(10)).best_effort().durability_volatile();
+		auto qos = rclcpp::SensorDataQoS();
 
 		/* 0x122: IVTSleepAck */
 		ivt_sleep_ack_sub_ = this->create_subscription<enum::msg::IVTSleepAck>(
@@ -130,7 +130,7 @@ private:
 	}
 
 	void createPublishers() {
-		auto qos = rclcpp::QoS(rclcpp::KeepLast(10)).best_effort().durability_volatile();
+		auto qos = rclcpp::SensorDataQoS();
 
 		ivt_sleep_ack_pub_ = this->create_publisher<enum::msg::IVTSleepAck>("ivt_sleep_ack", qos);
 		ivt_ctrl_pub_ = this->create_publisher<enum::msg::IVTCtrl>("ivt_ctrl", qos);

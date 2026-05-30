@@ -1,4 +1,4 @@
 Header header
-float32 odometer
-float32 busamphours
+float32 odometer # (m)
+float32 busamphours # (Ah)
 

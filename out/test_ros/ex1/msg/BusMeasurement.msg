@@ -1,4 +1,4 @@
 Header header
-float32 busvoltage
-float32 buscurrent
+float32 busvoltage # (V)
+float32 buscurrent # (A)
 

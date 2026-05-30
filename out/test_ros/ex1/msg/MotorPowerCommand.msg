@@ -1,3 +1,3 @@
 Header header
-float32 buscurrentcommand
+float32 buscurrentcommand # (%)
 

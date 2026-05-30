@@ -1,4 +1,4 @@
 Header header
-float32 motortemp
-float32 phaseatemp
+float32 motortemp # (C)
+float32 phaseatemp # (C)
 

@@ -1,3 +1,3 @@
 Header header
-float32 rearsuspensionposition
+float32 rearsuspensionposition # (%)
 

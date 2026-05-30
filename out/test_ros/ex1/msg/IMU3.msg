@@ -1,4 +1,4 @@
 Header header
-float32 gravityy
-float32 gravityz
+float32 gravityy # (%)
+float32 gravityz # (%)
 

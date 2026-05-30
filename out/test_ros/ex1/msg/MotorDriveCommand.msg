@@ -1,4 +1,4 @@
 Header header
-float32 motorvelocitycommand
-float32 motorcurrentcommand
+float32 motorvelocitycommand # (rpm)
+float32 motorcurrentcommand # %
 

@@ -862,9 +862,13 @@ static void generate_ros_msgs(const dbc_t *dbc, const char *outdir, dbc2ros_opti
 				type = determine_type_rosmsg(sig->bit_length, sig->is_signed, sig->is_floating, rosopts);
 			const char *name = sig->name;
 			const char *comment = sig->comment;
+			const char *units = sig->units;
 
 			fprintf(file, "%s %s", type, name);
-			if (comment) fprintf(file, " # %s", comment);
+			if (comment || units[0]) fprintf(file, " # ");
+			if (units[0]) fprintf(file, "%s", units);
+			if (comment && units[0]) fprintf(file, "; ");
+			if (comment) fprintf(file, "%s", comment);
 			fprintf(file, "\n");
 		}
 
@@ -1184,7 +1188,7 @@ static int msg_unpack(FILE *c, can_msg_t *msg, const char *package_name, dbc2ros
 
 static void create_subscribers(const dbc_t *dbc, FILE *file, const char *package_name, dbc2ros_options_t *rosopts) {
 	fprintf(file, "\tvoid createSubscriptions() {\n");
-	fprintf(file, "\t\tauto qos = rclcpp::QoS(rclcpp::KeepLast(10)).best_effort().durability_volatile();\n\n");
+	fprintf(file, "\t\tauto qos = rclcpp::SensorDataQoS();\n\n");
 	for (size_t i = 0; i < dbc->message_count; i++) {
 		msg_pack(file, dbc->messages[i], package_name, rosopts);
 	}
@@ -1225,7 +1229,7 @@ static void create_subscribers(const dbc_t *dbc, FILE *file, const char *package
 
 static void create_publishers(const dbc_t *dbc, FILE *file, const char *package_name, dbc2ros_options_t *rosopts) {
 	fprintf(file, "\tvoid createPublishers() {\n");
-	fprintf(file, "\t\tauto qos = rclcpp::QoS(rclcpp::KeepLast(10)).best_effort().durability_volatile();\n\n");
+	fprintf(file, "\t\tauto qos = rclcpp::SensorDataQoS();\n\n");
 
 	for (size_t i = 0; i < dbc->message_count; i++) {
 		can_msg_t *msg = dbc->messages[i];
