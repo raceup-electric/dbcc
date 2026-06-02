@@ -15,20 +15,20 @@ int test_2c_single_enum(void) {
 	uint8_t fuse_out = 0, enum2_out = 0;
 	int8_t ack_out = 0;
 
-	encode_can_0x001_state(&enum1, CAN_0X001_ENUM1_STATE_ACTIVE);
-	decode_can_0x001_state(&enum1, &enum1_out);
+	encode_0x001_state(&enum1, CAN_0X001_ENUM1_STATE_ACTIVE);
+	decode_0x001_state(&enum1, &enum1_out);
 	CHECK(enum1_out == CAN_0X001_ENUM1_STATE_ACTIVE);
 
-	encode_can_0x003_ivt_ctrl_fuse_state(&ivtctrl, 1u);
-	decode_can_0x003_ivt_ctrl_fuse_state(&ivtctrl, &fuse_out);
+	encode_0x003_ivt_ctrl_fuse_state(&ivtctrl, 1u);
+	decode_0x003_ivt_ctrl_fuse_state(&ivtctrl, &fuse_out);
 	CHECK(fuse_out == 1u);
 
-	encode_can_0x004_state(&enum2, 3u);
-	decode_can_0x004_state(&enum2, &enum2_out);
+	encode_0x004_state(&enum2, 3u);
+	decode_0x004_state(&enum2, &enum2_out);
 	CHECK(enum2_out == 3u);
 
-	encode_can_0x122_ivt_sleep_ack(&ack, 5);
-	decode_can_0x122_ivt_sleep_ack(&ack, &ack_out);
+	encode_0x122_ivt_sleep_ack(&ack, 5);
+	decode_0x122_ivt_sleep_ack(&ack, &ack_out);
 	CHECK(ack_out == 5);
 
 	return 0;

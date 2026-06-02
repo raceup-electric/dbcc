@@ -43,10 +43,10 @@ typedef struct {
 } can_0x400_NewMessage0_obj_t;
 
 
-void decode_can_0x400_float_signal_0(can_0x400_NewMessage0_obj_t *o, float *out);
-void encode_can_0x400_float_signal_0(can_0x400_NewMessage0_obj_t *o, float in);
-void decode_can_0x400_float_signal_1(can_0x400_NewMessage0_obj_t *o, float *out);
-void encode_can_0x400_float_signal_1(can_0x400_NewMessage0_obj_t *o, float in);
+void decode_0x400_float_signal_0(can_0x400_NewMessage0_obj_t *o, float *out);
+void encode_0x400_float_signal_0(can_0x400_NewMessage0_obj_t *o, float in);
+void decode_0x400_float_signal_1(can_0x400_NewMessage0_obj_t *o, float *out);
+void encode_0x400_float_signal_1(can_0x400_NewMessage0_obj_t *o, float in);
 
 
 #ifdef __cplusplus

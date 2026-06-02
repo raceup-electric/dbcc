@@ -49,26 +49,26 @@ typedef struct {
 } can_0x692_extended_multiplex_obj_t;
 
 
-void decode_can_0x000_muxer_w_multiple_ranges(can_0x000_extended_multiplex_w_ranges_obj_t *o, uint8_t *out);
-void encode_can_0x000_muxer_w_multiple_ranges(can_0x000_extended_multiplex_w_ranges_obj_t *o, uint8_t in);
-void decode_can_0x000_muxed_w_ranges(can_0x000_extended_multiplex_w_ranges_obj_t *o, int8_t *out);
-void encode_can_0x000_muxed_w_ranges(can_0x000_extended_multiplex_w_ranges_obj_t *o, int8_t in);
+void decode_0x000_muxer_w_multiple_ranges(can_0x000_extended_multiplex_w_ranges_obj_t *o, uint8_t *out);
+void encode_0x000_muxer_w_multiple_ranges(can_0x000_extended_multiplex_w_ranges_obj_t *o, uint8_t in);
+void decode_0x000_muxed_w_ranges(can_0x000_extended_multiplex_w_ranges_obj_t *o, int8_t *out);
+void encode_0x000_muxed_w_ranges(can_0x000_extended_multiplex_w_ranges_obj_t *o, int8_t in);
 
 
-void decode_can_0x692_muxed1(can_0x692_extended_multiplex_obj_t *o, uint32_t *out);
-void encode_can_0x692_muxed1(can_0x692_extended_multiplex_obj_t *o, uint32_t in);
-void decode_can_0x692_muxed2(can_0x692_extended_multiplex_obj_t *o, uint32_t *out);
-void encode_can_0x692_muxed2(can_0x692_extended_multiplex_obj_t *o, uint32_t in);
-void decode_can_0x692_simple_muxer(can_0x692_extended_multiplex_obj_t *o, uint16_t *out);
-void encode_can_0x692_simple_muxer(can_0x692_extended_multiplex_obj_t *o, uint16_t in);
-void decode_can_0x692_muxed_muxer(can_0x692_extended_multiplex_obj_t *o, uint8_t *out);
-void encode_can_0x692_muxed_muxer(can_0x692_extended_multiplex_obj_t *o, uint8_t in);
-void decode_can_0x692_sig3(can_0x692_extended_multiplex_obj_t *o, uint8_t *out);
-void encode_can_0x692_sig3(can_0x692_extended_multiplex_obj_t *o, uint8_t in);
-void decode_can_0x692_sig1(can_0x692_extended_multiplex_obj_t *o, uint8_t *out);
-void encode_can_0x692_sig1(can_0x692_extended_multiplex_obj_t *o, uint8_t in);
-void decode_can_0x692_sig2(can_0x692_extended_multiplex_obj_t *o, float *out);
-void encode_can_0x692_sig2(can_0x692_extended_multiplex_obj_t *o, float in);
+void decode_0x692_muxed1(can_0x692_extended_multiplex_obj_t *o, uint32_t *out);
+void encode_0x692_muxed1(can_0x692_extended_multiplex_obj_t *o, uint32_t in);
+void decode_0x692_muxed2(can_0x692_extended_multiplex_obj_t *o, uint32_t *out);
+void encode_0x692_muxed2(can_0x692_extended_multiplex_obj_t *o, uint32_t in);
+void decode_0x692_simple_muxer(can_0x692_extended_multiplex_obj_t *o, uint16_t *out);
+void encode_0x692_simple_muxer(can_0x692_extended_multiplex_obj_t *o, uint16_t in);
+void decode_0x692_muxed_muxer(can_0x692_extended_multiplex_obj_t *o, uint8_t *out);
+void encode_0x692_muxed_muxer(can_0x692_extended_multiplex_obj_t *o, uint8_t in);
+void decode_0x692_sig3(can_0x692_extended_multiplex_obj_t *o, uint8_t *out);
+void encode_0x692_sig3(can_0x692_extended_multiplex_obj_t *o, uint8_t in);
+void decode_0x692_sig1(can_0x692_extended_multiplex_obj_t *o, uint8_t *out);
+void encode_0x692_sig1(can_0x692_extended_multiplex_obj_t *o, uint8_t in);
+void decode_0x692_sig2(can_0x692_extended_multiplex_obj_t *o, float *out);
+void encode_0x692_sig2(can_0x692_extended_multiplex_obj_t *o, float in);
 
 
 #ifdef __cplusplus

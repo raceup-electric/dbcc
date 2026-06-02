@@ -88,56 +88,56 @@ typedef struct {
 } can_0x068_EdgeMux_obj_t;
 
 
-void decode_can_0x064_unsigned12(can_0x064_EdgePacked_obj_t *o, uint16_t *out);
-void encode_can_0x064_unsigned12(can_0x064_EdgePacked_obj_t *o, uint16_t in);
-void decode_can_0x064_byte_a(can_0x064_EdgePacked_obj_t *o, uint8_t *out);
-void encode_can_0x064_byte_a(can_0x064_EdgePacked_obj_t *o, uint8_t in);
-void decode_can_0x064_byte_b(can_0x064_EdgePacked_obj_t *o, uint8_t *out);
-void encode_can_0x064_byte_b(can_0x064_EdgePacked_obj_t *o, uint8_t in);
-void decode_can_0x064_byte_c(can_0x064_EdgePacked_obj_t *o, uint8_t *out);
-void encode_can_0x064_byte_c(can_0x064_EdgePacked_obj_t *o, uint8_t in);
-void decode_can_0x064_byte_d(can_0x064_EdgePacked_obj_t *o, uint8_t *out);
-void encode_can_0x064_byte_d(can_0x064_EdgePacked_obj_t *o, uint8_t in);
-void decode_can_0x064_signed8(can_0x064_EdgePacked_obj_t *o, int8_t *out);
-void encode_can_0x064_signed8(can_0x064_EdgePacked_obj_t *o, int8_t in);
-void decode_can_0x064_unsigned5(can_0x064_EdgePacked_obj_t *o, uint8_t *out);
-void encode_can_0x064_unsigned5(can_0x064_EdgePacked_obj_t *o, uint8_t in);
-void decode_can_0x064_signed3(can_0x064_EdgePacked_obj_t *o, int8_t *out);
-void encode_can_0x064_signed3(can_0x064_EdgePacked_obj_t *o, int8_t in);
-void decode_can_0x064_flag0(can_0x064_EdgePacked_obj_t *o, uint8_t *out);
-void encode_can_0x064_flag0(can_0x064_EdgePacked_obj_t *o, uint8_t in);
-void decode_can_0x064_flag1(can_0x064_EdgePacked_obj_t *o, uint8_t *out);
-void encode_can_0x064_flag1(can_0x064_EdgePacked_obj_t *o, uint8_t in);
-void decode_can_0x064_flag2(can_0x064_EdgePacked_obj_t *o, uint8_t *out);
-void encode_can_0x064_flag2(can_0x064_EdgePacked_obj_t *o, uint8_t in);
-void decode_can_0x064_flag3(can_0x064_EdgePacked_obj_t *o, uint8_t *out);
-void encode_can_0x064_flag3(can_0x064_EdgePacked_obj_t *o, uint8_t in);
+void decode_0x064_unsigned12(can_0x064_EdgePacked_obj_t *o, uint16_t *out);
+void encode_0x064_unsigned12(can_0x064_EdgePacked_obj_t *o, uint16_t in);
+void decode_0x064_byte_a(can_0x064_EdgePacked_obj_t *o, uint8_t *out);
+void encode_0x064_byte_a(can_0x064_EdgePacked_obj_t *o, uint8_t in);
+void decode_0x064_byte_b(can_0x064_EdgePacked_obj_t *o, uint8_t *out);
+void encode_0x064_byte_b(can_0x064_EdgePacked_obj_t *o, uint8_t in);
+void decode_0x064_byte_c(can_0x064_EdgePacked_obj_t *o, uint8_t *out);
+void encode_0x064_byte_c(can_0x064_EdgePacked_obj_t *o, uint8_t in);
+void decode_0x064_byte_d(can_0x064_EdgePacked_obj_t *o, uint8_t *out);
+void encode_0x064_byte_d(can_0x064_EdgePacked_obj_t *o, uint8_t in);
+void decode_0x064_signed8(can_0x064_EdgePacked_obj_t *o, int8_t *out);
+void encode_0x064_signed8(can_0x064_EdgePacked_obj_t *o, int8_t in);
+void decode_0x064_unsigned5(can_0x064_EdgePacked_obj_t *o, uint8_t *out);
+void encode_0x064_unsigned5(can_0x064_EdgePacked_obj_t *o, uint8_t in);
+void decode_0x064_signed3(can_0x064_EdgePacked_obj_t *o, int8_t *out);
+void encode_0x064_signed3(can_0x064_EdgePacked_obj_t *o, int8_t in);
+void decode_0x064_flag0(can_0x064_EdgePacked_obj_t *o, uint8_t *out);
+void encode_0x064_flag0(can_0x064_EdgePacked_obj_t *o, uint8_t in);
+void decode_0x064_flag1(can_0x064_EdgePacked_obj_t *o, uint8_t *out);
+void encode_0x064_flag1(can_0x064_EdgePacked_obj_t *o, uint8_t in);
+void decode_0x064_flag2(can_0x064_EdgePacked_obj_t *o, uint8_t *out);
+void encode_0x064_flag2(can_0x064_EdgePacked_obj_t *o, uint8_t in);
+void decode_0x064_flag3(can_0x064_EdgePacked_obj_t *o, uint8_t *out);
+void encode_0x064_flag3(can_0x064_EdgePacked_obj_t *o, uint8_t in);
 
 
-void decode_can_0x065_f32(can_0x065_EdgeFloat_obj_t *o, float *out);
-void encode_can_0x065_f32(can_0x065_EdgeFloat_obj_t *o, float in);
-void decode_can_0x065_raw32(can_0x065_EdgeFloat_obj_t *o, uint32_t *out);
-void encode_can_0x065_raw32(can_0x065_EdgeFloat_obj_t *o, uint32_t in);
+void decode_0x065_f32(can_0x065_EdgeFloat_obj_t *o, float *out);
+void encode_0x065_f32(can_0x065_EdgeFloat_obj_t *o, float in);
+void decode_0x065_raw32(can_0x065_EdgeFloat_obj_t *o, uint32_t *out);
+void encode_0x065_raw32(can_0x065_EdgeFloat_obj_t *o, uint32_t in);
 
 
-void decode_can_0x066_d64(can_0x066_EdgeDouble_obj_t *o, double *out);
-void encode_can_0x066_d64(can_0x066_EdgeDouble_obj_t *o, double in);
+void decode_0x066_d64(can_0x066_EdgeDouble_obj_t *o, double *out);
+void encode_0x066_d64(can_0x066_EdgeDouble_obj_t *o, double in);
 
 
-void decode_can_0x067_inline_enum(can_0x067_EdgeEnums_obj_t *o, can_0x067_EdgeEnums_inline_enum_e *out);
-void encode_can_0x067_inline_enum(can_0x067_EdgeEnums_obj_t *o, can_0x067_EdgeEnums_inline_enum_e in);
-void decode_can_0x067_mode(can_0x067_EdgeEnums_obj_t *o, val_table_ModeTable_e *out);
-void encode_can_0x067_mode(can_0x067_EdgeEnums_obj_t *o, val_table_ModeTable_e in);
-void decode_can_0x067_state(can_0x067_EdgeEnums_obj_t *o, val_table_SwitchState_e *out);
-void encode_can_0x067_state(can_0x067_EdgeEnums_obj_t *o, val_table_SwitchState_e in);
+void decode_0x067_inline_enum(can_0x067_EdgeEnums_obj_t *o, can_0x067_EdgeEnums_inline_enum_e *out);
+void encode_0x067_inline_enum(can_0x067_EdgeEnums_obj_t *o, can_0x067_EdgeEnums_inline_enum_e in);
+void decode_0x067_mode(can_0x067_EdgeEnums_obj_t *o, val_table_ModeTable_e *out);
+void encode_0x067_mode(can_0x067_EdgeEnums_obj_t *o, val_table_ModeTable_e in);
+void decode_0x067_state(can_0x067_EdgeEnums_obj_t *o, val_table_SwitchState_e *out);
+void encode_0x067_state(can_0x067_EdgeEnums_obj_t *o, val_table_SwitchState_e in);
 
 
-void decode_can_0x068_mux(can_0x068_EdgeMux_obj_t *o, uint8_t *out);
-void encode_can_0x068_mux(can_0x068_EdgeMux_obj_t *o, uint8_t in);
-void decode_can_0x068_muxed_a(can_0x068_EdgeMux_obj_t *o, uint8_t *out);
-void encode_can_0x068_muxed_a(can_0x068_EdgeMux_obj_t *o, uint8_t in);
-void decode_can_0x068_muxed_b(can_0x068_EdgeMux_obj_t *o, uint8_t *out);
-void encode_can_0x068_muxed_b(can_0x068_EdgeMux_obj_t *o, uint8_t in);
+void decode_0x068_mux(can_0x068_EdgeMux_obj_t *o, uint8_t *out);
+void encode_0x068_mux(can_0x068_EdgeMux_obj_t *o, uint8_t in);
+void decode_0x068_muxed_a(can_0x068_EdgeMux_obj_t *o, uint8_t *out);
+void encode_0x068_muxed_a(can_0x068_EdgeMux_obj_t *o, uint8_t in);
+void decode_0x068_muxed_b(can_0x068_EdgeMux_obj_t *o, uint8_t *out);
+void encode_0x068_muxed_b(can_0x068_EdgeMux_obj_t *o, uint8_t in);
 
 
 #ifdef __cplusplus

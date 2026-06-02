@@ -21,7 +21,7 @@ static inline uint64_t reverse_byte_order(uint64_t x) {
 	return x;
 }
 
-void decode_can_0x000_muxer_w_multiple_ranges(can_0x000_extended_multiplex_w_ranges_obj_t *o, uint8_t *out) {
+void decode_0x000_muxer_w_multiple_ranges(can_0x000_extended_multiplex_w_ranges_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -32,14 +32,14 @@ void decode_can_0x000_muxer_w_multiple_ranges(can_0x000_extended_multiplex_w_ran
 	return;
 }
 
-void encode_can_0x000_muxer_w_multiple_ranges(can_0x000_extended_multiplex_w_ranges_obj_t *o, uint8_t in) {
+void encode_0x000_muxer_w_multiple_ranges(can_0x000_extended_multiplex_w_ranges_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffuLL) | (x & 0xffuLL);
 	return;
 }
 
-void decode_can_0x000_muxed_w_ranges(can_0x000_extended_multiplex_w_ranges_obj_t *o, int8_t *out) {
+void decode_0x000_muxed_w_ranges(can_0x000_extended_multiplex_w_ranges_obj_t *o, int8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
@@ -56,7 +56,7 @@ void decode_can_0x000_muxed_w_ranges(can_0x000_extended_multiplex_w_ranges_obj_t
 	return;
 }
 
-void encode_can_0x000_muxed_w_ranges(can_0x000_extended_multiplex_w_ranges_obj_t *o, int8_t in) {
+void encode_0x000_muxed_w_ranges(can_0x000_extended_multiplex_w_ranges_obj_t *o, int8_t in) {
 	assert(o);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
 	uint64_t _lane_mux = _payload_mux;
@@ -67,7 +67,7 @@ void encode_can_0x000_muxed_w_ranges(can_0x000_extended_multiplex_w_ranges_obj_t
 	return;
 }
 
-void decode_can_0x692_muxed1(can_0x692_extended_multiplex_obj_t *o, uint32_t *out) {
+void decode_0x692_muxed1(can_0x692_extended_multiplex_obj_t *o, uint32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
@@ -82,7 +82,7 @@ void decode_can_0x692_muxed1(can_0x692_extended_multiplex_obj_t *o, uint32_t *ou
 	return;
 }
 
-void encode_can_0x692_muxed1(can_0x692_extended_multiplex_obj_t *o, uint32_t in) {
+void encode_0x692_muxed1(can_0x692_extended_multiplex_obj_t *o, uint32_t in) {
 	assert(o);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
 	uint64_t _lane_mux = _payload_mux;
@@ -93,7 +93,7 @@ void encode_can_0x692_muxed1(can_0x692_extended_multiplex_obj_t *o, uint32_t in)
 	return;
 }
 
-void decode_can_0x692_muxed2(can_0x692_extended_multiplex_obj_t *o, uint32_t *out) {
+void decode_0x692_muxed2(can_0x692_extended_multiplex_obj_t *o, uint32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
@@ -108,7 +108,7 @@ void decode_can_0x692_muxed2(can_0x692_extended_multiplex_obj_t *o, uint32_t *ou
 	return;
 }
 
-void encode_can_0x692_muxed2(can_0x692_extended_multiplex_obj_t *o, uint32_t in) {
+void encode_0x692_muxed2(can_0x692_extended_multiplex_obj_t *o, uint32_t in) {
 	assert(o);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
 	uint64_t _lane_mux = _payload_mux;
@@ -119,7 +119,7 @@ void encode_can_0x692_muxed2(can_0x692_extended_multiplex_obj_t *o, uint32_t in)
 	return;
 }
 
-void decode_can_0x692_simple_muxer(can_0x692_extended_multiplex_obj_t *o, uint16_t *out) {
+void decode_0x692_simple_muxer(can_0x692_extended_multiplex_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -130,14 +130,14 @@ void decode_can_0x692_simple_muxer(can_0x692_extended_multiplex_obj_t *o, uint16
 	return;
 }
 
-void encode_can_0x692_simple_muxer(can_0x692_extended_multiplex_obj_t *o, uint16_t in) {
+void encode_0x692_simple_muxer(can_0x692_extended_multiplex_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 8)) | ((x & 0xffffuLL) << 8);
 	return;
 }
 
-void decode_can_0x692_muxed_muxer(can_0x692_extended_multiplex_obj_t *o, uint8_t *out) {
+void decode_0x692_muxed_muxer(can_0x692_extended_multiplex_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
@@ -152,7 +152,7 @@ void decode_can_0x692_muxed_muxer(can_0x692_extended_multiplex_obj_t *o, uint8_t
 	return;
 }
 
-void encode_can_0x692_muxed_muxer(can_0x692_extended_multiplex_obj_t *o, uint8_t in) {
+void encode_0x692_muxed_muxer(can_0x692_extended_multiplex_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
 	uint64_t _lane_mux = _payload_mux;
@@ -163,7 +163,7 @@ void encode_can_0x692_muxed_muxer(can_0x692_extended_multiplex_obj_t *o, uint8_t
 	return;
 }
 
-void decode_can_0x692_sig3(can_0x692_extended_multiplex_obj_t *o, uint8_t *out) {
+void decode_0x692_sig3(can_0x692_extended_multiplex_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -174,14 +174,14 @@ void decode_can_0x692_sig3(can_0x692_extended_multiplex_obj_t *o, uint8_t *out) 
 	return;
 }
 
-void encode_can_0x692_sig3(can_0x692_extended_multiplex_obj_t *o, uint8_t in) {
+void encode_0x692_sig3(can_0x692_extended_multiplex_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xfuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xfuLL << 4)) | ((x & 0xfuLL) << 4);
 	return;
 }
 
-void decode_can_0x692_sig1(can_0x692_extended_multiplex_obj_t *o, uint8_t *out) {
+void decode_0x692_sig1(can_0x692_extended_multiplex_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -192,14 +192,14 @@ void decode_can_0x692_sig1(can_0x692_extended_multiplex_obj_t *o, uint8_t *out) 
 	return;
 }
 
-void encode_can_0x692_sig1(can_0x692_extended_multiplex_obj_t *o, uint8_t in) {
+void encode_0x692_sig1(can_0x692_extended_multiplex_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x3uLL;
 	o->payload = (((uint64_t)o->payload) & ~0x3uLL) | (x & 0x3uLL);
 	return;
 }
 
-void decode_can_0x692_sig2(can_0x692_extended_multiplex_obj_t *o, float *out) {
+void decode_0x692_sig2(can_0x692_extended_multiplex_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -212,7 +212,7 @@ void decode_can_0x692_sig2(can_0x692_extended_multiplex_obj_t *o, float *out) {
 	return;
 }
 
-void encode_can_0x692_sig2(can_0x692_extended_multiplex_obj_t *o, float in) {
+void encode_0x692_sig2(can_0x692_extended_multiplex_obj_t *o, float in) {
 	assert(o);
 	double wire = (double)in;
 	wire += -4;

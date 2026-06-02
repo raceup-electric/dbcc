@@ -21,7 +21,7 @@ static inline uint64_t reverse_byte_order(uint64_t x) {
 	return x;
 }
 
-void decode_can_0x400_double_signal_0(can_0x400_NewMessage0_obj_t *o, double *out) {
+void decode_0x400_double_signal_0(can_0x400_NewMessage0_obj_t *o, double *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -35,7 +35,7 @@ void decode_can_0x400_double_signal_0(can_0x400_NewMessage0_obj_t *o, double *ou
 	return;
 }
 
-void encode_can_0x400_double_signal_0(can_0x400_NewMessage0_obj_t *o, double in) {
+void encode_0x400_double_signal_0(can_0x400_NewMessage0_obj_t *o, double in) {
 	assert(o);
 	double wire = (double)in;
 	uint64_t raw;

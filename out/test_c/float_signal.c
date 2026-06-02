@@ -21,7 +21,7 @@ static inline uint64_t reverse_byte_order(uint64_t x) {
 	return x;
 }
 
-void decode_can_0x400_float_signal_0(can_0x400_NewMessage0_obj_t *o, float *out) {
+void decode_0x400_float_signal_0(can_0x400_NewMessage0_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -35,7 +35,7 @@ void decode_can_0x400_float_signal_0(can_0x400_NewMessage0_obj_t *o, float *out)
 	return;
 }
 
-void encode_can_0x400_float_signal_0(can_0x400_NewMessage0_obj_t *o, float in) {
+void encode_0x400_float_signal_0(can_0x400_NewMessage0_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -45,7 +45,7 @@ void encode_can_0x400_float_signal_0(can_0x400_NewMessage0_obj_t *o, float in) {
 	return;
 }
 
-void decode_can_0x400_float_signal_1(can_0x400_NewMessage0_obj_t *o, float *out) {
+void decode_0x400_float_signal_1(can_0x400_NewMessage0_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -59,7 +59,7 @@ void decode_can_0x400_float_signal_1(can_0x400_NewMessage0_obj_t *o, float *out)
 	return;
 }
 
-void encode_can_0x400_float_signal_1(can_0x400_NewMessage0_obj_t *o, float in) {
+void encode_0x400_float_signal_1(can_0x400_NewMessage0_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;

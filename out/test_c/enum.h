@@ -94,20 +94,20 @@ typedef struct {
 } can_0x122_IVTSleepAck_obj_t;
 
 
-void decode_can_0x001_state(can_0x001_Enum1_obj_t *o, can_0x001_Enum1_state_e *out);
-void encode_can_0x001_state(can_0x001_Enum1_obj_t *o, can_0x001_Enum1_state_e in);
+void decode_0x001_state(can_0x001_Enum1_obj_t *o, can_0x001_Enum1_state_e *out);
+void encode_0x001_state(can_0x001_Enum1_obj_t *o, can_0x001_Enum1_state_e in);
 
 
-void decode_can_0x003_ivt_ctrl_fuse_state(can_0x003_IVTCtrl_obj_t *o, can_0x003_IVTCtrl_ivt_ctrl_fuse_state_e *out);
-void encode_can_0x003_ivt_ctrl_fuse_state(can_0x003_IVTCtrl_obj_t *o, can_0x003_IVTCtrl_ivt_ctrl_fuse_state_e in);
+void decode_0x003_ivt_ctrl_fuse_state(can_0x003_IVTCtrl_obj_t *o, can_0x003_IVTCtrl_ivt_ctrl_fuse_state_e *out);
+void encode_0x003_ivt_ctrl_fuse_state(can_0x003_IVTCtrl_obj_t *o, can_0x003_IVTCtrl_ivt_ctrl_fuse_state_e in);
 
 
-void decode_can_0x004_state(can_0x004_Enum2_obj_t *o, uint8_t *out);
-void encode_can_0x004_state(can_0x004_Enum2_obj_t *o, uint8_t in);
+void decode_0x004_state(can_0x004_Enum2_obj_t *o, uint8_t *out);
+void encode_0x004_state(can_0x004_Enum2_obj_t *o, uint8_t in);
 
 
-void decode_can_0x122_ivt_sleep_ack(can_0x122_IVTSleepAck_obj_t *o, can_0x122_IVTSleepAck_ivt_sleep_ack_e *out);
-void encode_can_0x122_ivt_sleep_ack(can_0x122_IVTSleepAck_obj_t *o, can_0x122_IVTSleepAck_ivt_sleep_ack_e in);
+void decode_0x122_ivt_sleep_ack(can_0x122_IVTSleepAck_obj_t *o, can_0x122_IVTSleepAck_ivt_sleep_ack_e *out);
+void encode_0x122_ivt_sleep_ack(can_0x122_IVTSleepAck_obj_t *o, can_0x122_IVTSleepAck_ivt_sleep_ack_e in);
 
 
 #ifdef __cplusplus

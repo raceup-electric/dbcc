@@ -21,7 +21,7 @@ static inline uint64_t reverse_byte_order(uint64_t x) {
 	return x;
 }
 
-void decode_can_0x064_unsigned12(can_0x064_EdgePacked_obj_t *o, uint16_t *out) {
+void decode_0x064_unsigned12(can_0x064_EdgePacked_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -32,14 +32,14 @@ void decode_can_0x064_unsigned12(can_0x064_EdgePacked_obj_t *o, uint16_t *out) {
 	return;
 }
 
-void encode_can_0x064_unsigned12(can_0x064_EdgePacked_obj_t *o, uint16_t in) {
+void encode_0x064_unsigned12(can_0x064_EdgePacked_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xfffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xfffuLL << 52)) | ((x & 0xfffuLL) << 52);
 	return;
 }
 
-void decode_can_0x064_byte_a(can_0x064_EdgePacked_obj_t *o, uint8_t *out) {
+void decode_0x064_byte_a(can_0x064_EdgePacked_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -50,14 +50,14 @@ void decode_can_0x064_byte_a(can_0x064_EdgePacked_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x064_byte_a(can_0x064_EdgePacked_obj_t *o, uint8_t in) {
+void encode_0x064_byte_a(can_0x064_EdgePacked_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffuLL << 1)) | ((x & 0xffuLL) << 1);
 	return;
 }
 
-void decode_can_0x064_byte_b(can_0x064_EdgePacked_obj_t *o, uint8_t *out) {
+void decode_0x064_byte_b(can_0x064_EdgePacked_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -68,14 +68,14 @@ void decode_can_0x064_byte_b(can_0x064_EdgePacked_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x064_byte_b(can_0x064_EdgePacked_obj_t *o, uint8_t in) {
+void encode_0x064_byte_b(can_0x064_EdgePacked_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffuLL << 10)) | ((x & 0xffuLL) << 10);
 	return;
 }
 
-void decode_can_0x064_byte_c(can_0x064_EdgePacked_obj_t *o, uint8_t *out) {
+void decode_0x064_byte_c(can_0x064_EdgePacked_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -86,14 +86,14 @@ void decode_can_0x064_byte_c(can_0x064_EdgePacked_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x064_byte_c(can_0x064_EdgePacked_obj_t *o, uint8_t in) {
+void encode_0x064_byte_c(can_0x064_EdgePacked_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffuLL << 19)) | ((x & 0xffuLL) << 19);
 	return;
 }
 
-void decode_can_0x064_byte_d(can_0x064_EdgePacked_obj_t *o, uint8_t *out) {
+void decode_0x064_byte_d(can_0x064_EdgePacked_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -104,14 +104,14 @@ void decode_can_0x064_byte_d(can_0x064_EdgePacked_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x064_byte_d(can_0x064_EdgePacked_obj_t *o, uint8_t in) {
+void encode_0x064_byte_d(can_0x064_EdgePacked_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffuLL << 28)) | ((x & 0xffuLL) << 28);
 	return;
 }
 
-void decode_can_0x064_signed8(can_0x064_EdgePacked_obj_t *o, int8_t *out) {
+void decode_0x064_signed8(can_0x064_EdgePacked_obj_t *o, int8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -124,14 +124,14 @@ void decode_can_0x064_signed8(can_0x064_EdgePacked_obj_t *o, int8_t *out) {
 	return;
 }
 
-void encode_can_0x064_signed8(can_0x064_EdgePacked_obj_t *o, int8_t in) {
+void encode_0x064_signed8(can_0x064_EdgePacked_obj_t *o, int8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffuLL << 44)) | ((x & 0xffuLL) << 44);
 	return;
 }
 
-void decode_can_0x064_unsigned5(can_0x064_EdgePacked_obj_t *o, uint8_t *out) {
+void decode_0x064_unsigned5(can_0x064_EdgePacked_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -142,14 +142,14 @@ void decode_can_0x064_unsigned5(can_0x064_EdgePacked_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x064_unsigned5(can_0x064_EdgePacked_obj_t *o, uint8_t in) {
+void encode_0x064_unsigned5(can_0x064_EdgePacked_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1fuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1fuLL << 39)) | ((x & 0x1fuLL) << 39);
 	return;
 }
 
-void decode_can_0x064_signed3(can_0x064_EdgePacked_obj_t *o, int8_t *out) {
+void decode_0x064_signed3(can_0x064_EdgePacked_obj_t *o, int8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -162,14 +162,14 @@ void decode_can_0x064_signed3(can_0x064_EdgePacked_obj_t *o, int8_t *out) {
 	return;
 }
 
-void encode_can_0x064_signed3(can_0x064_EdgePacked_obj_t *o, int8_t in) {
+void encode_0x064_signed3(can_0x064_EdgePacked_obj_t *o, int8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x7uLL << 36)) | ((x & 0x7uLL) << 36);
 	return;
 }
 
-void decode_can_0x064_flag0(can_0x064_EdgePacked_obj_t *o, uint8_t *out) {
+void decode_0x064_flag0(can_0x064_EdgePacked_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -180,14 +180,14 @@ void decode_can_0x064_flag0(can_0x064_EdgePacked_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x064_flag0(can_0x064_EdgePacked_obj_t *o, uint8_t in) {
+void encode_0x064_flag0(can_0x064_EdgePacked_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~0x1uLL) | (x & 0x1uLL);
 	return;
 }
 
-void decode_can_0x064_flag1(can_0x064_EdgePacked_obj_t *o, uint8_t *out) {
+void decode_0x064_flag1(can_0x064_EdgePacked_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -198,14 +198,14 @@ void decode_can_0x064_flag1(can_0x064_EdgePacked_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x064_flag1(can_0x064_EdgePacked_obj_t *o, uint8_t in) {
+void encode_0x064_flag1(can_0x064_EdgePacked_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 9)) | ((x & 0x1uLL) << 9);
 	return;
 }
 
-void decode_can_0x064_flag2(can_0x064_EdgePacked_obj_t *o, uint8_t *out) {
+void decode_0x064_flag2(can_0x064_EdgePacked_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -216,14 +216,14 @@ void decode_can_0x064_flag2(can_0x064_EdgePacked_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x064_flag2(can_0x064_EdgePacked_obj_t *o, uint8_t in) {
+void encode_0x064_flag2(can_0x064_EdgePacked_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 18)) | ((x & 0x1uLL) << 18);
 	return;
 }
 
-void decode_can_0x064_flag3(can_0x064_EdgePacked_obj_t *o, uint8_t *out) {
+void decode_0x064_flag3(can_0x064_EdgePacked_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -234,14 +234,14 @@ void decode_can_0x064_flag3(can_0x064_EdgePacked_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x064_flag3(can_0x064_EdgePacked_obj_t *o, uint8_t in) {
+void encode_0x064_flag3(can_0x064_EdgePacked_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 27)) | ((x & 0x1uLL) << 27);
 	return;
 }
 
-void decode_can_0x065_f32(can_0x065_EdgeFloat_obj_t *o, float *out) {
+void decode_0x065_f32(can_0x065_EdgeFloat_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -255,7 +255,7 @@ void decode_can_0x065_f32(can_0x065_EdgeFloat_obj_t *o, float *out) {
 	return;
 }
 
-void encode_can_0x065_f32(can_0x065_EdgeFloat_obj_t *o, float in) {
+void encode_0x065_f32(can_0x065_EdgeFloat_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -265,7 +265,7 @@ void encode_can_0x065_f32(can_0x065_EdgeFloat_obj_t *o, float in) {
 	return;
 }
 
-void decode_can_0x065_raw32(can_0x065_EdgeFloat_obj_t *o, uint32_t *out) {
+void decode_0x065_raw32(can_0x065_EdgeFloat_obj_t *o, uint32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -276,14 +276,14 @@ void decode_can_0x065_raw32(can_0x065_EdgeFloat_obj_t *o, uint32_t *out) {
 	return;
 }
 
-void encode_can_0x065_raw32(can_0x065_EdgeFloat_obj_t *o, uint32_t in) {
+void encode_0x065_raw32(can_0x065_EdgeFloat_obj_t *o, uint32_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffffffuLL << 32)) | ((x & 0xffffffffuLL) << 32);
 	return;
 }
 
-void decode_can_0x066_d64(can_0x066_EdgeDouble_obj_t *o, double *out) {
+void decode_0x066_d64(can_0x066_EdgeDouble_obj_t *o, double *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -297,7 +297,7 @@ void decode_can_0x066_d64(can_0x066_EdgeDouble_obj_t *o, double *out) {
 	return;
 }
 
-void encode_can_0x066_d64(can_0x066_EdgeDouble_obj_t *o, double in) {
+void encode_0x066_d64(can_0x066_EdgeDouble_obj_t *o, double in) {
 	assert(o);
 	double wire = (double)in;
 	uint64_t raw;
@@ -307,7 +307,7 @@ void encode_can_0x066_d64(can_0x066_EdgeDouble_obj_t *o, double in) {
 	return;
 }
 
-void decode_can_0x067_inline_enum(can_0x067_EdgeEnums_obj_t *o, can_0x067_EdgeEnums_inline_enum_e *out) {
+void decode_0x067_inline_enum(can_0x067_EdgeEnums_obj_t *o, can_0x067_EdgeEnums_inline_enum_e *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -318,14 +318,14 @@ void decode_can_0x067_inline_enum(can_0x067_EdgeEnums_obj_t *o, can_0x067_EdgeEn
 	return;
 }
 
-void encode_can_0x067_inline_enum(can_0x067_EdgeEnums_obj_t *o, can_0x067_EdgeEnums_inline_enum_e in) {
+void encode_0x067_inline_enum(can_0x067_EdgeEnums_obj_t *o, can_0x067_EdgeEnums_inline_enum_e in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x7uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x7uLL << 3)) | ((x & 0x7uLL) << 3);
 	return;
 }
 
-void decode_can_0x067_mode(can_0x067_EdgeEnums_obj_t *o, val_table_ModeTable_e *out) {
+void decode_0x067_mode(can_0x067_EdgeEnums_obj_t *o, val_table_ModeTable_e *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -336,14 +336,14 @@ void decode_can_0x067_mode(can_0x067_EdgeEnums_obj_t *o, val_table_ModeTable_e *
 	return;
 }
 
-void encode_can_0x067_mode(can_0x067_EdgeEnums_obj_t *o, val_table_ModeTable_e in) {
+void encode_0x067_mode(can_0x067_EdgeEnums_obj_t *o, val_table_ModeTable_e in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x3uLL;
 	o->payload = (((uint64_t)o->payload) & ~0x3uLL) | (x & 0x3uLL);
 	return;
 }
 
-void decode_can_0x067_state(can_0x067_EdgeEnums_obj_t *o, val_table_SwitchState_e *out) {
+void decode_0x067_state(can_0x067_EdgeEnums_obj_t *o, val_table_SwitchState_e *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -354,14 +354,14 @@ void decode_can_0x067_state(can_0x067_EdgeEnums_obj_t *o, val_table_SwitchState_
 	return;
 }
 
-void encode_can_0x067_state(can_0x067_EdgeEnums_obj_t *o, val_table_SwitchState_e in) {
+void encode_0x067_state(can_0x067_EdgeEnums_obj_t *o, val_table_SwitchState_e in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 2)) | ((x & 0x1uLL) << 2);
 	return;
 }
 
-void decode_can_0x068_mux(can_0x068_EdgeMux_obj_t *o, uint8_t *out) {
+void decode_0x068_mux(can_0x068_EdgeMux_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -372,14 +372,14 @@ void decode_can_0x068_mux(can_0x068_EdgeMux_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x068_mux(can_0x068_EdgeMux_obj_t *o, uint8_t in) {
+void encode_0x068_mux(can_0x068_EdgeMux_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffuLL) | (x & 0xffuLL);
 	return;
 }
 
-void decode_can_0x068_muxed_a(can_0x068_EdgeMux_obj_t *o, uint8_t *out) {
+void decode_0x068_muxed_a(can_0x068_EdgeMux_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
@@ -394,7 +394,7 @@ void decode_can_0x068_muxed_a(can_0x068_EdgeMux_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x068_muxed_a(can_0x068_EdgeMux_obj_t *o, uint8_t in) {
+void encode_0x068_muxed_a(can_0x068_EdgeMux_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
 	uint64_t _lane_mux = _payload_mux;
@@ -405,7 +405,7 @@ void encode_can_0x068_muxed_a(can_0x068_EdgeMux_obj_t *o, uint8_t in) {
 	return;
 }
 
-void decode_can_0x068_muxed_b(can_0x068_EdgeMux_obj_t *o, uint8_t *out) {
+void decode_0x068_muxed_b(can_0x068_EdgeMux_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
@@ -420,7 +420,7 @@ void decode_can_0x068_muxed_b(can_0x068_EdgeMux_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x068_muxed_b(can_0x068_EdgeMux_obj_t *o, uint8_t in) {
+void encode_0x068_muxed_b(can_0x068_EdgeMux_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
 	uint64_t _lane_mux = _payload_mux;

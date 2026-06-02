@@ -637,6 +637,23 @@ static int emit_encode_payload_store(FILE *o, bool motorola, unsigned start, uin
 		mask, mask) < 0 ? -1 : 0;
 }
 
+static void make_signal_function_name(char *newname, size_t maxlen, const char *prefix, const char *msgname, const char *signame, unsigned id, dbc2c_options_t *copts)
+{
+	assert(newname);
+	assert(prefix);
+	assert(msgname);
+	assert(signame);
+	assert(copts);
+	char base[MAX_NAME_LENGTH] = { 0 };
+	if (copts->use_id_in_name)
+		snprintf(base, sizeof(base), "%s_0x%03x_%s", prefix, id, signame);
+	else if (copts->version >= 2)
+		snprintf(base, sizeof(base), "%s_%s_%s", prefix, msgname, signame);
+	else
+		snprintf(base, sizeof(base), "%s_%s", prefix, signame);
+	format_identifier(newname, maxlen, copts, base);
+}
+
 static int signal2scaling_encode(can_msg_t *msg, const char *msgname, unsigned id, signal_t *sig, FILE *o, bool header, const char *god, dbc2c_options_t *copts)
 {
 	assert(msg);
@@ -646,16 +663,9 @@ static int signal2scaling_encode(can_msg_t *msg, const char *msgname, unsigned i
 	assert(copts);
 	char api_type_buf[MAX_NAME_LENGTH] = { 0 };
 	char function_name[MAX_NAME_LENGTH] = { 0 };
-	char function_base[MAX_NAME_LENGTH] = { 0 };
 	const char *type = signal_api_type(msgname, sig, copts, api_type_buf, sizeof api_type_buf);
 	(void)god;
-	if (copts->use_id_in_name)
-		snprintf(function_base, sizeof(function_base), "encode_can_0x%03x_%s", id, sig->name);
-	else if (copts->version >= 2)
-		snprintf(function_base, sizeof(function_base), "encode_%s_%s", msgname, sig->name);
-	else
-		snprintf(function_base, sizeof(function_base), "encode_can_%s", sig->name);
-	format_identifier(function_name, sizeof(function_name), copts, function_base);
+	make_signal_function_name(function_name, sizeof(function_name), "encode", msg->name, sig->name, id, copts);
 	fprintf(o, "void %s(", function_name);
 	if (fprintf_msg_obj_type(o, msgname) < 0)
 		return -1;
@@ -713,15 +723,8 @@ static int signal2scaling_decode(can_msg_t *msg, const char *msgname, unsigned i
 	(void)god;
 	char api_type_buf[MAX_NAME_LENGTH] = { 0 };
 	char function_name[MAX_NAME_LENGTH] = { 0 };
-	char function_base[MAX_NAME_LENGTH] = { 0 };
 	const char *type = signal_api_type(msgname, sig, copts, api_type_buf, sizeof api_type_buf);
-	if (copts->use_id_in_name)
-		snprintf(function_base, sizeof(function_base), "decode_can_0x%03x_%s", id, sig->name);
-	else if (copts->version >= 2)
-		snprintf(function_base, sizeof(function_base), "decode_%s_%s", msgname, sig->name);
-	else
-		snprintf(function_base, sizeof(function_base), "decode_can_%s", sig->name);
-	format_identifier(function_name, sizeof(function_name), copts, function_base);
+	make_signal_function_name(function_name, sizeof(function_name), "decode", msg->name, sig->name, id, copts);
 	fprintf(o, "void %s(", function_name);
 	if (fprintf_msg_obj_type(o, msgname) < 0)
 		return -1;

@@ -43,8 +43,8 @@ typedef struct {
 } can_0x400_NewMessage0_obj_t;
 
 
-void decode_can_0x400_double_signal_0(can_0x400_NewMessage0_obj_t *o, double *out);
-void encode_can_0x400_double_signal_0(can_0x400_NewMessage0_obj_t *o, double in);
+void decode_0x400_double_signal_0(can_0x400_NewMessage0_obj_t *o, double *out);
+void encode_0x400_double_signal_0(can_0x400_NewMessage0_obj_t *o, double in);
 
 
 #ifdef __cplusplus

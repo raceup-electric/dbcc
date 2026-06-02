@@ -21,7 +21,7 @@ static inline uint64_t reverse_byte_order(uint64_t x) {
 	return x;
 }
 
-void decode_can_0x001_state(can_0x001_Enum1_obj_t *o, can_0x001_Enum1_state_e *out) {
+void decode_0x001_state(can_0x001_Enum1_obj_t *o, can_0x001_Enum1_state_e *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -32,14 +32,14 @@ void decode_can_0x001_state(can_0x001_Enum1_obj_t *o, can_0x001_Enum1_state_e *o
 	return;
 }
 
-void encode_can_0x001_state(can_0x001_Enum1_obj_t *o, can_0x001_Enum1_state_e in) {
+void encode_0x001_state(can_0x001_Enum1_obj_t *o, can_0x001_Enum1_state_e in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xfuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xfuLL) | (x & 0xfuLL);
 	return;
 }
 
-void decode_can_0x003_ivt_ctrl_fuse_state(can_0x003_IVTCtrl_obj_t *o, uint8_t *out) {
+void decode_0x003_ivt_ctrl_fuse_state(can_0x003_IVTCtrl_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -50,14 +50,14 @@ void decode_can_0x003_ivt_ctrl_fuse_state(can_0x003_IVTCtrl_obj_t *o, uint8_t *o
 	return;
 }
 
-void encode_can_0x003_ivt_ctrl_fuse_state(can_0x003_IVTCtrl_obj_t *o, uint8_t in) {
+void encode_0x003_ivt_ctrl_fuse_state(can_0x003_IVTCtrl_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 13)) | ((x & 0x1uLL) << 13);
 	return;
 }
 
-void decode_can_0x004_state(can_0x004_Enum2_obj_t *o, uint8_t *out) {
+void decode_0x004_state(can_0x004_Enum2_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -68,14 +68,14 @@ void decode_can_0x004_state(can_0x004_Enum2_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x004_state(can_0x004_Enum2_obj_t *o, uint8_t in) {
+void encode_0x004_state(can_0x004_Enum2_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xfuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xfuLL) | (x & 0xfuLL);
 	return;
 }
 
-void decode_can_0x122_ivt_sleep_ack(can_0x122_IVTSleepAck_obj_t *o, int8_t *out) {
+void decode_0x122_ivt_sleep_ack(can_0x122_IVTSleepAck_obj_t *o, int8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -88,7 +88,7 @@ void decode_can_0x122_ivt_sleep_ack(can_0x122_IVTSleepAck_obj_t *o, int8_t *out)
 	return;
 }
 
-void encode_can_0x122_ivt_sleep_ack(can_0x122_IVTSleepAck_obj_t *o, int8_t in) {
+void encode_0x122_ivt_sleep_ack(can_0x122_IVTSleepAck_obj_t *o, int8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xfuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xfuLL) | (x & 0xfuLL);

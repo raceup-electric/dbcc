@@ -108,64 +108,64 @@ typedef struct {
 } can_0x0ce_MatrixWideScaled_obj_t;
 
 
-void decode_can_0x0c8_u12(can_0x0c8_MatrixIntelTypes_obj_t *o, uint16_t *out);
-void encode_can_0x0c8_u12(can_0x0c8_MatrixIntelTypes_obj_t *o, uint16_t in);
-void decode_can_0x0c8_s12(can_0x0c8_MatrixIntelTypes_obj_t *o, float *out);
-void encode_can_0x0c8_s12(can_0x0c8_MatrixIntelTypes_obj_t *o, float in);
-void decode_can_0x0c8_u8(can_0x0c8_MatrixIntelTypes_obj_t *o, uint8_t *out);
-void encode_can_0x0c8_u8(can_0x0c8_MatrixIntelTypes_obj_t *o, uint8_t in);
-void decode_can_0x0c8_s8(can_0x0c8_MatrixIntelTypes_obj_t *o, int8_t *out);
-void encode_can_0x0c8_s8(can_0x0c8_MatrixIntelTypes_obj_t *o, int8_t in);
-void decode_can_0x0c8_state(can_0x0c8_MatrixIntelTypes_obj_t *o, val_table_MatrixState_e *out);
-void encode_can_0x0c8_state(can_0x0c8_MatrixIntelTypes_obj_t *o, val_table_MatrixState_e in);
-void decode_can_0x0c8_inline_enum(can_0x0c8_MatrixIntelTypes_obj_t *o, can_0x0c8_MatrixIntelTypes_inline_enum_e *out);
-void encode_can_0x0c8_inline_enum(can_0x0c8_MatrixIntelTypes_obj_t *o, can_0x0c8_MatrixIntelTypes_inline_enum_e in);
-void decode_can_0x0c8_opcode(can_0x0c8_MatrixIntelTypes_obj_t *o, val_table_MatrixOpcode_e *out);
-void encode_can_0x0c8_opcode(can_0x0c8_MatrixIntelTypes_obj_t *o, val_table_MatrixOpcode_e in);
+void decode_0x0c8_u12(can_0x0c8_MatrixIntelTypes_obj_t *o, uint16_t *out);
+void encode_0x0c8_u12(can_0x0c8_MatrixIntelTypes_obj_t *o, uint16_t in);
+void decode_0x0c8_s12(can_0x0c8_MatrixIntelTypes_obj_t *o, float *out);
+void encode_0x0c8_s12(can_0x0c8_MatrixIntelTypes_obj_t *o, float in);
+void decode_0x0c8_u8(can_0x0c8_MatrixIntelTypes_obj_t *o, uint8_t *out);
+void encode_0x0c8_u8(can_0x0c8_MatrixIntelTypes_obj_t *o, uint8_t in);
+void decode_0x0c8_s8(can_0x0c8_MatrixIntelTypes_obj_t *o, int8_t *out);
+void encode_0x0c8_s8(can_0x0c8_MatrixIntelTypes_obj_t *o, int8_t in);
+void decode_0x0c8_state(can_0x0c8_MatrixIntelTypes_obj_t *o, val_table_MatrixState_e *out);
+void encode_0x0c8_state(can_0x0c8_MatrixIntelTypes_obj_t *o, val_table_MatrixState_e in);
+void decode_0x0c8_inline_enum(can_0x0c8_MatrixIntelTypes_obj_t *o, can_0x0c8_MatrixIntelTypes_inline_enum_e *out);
+void encode_0x0c8_inline_enum(can_0x0c8_MatrixIntelTypes_obj_t *o, can_0x0c8_MatrixIntelTypes_inline_enum_e in);
+void decode_0x0c8_opcode(can_0x0c8_MatrixIntelTypes_obj_t *o, val_table_MatrixOpcode_e *out);
+void encode_0x0c8_opcode(can_0x0c8_MatrixIntelTypes_obj_t *o, val_table_MatrixOpcode_e in);
 
 
-void decode_can_0x0c9_scale_0p1(can_0x0c9_MatrixIntelScaled_obj_t *o, float *out);
-void encode_can_0x0c9_scale_0p1(can_0x0c9_MatrixIntelScaled_obj_t *o, float in);
-void decode_can_0x0c9_scale_0p01_offset_m40(can_0x0c9_MatrixIntelScaled_obj_t *o, float *out);
-void encode_can_0x0c9_scale_0p01_offset_m40(can_0x0c9_MatrixIntelScaled_obj_t *o, float in);
-void decode_can_0x0c9_scale_0p5_offset_1p5(can_0x0c9_MatrixIntelScaled_obj_t *o, float *out);
-void encode_can_0x0c9_scale_0p5_offset_1p5(can_0x0c9_MatrixIntelScaled_obj_t *o, float in);
+void decode_0x0c9_scale_0p1(can_0x0c9_MatrixIntelScaled_obj_t *o, float *out);
+void encode_0x0c9_scale_0p1(can_0x0c9_MatrixIntelScaled_obj_t *o, float in);
+void decode_0x0c9_scale_0p01_offset_m40(can_0x0c9_MatrixIntelScaled_obj_t *o, float *out);
+void encode_0x0c9_scale_0p01_offset_m40(can_0x0c9_MatrixIntelScaled_obj_t *o, float in);
+void decode_0x0c9_scale_0p5_offset_1p5(can_0x0c9_MatrixIntelScaled_obj_t *o, float *out);
+void encode_0x0c9_scale_0p5_offset_1p5(can_0x0c9_MatrixIntelScaled_obj_t *o, float in);
 
 
-void decode_can_0x0ca_u12_be(can_0x0ca_MatrixMotorolaTypes_obj_t *o, uint16_t *out);
-void encode_can_0x0ca_u12_be(can_0x0ca_MatrixMotorolaTypes_obj_t *o, uint16_t in);
-void decode_can_0x0ca_s12_be(can_0x0ca_MatrixMotorolaTypes_obj_t *o, float *out);
-void encode_can_0x0ca_s12_be(can_0x0ca_MatrixMotorolaTypes_obj_t *o, float in);
-void decode_can_0x0ca_u8_be(can_0x0ca_MatrixMotorolaTypes_obj_t *o, uint8_t *out);
-void encode_can_0x0ca_u8_be(can_0x0ca_MatrixMotorolaTypes_obj_t *o, uint8_t in);
-void decode_can_0x0ca_s8_be(can_0x0ca_MatrixMotorolaTypes_obj_t *o, int8_t *out);
-void encode_can_0x0ca_s8_be(can_0x0ca_MatrixMotorolaTypes_obj_t *o, int8_t in);
-void decode_can_0x0ca_inline_enum_be(can_0x0ca_MatrixMotorolaTypes_obj_t *o, can_0x0ca_MatrixMotorolaTypes_inline_enum_be_e *out);
-void encode_can_0x0ca_inline_enum_be(can_0x0ca_MatrixMotorolaTypes_obj_t *o, can_0x0ca_MatrixMotorolaTypes_inline_enum_be_e in);
-void decode_can_0x0ca_state_be(can_0x0ca_MatrixMotorolaTypes_obj_t *o, val_table_MatrixState_e *out);
-void encode_can_0x0ca_state_be(can_0x0ca_MatrixMotorolaTypes_obj_t *o, val_table_MatrixState_e in);
+void decode_0x0ca_u12_be(can_0x0ca_MatrixMotorolaTypes_obj_t *o, uint16_t *out);
+void encode_0x0ca_u12_be(can_0x0ca_MatrixMotorolaTypes_obj_t *o, uint16_t in);
+void decode_0x0ca_s12_be(can_0x0ca_MatrixMotorolaTypes_obj_t *o, float *out);
+void encode_0x0ca_s12_be(can_0x0ca_MatrixMotorolaTypes_obj_t *o, float in);
+void decode_0x0ca_u8_be(can_0x0ca_MatrixMotorolaTypes_obj_t *o, uint8_t *out);
+void encode_0x0ca_u8_be(can_0x0ca_MatrixMotorolaTypes_obj_t *o, uint8_t in);
+void decode_0x0ca_s8_be(can_0x0ca_MatrixMotorolaTypes_obj_t *o, int8_t *out);
+void encode_0x0ca_s8_be(can_0x0ca_MatrixMotorolaTypes_obj_t *o, int8_t in);
+void decode_0x0ca_inline_enum_be(can_0x0ca_MatrixMotorolaTypes_obj_t *o, can_0x0ca_MatrixMotorolaTypes_inline_enum_be_e *out);
+void encode_0x0ca_inline_enum_be(can_0x0ca_MatrixMotorolaTypes_obj_t *o, can_0x0ca_MatrixMotorolaTypes_inline_enum_be_e in);
+void decode_0x0ca_state_be(can_0x0ca_MatrixMotorolaTypes_obj_t *o, val_table_MatrixState_e *out);
+void encode_0x0ca_state_be(can_0x0ca_MatrixMotorolaTypes_obj_t *o, val_table_MatrixState_e in);
 
 
-void decode_can_0x0cb_scale_0p1_be(can_0x0cb_MatrixMotorolaScaled_obj_t *o, float *out);
-void encode_can_0x0cb_scale_0p1_be(can_0x0cb_MatrixMotorolaScaled_obj_t *o, float in);
-void decode_can_0x0cb_scale_0p01_offset_m40_be(can_0x0cb_MatrixMotorolaScaled_obj_t *o, float *out);
-void encode_can_0x0cb_scale_0p01_offset_m40_be(can_0x0cb_MatrixMotorolaScaled_obj_t *o, float in);
-void decode_can_0x0cb_scale_0p5_offset_1p5_be(can_0x0cb_MatrixMotorolaScaled_obj_t *o, float *out);
-void encode_can_0x0cb_scale_0p5_offset_1p5_be(can_0x0cb_MatrixMotorolaScaled_obj_t *o, float in);
+void decode_0x0cb_scale_0p1_be(can_0x0cb_MatrixMotorolaScaled_obj_t *o, float *out);
+void encode_0x0cb_scale_0p1_be(can_0x0cb_MatrixMotorolaScaled_obj_t *o, float in);
+void decode_0x0cb_scale_0p01_offset_m40_be(can_0x0cb_MatrixMotorolaScaled_obj_t *o, float *out);
+void encode_0x0cb_scale_0p01_offset_m40_be(can_0x0cb_MatrixMotorolaScaled_obj_t *o, float in);
+void decode_0x0cb_scale_0p5_offset_1p5_be(can_0x0cb_MatrixMotorolaScaled_obj_t *o, float *out);
+void encode_0x0cb_scale_0p5_offset_1p5_be(can_0x0cb_MatrixMotorolaScaled_obj_t *o, float in);
 
 
-void decode_can_0x0cc_f32(can_0x0cc_MatrixFloat_obj_t *o, float *out);
-void encode_can_0x0cc_f32(can_0x0cc_MatrixFloat_obj_t *o, float in);
-void decode_can_0x0cc_raw32(can_0x0cc_MatrixFloat_obj_t *o, uint32_t *out);
-void encode_can_0x0cc_raw32(can_0x0cc_MatrixFloat_obj_t *o, uint32_t in);
+void decode_0x0cc_f32(can_0x0cc_MatrixFloat_obj_t *o, float *out);
+void encode_0x0cc_f32(can_0x0cc_MatrixFloat_obj_t *o, float in);
+void decode_0x0cc_raw32(can_0x0cc_MatrixFloat_obj_t *o, uint32_t *out);
+void encode_0x0cc_raw32(can_0x0cc_MatrixFloat_obj_t *o, uint32_t in);
 
 
-void decode_can_0x0cd_d64(can_0x0cd_MatrixDouble_obj_t *o, double *out);
-void encode_can_0x0cd_d64(can_0x0cd_MatrixDouble_obj_t *o, double in);
+void decode_0x0cd_d64(can_0x0cd_MatrixDouble_obj_t *o, double *out);
+void encode_0x0cd_d64(can_0x0cd_MatrixDouble_obj_t *o, double in);
 
 
-void decode_can_0x0ce_scale32_0p001(can_0x0ce_MatrixWideScaled_obj_t *o, float *out);
-void encode_can_0x0ce_scale32_0p001(can_0x0ce_MatrixWideScaled_obj_t *o, float in);
+void decode_0x0ce_scale32_0p001(can_0x0ce_MatrixWideScaled_obj_t *o, float *out);
+void encode_0x0ce_scale32_0p001(can_0x0ce_MatrixWideScaled_obj_t *o, float in);
 
 
 #ifdef __cplusplus

@@ -21,7 +21,7 @@ static inline uint64_t reverse_byte_order(uint64_t x) {
 	return x;
 }
 
-void decode_can_0x020_MagicNode1R_BLAddy(can_0x020_MagicCanNode1RBootloaderAddress_obj_t *o, uint16_t *out) {
+void decode_0x020_MagicNode1R_BLAddy(can_0x020_MagicCanNode1RBootloaderAddress_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -32,14 +32,14 @@ void decode_can_0x020_MagicNode1R_BLAddy(can_0x020_MagicCanNode1RBootloaderAddre
 	return;
 }
 
-void encode_can_0x020_MagicNode1R_BLAddy(can_0x020_MagicCanNode1RBootloaderAddress_obj_t *o, uint16_t in) {
+void encode_0x020_MagicNode1R_BLAddy(can_0x020_MagicCanNode1RBootloaderAddress_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x022_MagicNode2M_BLAddy(can_0x022_MagicCanNode2MBootloaderAddress_obj_t *o, uint16_t *out) {
+void decode_0x022_MagicNode2M_BLAddy(can_0x022_MagicCanNode2MBootloaderAddress_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -50,14 +50,14 @@ void decode_can_0x022_MagicNode2M_BLAddy(can_0x022_MagicCanNode2MBootloaderAddre
 	return;
 }
 
-void encode_can_0x022_MagicNode2M_BLAddy(can_0x022_MagicCanNode2MBootloaderAddress_obj_t *o, uint16_t in) {
+void encode_0x022_MagicNode2M_BLAddy(can_0x022_MagicCanNode2MBootloaderAddress_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x023_MagicNode2Flags(can_0x023_MagicCanNode2Heartbeat_obj_t *o, uint16_t *out) {
+void decode_0x023_MagicNode2Flags(can_0x023_MagicCanNode2Heartbeat_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -68,14 +68,14 @@ void decode_can_0x023_MagicNode2Flags(can_0x023_MagicCanNode2Heartbeat_obj_t *o,
 	return;
 }
 
-void encode_can_0x023_MagicNode2Flags(can_0x023_MagicCanNode2Heartbeat_obj_t *o, uint16_t in) {
+void encode_0x023_MagicNode2Flags(can_0x023_MagicCanNode2Heartbeat_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x024_MagicNode3F_BLAddy(can_0x024_MagicCanNode3FBootloaderAddress_obj_t *o, uint16_t *out) {
+void decode_0x024_MagicNode3F_BLAddy(can_0x024_MagicCanNode3FBootloaderAddress_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -86,14 +86,14 @@ void decode_can_0x024_MagicNode3F_BLAddy(can_0x024_MagicCanNode3FBootloaderAddre
 	return;
 }
 
-void encode_can_0x024_MagicNode3F_BLAddy(can_0x024_MagicCanNode3FBootloaderAddress_obj_t *o, uint16_t in) {
+void encode_0x024_MagicNode3F_BLAddy(can_0x024_MagicCanNode3FBootloaderAddress_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x025_MagicNode3Flags(can_0x025_MagicCanNode3Heartbeat_obj_t *o, uint16_t *out) {
+void decode_0x025_MagicNode3Flags(can_0x025_MagicCanNode3Heartbeat_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -104,14 +104,14 @@ void decode_can_0x025_MagicNode3Flags(can_0x025_MagicCanNode3Heartbeat_obj_t *o,
 	return;
 }
 
-void encode_can_0x025_MagicNode3Flags(can_0x025_MagicCanNode3Heartbeat_obj_t *o, uint16_t in) {
+void encode_0x025_MagicNode3Flags(can_0x025_MagicCanNode3Heartbeat_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x026_FrameFaultBootloaderAddress(can_0x026_FrameFaultBootloaderAddres_obj_t *o, uint16_t *out) {
+void decode_0x026_FrameFaultBootloaderAddress(can_0x026_FrameFaultBootloaderAddres_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -122,14 +122,14 @@ void decode_can_0x026_FrameFaultBootloaderAddress(can_0x026_FrameFaultBootloader
 	return;
 }
 
-void encode_can_0x026_FrameFaultBootloaderAddress(can_0x026_FrameFaultBootloaderAddres_obj_t *o, uint16_t in) {
+void encode_0x026_FrameFaultBootloaderAddress(can_0x026_FrameFaultBootloaderAddres_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x027_FrameFaultFlags(can_0x027_FrameFaultHeartbeat_obj_t *o, uint16_t *out) {
+void decode_0x027_FrameFaultFlags(can_0x027_FrameFaultHeartbeat_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -140,14 +140,14 @@ void decode_can_0x027_FrameFaultFlags(can_0x027_FrameFaultHeartbeat_obj_t *o, ui
 	return;
 }
 
-void encode_can_0x027_FrameFaultFlags(can_0x027_FrameFaultHeartbeat_obj_t *o, uint16_t in) {
+void encode_0x027_FrameFaultFlags(can_0x027_FrameFaultHeartbeat_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x028_FrameFaultCommandValue(can_0x028_FrameFaultCommand_obj_t *o, int32_t *out) {
+void decode_0x028_FrameFaultCommandValue(can_0x028_FrameFaultCommand_obj_t *o, int32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -162,7 +162,7 @@ void decode_can_0x028_FrameFaultCommandValue(can_0x028_FrameFaultCommand_obj_t *
 	return;
 }
 
-void encode_can_0x028_FrameFaultCommandValue(can_0x028_FrameFaultCommand_obj_t *o, int32_t in) {
+void encode_0x028_FrameFaultCommandValue(can_0x028_FrameFaultCommand_obj_t *o, int32_t in) {
 	assert(o);
 	assert(in >= -2.14748e+09);
 	assert(in <= 2.14748e+09);
@@ -171,7 +171,7 @@ void encode_can_0x028_FrameFaultCommandValue(can_0x028_FrameFaultCommand_obj_t *
 	return;
 }
 
-void decode_can_0x028_FrameFaultCommandCode(can_0x028_FrameFaultCommand_obj_t *o, uint32_t *out) {
+void decode_0x028_FrameFaultCommandCode(can_0x028_FrameFaultCommand_obj_t *o, uint32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -182,14 +182,14 @@ void decode_can_0x028_FrameFaultCommandCode(can_0x028_FrameFaultCommand_obj_t *o
 	return;
 }
 
-void encode_can_0x028_FrameFaultCommandCode(can_0x028_FrameFaultCommand_obj_t *o, uint32_t in) {
+void encode_0x028_FrameFaultCommandCode(can_0x028_FrameFaultCommand_obj_t *o, uint32_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffffffuLL << 32)) | ((x & 0xffffffffuLL) << 32);
 	return;
 }
 
-void decode_can_0x02c_DriveControlsBootloader(can_0x02c_DriveControlsBootloader_obj_t *o, uint16_t *out) {
+void decode_0x02c_DriveControlsBootloader(can_0x02c_DriveControlsBootloader_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -200,14 +200,14 @@ void decode_can_0x02c_DriveControlsBootloader(can_0x02c_DriveControlsBootloader_
 	return;
 }
 
-void encode_can_0x02c_DriveControlsBootloader(can_0x02c_DriveControlsBootloader_obj_t *o, uint16_t in) {
+void encode_0x02c_DriveControlsBootloader(can_0x02c_DriveControlsBootloader_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x02d_DriveControlCommandValue(can_0x02d_DriveControlsCommand_obj_t *o, int32_t *out) {
+void decode_0x02d_DriveControlCommandValue(can_0x02d_DriveControlsCommand_obj_t *o, int32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -222,7 +222,7 @@ void decode_can_0x02d_DriveControlCommandValue(can_0x02d_DriveControlsCommand_ob
 	return;
 }
 
-void encode_can_0x02d_DriveControlCommandValue(can_0x02d_DriveControlsCommand_obj_t *o, int32_t in) {
+void encode_0x02d_DriveControlCommandValue(can_0x02d_DriveControlsCommand_obj_t *o, int32_t in) {
 	assert(o);
 	assert(in >= -2.14748e+09);
 	assert(in <= 2.14748e+09);
@@ -231,7 +231,7 @@ void encode_can_0x02d_DriveControlCommandValue(can_0x02d_DriveControlsCommand_ob
 	return;
 }
 
-void decode_can_0x02d_DriveControlCommandCode(can_0x02d_DriveControlsCommand_obj_t *o, uint32_t *out) {
+void decode_0x02d_DriveControlCommandCode(can_0x02d_DriveControlsCommand_obj_t *o, uint32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -242,14 +242,14 @@ void decode_can_0x02d_DriveControlCommandCode(can_0x02d_DriveControlsCommand_obj
 	return;
 }
 
-void encode_can_0x02d_DriveControlCommandCode(can_0x02d_DriveControlsCommand_obj_t *o, uint32_t in) {
+void encode_0x02d_DriveControlCommandCode(can_0x02d_DriveControlsCommand_obj_t *o, uint32_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffffffuLL << 32)) | ((x & 0xffffffffuLL) << 32);
 	return;
 }
 
-void decode_can_0x02e_DriveControlTritiumError(can_0x02e_DriveControlsHeartbeat_obj_t *o, uint8_t *out) {
+void decode_0x02e_DriveControlTritiumError(can_0x02e_DriveControlsHeartbeat_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -260,14 +260,14 @@ void decode_can_0x02e_DriveControlTritiumError(can_0x02e_DriveControlsHeartbeat_
 	return;
 }
 
-void encode_can_0x02e_DriveControlTritiumError(can_0x02e_DriveControlsHeartbeat_obj_t *o, uint8_t in) {
+void encode_0x02e_DriveControlTritiumError(can_0x02e_DriveControlsHeartbeat_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 1)) | ((x & 0x1uLL) << 1);
 	return;
 }
 
-void decode_can_0x02e_DriveControlMaxError(can_0x02e_DriveControlsHeartbeat_obj_t *o, uint8_t *out) {
+void decode_0x02e_DriveControlMaxError(can_0x02e_DriveControlsHeartbeat_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -278,14 +278,14 @@ void decode_can_0x02e_DriveControlMaxError(can_0x02e_DriveControlsHeartbeat_obj_
 	return;
 }
 
-void encode_can_0x02e_DriveControlMaxError(can_0x02e_DriveControlsHeartbeat_obj_t *o, uint8_t in) {
+void encode_0x02e_DriveControlMaxError(can_0x02e_DriveControlsHeartbeat_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 2)) | ((x & 0x1uLL) << 2);
 	return;
 }
 
-void decode_can_0x02e_DriveControlMinError(can_0x02e_DriveControlsHeartbeat_obj_t *o, uint8_t *out) {
+void decode_0x02e_DriveControlMinError(can_0x02e_DriveControlsHeartbeat_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -296,14 +296,14 @@ void decode_can_0x02e_DriveControlMinError(can_0x02e_DriveControlsHeartbeat_obj_
 	return;
 }
 
-void encode_can_0x02e_DriveControlMinError(can_0x02e_DriveControlsHeartbeat_obj_t *o, uint8_t in) {
+void encode_0x02e_DriveControlMinError(can_0x02e_DriveControlsHeartbeat_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 3)) | ((x & 0x1uLL) << 3);
 	return;
 }
 
-void decode_can_0x030_CANMirrorBootloaderAddress(can_0x030_CANMirrorBootloaderAddress_obj_t *o, uint16_t *out) {
+void decode_0x030_CANMirrorBootloaderAddress(can_0x030_CANMirrorBootloaderAddress_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -314,14 +314,14 @@ void decode_can_0x030_CANMirrorBootloaderAddress(can_0x030_CANMirrorBootloaderAd
 	return;
 }
 
-void encode_can_0x030_CANMirrorBootloaderAddress(can_0x030_CANMirrorBootloaderAddress_obj_t *o, uint16_t in) {
+void encode_0x030_CANMirrorBootloaderAddress(can_0x030_CANMirrorBootloaderAddress_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x031_CANMirrorOverflowCounter(can_0x031_CANMirrorHeatbeart_obj_t *o, uint8_t *out) {
+void decode_0x031_CANMirrorOverflowCounter(can_0x031_CANMirrorHeatbeart_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -332,14 +332,14 @@ void decode_can_0x031_CANMirrorOverflowCounter(can_0x031_CANMirrorHeatbeart_obj_
 	return;
 }
 
-void encode_can_0x031_CANMirrorOverflowCounter(can_0x031_CANMirrorHeatbeart_obj_t *o, uint8_t in) {
+void encode_0x031_CANMirrorOverflowCounter(can_0x031_CANMirrorHeatbeart_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffuLL) | (x & 0xffuLL);
 	return;
 }
 
-void decode_can_0x031_Timeout(can_0x031_CANMirrorHeatbeart_obj_t *o, uint8_t *out) {
+void decode_0x031_Timeout(can_0x031_CANMirrorHeatbeart_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -350,14 +350,14 @@ void decode_can_0x031_Timeout(can_0x031_CANMirrorHeatbeart_obj_t *o, uint8_t *ou
 	return;
 }
 
-void encode_can_0x031_Timeout(can_0x031_CANMirrorHeatbeart_obj_t *o, uint8_t in) {
+void encode_0x031_Timeout(can_0x031_CANMirrorHeatbeart_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x3fuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x3fuLL << 8)) | ((x & 0x3fuLL) << 8);
 	return;
 }
 
-void decode_can_0x031_Mirror_can_error(can_0x031_CANMirrorHeatbeart_obj_t *o, uint8_t *out) {
+void decode_0x031_Mirror_can_error(can_0x031_CANMirrorHeatbeart_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -368,14 +368,14 @@ void decode_can_0x031_Mirror_can_error(can_0x031_CANMirrorHeatbeart_obj_t *o, ui
 	return;
 }
 
-void encode_can_0x031_Mirror_can_error(can_0x031_CANMirrorHeatbeart_obj_t *o, uint8_t in) {
+void encode_0x031_Mirror_can_error(can_0x031_CANMirrorHeatbeart_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 14)) | ((x & 0x1uLL) << 14);
 	return;
 }
 
-void decode_can_0x031_Mirror_CANa_Status(can_0x031_CANMirrorHeatbeart_obj_t *o, uint8_t *out) {
+void decode_0x031_Mirror_CANa_Status(can_0x031_CANMirrorHeatbeart_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -386,14 +386,14 @@ void decode_can_0x031_Mirror_CANa_Status(can_0x031_CANMirrorHeatbeart_obj_t *o, 
 	return;
 }
 
-void encode_can_0x031_Mirror_CANa_Status(can_0x031_CANMirrorHeatbeart_obj_t *o, uint8_t in) {
+void encode_0x031_Mirror_CANa_Status(can_0x031_CANMirrorHeatbeart_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 15)) | ((x & 0x1uLL) << 15);
 	return;
 }
 
-void decode_can_0x032_CANMirrorCommandValue(can_0x032_CANMirrorCommand_obj_t *o, int32_t *out) {
+void decode_0x032_CANMirrorCommandValue(can_0x032_CANMirrorCommand_obj_t *o, int32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -408,7 +408,7 @@ void decode_can_0x032_CANMirrorCommandValue(can_0x032_CANMirrorCommand_obj_t *o,
 	return;
 }
 
-void encode_can_0x032_CANMirrorCommandValue(can_0x032_CANMirrorCommand_obj_t *o, int32_t in) {
+void encode_0x032_CANMirrorCommandValue(can_0x032_CANMirrorCommand_obj_t *o, int32_t in) {
 	assert(o);
 	assert(in >= -2.14748e+09);
 	assert(in <= 2.14748e+09);
@@ -417,7 +417,7 @@ void encode_can_0x032_CANMirrorCommandValue(can_0x032_CANMirrorCommand_obj_t *o,
 	return;
 }
 
-void decode_can_0x032_CANMirrorCommandCode(can_0x032_CANMirrorCommand_obj_t *o, uint32_t *out) {
+void decode_0x032_CANMirrorCommandCode(can_0x032_CANMirrorCommand_obj_t *o, uint32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -428,14 +428,14 @@ void decode_can_0x032_CANMirrorCommandCode(can_0x032_CANMirrorCommand_obj_t *o, 
 	return;
 }
 
-void encode_can_0x032_CANMirrorCommandCode(can_0x032_CANMirrorCommand_obj_t *o, uint32_t in) {
+void encode_0x032_CANMirrorCommandCode(can_0x032_CANMirrorCommand_obj_t *o, uint32_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffffffuLL << 32)) | ((x & 0xffffffffuLL) << 32);
 	return;
 }
 
-void decode_can_0x033_RiderDisplayBootloaderAddress(can_0x033_RiderDisplayBootloaderAddress_obj_t *o, uint16_t *out) {
+void decode_0x033_RiderDisplayBootloaderAddress(can_0x033_RiderDisplayBootloaderAddress_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -446,14 +446,14 @@ void decode_can_0x033_RiderDisplayBootloaderAddress(can_0x033_RiderDisplayBootlo
 	return;
 }
 
-void encode_can_0x033_RiderDisplayBootloaderAddress(can_0x033_RiderDisplayBootloaderAddress_obj_t *o, uint16_t in) {
+void encode_0x033_RiderDisplayBootloaderAddress(can_0x033_RiderDisplayBootloaderAddress_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x034_RiderDisplayFlags(can_0x034_RiderDisplayHeartbeat_obj_t *o, uint16_t *out) {
+void decode_0x034_RiderDisplayFlags(can_0x034_RiderDisplayHeartbeat_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -464,14 +464,14 @@ void decode_can_0x034_RiderDisplayFlags(can_0x034_RiderDisplayHeartbeat_obj_t *o
 	return;
 }
 
-void encode_can_0x034_RiderDisplayFlags(can_0x034_RiderDisplayHeartbeat_obj_t *o, uint16_t in) {
+void encode_0x034_RiderDisplayFlags(can_0x034_RiderDisplayHeartbeat_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x035_RiderDisplayCommandValue(can_0x035_RiderDisplayCommand_obj_t *o, int32_t *out) {
+void decode_0x035_RiderDisplayCommandValue(can_0x035_RiderDisplayCommand_obj_t *o, int32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -485,7 +485,7 @@ void decode_can_0x035_RiderDisplayCommandValue(can_0x035_RiderDisplayCommand_obj
 	return;
 }
 
-void encode_can_0x035_RiderDisplayCommandValue(can_0x035_RiderDisplayCommand_obj_t *o, int32_t in) {
+void encode_0x035_RiderDisplayCommandValue(can_0x035_RiderDisplayCommand_obj_t *o, int32_t in) {
 	assert(o);
 	assert(in <= 2.14748e+09);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffffffuLL;
@@ -493,7 +493,7 @@ void encode_can_0x035_RiderDisplayCommandValue(can_0x035_RiderDisplayCommand_obj
 	return;
 }
 
-void decode_can_0x035_RiderDisplayCommandCode(can_0x035_RiderDisplayCommand_obj_t *o, uint32_t *out) {
+void decode_0x035_RiderDisplayCommandCode(can_0x035_RiderDisplayCommand_obj_t *o, uint32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -504,14 +504,14 @@ void decode_can_0x035_RiderDisplayCommandCode(can_0x035_RiderDisplayCommand_obj_
 	return;
 }
 
-void encode_can_0x035_RiderDisplayCommandCode(can_0x035_RiderDisplayCommand_obj_t *o, uint32_t in) {
+void encode_0x035_RiderDisplayCommandCode(can_0x035_RiderDisplayCommand_obj_t *o, uint32_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffffffuLL << 32)) | ((x & 0xffffffffuLL) << 32);
 	return;
 }
 
-void decode_can_0x039_BIM1BootloaderAddress(can_0x039_BIM1BootloaderAddress_obj_t *o, uint16_t *out) {
+void decode_0x039_BIM1BootloaderAddress(can_0x039_BIM1BootloaderAddress_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -522,14 +522,14 @@ void decode_can_0x039_BIM1BootloaderAddress(can_0x039_BIM1BootloaderAddress_obj_
 	return;
 }
 
-void encode_can_0x039_BIM1BootloaderAddress(can_0x039_BIM1BootloaderAddress_obj_t *o, uint16_t in) {
+void encode_0x039_BIM1BootloaderAddress(can_0x039_BIM1BootloaderAddress_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x03a_BIM1BQ(can_0x03a_BIM1Heartbeat_obj_t *o, uint8_t *out) {
+void decode_0x03a_BIM1BQ(can_0x03a_BIM1Heartbeat_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -540,14 +540,14 @@ void decode_can_0x03a_BIM1BQ(can_0x03a_BIM1Heartbeat_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x03a_BIM1BQ(can_0x03a_BIM1Heartbeat_obj_t *o, uint8_t in) {
+void encode_0x03a_BIM1BQ(can_0x03a_BIM1Heartbeat_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x3fuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x3fuLL << 2)) | ((x & 0x3fuLL) << 2);
 	return;
 }
 
-void decode_can_0x03a_BIM1Init(can_0x03a_BIM1Heartbeat_obj_t *o, uint8_t *out) {
+void decode_0x03a_BIM1Init(can_0x03a_BIM1Heartbeat_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -558,14 +558,14 @@ void decode_can_0x03a_BIM1Init(can_0x03a_BIM1Heartbeat_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x03a_BIM1Init(can_0x03a_BIM1Heartbeat_obj_t *o, uint8_t in) {
+void encode_0x03a_BIM1Init(can_0x03a_BIM1Heartbeat_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~0x1uLL) | (x & 0x1uLL);
 	return;
 }
 
-void decode_can_0x03a_BIM1SPI(can_0x03a_BIM1Heartbeat_obj_t *o, uint8_t *out) {
+void decode_0x03a_BIM1SPI(can_0x03a_BIM1Heartbeat_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -576,14 +576,14 @@ void decode_can_0x03a_BIM1SPI(can_0x03a_BIM1Heartbeat_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x03a_BIM1SPI(can_0x03a_BIM1Heartbeat_obj_t *o, uint8_t in) {
+void encode_0x03a_BIM1SPI(can_0x03a_BIM1Heartbeat_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 1)) | ((x & 0x1uLL) << 1);
 	return;
 }
 
-void decode_can_0x03b_BIM2BootloaderAddres(can_0x03b_BIM2BootloaderAddress_obj_t *o, uint16_t *out) {
+void decode_0x03b_BIM2BootloaderAddres(can_0x03b_BIM2BootloaderAddress_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -594,14 +594,14 @@ void decode_can_0x03b_BIM2BootloaderAddres(can_0x03b_BIM2BootloaderAddress_obj_t
 	return;
 }
 
-void encode_can_0x03b_BIM2BootloaderAddres(can_0x03b_BIM2BootloaderAddress_obj_t *o, uint16_t in) {
+void encode_0x03b_BIM2BootloaderAddres(can_0x03b_BIM2BootloaderAddress_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x03c_BIM2BQ(can_0x03c_BIM2Heartbeat_obj_t *o, uint8_t *out) {
+void decode_0x03c_BIM2BQ(can_0x03c_BIM2Heartbeat_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -612,14 +612,14 @@ void decode_can_0x03c_BIM2BQ(can_0x03c_BIM2Heartbeat_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x03c_BIM2BQ(can_0x03c_BIM2Heartbeat_obj_t *o, uint8_t in) {
+void encode_0x03c_BIM2BQ(can_0x03c_BIM2Heartbeat_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x3fuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x3fuLL << 2)) | ((x & 0x3fuLL) << 2);
 	return;
 }
 
-void decode_can_0x03c_BIM2Init(can_0x03c_BIM2Heartbeat_obj_t *o, uint8_t *out) {
+void decode_0x03c_BIM2Init(can_0x03c_BIM2Heartbeat_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -630,14 +630,14 @@ void decode_can_0x03c_BIM2Init(can_0x03c_BIM2Heartbeat_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x03c_BIM2Init(can_0x03c_BIM2Heartbeat_obj_t *o, uint8_t in) {
+void encode_0x03c_BIM2Init(can_0x03c_BIM2Heartbeat_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~0x1uLL) | (x & 0x1uLL);
 	return;
 }
 
-void decode_can_0x03c_BIM2SPI(can_0x03c_BIM2Heartbeat_obj_t *o, uint8_t *out) {
+void decode_0x03c_BIM2SPI(can_0x03c_BIM2Heartbeat_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -648,14 +648,14 @@ void decode_can_0x03c_BIM2SPI(can_0x03c_BIM2Heartbeat_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x03c_BIM2SPI(can_0x03c_BIM2Heartbeat_obj_t *o, uint8_t in) {
+void encode_0x03c_BIM2SPI(can_0x03c_BIM2Heartbeat_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 1)) | ((x & 0x1uLL) << 1);
 	return;
 }
 
-void decode_can_0x03d_BIM3BootloaderAddress(can_0x03d_BIM3BootloaderAddress_obj_t *o, uint16_t *out) {
+void decode_0x03d_BIM3BootloaderAddress(can_0x03d_BIM3BootloaderAddress_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -666,14 +666,14 @@ void decode_can_0x03d_BIM3BootloaderAddress(can_0x03d_BIM3BootloaderAddress_obj_
 	return;
 }
 
-void encode_can_0x03d_BIM3BootloaderAddress(can_0x03d_BIM3BootloaderAddress_obj_t *o, uint16_t in) {
+void encode_0x03d_BIM3BootloaderAddress(can_0x03d_BIM3BootloaderAddress_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x03e_BIM3BQ(can_0x03e_BIM3Heartbeat_obj_t *o, uint8_t *out) {
+void decode_0x03e_BIM3BQ(can_0x03e_BIM3Heartbeat_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -684,14 +684,14 @@ void decode_can_0x03e_BIM3BQ(can_0x03e_BIM3Heartbeat_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x03e_BIM3BQ(can_0x03e_BIM3Heartbeat_obj_t *o, uint8_t in) {
+void encode_0x03e_BIM3BQ(can_0x03e_BIM3Heartbeat_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x3fuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x3fuLL << 2)) | ((x & 0x3fuLL) << 2);
 	return;
 }
 
-void decode_can_0x03e_BIM3Init(can_0x03e_BIM3Heartbeat_obj_t *o, uint8_t *out) {
+void decode_0x03e_BIM3Init(can_0x03e_BIM3Heartbeat_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -702,14 +702,14 @@ void decode_can_0x03e_BIM3Init(can_0x03e_BIM3Heartbeat_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x03e_BIM3Init(can_0x03e_BIM3Heartbeat_obj_t *o, uint8_t in) {
+void encode_0x03e_BIM3Init(can_0x03e_BIM3Heartbeat_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~0x1uLL) | (x & 0x1uLL);
 	return;
 }
 
-void decode_can_0x03e_BIM3SPI(can_0x03e_BIM3Heartbeat_obj_t *o, uint8_t *out) {
+void decode_0x03e_BIM3SPI(can_0x03e_BIM3Heartbeat_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -720,14 +720,14 @@ void decode_can_0x03e_BIM3SPI(can_0x03e_BIM3Heartbeat_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x03e_BIM3SPI(can_0x03e_BIM3Heartbeat_obj_t *o, uint8_t in) {
+void encode_0x03e_BIM3SPI(can_0x03e_BIM3Heartbeat_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 1)) | ((x & 0x1uLL) << 1);
 	return;
 }
 
-void decode_can_0x03f_BIM4BootloaderAddres(can_0x03f_BIM4BootloaderAddress_obj_t *o, uint16_t *out) {
+void decode_0x03f_BIM4BootloaderAddres(can_0x03f_BIM4BootloaderAddress_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -738,14 +738,14 @@ void decode_can_0x03f_BIM4BootloaderAddres(can_0x03f_BIM4BootloaderAddress_obj_t
 	return;
 }
 
-void encode_can_0x03f_BIM4BootloaderAddres(can_0x03f_BIM4BootloaderAddress_obj_t *o, uint16_t in) {
+void encode_0x03f_BIM4BootloaderAddres(can_0x03f_BIM4BootloaderAddress_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x040_BIM4BQ(can_0x040_BIM4Heartbeat_obj_t *o, uint8_t *out) {
+void decode_0x040_BIM4BQ(can_0x040_BIM4Heartbeat_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -756,14 +756,14 @@ void decode_can_0x040_BIM4BQ(can_0x040_BIM4Heartbeat_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x040_BIM4BQ(can_0x040_BIM4Heartbeat_obj_t *o, uint8_t in) {
+void encode_0x040_BIM4BQ(can_0x040_BIM4Heartbeat_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x3fuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x3fuLL << 2)) | ((x & 0x3fuLL) << 2);
 	return;
 }
 
-void decode_can_0x040_BIM4Init(can_0x040_BIM4Heartbeat_obj_t *o, uint8_t *out) {
+void decode_0x040_BIM4Init(can_0x040_BIM4Heartbeat_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -774,14 +774,14 @@ void decode_can_0x040_BIM4Init(can_0x040_BIM4Heartbeat_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x040_BIM4Init(can_0x040_BIM4Heartbeat_obj_t *o, uint8_t in) {
+void encode_0x040_BIM4Init(can_0x040_BIM4Heartbeat_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~0x1uLL) | (x & 0x1uLL);
 	return;
 }
 
-void decode_can_0x040_BIM4SPI(can_0x040_BIM4Heartbeat_obj_t *o, uint8_t *out) {
+void decode_0x040_BIM4SPI(can_0x040_BIM4Heartbeat_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -792,14 +792,14 @@ void decode_can_0x040_BIM4SPI(can_0x040_BIM4Heartbeat_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x040_BIM4SPI(can_0x040_BIM4Heartbeat_obj_t *o, uint8_t in) {
+void encode_0x040_BIM4SPI(can_0x040_BIM4Heartbeat_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 1)) | ((x & 0x1uLL) << 1);
 	return;
 }
 
-void decode_can_0x0a0_MagicCanNode1CommandValue(can_0x0a0_MagicCanNode1RCommand_obj_t *o, int32_t *out) {
+void decode_0x0a0_MagicCanNode1CommandValue(can_0x0a0_MagicCanNode1RCommand_obj_t *o, int32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -814,7 +814,7 @@ void decode_can_0x0a0_MagicCanNode1CommandValue(can_0x0a0_MagicCanNode1RCommand_
 	return;
 }
 
-void encode_can_0x0a0_MagicCanNode1CommandValue(can_0x0a0_MagicCanNode1RCommand_obj_t *o, int32_t in) {
+void encode_0x0a0_MagicCanNode1CommandValue(can_0x0a0_MagicCanNode1RCommand_obj_t *o, int32_t in) {
 	assert(o);
 	assert(in >= -2.14748e+09);
 	assert(in <= 2.14748e+09);
@@ -823,7 +823,7 @@ void encode_can_0x0a0_MagicCanNode1CommandValue(can_0x0a0_MagicCanNode1RCommand_
 	return;
 }
 
-void decode_can_0x0a0_MagicCanNode1CommandCode(can_0x0a0_MagicCanNode1RCommand_obj_t *o, uint32_t *out) {
+void decode_0x0a0_MagicCanNode1CommandCode(can_0x0a0_MagicCanNode1RCommand_obj_t *o, uint32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -834,14 +834,14 @@ void decode_can_0x0a0_MagicCanNode1CommandCode(can_0x0a0_MagicCanNode1RCommand_o
 	return;
 }
 
-void encode_can_0x0a0_MagicCanNode1CommandCode(can_0x0a0_MagicCanNode1RCommand_obj_t *o, uint32_t in) {
+void encode_0x0a0_MagicCanNode1CommandCode(can_0x0a0_MagicCanNode1RCommand_obj_t *o, uint32_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffffffuLL << 32)) | ((x & 0xffffffffuLL) << 32);
 	return;
 }
 
-void decode_can_0x0a1_MagicCanNode2CommandValue(can_0x0a1_MagicCanNode2MCommand_obj_t *o, int32_t *out) {
+void decode_0x0a1_MagicCanNode2CommandValue(can_0x0a1_MagicCanNode2MCommand_obj_t *o, int32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -856,7 +856,7 @@ void decode_can_0x0a1_MagicCanNode2CommandValue(can_0x0a1_MagicCanNode2MCommand_
 	return;
 }
 
-void encode_can_0x0a1_MagicCanNode2CommandValue(can_0x0a1_MagicCanNode2MCommand_obj_t *o, int32_t in) {
+void encode_0x0a1_MagicCanNode2CommandValue(can_0x0a1_MagicCanNode2MCommand_obj_t *o, int32_t in) {
 	assert(o);
 	assert(in >= -2.14748e+09);
 	assert(in <= 2.14748e+09);
@@ -865,7 +865,7 @@ void encode_can_0x0a1_MagicCanNode2CommandValue(can_0x0a1_MagicCanNode2MCommand_
 	return;
 }
 
-void decode_can_0x0a1_MagicCanNode2CommandCode(can_0x0a1_MagicCanNode2MCommand_obj_t *o, uint32_t *out) {
+void decode_0x0a1_MagicCanNode2CommandCode(can_0x0a1_MagicCanNode2MCommand_obj_t *o, uint32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -876,14 +876,14 @@ void decode_can_0x0a1_MagicCanNode2CommandCode(can_0x0a1_MagicCanNode2MCommand_o
 	return;
 }
 
-void encode_can_0x0a1_MagicCanNode2CommandCode(can_0x0a1_MagicCanNode2MCommand_obj_t *o, uint32_t in) {
+void encode_0x0a1_MagicCanNode2CommandCode(can_0x0a1_MagicCanNode2MCommand_obj_t *o, uint32_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffffffuLL << 32)) | ((x & 0xffffffffuLL) << 32);
 	return;
 }
 
-void decode_can_0x0a2_MagicCanNode3CommandValue(can_0x0a2_MagicCanNode3FCommand_obj_t *o, uint32_t *out) {
+void decode_0x0a2_MagicCanNode3CommandValue(can_0x0a2_MagicCanNode3FCommand_obj_t *o, uint32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -894,14 +894,14 @@ void decode_can_0x0a2_MagicCanNode3CommandValue(can_0x0a2_MagicCanNode3FCommand_
 	return;
 }
 
-void encode_can_0x0a2_MagicCanNode3CommandValue(can_0x0a2_MagicCanNode3FCommand_obj_t *o, uint32_t in) {
+void encode_0x0a2_MagicCanNode3CommandValue(can_0x0a2_MagicCanNode3FCommand_obj_t *o, uint32_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffffffuLL) | (x & 0xffffffffuLL);
 	return;
 }
 
-void decode_can_0x0a2_MagicCanNode3CommandCode(can_0x0a2_MagicCanNode3FCommand_obj_t *o, uint32_t *out) {
+void decode_0x0a2_MagicCanNode3CommandCode(can_0x0a2_MagicCanNode3FCommand_obj_t *o, uint32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -912,14 +912,14 @@ void decode_can_0x0a2_MagicCanNode3CommandCode(can_0x0a2_MagicCanNode3FCommand_o
 	return;
 }
 
-void encode_can_0x0a2_MagicCanNode3CommandCode(can_0x0a2_MagicCanNode3FCommand_obj_t *o, uint32_t in) {
+void encode_0x0a2_MagicCanNode3CommandCode(can_0x0a2_MagicCanNode3FCommand_obj_t *o, uint32_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffffffuLL << 32)) | ((x & 0xffffffffuLL) << 32);
 	return;
 }
 
-void decode_can_0x0aa_CANcorderHeartbeat(can_0x0aa_CANcorderHeartbeat_obj_t *o, uint16_t *out) {
+void decode_0x0aa_CANcorderHeartbeat(can_0x0aa_CANcorderHeartbeat_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -930,14 +930,14 @@ void decode_can_0x0aa_CANcorderHeartbeat(can_0x0aa_CANcorderHeartbeat_obj_t *o, 
 	return;
 }
 
-void encode_can_0x0aa_CANcorderHeartbeat(can_0x0aa_CANcorderHeartbeat_obj_t *o, uint16_t in) {
+void encode_0x0aa_CANcorderHeartbeat(can_0x0aa_CANcorderHeartbeat_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x0b0_BIM1CommandValue(can_0x0b0_BIM1Command_obj_t *o, int32_t *out) {
+void decode_0x0b0_BIM1CommandValue(can_0x0b0_BIM1Command_obj_t *o, int32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -952,7 +952,7 @@ void decode_can_0x0b0_BIM1CommandValue(can_0x0b0_BIM1Command_obj_t *o, int32_t *
 	return;
 }
 
-void encode_can_0x0b0_BIM1CommandValue(can_0x0b0_BIM1Command_obj_t *o, int32_t in) {
+void encode_0x0b0_BIM1CommandValue(can_0x0b0_BIM1Command_obj_t *o, int32_t in) {
 	assert(o);
 	assert(in >= -2.14748e+09);
 	assert(in <= 2.14748e+09);
@@ -961,7 +961,7 @@ void encode_can_0x0b0_BIM1CommandValue(can_0x0b0_BIM1Command_obj_t *o, int32_t i
 	return;
 }
 
-void decode_can_0x0b0_BIM1CommandCode(can_0x0b0_BIM1Command_obj_t *o, uint32_t *out) {
+void decode_0x0b0_BIM1CommandCode(can_0x0b0_BIM1Command_obj_t *o, uint32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -972,14 +972,14 @@ void decode_can_0x0b0_BIM1CommandCode(can_0x0b0_BIM1Command_obj_t *o, uint32_t *
 	return;
 }
 
-void encode_can_0x0b0_BIM1CommandCode(can_0x0b0_BIM1Command_obj_t *o, uint32_t in) {
+void encode_0x0b0_BIM1CommandCode(can_0x0b0_BIM1Command_obj_t *o, uint32_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffffffuLL << 32)) | ((x & 0xffffffffuLL) << 32);
 	return;
 }
 
-void decode_can_0x0b1_BIM2CommandValue(can_0x0b1_BIM2Command_obj_t *o, int32_t *out) {
+void decode_0x0b1_BIM2CommandValue(can_0x0b1_BIM2Command_obj_t *o, int32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -994,7 +994,7 @@ void decode_can_0x0b1_BIM2CommandValue(can_0x0b1_BIM2Command_obj_t *o, int32_t *
 	return;
 }
 
-void encode_can_0x0b1_BIM2CommandValue(can_0x0b1_BIM2Command_obj_t *o, int32_t in) {
+void encode_0x0b1_BIM2CommandValue(can_0x0b1_BIM2Command_obj_t *o, int32_t in) {
 	assert(o);
 	assert(in >= -2.14748e+09);
 	assert(in <= 2.14748e+09);
@@ -1003,7 +1003,7 @@ void encode_can_0x0b1_BIM2CommandValue(can_0x0b1_BIM2Command_obj_t *o, int32_t i
 	return;
 }
 
-void decode_can_0x0b1_BIM2CommandCode(can_0x0b1_BIM2Command_obj_t *o, uint32_t *out) {
+void decode_0x0b1_BIM2CommandCode(can_0x0b1_BIM2Command_obj_t *o, uint32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1014,14 +1014,14 @@ void decode_can_0x0b1_BIM2CommandCode(can_0x0b1_BIM2Command_obj_t *o, uint32_t *
 	return;
 }
 
-void encode_can_0x0b1_BIM2CommandCode(can_0x0b1_BIM2Command_obj_t *o, uint32_t in) {
+void encode_0x0b1_BIM2CommandCode(can_0x0b1_BIM2Command_obj_t *o, uint32_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffffffuLL << 32)) | ((x & 0xffffffffuLL) << 32);
 	return;
 }
 
-void decode_can_0x0b2_BIM3CommandValue(can_0x0b2_BIM3Command_obj_t *o, int32_t *out) {
+void decode_0x0b2_BIM3CommandValue(can_0x0b2_BIM3Command_obj_t *o, int32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1036,7 +1036,7 @@ void decode_can_0x0b2_BIM3CommandValue(can_0x0b2_BIM3Command_obj_t *o, int32_t *
 	return;
 }
 
-void encode_can_0x0b2_BIM3CommandValue(can_0x0b2_BIM3Command_obj_t *o, int32_t in) {
+void encode_0x0b2_BIM3CommandValue(can_0x0b2_BIM3Command_obj_t *o, int32_t in) {
 	assert(o);
 	assert(in >= -2.14748e+09);
 	assert(in <= 2.14748e+09);
@@ -1045,7 +1045,7 @@ void encode_can_0x0b2_BIM3CommandValue(can_0x0b2_BIM3Command_obj_t *o, int32_t i
 	return;
 }
 
-void decode_can_0x0b2_BIM3CommandCode(can_0x0b2_BIM3Command_obj_t *o, uint32_t *out) {
+void decode_0x0b2_BIM3CommandCode(can_0x0b2_BIM3Command_obj_t *o, uint32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1056,14 +1056,14 @@ void decode_can_0x0b2_BIM3CommandCode(can_0x0b2_BIM3Command_obj_t *o, uint32_t *
 	return;
 }
 
-void encode_can_0x0b2_BIM3CommandCode(can_0x0b2_BIM3Command_obj_t *o, uint32_t in) {
+void encode_0x0b2_BIM3CommandCode(can_0x0b2_BIM3Command_obj_t *o, uint32_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffffffuLL << 32)) | ((x & 0xffffffffuLL) << 32);
 	return;
 }
 
-void decode_can_0x0b3_BIM4CommandValue(can_0x0b3_BIM4Command_obj_t *o, int32_t *out) {
+void decode_0x0b3_BIM4CommandValue(can_0x0b3_BIM4Command_obj_t *o, int32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1078,7 +1078,7 @@ void decode_can_0x0b3_BIM4CommandValue(can_0x0b3_BIM4Command_obj_t *o, int32_t *
 	return;
 }
 
-void encode_can_0x0b3_BIM4CommandValue(can_0x0b3_BIM4Command_obj_t *o, int32_t in) {
+void encode_0x0b3_BIM4CommandValue(can_0x0b3_BIM4Command_obj_t *o, int32_t in) {
 	assert(o);
 	assert(in >= -2.14748e+09);
 	assert(in <= 2.14748e+09);
@@ -1087,7 +1087,7 @@ void encode_can_0x0b3_BIM4CommandValue(can_0x0b3_BIM4Command_obj_t *o, int32_t i
 	return;
 }
 
-void decode_can_0x0b3_BIM4CommandCode(can_0x0b3_BIM4Command_obj_t *o, uint32_t *out) {
+void decode_0x0b3_BIM4CommandCode(can_0x0b3_BIM4Command_obj_t *o, uint32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1098,14 +1098,14 @@ void decode_can_0x0b3_BIM4CommandCode(can_0x0b3_BIM4Command_obj_t *o, uint32_t *
 	return;
 }
 
-void encode_can_0x0b3_BIM4CommandCode(can_0x0b3_BIM4Command_obj_t *o, uint32_t in) {
+void encode_0x0b3_BIM4CommandCode(can_0x0b3_BIM4Command_obj_t *o, uint32_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffffffuLL << 32)) | ((x & 0xffffffffuLL) << 32);
 	return;
 }
 
-void decode_can_0x100_EstimatedPackFrameResistance(can_0x100_FrameFaultDetectionStatus_obj_t *o, float *out) {
+void decode_0x100_EstimatedPackFrameResistance(can_0x100_FrameFaultDetectionStatus_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1121,7 +1121,7 @@ void decode_can_0x100_EstimatedPackFrameResistance(can_0x100_FrameFaultDetection
 	return;
 }
 
-void encode_can_0x100_EstimatedPackFrameResistance(can_0x100_FrameFaultDetectionStatus_obj_t *o, float in) {
+void encode_0x100_EstimatedPackFrameResistance(can_0x100_FrameFaultDetectionStatus_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -2.14748e+09);
 	assert(in <= 2.14748e+09);
@@ -1133,7 +1133,7 @@ void encode_can_0x100_EstimatedPackFrameResistance(can_0x100_FrameFaultDetection
 	return;
 }
 
-void decode_can_0x100_FaultStatus(can_0x100_FrameFaultDetectionStatus_obj_t *o, uint16_t *out) {
+void decode_0x100_FaultStatus(can_0x100_FrameFaultDetectionStatus_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1144,14 +1144,14 @@ void decode_can_0x100_FaultStatus(can_0x100_FrameFaultDetectionStatus_obj_t *o, 
 	return;
 }
 
-void encode_can_0x100_FaultStatus(can_0x100_FrameFaultDetectionStatus_obj_t *o, uint16_t in) {
+void encode_0x100_FaultStatus(can_0x100_FrameFaultDetectionStatus_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 32)) | ((x & 0xffffuLL) << 32);
 	return;
 }
 
-void decode_can_0x101_FrontBrakePressure(can_0x101_FrontBrakePressure_obj_t *o, float *out) {
+void decode_0x101_FrontBrakePressure(can_0x101_FrontBrakePressure_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1167,7 +1167,7 @@ void decode_can_0x101_FrontBrakePressure(can_0x101_FrontBrakePressure_obj_t *o, 
 	return;
 }
 
-void encode_can_0x101_FrontBrakePressure(can_0x101_FrontBrakePressure_obj_t *o, float in) {
+void encode_0x101_FrontBrakePressure(can_0x101_FrontBrakePressure_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -2.14748e+09);
 	assert(in <= 2.14748e+09);
@@ -1179,7 +1179,7 @@ void encode_can_0x101_FrontBrakePressure(can_0x101_FrontBrakePressure_obj_t *o, 
 	return;
 }
 
-void decode_can_0x102_RearBrakePressure(can_0x102_RearBrakePressure_obj_t *o, float *out) {
+void decode_0x102_RearBrakePressure(can_0x102_RearBrakePressure_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1195,7 +1195,7 @@ void decode_can_0x102_RearBrakePressure(can_0x102_RearBrakePressure_obj_t *o, fl
 	return;
 }
 
-void encode_can_0x102_RearBrakePressure(can_0x102_RearBrakePressure_obj_t *o, float in) {
+void encode_0x102_RearBrakePressure(can_0x102_RearBrakePressure_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -4.29497e+09);
 	assert(in <= 4.29497e+09);
@@ -1207,7 +1207,7 @@ void encode_can_0x102_RearBrakePressure(can_0x102_RearBrakePressure_obj_t *o, fl
 	return;
 }
 
-void decode_can_0x103_FrontSuspensionPosition(can_0x103_FrontSuspensionTravel_obj_t *o, float *out) {
+void decode_0x103_FrontSuspensionPosition(can_0x103_FrontSuspensionTravel_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1223,7 +1223,7 @@ void decode_can_0x103_FrontSuspensionPosition(can_0x103_FrontSuspensionTravel_ob
 	return;
 }
 
-void encode_can_0x103_FrontSuspensionPosition(can_0x103_FrontSuspensionTravel_obj_t *o, float in) {
+void encode_0x103_FrontSuspensionPosition(can_0x103_FrontSuspensionTravel_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -1);
 	assert(in <= 1);
@@ -1235,7 +1235,7 @@ void encode_can_0x103_FrontSuspensionPosition(can_0x103_FrontSuspensionTravel_ob
 	return;
 }
 
-void decode_can_0x104_RearSuspensionPosition(can_0x104_RearSuspensionTravel_obj_t *o, float *out) {
+void decode_0x104_RearSuspensionPosition(can_0x104_RearSuspensionTravel_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1251,7 +1251,7 @@ void decode_can_0x104_RearSuspensionPosition(can_0x104_RearSuspensionTravel_obj_
 	return;
 }
 
-void encode_can_0x104_RearSuspensionPosition(can_0x104_RearSuspensionTravel_obj_t *o, float in) {
+void encode_0x104_RearSuspensionPosition(can_0x104_RearSuspensionTravel_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -1);
 	assert(in <= 1);
@@ -1263,7 +1263,7 @@ void encode_can_0x104_RearSuspensionPosition(can_0x104_RearSuspensionTravel_obj_
 	return;
 }
 
-void decode_can_0x106_BusVoltage12V(can_0x106_BusVoltage12V_obj_t *o, float *out) {
+void decode_0x106_BusVoltage12V(can_0x106_BusVoltage12V_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1279,7 +1279,7 @@ void decode_can_0x106_BusVoltage12V(can_0x106_BusVoltage12V_obj_t *o, float *out
 	return;
 }
 
-void encode_can_0x106_BusVoltage12V(can_0x106_BusVoltage12V_obj_t *o, float in) {
+void encode_0x106_BusVoltage12V(can_0x106_BusVoltage12V_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -10);
 	assert(in <= 20);
@@ -1291,7 +1291,7 @@ void encode_can_0x106_BusVoltage12V(can_0x106_BusVoltage12V_obj_t *o, float in) 
 	return;
 }
 
-void decode_can_0x107_PostMotorCoolantTemp(can_0x107_PostMotorCoolantTemp_obj_t *o, float *out) {
+void decode_0x107_PostMotorCoolantTemp(can_0x107_PostMotorCoolantTemp_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1307,7 +1307,7 @@ void decode_can_0x107_PostMotorCoolantTemp(can_0x107_PostMotorCoolantTemp_obj_t 
 	return;
 }
 
-void encode_can_0x107_PostMotorCoolantTemp(can_0x107_PostMotorCoolantTemp_obj_t *o, float in) {
+void encode_0x107_PostMotorCoolantTemp(can_0x107_PostMotorCoolantTemp_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -10);
 	assert(in <= 100);
@@ -1319,7 +1319,7 @@ void encode_can_0x107_PostMotorCoolantTemp(can_0x107_PostMotorCoolantTemp_obj_t 
 	return;
 }
 
-void decode_can_0x108_PostControllerCoolantTemp(can_0x108_PostControllerCoolantTemp_obj_t *o, float *out) {
+void decode_0x108_PostControllerCoolantTemp(can_0x108_PostControllerCoolantTemp_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1335,7 +1335,7 @@ void decode_can_0x108_PostControllerCoolantTemp(can_0x108_PostControllerCoolantT
 	return;
 }
 
-void encode_can_0x108_PostControllerCoolantTemp(can_0x108_PostControllerCoolantTemp_obj_t *o, float in) {
+void encode_0x108_PostControllerCoolantTemp(can_0x108_PostControllerCoolantTemp_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -10);
 	assert(in <= 100);
@@ -1347,7 +1347,7 @@ void encode_can_0x108_PostControllerCoolantTemp(can_0x108_PostControllerCoolantT
 	return;
 }
 
-void decode_can_0x109_RadiatorCoolSideCoolantTemp(can_0x109_RadiatorCoolSideCoolantTemp_obj_t *o, float *out) {
+void decode_0x109_RadiatorCoolSideCoolantTemp(can_0x109_RadiatorCoolSideCoolantTemp_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1363,7 +1363,7 @@ void decode_can_0x109_RadiatorCoolSideCoolantTemp(can_0x109_RadiatorCoolSideCool
 	return;
 }
 
-void encode_can_0x109_RadiatorCoolSideCoolantTemp(can_0x109_RadiatorCoolSideCoolantTemp_obj_t *o, float in) {
+void encode_0x109_RadiatorCoolSideCoolantTemp(can_0x109_RadiatorCoolSideCoolantTemp_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -10);
 	assert(in <= 100);
@@ -1375,7 +1375,7 @@ void encode_can_0x109_RadiatorCoolSideCoolantTemp(can_0x109_RadiatorCoolSideCool
 	return;
 }
 
-void decode_can_0x10a_AmbientTemp(can_0x10a_AmbientTemp_obj_t *o, float *out) {
+void decode_0x10a_AmbientTemp(can_0x10a_AmbientTemp_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1391,7 +1391,7 @@ void decode_can_0x10a_AmbientTemp(can_0x10a_AmbientTemp_obj_t *o, float *out) {
 	return;
 }
 
-void encode_can_0x10a_AmbientTemp(can_0x10a_AmbientTemp_obj_t *o, float in) {
+void encode_0x10a_AmbientTemp(can_0x10a_AmbientTemp_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -50);
 	assert(in <= 150);
@@ -1403,7 +1403,7 @@ void encode_can_0x10a_AmbientTemp(can_0x10a_AmbientTemp_obj_t *o, float in) {
 	return;
 }
 
-void decode_can_0x10b_GPSLatitude(can_0x10b_GPSLatAndValidityStatus_obj_t *o, float *out) {
+void decode_0x10b_GPSLatitude(can_0x10b_GPSLatAndValidityStatus_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1419,7 +1419,7 @@ void decode_can_0x10b_GPSLatitude(can_0x10b_GPSLatAndValidityStatus_obj_t *o, fl
 	return;
 }
 
-void encode_can_0x10b_GPSLatitude(can_0x10b_GPSLatAndValidityStatus_obj_t *o, float in) {
+void encode_0x10b_GPSLatitude(can_0x10b_GPSLatAndValidityStatus_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -4.29497e+09);
 	assert(in <= 4.29497e+09);
@@ -1431,7 +1431,7 @@ void encode_can_0x10b_GPSLatitude(can_0x10b_GPSLatAndValidityStatus_obj_t *o, fl
 	return;
 }
 
-void decode_can_0x10b_GPSValidityStatus(can_0x10b_GPSLatAndValidityStatus_obj_t *o, uint8_t *out) {
+void decode_0x10b_GPSValidityStatus(can_0x10b_GPSLatAndValidityStatus_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1442,14 +1442,14 @@ void decode_can_0x10b_GPSValidityStatus(can_0x10b_GPSLatAndValidityStatus_obj_t 
 	return;
 }
 
-void encode_can_0x10b_GPSValidityStatus(can_0x10b_GPSLatAndValidityStatus_obj_t *o, uint8_t in) {
+void encode_0x10b_GPSValidityStatus(can_0x10b_GPSLatAndValidityStatus_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffuLL << 32)) | ((x & 0xffuLL) << 32);
 	return;
 }
 
-void decode_can_0x10c_GPSLongitude(can_0x10c_GPSLongitude_obj_t *o, float *out) {
+void decode_0x10c_GPSLongitude(can_0x10c_GPSLongitude_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1465,7 +1465,7 @@ void decode_can_0x10c_GPSLongitude(can_0x10c_GPSLongitude_obj_t *o, float *out) 
 	return;
 }
 
-void encode_can_0x10c_GPSLongitude(can_0x10c_GPSLongitude_obj_t *o, float in) {
+void encode_0x10c_GPSLongitude(can_0x10c_GPSLongitude_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -4.29497e+09);
 	assert(in <= 4.29497e+09);
@@ -1477,7 +1477,7 @@ void encode_can_0x10c_GPSLongitude(can_0x10c_GPSLongitude_obj_t *o, float in) {
 	return;
 }
 
-void decode_can_0x10d_GPSAltitude(can_0x10d_GPSAltitudeAndAccuracy_obj_t *o, float *out) {
+void decode_0x10d_GPSAltitude(can_0x10d_GPSAltitudeAndAccuracy_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1493,7 +1493,7 @@ void decode_can_0x10d_GPSAltitude(can_0x10d_GPSAltitudeAndAccuracy_obj_t *o, flo
 	return;
 }
 
-void encode_can_0x10d_GPSAltitude(can_0x10d_GPSAltitudeAndAccuracy_obj_t *o, float in) {
+void encode_0x10d_GPSAltitude(can_0x10d_GPSAltitudeAndAccuracy_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -4.29497e+09);
 	assert(in <= 4.29497e+09);
@@ -1505,7 +1505,7 @@ void encode_can_0x10d_GPSAltitude(can_0x10d_GPSAltitudeAndAccuracy_obj_t *o, flo
 	return;
 }
 
-void decode_can_0x10d_PositionDOP(can_0x10d_GPSAltitudeAndAccuracy_obj_t *o, float *out) {
+void decode_0x10d_PositionDOP(can_0x10d_GPSAltitudeAndAccuracy_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1521,7 +1521,7 @@ void decode_can_0x10d_PositionDOP(can_0x10d_GPSAltitudeAndAccuracy_obj_t *o, flo
 	return;
 }
 
-void encode_can_0x10d_PositionDOP(can_0x10d_GPSAltitudeAndAccuracy_obj_t *o, float in) {
+void encode_0x10d_PositionDOP(can_0x10d_GPSAltitudeAndAccuracy_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -4.29497e+09);
 	assert(in <= 4.29497e+09);
@@ -1533,7 +1533,7 @@ void encode_can_0x10d_PositionDOP(can_0x10d_GPSAltitudeAndAccuracy_obj_t *o, flo
 	return;
 }
 
-void decode_can_0x10e_Years(can_0x10e_CurrentTime_obj_t *o, uint16_t *out) {
+void decode_0x10e_Years(can_0x10e_CurrentTime_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1544,14 +1544,14 @@ void decode_can_0x10e_Years(can_0x10e_CurrentTime_obj_t *o, uint16_t *out) {
 	return;
 }
 
-void encode_can_0x10e_Years(can_0x10e_CurrentTime_obj_t *o, uint16_t in) {
+void encode_0x10e_Years(can_0x10e_CurrentTime_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x10e_Month(can_0x10e_CurrentTime_obj_t *o, uint8_t *out) {
+void decode_0x10e_Month(can_0x10e_CurrentTime_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1562,14 +1562,14 @@ void decode_can_0x10e_Month(can_0x10e_CurrentTime_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x10e_Month(can_0x10e_CurrentTime_obj_t *o, uint8_t in) {
+void encode_0x10e_Month(can_0x10e_CurrentTime_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffuLL << 16)) | ((x & 0xffuLL) << 16);
 	return;
 }
 
-void decode_can_0x10e_Day(can_0x10e_CurrentTime_obj_t *o, uint8_t *out) {
+void decode_0x10e_Day(can_0x10e_CurrentTime_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1580,14 +1580,14 @@ void decode_can_0x10e_Day(can_0x10e_CurrentTime_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x10e_Day(can_0x10e_CurrentTime_obj_t *o, uint8_t in) {
+void encode_0x10e_Day(can_0x10e_CurrentTime_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffuLL << 24)) | ((x & 0xffuLL) << 24);
 	return;
 }
 
-void decode_can_0x10e_Hours(can_0x10e_CurrentTime_obj_t *o, uint8_t *out) {
+void decode_0x10e_Hours(can_0x10e_CurrentTime_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1598,14 +1598,14 @@ void decode_can_0x10e_Hours(can_0x10e_CurrentTime_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x10e_Hours(can_0x10e_CurrentTime_obj_t *o, uint8_t in) {
+void encode_0x10e_Hours(can_0x10e_CurrentTime_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffuLL << 32)) | ((x & 0xffuLL) << 32);
 	return;
 }
 
-void decode_can_0x10e_Minutes(can_0x10e_CurrentTime_obj_t *o, uint8_t *out) {
+void decode_0x10e_Minutes(can_0x10e_CurrentTime_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1616,14 +1616,14 @@ void decode_can_0x10e_Minutes(can_0x10e_CurrentTime_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x10e_Minutes(can_0x10e_CurrentTime_obj_t *o, uint8_t in) {
+void encode_0x10e_Minutes(can_0x10e_CurrentTime_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffuLL << 40)) | ((x & 0xffuLL) << 40);
 	return;
 }
 
-void decode_can_0x10e_Seconds(can_0x10e_CurrentTime_obj_t *o, uint8_t *out) {
+void decode_0x10e_Seconds(can_0x10e_CurrentTime_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1634,14 +1634,14 @@ void decode_can_0x10e_Seconds(can_0x10e_CurrentTime_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x10e_Seconds(can_0x10e_CurrentTime_obj_t *o, uint8_t in) {
+void encode_0x10e_Seconds(can_0x10e_CurrentTime_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffuLL << 48)) | ((x & 0xffuLL) << 48);
 	return;
 }
 
-void decode_can_0x10f_XAxisAcceleration(can_0x10f_IMUAccelerationMeasurement_obj_t *o, int16_t *out) {
+void decode_0x10f_XAxisAcceleration(can_0x10f_IMUAccelerationMeasurement_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1654,14 +1654,14 @@ void decode_can_0x10f_XAxisAcceleration(can_0x10f_IMUAccelerationMeasurement_obj
 	return;
 }
 
-void encode_can_0x10f_XAxisAcceleration(can_0x10f_IMUAccelerationMeasurement_obj_t *o, int16_t in) {
+void encode_0x10f_XAxisAcceleration(can_0x10f_IMUAccelerationMeasurement_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x10f_YAxisAcceleration(can_0x10f_IMUAccelerationMeasurement_obj_t *o, int16_t *out) {
+void decode_0x10f_YAxisAcceleration(can_0x10f_IMUAccelerationMeasurement_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1674,14 +1674,14 @@ void decode_can_0x10f_YAxisAcceleration(can_0x10f_IMUAccelerationMeasurement_obj
 	return;
 }
 
-void encode_can_0x10f_YAxisAcceleration(can_0x10f_IMUAccelerationMeasurement_obj_t *o, int16_t in) {
+void encode_0x10f_YAxisAcceleration(can_0x10f_IMUAccelerationMeasurement_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 16)) | ((x & 0xffffuLL) << 16);
 	return;
 }
 
-void decode_can_0x10f_ZAxisAcceleration(can_0x10f_IMUAccelerationMeasurement_obj_t *o, int16_t *out) {
+void decode_0x10f_ZAxisAcceleration(can_0x10f_IMUAccelerationMeasurement_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1694,14 +1694,14 @@ void decode_can_0x10f_ZAxisAcceleration(can_0x10f_IMUAccelerationMeasurement_obj
 	return;
 }
 
-void encode_can_0x10f_ZAxisAcceleration(can_0x10f_IMUAccelerationMeasurement_obj_t *o, int16_t in) {
+void encode_0x10f_ZAxisAcceleration(can_0x10f_IMUAccelerationMeasurement_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 32)) | ((x & 0xffffuLL) << 32);
 	return;
 }
 
-void decode_can_0x110_XAxisRoll(can_0x110_IMUGyroMeasurement_obj_t *o, int16_t *out) {
+void decode_0x110_XAxisRoll(can_0x110_IMUGyroMeasurement_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1714,14 +1714,14 @@ void decode_can_0x110_XAxisRoll(can_0x110_IMUGyroMeasurement_obj_t *o, int16_t *
 	return;
 }
 
-void encode_can_0x110_XAxisRoll(can_0x110_IMUGyroMeasurement_obj_t *o, int16_t in) {
+void encode_0x110_XAxisRoll(can_0x110_IMUGyroMeasurement_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x110_YAxisRoll(can_0x110_IMUGyroMeasurement_obj_t *o, int16_t *out) {
+void decode_0x110_YAxisRoll(can_0x110_IMUGyroMeasurement_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1734,14 +1734,14 @@ void decode_can_0x110_YAxisRoll(can_0x110_IMUGyroMeasurement_obj_t *o, int16_t *
 	return;
 }
 
-void encode_can_0x110_YAxisRoll(can_0x110_IMUGyroMeasurement_obj_t *o, int16_t in) {
+void encode_0x110_YAxisRoll(can_0x110_IMUGyroMeasurement_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 16)) | ((x & 0xffffuLL) << 16);
 	return;
 }
 
-void decode_can_0x110_ZAxisRoll(can_0x110_IMUGyroMeasurement_obj_t *o, int16_t *out) {
+void decode_0x110_ZAxisRoll(can_0x110_IMUGyroMeasurement_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1754,14 +1754,14 @@ void decode_can_0x110_ZAxisRoll(can_0x110_IMUGyroMeasurement_obj_t *o, int16_t *
 	return;
 }
 
-void encode_can_0x110_ZAxisRoll(can_0x110_IMUGyroMeasurement_obj_t *o, int16_t in) {
+void encode_0x110_ZAxisRoll(can_0x110_IMUGyroMeasurement_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 32)) | ((x & 0xffffuLL) << 32);
 	return;
 }
 
-void decode_can_0x111_MotorPlateTemp1(can_0x111_MotorPlateTemp_obj_t *o, float *out) {
+void decode_0x111_MotorPlateTemp1(can_0x111_MotorPlateTemp_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1777,7 +1777,7 @@ void decode_can_0x111_MotorPlateTemp1(can_0x111_MotorPlateTemp_obj_t *o, float *
 	return;
 }
 
-void encode_can_0x111_MotorPlateTemp1(can_0x111_MotorPlateTemp_obj_t *o, float in) {
+void encode_0x111_MotorPlateTemp1(can_0x111_MotorPlateTemp_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -10);
 	assert(in <= 1000);
@@ -1789,7 +1789,7 @@ void encode_can_0x111_MotorPlateTemp1(can_0x111_MotorPlateTemp_obj_t *o, float i
 	return;
 }
 
-void decode_can_0x111_MotorPlateTemp2(can_0x111_MotorPlateTemp_obj_t *o, float *out) {
+void decode_0x111_MotorPlateTemp2(can_0x111_MotorPlateTemp_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1805,7 +1805,7 @@ void decode_can_0x111_MotorPlateTemp2(can_0x111_MotorPlateTemp_obj_t *o, float *
 	return;
 }
 
-void encode_can_0x111_MotorPlateTemp2(can_0x111_MotorPlateTemp_obj_t *o, float in) {
+void encode_0x111_MotorPlateTemp2(can_0x111_MotorPlateTemp_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -10);
 	assert(in <= 1000);
@@ -1817,7 +1817,7 @@ void encode_can_0x111_MotorPlateTemp2(can_0x111_MotorPlateTemp_obj_t *o, float i
 	return;
 }
 
-void decode_can_0x112_MotorScoop(can_0x112_MotorScoop_obj_t *o, float *out) {
+void decode_0x112_MotorScoop(can_0x112_MotorScoop_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1833,7 +1833,7 @@ void decode_can_0x112_MotorScoop(can_0x112_MotorScoop_obj_t *o, float *out) {
 	return;
 }
 
-void encode_can_0x112_MotorScoop(can_0x112_MotorScoop_obj_t *o, float in) {
+void encode_0x112_MotorScoop(can_0x112_MotorScoop_obj_t *o, float in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 4.29497e+09);
@@ -1845,7 +1845,7 @@ void encode_can_0x112_MotorScoop(can_0x112_MotorScoop_obj_t *o, float in) {
 	return;
 }
 
-void decode_can_0x113_IMUAccelX(can_0x113_IMU1_obj_t *o, int32_t *out) {
+void decode_0x113_IMUAccelX(can_0x113_IMU1_obj_t *o, int32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1858,14 +1858,14 @@ void decode_can_0x113_IMUAccelX(can_0x113_IMU1_obj_t *o, int32_t *out) {
 	return;
 }
 
-void encode_can_0x113_IMUAccelX(can_0x113_IMU1_obj_t *o, int32_t in) {
+void encode_0x113_IMUAccelX(can_0x113_IMU1_obj_t *o, int32_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffffffuLL) | (x & 0xffffffffuLL);
 	return;
 }
 
-void decode_can_0x113_IMUAceelY(can_0x113_IMU1_obj_t *o, int32_t *out) {
+void decode_0x113_IMUAceelY(can_0x113_IMU1_obj_t *o, int32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1878,14 +1878,14 @@ void decode_can_0x113_IMUAceelY(can_0x113_IMU1_obj_t *o, int32_t *out) {
 	return;
 }
 
-void encode_can_0x113_IMUAceelY(can_0x113_IMU1_obj_t *o, int32_t in) {
+void encode_0x113_IMUAceelY(can_0x113_IMU1_obj_t *o, int32_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffffffuLL << 32)) | ((x & 0xffffffffuLL) << 32);
 	return;
 }
 
-void decode_can_0x114_IMUAccelZ(can_0x114_IMU2_obj_t *o, int32_t *out) {
+void decode_0x114_IMUAccelZ(can_0x114_IMU2_obj_t *o, int32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1898,14 +1898,14 @@ void decode_can_0x114_IMUAccelZ(can_0x114_IMU2_obj_t *o, int32_t *out) {
 	return;
 }
 
-void encode_can_0x114_IMUAccelZ(can_0x114_IMU2_obj_t *o, int32_t in) {
+void encode_0x114_IMUAccelZ(can_0x114_IMU2_obj_t *o, int32_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffffffuLL) | (x & 0xffffffffuLL);
 	return;
 }
 
-void decode_can_0x114_GravityX(can_0x114_IMU2_obj_t *o, float *out) {
+void decode_0x114_GravityX(can_0x114_IMU2_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1921,7 +1921,7 @@ void decode_can_0x114_GravityX(can_0x114_IMU2_obj_t *o, float *out) {
 	return;
 }
 
-void encode_can_0x114_GravityX(can_0x114_IMU2_obj_t *o, float in) {
+void encode_0x114_GravityX(can_0x114_IMU2_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -4.29497e+09);
 	assert(in <= 4.29497e+09);
@@ -1933,7 +1933,7 @@ void encode_can_0x114_GravityX(can_0x114_IMU2_obj_t *o, float in) {
 	return;
 }
 
-void decode_can_0x115_GravityY(can_0x115_IMU3_obj_t *o, float *out) {
+void decode_0x115_GravityY(can_0x115_IMU3_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1949,7 +1949,7 @@ void decode_can_0x115_GravityY(can_0x115_IMU3_obj_t *o, float *out) {
 	return;
 }
 
-void encode_can_0x115_GravityY(can_0x115_IMU3_obj_t *o, float in) {
+void encode_0x115_GravityY(can_0x115_IMU3_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -4.29497e+09);
 	assert(in <= 4.29497e+09);
@@ -1961,7 +1961,7 @@ void encode_can_0x115_GravityY(can_0x115_IMU3_obj_t *o, float in) {
 	return;
 }
 
-void decode_can_0x115_GravityZ(can_0x115_IMU3_obj_t *o, float *out) {
+void decode_0x115_GravityZ(can_0x115_IMU3_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1977,7 +1977,7 @@ void decode_can_0x115_GravityZ(can_0x115_IMU3_obj_t *o, float *out) {
 	return;
 }
 
-void encode_can_0x115_GravityZ(can_0x115_IMU3_obj_t *o, float in) {
+void encode_0x115_GravityZ(can_0x115_IMU3_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -4.29497e+09);
 	assert(in <= 4.29497e+09);
@@ -1989,7 +1989,7 @@ void encode_can_0x115_GravityZ(can_0x115_IMU3_obj_t *o, float in) {
 	return;
 }
 
-void decode_can_0x116_Yaw(can_0x116_IMU4_obj_t *o, float *out) {
+void decode_0x116_Yaw(can_0x116_IMU4_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2005,7 +2005,7 @@ void decode_can_0x116_Yaw(can_0x116_IMU4_obj_t *o, float *out) {
 	return;
 }
 
-void encode_can_0x116_Yaw(can_0x116_IMU4_obj_t *o, float in) {
+void encode_0x116_Yaw(can_0x116_IMU4_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -4.29497e+09);
 	assert(in <= 4.29497e+09);
@@ -2017,7 +2017,7 @@ void encode_can_0x116_Yaw(can_0x116_IMU4_obj_t *o, float in) {
 	return;
 }
 
-void decode_can_0x116_Pitch(can_0x116_IMU4_obj_t *o, float *out) {
+void decode_0x116_Pitch(can_0x116_IMU4_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2033,7 +2033,7 @@ void decode_can_0x116_Pitch(can_0x116_IMU4_obj_t *o, float *out) {
 	return;
 }
 
-void encode_can_0x116_Pitch(can_0x116_IMU4_obj_t *o, float in) {
+void encode_0x116_Pitch(can_0x116_IMU4_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -4.29497e+09);
 	assert(in <= 4.29497e+09);
@@ -2045,7 +2045,7 @@ void encode_can_0x116_Pitch(can_0x116_IMU4_obj_t *o, float in) {
 	return;
 }
 
-void decode_can_0x29a_normal(can_0x29a_IMU5_obj_t *o, int8_t *out) {
+void decode_0x29a_normal(can_0x29a_IMU5_obj_t *o, int8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2058,14 +2058,14 @@ void decode_can_0x29a_normal(can_0x29a_IMU5_obj_t *o, int8_t *out) {
 	return;
 }
 
-void encode_can_0x29a_normal(can_0x29a_IMU5_obj_t *o, int8_t in) {
+void encode_0x29a_normal(can_0x29a_IMU5_obj_t *o, int8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffuLL << 16)) | ((x & 0xffuLL) << 16);
 	return;
 }
 
-void decode_can_0x29a_multiplexor(can_0x29a_IMU5_obj_t *o, uint8_t *out) {
+void decode_0x29a_multiplexor(can_0x29a_IMU5_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2076,14 +2076,14 @@ void decode_can_0x29a_multiplexor(can_0x29a_IMU5_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x29a_multiplexor(can_0x29a_IMU5_obj_t *o, uint8_t in) {
+void encode_0x29a_multiplexor(can_0x29a_IMU5_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xfuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xfuLL) | (x & 0xfuLL);
 	return;
 }
 
-void decode_can_0x29a_multi1(can_0x29a_IMU5_obj_t *o, uint8_t *out) {
+void decode_0x29a_multi1(can_0x29a_IMU5_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
@@ -2098,7 +2098,7 @@ void decode_can_0x29a_multi1(can_0x29a_IMU5_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x29a_multi1(can_0x29a_IMU5_obj_t *o, uint8_t in) {
+void encode_0x29a_multi1(can_0x29a_IMU5_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
 	uint64_t _lane_mux = _payload_mux;
@@ -2109,7 +2109,7 @@ void encode_can_0x29a_multi1(can_0x29a_IMU5_obj_t *o, uint8_t in) {
 	return;
 }
 
-void decode_can_0x29a_multi3(can_0x29a_IMU5_obj_t *o, uint8_t *out) {
+void decode_0x29a_multi3(can_0x29a_IMU5_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
@@ -2124,7 +2124,7 @@ void decode_can_0x29a_multi3(can_0x29a_IMU5_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x29a_multi3(can_0x29a_IMU5_obj_t *o, uint8_t in) {
+void encode_0x29a_multi3(can_0x29a_IMU5_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
 	uint64_t _lane_mux = _payload_mux;
@@ -2135,7 +2135,7 @@ void encode_can_0x29a_multi3(can_0x29a_IMU5_obj_t *o, uint8_t in) {
 	return;
 }
 
-void decode_can_0x29a_multi4(can_0x29a_IMU5_obj_t *o, uint8_t *out) {
+void decode_0x29a_multi4(can_0x29a_IMU5_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
@@ -2150,7 +2150,7 @@ void decode_can_0x29a_multi4(can_0x29a_IMU5_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x29a_multi4(can_0x29a_IMU5_obj_t *o, uint8_t in) {
+void encode_0x29a_multi4(can_0x29a_IMU5_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
 	uint64_t _lane_mux = _payload_mux;
@@ -2161,7 +2161,7 @@ void encode_can_0x29a_multi4(can_0x29a_IMU5_obj_t *o, uint8_t in) {
 	return;
 }
 
-void decode_can_0x29a_multi2a(can_0x29a_IMU5_obj_t *o, uint8_t *out) {
+void decode_0x29a_multi2a(can_0x29a_IMU5_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
@@ -2176,7 +2176,7 @@ void decode_can_0x29a_multi2a(can_0x29a_IMU5_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x29a_multi2a(can_0x29a_IMU5_obj_t *o, uint8_t in) {
+void encode_0x29a_multi2a(can_0x29a_IMU5_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
 	uint64_t _lane_mux = _payload_mux;
@@ -2187,7 +2187,7 @@ void encode_can_0x29a_multi2a(can_0x29a_IMU5_obj_t *o, uint8_t in) {
 	return;
 }
 
-void decode_can_0x29a_multi2b(can_0x29a_IMU5_obj_t *o, uint8_t *out) {
+void decode_0x29a_multi2b(can_0x29a_IMU5_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
@@ -2202,7 +2202,7 @@ void decode_can_0x29a_multi2b(can_0x29a_IMU5_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x29a_multi2b(can_0x29a_IMU5_obj_t *o, uint8_t in) {
+void encode_0x29a_multi2b(can_0x29a_IMU5_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t _payload_mux = (uint64_t)(o->payload);
 	uint64_t _lane_mux = _payload_mux;
@@ -2213,7 +2213,7 @@ void encode_can_0x29a_multi2b(can_0x29a_IMU5_obj_t *o, uint8_t in) {
 	return;
 }
 
-void decode_can_0x29b_NonsenseSignal(can_0x29b_MESSAGE_NAME_obj_t *o, uint8_t *out) {
+void decode_0x29b_NonsenseSignal(can_0x29b_MESSAGE_NAME_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2224,7 +2224,7 @@ void decode_can_0x29b_NonsenseSignal(can_0x29b_MESSAGE_NAME_obj_t *o, uint8_t *o
 	return;
 }
 
-void encode_can_0x29b_NonsenseSignal(can_0x29b_MESSAGE_NAME_obj_t *o, uint8_t in) {
+void encode_0x29b_NonsenseSignal(can_0x29b_MESSAGE_NAME_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x7uLL;
 	uint64_t lane = reverse_byte_order((uint64_t)o->payload);
@@ -2233,7 +2233,7 @@ void encode_can_0x29b_NonsenseSignal(can_0x29b_MESSAGE_NAME_obj_t *o, uint8_t in
 	return;
 }
 
-void decode_can_0x29c_PlaceholderSignal(can_0x29c_MESSAGE_NAME2_obj_t *o, uint8_t *out) {
+void decode_0x29c_PlaceholderSignal(can_0x29c_MESSAGE_NAME2_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2244,14 +2244,14 @@ void decode_can_0x29c_PlaceholderSignal(can_0x29c_MESSAGE_NAME2_obj_t *o, uint8_
 	return;
 }
 
-void encode_can_0x29c_PlaceholderSignal(can_0x29c_MESSAGE_NAME2_obj_t *o, uint8_t in) {
+void encode_0x29c_PlaceholderSignal(can_0x29c_MESSAGE_NAME2_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffuLL) | (x & 0xffuLL);
 	return;
 }
 
-void decode_can_0x300_BIM1MaxCellVoltage(can_0x300_BIM1CellStatistics1_obj_t *o, uint16_t *out) {
+void decode_0x300_BIM1MaxCellVoltage(can_0x300_BIM1CellStatistics1_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2262,14 +2262,14 @@ void decode_can_0x300_BIM1MaxCellVoltage(can_0x300_BIM1CellStatistics1_obj_t *o,
 	return;
 }
 
-void encode_can_0x300_BIM1MaxCellVoltage(can_0x300_BIM1CellStatistics1_obj_t *o, uint16_t in) {
+void encode_0x300_BIM1MaxCellVoltage(can_0x300_BIM1CellStatistics1_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x300_BIM1MinCellVoltage(can_0x300_BIM1CellStatistics1_obj_t *o, uint16_t *out) {
+void decode_0x300_BIM1MinCellVoltage(can_0x300_BIM1CellStatistics1_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2280,14 +2280,14 @@ void decode_can_0x300_BIM1MinCellVoltage(can_0x300_BIM1CellStatistics1_obj_t *o,
 	return;
 }
 
-void encode_can_0x300_BIM1MinCellVoltage(can_0x300_BIM1CellStatistics1_obj_t *o, uint16_t in) {
+void encode_0x300_BIM1MinCellVoltage(can_0x300_BIM1CellStatistics1_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 32)) | ((x & 0xffffuLL) << 32);
 	return;
 }
 
-void decode_can_0x300_BIM1MaxCellNumber(can_0x300_BIM1CellStatistics1_obj_t *o, uint8_t *out) {
+void decode_0x300_BIM1MaxCellNumber(can_0x300_BIM1CellStatistics1_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2298,14 +2298,14 @@ void decode_can_0x300_BIM1MaxCellNumber(can_0x300_BIM1CellStatistics1_obj_t *o, 
 	return;
 }
 
-void encode_can_0x300_BIM1MaxCellNumber(can_0x300_BIM1CellStatistics1_obj_t *o, uint8_t in) {
+void encode_0x300_BIM1MaxCellNumber(can_0x300_BIM1CellStatistics1_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffuLL << 16)) | ((x & 0xffuLL) << 16);
 	return;
 }
 
-void decode_can_0x300_BIM1MinCellNumber(can_0x300_BIM1CellStatistics1_obj_t *o, uint8_t *out) {
+void decode_0x300_BIM1MinCellNumber(can_0x300_BIM1CellStatistics1_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2316,14 +2316,14 @@ void decode_can_0x300_BIM1MinCellNumber(can_0x300_BIM1CellStatistics1_obj_t *o, 
 	return;
 }
 
-void encode_can_0x300_BIM1MinCellNumber(can_0x300_BIM1CellStatistics1_obj_t *o, uint8_t in) {
+void encode_0x300_BIM1MinCellNumber(can_0x300_BIM1CellStatistics1_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffuLL << 48)) | ((x & 0xffuLL) << 48);
 	return;
 }
 
-void decode_can_0x301_BIM1AvgCellVoltage(can_0x301_BIM1CellStatistics2_obj_t *o, uint16_t *out) {
+void decode_0x301_BIM1AvgCellVoltage(can_0x301_BIM1CellStatistics2_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2334,14 +2334,14 @@ void decode_can_0x301_BIM1AvgCellVoltage(can_0x301_BIM1CellStatistics2_obj_t *o,
 	return;
 }
 
-void encode_can_0x301_BIM1AvgCellVoltage(can_0x301_BIM1CellStatistics2_obj_t *o, uint16_t in) {
+void encode_0x301_BIM1AvgCellVoltage(can_0x301_BIM1CellStatistics2_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x301_BIM1StdevCellVoltage(can_0x301_BIM1CellStatistics2_obj_t *o, uint16_t *out) {
+void decode_0x301_BIM1StdevCellVoltage(can_0x301_BIM1CellStatistics2_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2352,14 +2352,14 @@ void decode_can_0x301_BIM1StdevCellVoltage(can_0x301_BIM1CellStatistics2_obj_t *
 	return;
 }
 
-void encode_can_0x301_BIM1StdevCellVoltage(can_0x301_BIM1CellStatistics2_obj_t *o, uint16_t in) {
+void encode_0x301_BIM1StdevCellVoltage(can_0x301_BIM1CellStatistics2_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 16)) | ((x & 0xffffuLL) << 16);
 	return;
 }
 
-void decode_can_0x301_BIM1NumberBalancingCells(can_0x301_BIM1CellStatistics2_obj_t *o, uint8_t *out) {
+void decode_0x301_BIM1NumberBalancingCells(can_0x301_BIM1CellStatistics2_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2370,14 +2370,14 @@ void decode_can_0x301_BIM1NumberBalancingCells(can_0x301_BIM1CellStatistics2_obj
 	return;
 }
 
-void encode_can_0x301_BIM1NumberBalancingCells(can_0x301_BIM1CellStatistics2_obj_t *o, uint8_t in) {
+void encode_0x301_BIM1NumberBalancingCells(can_0x301_BIM1CellStatistics2_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffuLL << 32)) | ((x & 0xffuLL) << 32);
 	return;
 }
 
-void decode_can_0x302_BIM2MaxCellVoltage(can_0x302_BIM2CellStatisitcs1_obj_t *o, uint16_t *out) {
+void decode_0x302_BIM2MaxCellVoltage(can_0x302_BIM2CellStatisitcs1_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2388,14 +2388,14 @@ void decode_can_0x302_BIM2MaxCellVoltage(can_0x302_BIM2CellStatisitcs1_obj_t *o,
 	return;
 }
 
-void encode_can_0x302_BIM2MaxCellVoltage(can_0x302_BIM2CellStatisitcs1_obj_t *o, uint16_t in) {
+void encode_0x302_BIM2MaxCellVoltage(can_0x302_BIM2CellStatisitcs1_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x302_BIM2MinCellVoltage(can_0x302_BIM2CellStatisitcs1_obj_t *o, uint16_t *out) {
+void decode_0x302_BIM2MinCellVoltage(can_0x302_BIM2CellStatisitcs1_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2406,14 +2406,14 @@ void decode_can_0x302_BIM2MinCellVoltage(can_0x302_BIM2CellStatisitcs1_obj_t *o,
 	return;
 }
 
-void encode_can_0x302_BIM2MinCellVoltage(can_0x302_BIM2CellStatisitcs1_obj_t *o, uint16_t in) {
+void encode_0x302_BIM2MinCellVoltage(can_0x302_BIM2CellStatisitcs1_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 32)) | ((x & 0xffffuLL) << 32);
 	return;
 }
 
-void decode_can_0x302_BIM2MaxCellNumber(can_0x302_BIM2CellStatisitcs1_obj_t *o, uint8_t *out) {
+void decode_0x302_BIM2MaxCellNumber(can_0x302_BIM2CellStatisitcs1_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2424,14 +2424,14 @@ void decode_can_0x302_BIM2MaxCellNumber(can_0x302_BIM2CellStatisitcs1_obj_t *o, 
 	return;
 }
 
-void encode_can_0x302_BIM2MaxCellNumber(can_0x302_BIM2CellStatisitcs1_obj_t *o, uint8_t in) {
+void encode_0x302_BIM2MaxCellNumber(can_0x302_BIM2CellStatisitcs1_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffuLL << 16)) | ((x & 0xffuLL) << 16);
 	return;
 }
 
-void decode_can_0x302_BIM2MinCellNumber(can_0x302_BIM2CellStatisitcs1_obj_t *o, uint8_t *out) {
+void decode_0x302_BIM2MinCellNumber(can_0x302_BIM2CellStatisitcs1_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2442,14 +2442,14 @@ void decode_can_0x302_BIM2MinCellNumber(can_0x302_BIM2CellStatisitcs1_obj_t *o, 
 	return;
 }
 
-void encode_can_0x302_BIM2MinCellNumber(can_0x302_BIM2CellStatisitcs1_obj_t *o, uint8_t in) {
+void encode_0x302_BIM2MinCellNumber(can_0x302_BIM2CellStatisitcs1_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffuLL << 48)) | ((x & 0xffuLL) << 48);
 	return;
 }
 
-void decode_can_0x303_BIM2AvgCellVoltage(can_0x303_BIM2CellStatistics2_obj_t *o, uint16_t *out) {
+void decode_0x303_BIM2AvgCellVoltage(can_0x303_BIM2CellStatistics2_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2460,14 +2460,14 @@ void decode_can_0x303_BIM2AvgCellVoltage(can_0x303_BIM2CellStatistics2_obj_t *o,
 	return;
 }
 
-void encode_can_0x303_BIM2AvgCellVoltage(can_0x303_BIM2CellStatistics2_obj_t *o, uint16_t in) {
+void encode_0x303_BIM2AvgCellVoltage(can_0x303_BIM2CellStatistics2_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x303_BIM2StdevCellVoltage(can_0x303_BIM2CellStatistics2_obj_t *o, uint16_t *out) {
+void decode_0x303_BIM2StdevCellVoltage(can_0x303_BIM2CellStatistics2_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2478,14 +2478,14 @@ void decode_can_0x303_BIM2StdevCellVoltage(can_0x303_BIM2CellStatistics2_obj_t *
 	return;
 }
 
-void encode_can_0x303_BIM2StdevCellVoltage(can_0x303_BIM2CellStatistics2_obj_t *o, uint16_t in) {
+void encode_0x303_BIM2StdevCellVoltage(can_0x303_BIM2CellStatistics2_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 16)) | ((x & 0xffffuLL) << 16);
 	return;
 }
 
-void decode_can_0x303_BIM2NumberBalancingCells(can_0x303_BIM2CellStatistics2_obj_t *o, uint8_t *out) {
+void decode_0x303_BIM2NumberBalancingCells(can_0x303_BIM2CellStatistics2_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2496,14 +2496,14 @@ void decode_can_0x303_BIM2NumberBalancingCells(can_0x303_BIM2CellStatistics2_obj
 	return;
 }
 
-void encode_can_0x303_BIM2NumberBalancingCells(can_0x303_BIM2CellStatistics2_obj_t *o, uint8_t in) {
+void encode_0x303_BIM2NumberBalancingCells(can_0x303_BIM2CellStatistics2_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffuLL << 32)) | ((x & 0xffuLL) << 32);
 	return;
 }
 
-void decode_can_0x304_BIM3MaxCellVoltage(can_0x304_BIM3CellStatisitcs1_obj_t *o, uint16_t *out) {
+void decode_0x304_BIM3MaxCellVoltage(can_0x304_BIM3CellStatisitcs1_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2514,14 +2514,14 @@ void decode_can_0x304_BIM3MaxCellVoltage(can_0x304_BIM3CellStatisitcs1_obj_t *o,
 	return;
 }
 
-void encode_can_0x304_BIM3MaxCellVoltage(can_0x304_BIM3CellStatisitcs1_obj_t *o, uint16_t in) {
+void encode_0x304_BIM3MaxCellVoltage(can_0x304_BIM3CellStatisitcs1_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x304_BIM3MinCellVoltage(can_0x304_BIM3CellStatisitcs1_obj_t *o, uint16_t *out) {
+void decode_0x304_BIM3MinCellVoltage(can_0x304_BIM3CellStatisitcs1_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2532,14 +2532,14 @@ void decode_can_0x304_BIM3MinCellVoltage(can_0x304_BIM3CellStatisitcs1_obj_t *o,
 	return;
 }
 
-void encode_can_0x304_BIM3MinCellVoltage(can_0x304_BIM3CellStatisitcs1_obj_t *o, uint16_t in) {
+void encode_0x304_BIM3MinCellVoltage(can_0x304_BIM3CellStatisitcs1_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 32)) | ((x & 0xffffuLL) << 32);
 	return;
 }
 
-void decode_can_0x304_BIM3MaxCellNumber(can_0x304_BIM3CellStatisitcs1_obj_t *o, uint8_t *out) {
+void decode_0x304_BIM3MaxCellNumber(can_0x304_BIM3CellStatisitcs1_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2550,14 +2550,14 @@ void decode_can_0x304_BIM3MaxCellNumber(can_0x304_BIM3CellStatisitcs1_obj_t *o, 
 	return;
 }
 
-void encode_can_0x304_BIM3MaxCellNumber(can_0x304_BIM3CellStatisitcs1_obj_t *o, uint8_t in) {
+void encode_0x304_BIM3MaxCellNumber(can_0x304_BIM3CellStatisitcs1_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffuLL << 16)) | ((x & 0xffuLL) << 16);
 	return;
 }
 
-void decode_can_0x304_BIM3MinCellNumber(can_0x304_BIM3CellStatisitcs1_obj_t *o, uint8_t *out) {
+void decode_0x304_BIM3MinCellNumber(can_0x304_BIM3CellStatisitcs1_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2568,14 +2568,14 @@ void decode_can_0x304_BIM3MinCellNumber(can_0x304_BIM3CellStatisitcs1_obj_t *o, 
 	return;
 }
 
-void encode_can_0x304_BIM3MinCellNumber(can_0x304_BIM3CellStatisitcs1_obj_t *o, uint8_t in) {
+void encode_0x304_BIM3MinCellNumber(can_0x304_BIM3CellStatisitcs1_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffuLL << 48)) | ((x & 0xffuLL) << 48);
 	return;
 }
 
-void decode_can_0x305_BIM3AvgCellVoltage(can_0x305_BIM3CellStatistics2_obj_t *o, uint16_t *out) {
+void decode_0x305_BIM3AvgCellVoltage(can_0x305_BIM3CellStatistics2_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2586,14 +2586,14 @@ void decode_can_0x305_BIM3AvgCellVoltage(can_0x305_BIM3CellStatistics2_obj_t *o,
 	return;
 }
 
-void encode_can_0x305_BIM3AvgCellVoltage(can_0x305_BIM3CellStatistics2_obj_t *o, uint16_t in) {
+void encode_0x305_BIM3AvgCellVoltage(can_0x305_BIM3CellStatistics2_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x305_BIM3StdevCellVoltage(can_0x305_BIM3CellStatistics2_obj_t *o, uint16_t *out) {
+void decode_0x305_BIM3StdevCellVoltage(can_0x305_BIM3CellStatistics2_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2604,14 +2604,14 @@ void decode_can_0x305_BIM3StdevCellVoltage(can_0x305_BIM3CellStatistics2_obj_t *
 	return;
 }
 
-void encode_can_0x305_BIM3StdevCellVoltage(can_0x305_BIM3CellStatistics2_obj_t *o, uint16_t in) {
+void encode_0x305_BIM3StdevCellVoltage(can_0x305_BIM3CellStatistics2_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 16)) | ((x & 0xffffuLL) << 16);
 	return;
 }
 
-void decode_can_0x305_BIM3NumberBalancingCells(can_0x305_BIM3CellStatistics2_obj_t *o, uint8_t *out) {
+void decode_0x305_BIM3NumberBalancingCells(can_0x305_BIM3CellStatistics2_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2622,14 +2622,14 @@ void decode_can_0x305_BIM3NumberBalancingCells(can_0x305_BIM3CellStatistics2_obj
 	return;
 }
 
-void encode_can_0x305_BIM3NumberBalancingCells(can_0x305_BIM3CellStatistics2_obj_t *o, uint8_t in) {
+void encode_0x305_BIM3NumberBalancingCells(can_0x305_BIM3CellStatistics2_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffuLL << 32)) | ((x & 0xffuLL) << 32);
 	return;
 }
 
-void decode_can_0x306_BIM4MaxCellVoltage(can_0x306_BIM4CellStatistics1_obj_t *o, uint16_t *out) {
+void decode_0x306_BIM4MaxCellVoltage(can_0x306_BIM4CellStatistics1_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2640,14 +2640,14 @@ void decode_can_0x306_BIM4MaxCellVoltage(can_0x306_BIM4CellStatistics1_obj_t *o,
 	return;
 }
 
-void encode_can_0x306_BIM4MaxCellVoltage(can_0x306_BIM4CellStatistics1_obj_t *o, uint16_t in) {
+void encode_0x306_BIM4MaxCellVoltage(can_0x306_BIM4CellStatistics1_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x306_BIM4MinCellVoltage(can_0x306_BIM4CellStatistics1_obj_t *o, uint16_t *out) {
+void decode_0x306_BIM4MinCellVoltage(can_0x306_BIM4CellStatistics1_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2658,14 +2658,14 @@ void decode_can_0x306_BIM4MinCellVoltage(can_0x306_BIM4CellStatistics1_obj_t *o,
 	return;
 }
 
-void encode_can_0x306_BIM4MinCellVoltage(can_0x306_BIM4CellStatistics1_obj_t *o, uint16_t in) {
+void encode_0x306_BIM4MinCellVoltage(can_0x306_BIM4CellStatistics1_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 32)) | ((x & 0xffffuLL) << 32);
 	return;
 }
 
-void decode_can_0x306_BIM4MaxCellNumber(can_0x306_BIM4CellStatistics1_obj_t *o, uint8_t *out) {
+void decode_0x306_BIM4MaxCellNumber(can_0x306_BIM4CellStatistics1_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2676,14 +2676,14 @@ void decode_can_0x306_BIM4MaxCellNumber(can_0x306_BIM4CellStatistics1_obj_t *o, 
 	return;
 }
 
-void encode_can_0x306_BIM4MaxCellNumber(can_0x306_BIM4CellStatistics1_obj_t *o, uint8_t in) {
+void encode_0x306_BIM4MaxCellNumber(can_0x306_BIM4CellStatistics1_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffuLL << 16)) | ((x & 0xffuLL) << 16);
 	return;
 }
 
-void decode_can_0x306_BIM4MinCellNumber(can_0x306_BIM4CellStatistics1_obj_t *o, uint8_t *out) {
+void decode_0x306_BIM4MinCellNumber(can_0x306_BIM4CellStatistics1_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2694,14 +2694,14 @@ void decode_can_0x306_BIM4MinCellNumber(can_0x306_BIM4CellStatistics1_obj_t *o, 
 	return;
 }
 
-void encode_can_0x306_BIM4MinCellNumber(can_0x306_BIM4CellStatistics1_obj_t *o, uint8_t in) {
+void encode_0x306_BIM4MinCellNumber(can_0x306_BIM4CellStatistics1_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffuLL << 48)) | ((x & 0xffuLL) << 48);
 	return;
 }
 
-void decode_can_0x307_BIM4AvgCellVoltage(can_0x307_BIM4CellStatistics2_obj_t *o, uint16_t *out) {
+void decode_0x307_BIM4AvgCellVoltage(can_0x307_BIM4CellStatistics2_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2712,14 +2712,14 @@ void decode_can_0x307_BIM4AvgCellVoltage(can_0x307_BIM4CellStatistics2_obj_t *o,
 	return;
 }
 
-void encode_can_0x307_BIM4AvgCellVoltage(can_0x307_BIM4CellStatistics2_obj_t *o, uint16_t in) {
+void encode_0x307_BIM4AvgCellVoltage(can_0x307_BIM4CellStatistics2_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x307_BIM4StdevCellVoltage(can_0x307_BIM4CellStatistics2_obj_t *o, uint16_t *out) {
+void decode_0x307_BIM4StdevCellVoltage(can_0x307_BIM4CellStatistics2_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2730,14 +2730,14 @@ void decode_can_0x307_BIM4StdevCellVoltage(can_0x307_BIM4CellStatistics2_obj_t *
 	return;
 }
 
-void encode_can_0x307_BIM4StdevCellVoltage(can_0x307_BIM4CellStatistics2_obj_t *o, uint16_t in) {
+void encode_0x307_BIM4StdevCellVoltage(can_0x307_BIM4CellStatistics2_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 16)) | ((x & 0xffffuLL) << 16);
 	return;
 }
 
-void decode_can_0x307_BIM4NumberBalancingCells(can_0x307_BIM4CellStatistics2_obj_t *o, uint8_t *out) {
+void decode_0x307_BIM4NumberBalancingCells(can_0x307_BIM4CellStatistics2_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2748,14 +2748,14 @@ void decode_can_0x307_BIM4NumberBalancingCells(can_0x307_BIM4CellStatistics2_obj
 	return;
 }
 
-void encode_can_0x307_BIM4NumberBalancingCells(can_0x307_BIM4CellStatistics2_obj_t *o, uint8_t in) {
+void encode_0x307_BIM4NumberBalancingCells(can_0x307_BIM4CellStatistics2_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffuLL << 32)) | ((x & 0xffuLL) << 32);
 	return;
 }
 
-void decode_can_0x310_Cell1(can_0x310_Cells_1_4_obj_t *o, int16_t *out) {
+void decode_0x310_Cell1(can_0x310_Cells_1_4_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2768,14 +2768,14 @@ void decode_can_0x310_Cell1(can_0x310_Cells_1_4_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x310_Cell1(can_0x310_Cells_1_4_obj_t *o, int16_t in) {
+void encode_0x310_Cell1(can_0x310_Cells_1_4_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0x7fffuLL) | (x & 0x7fffuLL);
 	return;
 }
 
-void decode_can_0x310_Cell2(can_0x310_Cells_1_4_obj_t *o, int16_t *out) {
+void decode_0x310_Cell2(can_0x310_Cells_1_4_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2788,14 +2788,14 @@ void decode_can_0x310_Cell2(can_0x310_Cells_1_4_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x310_Cell2(can_0x310_Cells_1_4_obj_t *o, int16_t in) {
+void encode_0x310_Cell2(can_0x310_Cells_1_4_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 16)) | ((x & 0x7fffuLL) << 16);
 	return;
 }
 
-void decode_can_0x310_Cell3(can_0x310_Cells_1_4_obj_t *o, int16_t *out) {
+void decode_0x310_Cell3(can_0x310_Cells_1_4_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2808,14 +2808,14 @@ void decode_can_0x310_Cell3(can_0x310_Cells_1_4_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x310_Cell3(can_0x310_Cells_1_4_obj_t *o, int16_t in) {
+void encode_0x310_Cell3(can_0x310_Cells_1_4_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 32)) | ((x & 0x7fffuLL) << 32);
 	return;
 }
 
-void decode_can_0x310_Cell4(can_0x310_Cells_1_4_obj_t *o, int16_t *out) {
+void decode_0x310_Cell4(can_0x310_Cells_1_4_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2828,14 +2828,14 @@ void decode_can_0x310_Cell4(can_0x310_Cells_1_4_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x310_Cell4(can_0x310_Cells_1_4_obj_t *o, int16_t in) {
+void encode_0x310_Cell4(can_0x310_Cells_1_4_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 48)) | ((x & 0x7fffuLL) << 48);
 	return;
 }
 
-void decode_can_0x310_Cell1_bal(can_0x310_Cells_1_4_obj_t *o, uint8_t *out) {
+void decode_0x310_Cell1_bal(can_0x310_Cells_1_4_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2846,14 +2846,14 @@ void decode_can_0x310_Cell1_bal(can_0x310_Cells_1_4_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x310_Cell1_bal(can_0x310_Cells_1_4_obj_t *o, uint8_t in) {
+void encode_0x310_Cell1_bal(can_0x310_Cells_1_4_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 15)) | ((x & 0x1uLL) << 15);
 	return;
 }
 
-void decode_can_0x310_Cell2_bal(can_0x310_Cells_1_4_obj_t *o, uint8_t *out) {
+void decode_0x310_Cell2_bal(can_0x310_Cells_1_4_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2864,14 +2864,14 @@ void decode_can_0x310_Cell2_bal(can_0x310_Cells_1_4_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x310_Cell2_bal(can_0x310_Cells_1_4_obj_t *o, uint8_t in) {
+void encode_0x310_Cell2_bal(can_0x310_Cells_1_4_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 31)) | ((x & 0x1uLL) << 31);
 	return;
 }
 
-void decode_can_0x310_Cell3_bal(can_0x310_Cells_1_4_obj_t *o, uint8_t *out) {
+void decode_0x310_Cell3_bal(can_0x310_Cells_1_4_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2882,14 +2882,14 @@ void decode_can_0x310_Cell3_bal(can_0x310_Cells_1_4_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x310_Cell3_bal(can_0x310_Cells_1_4_obj_t *o, uint8_t in) {
+void encode_0x310_Cell3_bal(can_0x310_Cells_1_4_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 47)) | ((x & 0x1uLL) << 47);
 	return;
 }
 
-void decode_can_0x310_Cell4_bal(can_0x310_Cells_1_4_obj_t *o, uint8_t *out) {
+void decode_0x310_Cell4_bal(can_0x310_Cells_1_4_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2900,14 +2900,14 @@ void decode_can_0x310_Cell4_bal(can_0x310_Cells_1_4_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x310_Cell4_bal(can_0x310_Cells_1_4_obj_t *o, uint8_t in) {
+void encode_0x310_Cell4_bal(can_0x310_Cells_1_4_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 63)) | ((x & 0x1uLL) << 63);
 	return;
 }
 
-void decode_can_0x311_Cell5(can_0x311_Cells_5_8_obj_t *o, int16_t *out) {
+void decode_0x311_Cell5(can_0x311_Cells_5_8_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2920,14 +2920,14 @@ void decode_can_0x311_Cell5(can_0x311_Cells_5_8_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x311_Cell5(can_0x311_Cells_5_8_obj_t *o, int16_t in) {
+void encode_0x311_Cell5(can_0x311_Cells_5_8_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0x7fffuLL) | (x & 0x7fffuLL);
 	return;
 }
 
-void decode_can_0x311_Cell6(can_0x311_Cells_5_8_obj_t *o, int16_t *out) {
+void decode_0x311_Cell6(can_0x311_Cells_5_8_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2940,14 +2940,14 @@ void decode_can_0x311_Cell6(can_0x311_Cells_5_8_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x311_Cell6(can_0x311_Cells_5_8_obj_t *o, int16_t in) {
+void encode_0x311_Cell6(can_0x311_Cells_5_8_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 16)) | ((x & 0x7fffuLL) << 16);
 	return;
 }
 
-void decode_can_0x311_Cell7(can_0x311_Cells_5_8_obj_t *o, int16_t *out) {
+void decode_0x311_Cell7(can_0x311_Cells_5_8_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2960,14 +2960,14 @@ void decode_can_0x311_Cell7(can_0x311_Cells_5_8_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x311_Cell7(can_0x311_Cells_5_8_obj_t *o, int16_t in) {
+void encode_0x311_Cell7(can_0x311_Cells_5_8_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 32)) | ((x & 0x7fffuLL) << 32);
 	return;
 }
 
-void decode_can_0x311_Cell8(can_0x311_Cells_5_8_obj_t *o, int16_t *out) {
+void decode_0x311_Cell8(can_0x311_Cells_5_8_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2980,14 +2980,14 @@ void decode_can_0x311_Cell8(can_0x311_Cells_5_8_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x311_Cell8(can_0x311_Cells_5_8_obj_t *o, int16_t in) {
+void encode_0x311_Cell8(can_0x311_Cells_5_8_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 48)) | ((x & 0x7fffuLL) << 48);
 	return;
 }
 
-void decode_can_0x311_Cell5_bal(can_0x311_Cells_5_8_obj_t *o, uint8_t *out) {
+void decode_0x311_Cell5_bal(can_0x311_Cells_5_8_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -2998,14 +2998,14 @@ void decode_can_0x311_Cell5_bal(can_0x311_Cells_5_8_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x311_Cell5_bal(can_0x311_Cells_5_8_obj_t *o, uint8_t in) {
+void encode_0x311_Cell5_bal(can_0x311_Cells_5_8_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 15)) | ((x & 0x1uLL) << 15);
 	return;
 }
 
-void decode_can_0x311_Cell6_bal(can_0x311_Cells_5_8_obj_t *o, uint8_t *out) {
+void decode_0x311_Cell6_bal(can_0x311_Cells_5_8_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3016,14 +3016,14 @@ void decode_can_0x311_Cell6_bal(can_0x311_Cells_5_8_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x311_Cell6_bal(can_0x311_Cells_5_8_obj_t *o, uint8_t in) {
+void encode_0x311_Cell6_bal(can_0x311_Cells_5_8_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 31)) | ((x & 0x1uLL) << 31);
 	return;
 }
 
-void decode_can_0x311_Cell7_bal(can_0x311_Cells_5_8_obj_t *o, uint8_t *out) {
+void decode_0x311_Cell7_bal(can_0x311_Cells_5_8_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3034,14 +3034,14 @@ void decode_can_0x311_Cell7_bal(can_0x311_Cells_5_8_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x311_Cell7_bal(can_0x311_Cells_5_8_obj_t *o, uint8_t in) {
+void encode_0x311_Cell7_bal(can_0x311_Cells_5_8_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 47)) | ((x & 0x1uLL) << 47);
 	return;
 }
 
-void decode_can_0x311_Cell8_bal(can_0x311_Cells_5_8_obj_t *o, uint8_t *out) {
+void decode_0x311_Cell8_bal(can_0x311_Cells_5_8_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3052,14 +3052,14 @@ void decode_can_0x311_Cell8_bal(can_0x311_Cells_5_8_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x311_Cell8_bal(can_0x311_Cells_5_8_obj_t *o, uint8_t in) {
+void encode_0x311_Cell8_bal(can_0x311_Cells_5_8_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 63)) | ((x & 0x1uLL) << 63);
 	return;
 }
 
-void decode_can_0x312_Cell9(can_0x312_Cells_9_12_obj_t *o, int16_t *out) {
+void decode_0x312_Cell9(can_0x312_Cells_9_12_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3072,14 +3072,14 @@ void decode_can_0x312_Cell9(can_0x312_Cells_9_12_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x312_Cell9(can_0x312_Cells_9_12_obj_t *o, int16_t in) {
+void encode_0x312_Cell9(can_0x312_Cells_9_12_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0x7fffuLL) | (x & 0x7fffuLL);
 	return;
 }
 
-void decode_can_0x312_Cell10(can_0x312_Cells_9_12_obj_t *o, int16_t *out) {
+void decode_0x312_Cell10(can_0x312_Cells_9_12_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3092,14 +3092,14 @@ void decode_can_0x312_Cell10(can_0x312_Cells_9_12_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x312_Cell10(can_0x312_Cells_9_12_obj_t *o, int16_t in) {
+void encode_0x312_Cell10(can_0x312_Cells_9_12_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 16)) | ((x & 0x7fffuLL) << 16);
 	return;
 }
 
-void decode_can_0x312_Cell11(can_0x312_Cells_9_12_obj_t *o, int16_t *out) {
+void decode_0x312_Cell11(can_0x312_Cells_9_12_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3112,14 +3112,14 @@ void decode_can_0x312_Cell11(can_0x312_Cells_9_12_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x312_Cell11(can_0x312_Cells_9_12_obj_t *o, int16_t in) {
+void encode_0x312_Cell11(can_0x312_Cells_9_12_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 32)) | ((x & 0x7fffuLL) << 32);
 	return;
 }
 
-void decode_can_0x312_Cell12(can_0x312_Cells_9_12_obj_t *o, int16_t *out) {
+void decode_0x312_Cell12(can_0x312_Cells_9_12_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3132,14 +3132,14 @@ void decode_can_0x312_Cell12(can_0x312_Cells_9_12_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x312_Cell12(can_0x312_Cells_9_12_obj_t *o, int16_t in) {
+void encode_0x312_Cell12(can_0x312_Cells_9_12_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 48)) | ((x & 0x7fffuLL) << 48);
 	return;
 }
 
-void decode_can_0x312_Cell9_bal(can_0x312_Cells_9_12_obj_t *o, uint8_t *out) {
+void decode_0x312_Cell9_bal(can_0x312_Cells_9_12_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3150,14 +3150,14 @@ void decode_can_0x312_Cell9_bal(can_0x312_Cells_9_12_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x312_Cell9_bal(can_0x312_Cells_9_12_obj_t *o, uint8_t in) {
+void encode_0x312_Cell9_bal(can_0x312_Cells_9_12_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 15)) | ((x & 0x1uLL) << 15);
 	return;
 }
 
-void decode_can_0x312_Cell10_bal(can_0x312_Cells_9_12_obj_t *o, uint8_t *out) {
+void decode_0x312_Cell10_bal(can_0x312_Cells_9_12_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3168,14 +3168,14 @@ void decode_can_0x312_Cell10_bal(can_0x312_Cells_9_12_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x312_Cell10_bal(can_0x312_Cells_9_12_obj_t *o, uint8_t in) {
+void encode_0x312_Cell10_bal(can_0x312_Cells_9_12_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 31)) | ((x & 0x1uLL) << 31);
 	return;
 }
 
-void decode_can_0x312_Cell11_bal(can_0x312_Cells_9_12_obj_t *o, uint8_t *out) {
+void decode_0x312_Cell11_bal(can_0x312_Cells_9_12_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3186,14 +3186,14 @@ void decode_can_0x312_Cell11_bal(can_0x312_Cells_9_12_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x312_Cell11_bal(can_0x312_Cells_9_12_obj_t *o, uint8_t in) {
+void encode_0x312_Cell11_bal(can_0x312_Cells_9_12_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 47)) | ((x & 0x1uLL) << 47);
 	return;
 }
 
-void decode_can_0x312_Cell12_bal(can_0x312_Cells_9_12_obj_t *o, uint8_t *out) {
+void decode_0x312_Cell12_bal(can_0x312_Cells_9_12_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3204,14 +3204,14 @@ void decode_can_0x312_Cell12_bal(can_0x312_Cells_9_12_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x312_Cell12_bal(can_0x312_Cells_9_12_obj_t *o, uint8_t in) {
+void encode_0x312_Cell12_bal(can_0x312_Cells_9_12_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 63)) | ((x & 0x1uLL) << 63);
 	return;
 }
 
-void decode_can_0x313_Cell13(can_0x313_Cells_13_16_obj_t *o, int16_t *out) {
+void decode_0x313_Cell13(can_0x313_Cells_13_16_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3224,14 +3224,14 @@ void decode_can_0x313_Cell13(can_0x313_Cells_13_16_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x313_Cell13(can_0x313_Cells_13_16_obj_t *o, int16_t in) {
+void encode_0x313_Cell13(can_0x313_Cells_13_16_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0x7fffuLL) | (x & 0x7fffuLL);
 	return;
 }
 
-void decode_can_0x313_Cell14(can_0x313_Cells_13_16_obj_t *o, int16_t *out) {
+void decode_0x313_Cell14(can_0x313_Cells_13_16_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3244,14 +3244,14 @@ void decode_can_0x313_Cell14(can_0x313_Cells_13_16_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x313_Cell14(can_0x313_Cells_13_16_obj_t *o, int16_t in) {
+void encode_0x313_Cell14(can_0x313_Cells_13_16_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 16)) | ((x & 0x7fffuLL) << 16);
 	return;
 }
 
-void decode_can_0x313_Cell15(can_0x313_Cells_13_16_obj_t *o, int16_t *out) {
+void decode_0x313_Cell15(can_0x313_Cells_13_16_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3264,14 +3264,14 @@ void decode_can_0x313_Cell15(can_0x313_Cells_13_16_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x313_Cell15(can_0x313_Cells_13_16_obj_t *o, int16_t in) {
+void encode_0x313_Cell15(can_0x313_Cells_13_16_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 32)) | ((x & 0x7fffuLL) << 32);
 	return;
 }
 
-void decode_can_0x313_Cell16(can_0x313_Cells_13_16_obj_t *o, int16_t *out) {
+void decode_0x313_Cell16(can_0x313_Cells_13_16_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3284,14 +3284,14 @@ void decode_can_0x313_Cell16(can_0x313_Cells_13_16_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x313_Cell16(can_0x313_Cells_13_16_obj_t *o, int16_t in) {
+void encode_0x313_Cell16(can_0x313_Cells_13_16_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 48)) | ((x & 0x7fffuLL) << 48);
 	return;
 }
 
-void decode_can_0x313_Cell13_bal(can_0x313_Cells_13_16_obj_t *o, uint8_t *out) {
+void decode_0x313_Cell13_bal(can_0x313_Cells_13_16_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3302,14 +3302,14 @@ void decode_can_0x313_Cell13_bal(can_0x313_Cells_13_16_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x313_Cell13_bal(can_0x313_Cells_13_16_obj_t *o, uint8_t in) {
+void encode_0x313_Cell13_bal(can_0x313_Cells_13_16_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 15)) | ((x & 0x1uLL) << 15);
 	return;
 }
 
-void decode_can_0x313_Cell14_bal(can_0x313_Cells_13_16_obj_t *o, uint8_t *out) {
+void decode_0x313_Cell14_bal(can_0x313_Cells_13_16_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3320,14 +3320,14 @@ void decode_can_0x313_Cell14_bal(can_0x313_Cells_13_16_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x313_Cell14_bal(can_0x313_Cells_13_16_obj_t *o, uint8_t in) {
+void encode_0x313_Cell14_bal(can_0x313_Cells_13_16_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 31)) | ((x & 0x1uLL) << 31);
 	return;
 }
 
-void decode_can_0x313_Cell15_bal(can_0x313_Cells_13_16_obj_t *o, uint8_t *out) {
+void decode_0x313_Cell15_bal(can_0x313_Cells_13_16_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3338,14 +3338,14 @@ void decode_can_0x313_Cell15_bal(can_0x313_Cells_13_16_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x313_Cell15_bal(can_0x313_Cells_13_16_obj_t *o, uint8_t in) {
+void encode_0x313_Cell15_bal(can_0x313_Cells_13_16_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 47)) | ((x & 0x1uLL) << 47);
 	return;
 }
 
-void decode_can_0x313_Cell16_bal(can_0x313_Cells_13_16_obj_t *o, uint8_t *out) {
+void decode_0x313_Cell16_bal(can_0x313_Cells_13_16_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3356,14 +3356,14 @@ void decode_can_0x313_Cell16_bal(can_0x313_Cells_13_16_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x313_Cell16_bal(can_0x313_Cells_13_16_obj_t *o, uint8_t in) {
+void encode_0x313_Cell16_bal(can_0x313_Cells_13_16_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 63)) | ((x & 0x1uLL) << 63);
 	return;
 }
 
-void decode_can_0x314_Cell17(can_0x314_Cells_17_20_obj_t *o, int16_t *out) {
+void decode_0x314_Cell17(can_0x314_Cells_17_20_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3376,14 +3376,14 @@ void decode_can_0x314_Cell17(can_0x314_Cells_17_20_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x314_Cell17(can_0x314_Cells_17_20_obj_t *o, int16_t in) {
+void encode_0x314_Cell17(can_0x314_Cells_17_20_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0x7fffuLL) | (x & 0x7fffuLL);
 	return;
 }
 
-void decode_can_0x314_Cell18(can_0x314_Cells_17_20_obj_t *o, int16_t *out) {
+void decode_0x314_Cell18(can_0x314_Cells_17_20_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3396,14 +3396,14 @@ void decode_can_0x314_Cell18(can_0x314_Cells_17_20_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x314_Cell18(can_0x314_Cells_17_20_obj_t *o, int16_t in) {
+void encode_0x314_Cell18(can_0x314_Cells_17_20_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 16)) | ((x & 0x7fffuLL) << 16);
 	return;
 }
 
-void decode_can_0x314_Cell19(can_0x314_Cells_17_20_obj_t *o, int16_t *out) {
+void decode_0x314_Cell19(can_0x314_Cells_17_20_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3416,14 +3416,14 @@ void decode_can_0x314_Cell19(can_0x314_Cells_17_20_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x314_Cell19(can_0x314_Cells_17_20_obj_t *o, int16_t in) {
+void encode_0x314_Cell19(can_0x314_Cells_17_20_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 32)) | ((x & 0x7fffuLL) << 32);
 	return;
 }
 
-void decode_can_0x314_Cell20(can_0x314_Cells_17_20_obj_t *o, int16_t *out) {
+void decode_0x314_Cell20(can_0x314_Cells_17_20_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3436,14 +3436,14 @@ void decode_can_0x314_Cell20(can_0x314_Cells_17_20_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x314_Cell20(can_0x314_Cells_17_20_obj_t *o, int16_t in) {
+void encode_0x314_Cell20(can_0x314_Cells_17_20_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 48)) | ((x & 0x7fffuLL) << 48);
 	return;
 }
 
-void decode_can_0x314_Cell17_bal(can_0x314_Cells_17_20_obj_t *o, uint8_t *out) {
+void decode_0x314_Cell17_bal(can_0x314_Cells_17_20_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3454,14 +3454,14 @@ void decode_can_0x314_Cell17_bal(can_0x314_Cells_17_20_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x314_Cell17_bal(can_0x314_Cells_17_20_obj_t *o, uint8_t in) {
+void encode_0x314_Cell17_bal(can_0x314_Cells_17_20_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 15)) | ((x & 0x1uLL) << 15);
 	return;
 }
 
-void decode_can_0x314_Cell18_bal(can_0x314_Cells_17_20_obj_t *o, uint8_t *out) {
+void decode_0x314_Cell18_bal(can_0x314_Cells_17_20_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3472,14 +3472,14 @@ void decode_can_0x314_Cell18_bal(can_0x314_Cells_17_20_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x314_Cell18_bal(can_0x314_Cells_17_20_obj_t *o, uint8_t in) {
+void encode_0x314_Cell18_bal(can_0x314_Cells_17_20_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 31)) | ((x & 0x1uLL) << 31);
 	return;
 }
 
-void decode_can_0x314_Cell19_bal(can_0x314_Cells_17_20_obj_t *o, uint8_t *out) {
+void decode_0x314_Cell19_bal(can_0x314_Cells_17_20_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3490,14 +3490,14 @@ void decode_can_0x314_Cell19_bal(can_0x314_Cells_17_20_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x314_Cell19_bal(can_0x314_Cells_17_20_obj_t *o, uint8_t in) {
+void encode_0x314_Cell19_bal(can_0x314_Cells_17_20_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 47)) | ((x & 0x1uLL) << 47);
 	return;
 }
 
-void decode_can_0x314_Cell20_bal(can_0x314_Cells_17_20_obj_t *o, uint8_t *out) {
+void decode_0x314_Cell20_bal(can_0x314_Cells_17_20_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3508,14 +3508,14 @@ void decode_can_0x314_Cell20_bal(can_0x314_Cells_17_20_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x314_Cell20_bal(can_0x314_Cells_17_20_obj_t *o, uint8_t in) {
+void encode_0x314_Cell20_bal(can_0x314_Cells_17_20_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 63)) | ((x & 0x1uLL) << 63);
 	return;
 }
 
-void decode_can_0x315_Cell21(can_0x315_Cells_21_24_obj_t *o, int16_t *out) {
+void decode_0x315_Cell21(can_0x315_Cells_21_24_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3529,7 +3529,7 @@ void decode_can_0x315_Cell21(can_0x315_Cells_21_24_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x315_Cell21(can_0x315_Cells_21_24_obj_t *o, int16_t in) {
+void encode_0x315_Cell21(can_0x315_Cells_21_24_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= -16383);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
@@ -3537,7 +3537,7 @@ void encode_can_0x315_Cell21(can_0x315_Cells_21_24_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x315_Cell22(can_0x315_Cells_21_24_obj_t *o, int16_t *out) {
+void decode_0x315_Cell22(can_0x315_Cells_21_24_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3551,7 +3551,7 @@ void decode_can_0x315_Cell22(can_0x315_Cells_21_24_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x315_Cell22(can_0x315_Cells_21_24_obj_t *o, int16_t in) {
+void encode_0x315_Cell22(can_0x315_Cells_21_24_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= -16383);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
@@ -3559,7 +3559,7 @@ void encode_can_0x315_Cell22(can_0x315_Cells_21_24_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x315_Cell23(can_0x315_Cells_21_24_obj_t *o, int16_t *out) {
+void decode_0x315_Cell23(can_0x315_Cells_21_24_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3573,7 +3573,7 @@ void decode_can_0x315_Cell23(can_0x315_Cells_21_24_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x315_Cell23(can_0x315_Cells_21_24_obj_t *o, int16_t in) {
+void encode_0x315_Cell23(can_0x315_Cells_21_24_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= -16383);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
@@ -3581,7 +3581,7 @@ void encode_can_0x315_Cell23(can_0x315_Cells_21_24_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x315_Cell24(can_0x315_Cells_21_24_obj_t *o, int16_t *out) {
+void decode_0x315_Cell24(can_0x315_Cells_21_24_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3595,7 +3595,7 @@ void decode_can_0x315_Cell24(can_0x315_Cells_21_24_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x315_Cell24(can_0x315_Cells_21_24_obj_t *o, int16_t in) {
+void encode_0x315_Cell24(can_0x315_Cells_21_24_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= -16383);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
@@ -3603,7 +3603,7 @@ void encode_can_0x315_Cell24(can_0x315_Cells_21_24_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x315_Cell21_bal(can_0x315_Cells_21_24_obj_t *o, uint8_t *out) {
+void decode_0x315_Cell21_bal(can_0x315_Cells_21_24_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3614,14 +3614,14 @@ void decode_can_0x315_Cell21_bal(can_0x315_Cells_21_24_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x315_Cell21_bal(can_0x315_Cells_21_24_obj_t *o, uint8_t in) {
+void encode_0x315_Cell21_bal(can_0x315_Cells_21_24_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 15)) | ((x & 0x1uLL) << 15);
 	return;
 }
 
-void decode_can_0x315_Cell22_bal(can_0x315_Cells_21_24_obj_t *o, uint8_t *out) {
+void decode_0x315_Cell22_bal(can_0x315_Cells_21_24_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3632,14 +3632,14 @@ void decode_can_0x315_Cell22_bal(can_0x315_Cells_21_24_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x315_Cell22_bal(can_0x315_Cells_21_24_obj_t *o, uint8_t in) {
+void encode_0x315_Cell22_bal(can_0x315_Cells_21_24_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 31)) | ((x & 0x1uLL) << 31);
 	return;
 }
 
-void decode_can_0x315_Cell23_bal(can_0x315_Cells_21_24_obj_t *o, uint8_t *out) {
+void decode_0x315_Cell23_bal(can_0x315_Cells_21_24_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3650,14 +3650,14 @@ void decode_can_0x315_Cell23_bal(can_0x315_Cells_21_24_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x315_Cell23_bal(can_0x315_Cells_21_24_obj_t *o, uint8_t in) {
+void encode_0x315_Cell23_bal(can_0x315_Cells_21_24_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 47)) | ((x & 0x1uLL) << 47);
 	return;
 }
 
-void decode_can_0x315_Cell24_bal(can_0x315_Cells_21_24_obj_t *o, uint8_t *out) {
+void decode_0x315_Cell24_bal(can_0x315_Cells_21_24_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3668,14 +3668,14 @@ void decode_can_0x315_Cell24_bal(can_0x315_Cells_21_24_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x315_Cell24_bal(can_0x315_Cells_21_24_obj_t *o, uint8_t in) {
+void encode_0x315_Cell24_bal(can_0x315_Cells_21_24_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 63)) | ((x & 0x1uLL) << 63);
 	return;
 }
 
-void decode_can_0x316_Cell25(can_0x316_Cells_25_28_obj_t *o, int16_t *out) {
+void decode_0x316_Cell25(can_0x316_Cells_25_28_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3689,7 +3689,7 @@ void decode_can_0x316_Cell25(can_0x316_Cells_25_28_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x316_Cell25(can_0x316_Cells_25_28_obj_t *o, int16_t in) {
+void encode_0x316_Cell25(can_0x316_Cells_25_28_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= -16383);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
@@ -3697,7 +3697,7 @@ void encode_can_0x316_Cell25(can_0x316_Cells_25_28_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x316_Cell26(can_0x316_Cells_25_28_obj_t *o, int16_t *out) {
+void decode_0x316_Cell26(can_0x316_Cells_25_28_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3711,7 +3711,7 @@ void decode_can_0x316_Cell26(can_0x316_Cells_25_28_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x316_Cell26(can_0x316_Cells_25_28_obj_t *o, int16_t in) {
+void encode_0x316_Cell26(can_0x316_Cells_25_28_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= -16383);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
@@ -3719,7 +3719,7 @@ void encode_can_0x316_Cell26(can_0x316_Cells_25_28_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x316_Cell27(can_0x316_Cells_25_28_obj_t *o, int16_t *out) {
+void decode_0x316_Cell27(can_0x316_Cells_25_28_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3733,7 +3733,7 @@ void decode_can_0x316_Cell27(can_0x316_Cells_25_28_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x316_Cell27(can_0x316_Cells_25_28_obj_t *o, int16_t in) {
+void encode_0x316_Cell27(can_0x316_Cells_25_28_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= -16383);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
@@ -3741,7 +3741,7 @@ void encode_can_0x316_Cell27(can_0x316_Cells_25_28_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x316_Cell28(can_0x316_Cells_25_28_obj_t *o, int16_t *out) {
+void decode_0x316_Cell28(can_0x316_Cells_25_28_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3755,7 +3755,7 @@ void decode_can_0x316_Cell28(can_0x316_Cells_25_28_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x316_Cell28(can_0x316_Cells_25_28_obj_t *o, int16_t in) {
+void encode_0x316_Cell28(can_0x316_Cells_25_28_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= -16383);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
@@ -3763,7 +3763,7 @@ void encode_can_0x316_Cell28(can_0x316_Cells_25_28_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x316_Cell25_bal(can_0x316_Cells_25_28_obj_t *o, uint8_t *out) {
+void decode_0x316_Cell25_bal(can_0x316_Cells_25_28_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3774,14 +3774,14 @@ void decode_can_0x316_Cell25_bal(can_0x316_Cells_25_28_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x316_Cell25_bal(can_0x316_Cells_25_28_obj_t *o, uint8_t in) {
+void encode_0x316_Cell25_bal(can_0x316_Cells_25_28_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 15)) | ((x & 0x1uLL) << 15);
 	return;
 }
 
-void decode_can_0x316_Cell26_bal(can_0x316_Cells_25_28_obj_t *o, uint8_t *out) {
+void decode_0x316_Cell26_bal(can_0x316_Cells_25_28_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3792,14 +3792,14 @@ void decode_can_0x316_Cell26_bal(can_0x316_Cells_25_28_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x316_Cell26_bal(can_0x316_Cells_25_28_obj_t *o, uint8_t in) {
+void encode_0x316_Cell26_bal(can_0x316_Cells_25_28_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 31)) | ((x & 0x1uLL) << 31);
 	return;
 }
 
-void decode_can_0x316_Cell27_bal(can_0x316_Cells_25_28_obj_t *o, uint8_t *out) {
+void decode_0x316_Cell27_bal(can_0x316_Cells_25_28_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3810,14 +3810,14 @@ void decode_can_0x316_Cell27_bal(can_0x316_Cells_25_28_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x316_Cell27_bal(can_0x316_Cells_25_28_obj_t *o, uint8_t in) {
+void encode_0x316_Cell27_bal(can_0x316_Cells_25_28_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 47)) | ((x & 0x1uLL) << 47);
 	return;
 }
 
-void decode_can_0x316_Cell28_bal(can_0x316_Cells_25_28_obj_t *o, uint8_t *out) {
+void decode_0x316_Cell28_bal(can_0x316_Cells_25_28_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3828,14 +3828,14 @@ void decode_can_0x316_Cell28_bal(can_0x316_Cells_25_28_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x316_Cell28_bal(can_0x316_Cells_25_28_obj_t *o, uint8_t in) {
+void encode_0x316_Cell28_bal(can_0x316_Cells_25_28_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 63)) | ((x & 0x1uLL) << 63);
 	return;
 }
 
-void decode_can_0x317_Cell29(can_0x317_Cells_29_32_obj_t *o, int16_t *out) {
+void decode_0x317_Cell29(can_0x317_Cells_29_32_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3848,14 +3848,14 @@ void decode_can_0x317_Cell29(can_0x317_Cells_29_32_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x317_Cell29(can_0x317_Cells_29_32_obj_t *o, int16_t in) {
+void encode_0x317_Cell29(can_0x317_Cells_29_32_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0x7fffuLL) | (x & 0x7fffuLL);
 	return;
 }
 
-void decode_can_0x317_Cell30(can_0x317_Cells_29_32_obj_t *o, int16_t *out) {
+void decode_0x317_Cell30(can_0x317_Cells_29_32_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3868,14 +3868,14 @@ void decode_can_0x317_Cell30(can_0x317_Cells_29_32_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x317_Cell30(can_0x317_Cells_29_32_obj_t *o, int16_t in) {
+void encode_0x317_Cell30(can_0x317_Cells_29_32_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 16)) | ((x & 0x7fffuLL) << 16);
 	return;
 }
 
-void decode_can_0x317_Cell31(can_0x317_Cells_29_32_obj_t *o, int16_t *out) {
+void decode_0x317_Cell31(can_0x317_Cells_29_32_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3888,14 +3888,14 @@ void decode_can_0x317_Cell31(can_0x317_Cells_29_32_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x317_Cell31(can_0x317_Cells_29_32_obj_t *o, int16_t in) {
+void encode_0x317_Cell31(can_0x317_Cells_29_32_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 32)) | ((x & 0x7fffuLL) << 32);
 	return;
 }
 
-void decode_can_0x317_Cell32(can_0x317_Cells_29_32_obj_t *o, int16_t *out) {
+void decode_0x317_Cell32(can_0x317_Cells_29_32_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3908,14 +3908,14 @@ void decode_can_0x317_Cell32(can_0x317_Cells_29_32_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x317_Cell32(can_0x317_Cells_29_32_obj_t *o, int16_t in) {
+void encode_0x317_Cell32(can_0x317_Cells_29_32_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 48)) | ((x & 0x7fffuLL) << 48);
 	return;
 }
 
-void decode_can_0x317_Cell29_bal(can_0x317_Cells_29_32_obj_t *o, uint8_t *out) {
+void decode_0x317_Cell29_bal(can_0x317_Cells_29_32_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3926,14 +3926,14 @@ void decode_can_0x317_Cell29_bal(can_0x317_Cells_29_32_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x317_Cell29_bal(can_0x317_Cells_29_32_obj_t *o, uint8_t in) {
+void encode_0x317_Cell29_bal(can_0x317_Cells_29_32_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 15)) | ((x & 0x1uLL) << 15);
 	return;
 }
 
-void decode_can_0x317_Cell30_bal(can_0x317_Cells_29_32_obj_t *o, uint8_t *out) {
+void decode_0x317_Cell30_bal(can_0x317_Cells_29_32_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3944,14 +3944,14 @@ void decode_can_0x317_Cell30_bal(can_0x317_Cells_29_32_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x317_Cell30_bal(can_0x317_Cells_29_32_obj_t *o, uint8_t in) {
+void encode_0x317_Cell30_bal(can_0x317_Cells_29_32_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 31)) | ((x & 0x1uLL) << 31);
 	return;
 }
 
-void decode_can_0x317_Cell31_bal(can_0x317_Cells_29_32_obj_t *o, uint8_t *out) {
+void decode_0x317_Cell31_bal(can_0x317_Cells_29_32_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3962,14 +3962,14 @@ void decode_can_0x317_Cell31_bal(can_0x317_Cells_29_32_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x317_Cell31_bal(can_0x317_Cells_29_32_obj_t *o, uint8_t in) {
+void encode_0x317_Cell31_bal(can_0x317_Cells_29_32_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 47)) | ((x & 0x1uLL) << 47);
 	return;
 }
 
-void decode_can_0x317_Cell32_bal(can_0x317_Cells_29_32_obj_t *o, uint8_t *out) {
+void decode_0x317_Cell32_bal(can_0x317_Cells_29_32_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -3980,14 +3980,14 @@ void decode_can_0x317_Cell32_bal(can_0x317_Cells_29_32_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x317_Cell32_bal(can_0x317_Cells_29_32_obj_t *o, uint8_t in) {
+void encode_0x317_Cell32_bal(can_0x317_Cells_29_32_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 63)) | ((x & 0x1uLL) << 63);
 	return;
 }
 
-void decode_can_0x318_Cell33(can_0x318_Cells_33_36_obj_t *o, int16_t *out) {
+void decode_0x318_Cell33(can_0x318_Cells_33_36_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4000,14 +4000,14 @@ void decode_can_0x318_Cell33(can_0x318_Cells_33_36_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x318_Cell33(can_0x318_Cells_33_36_obj_t *o, int16_t in) {
+void encode_0x318_Cell33(can_0x318_Cells_33_36_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0x7fffuLL) | (x & 0x7fffuLL);
 	return;
 }
 
-void decode_can_0x318_Cell34(can_0x318_Cells_33_36_obj_t *o, int16_t *out) {
+void decode_0x318_Cell34(can_0x318_Cells_33_36_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4020,14 +4020,14 @@ void decode_can_0x318_Cell34(can_0x318_Cells_33_36_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x318_Cell34(can_0x318_Cells_33_36_obj_t *o, int16_t in) {
+void encode_0x318_Cell34(can_0x318_Cells_33_36_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 16)) | ((x & 0x7fffuLL) << 16);
 	return;
 }
 
-void decode_can_0x318_Cell35(can_0x318_Cells_33_36_obj_t *o, int16_t *out) {
+void decode_0x318_Cell35(can_0x318_Cells_33_36_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4040,14 +4040,14 @@ void decode_can_0x318_Cell35(can_0x318_Cells_33_36_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x318_Cell35(can_0x318_Cells_33_36_obj_t *o, int16_t in) {
+void encode_0x318_Cell35(can_0x318_Cells_33_36_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 32)) | ((x & 0x7fffuLL) << 32);
 	return;
 }
 
-void decode_can_0x318_Cell36(can_0x318_Cells_33_36_obj_t *o, int16_t *out) {
+void decode_0x318_Cell36(can_0x318_Cells_33_36_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4060,14 +4060,14 @@ void decode_can_0x318_Cell36(can_0x318_Cells_33_36_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x318_Cell36(can_0x318_Cells_33_36_obj_t *o, int16_t in) {
+void encode_0x318_Cell36(can_0x318_Cells_33_36_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 48)) | ((x & 0x7fffuLL) << 48);
 	return;
 }
 
-void decode_can_0x318_Cell33_bal(can_0x318_Cells_33_36_obj_t *o, uint8_t *out) {
+void decode_0x318_Cell33_bal(can_0x318_Cells_33_36_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4078,14 +4078,14 @@ void decode_can_0x318_Cell33_bal(can_0x318_Cells_33_36_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x318_Cell33_bal(can_0x318_Cells_33_36_obj_t *o, uint8_t in) {
+void encode_0x318_Cell33_bal(can_0x318_Cells_33_36_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 15)) | ((x & 0x1uLL) << 15);
 	return;
 }
 
-void decode_can_0x318_Cell34_bal(can_0x318_Cells_33_36_obj_t *o, uint8_t *out) {
+void decode_0x318_Cell34_bal(can_0x318_Cells_33_36_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4096,14 +4096,14 @@ void decode_can_0x318_Cell34_bal(can_0x318_Cells_33_36_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x318_Cell34_bal(can_0x318_Cells_33_36_obj_t *o, uint8_t in) {
+void encode_0x318_Cell34_bal(can_0x318_Cells_33_36_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 31)) | ((x & 0x1uLL) << 31);
 	return;
 }
 
-void decode_can_0x318_Cell35_bal(can_0x318_Cells_33_36_obj_t *o, uint8_t *out) {
+void decode_0x318_Cell35_bal(can_0x318_Cells_33_36_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4114,14 +4114,14 @@ void decode_can_0x318_Cell35_bal(can_0x318_Cells_33_36_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x318_Cell35_bal(can_0x318_Cells_33_36_obj_t *o, uint8_t in) {
+void encode_0x318_Cell35_bal(can_0x318_Cells_33_36_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 47)) | ((x & 0x1uLL) << 47);
 	return;
 }
 
-void decode_can_0x318_Cell36_bal(can_0x318_Cells_33_36_obj_t *o, uint8_t *out) {
+void decode_0x318_Cell36_bal(can_0x318_Cells_33_36_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4132,14 +4132,14 @@ void decode_can_0x318_Cell36_bal(can_0x318_Cells_33_36_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x318_Cell36_bal(can_0x318_Cells_33_36_obj_t *o, uint8_t in) {
+void encode_0x318_Cell36_bal(can_0x318_Cells_33_36_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 63)) | ((x & 0x1uLL) << 63);
 	return;
 }
 
-void decode_can_0x319_Cell37(can_0x319_Cells_37_40_obj_t *o, int16_t *out) {
+void decode_0x319_Cell37(can_0x319_Cells_37_40_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4152,14 +4152,14 @@ void decode_can_0x319_Cell37(can_0x319_Cells_37_40_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x319_Cell37(can_0x319_Cells_37_40_obj_t *o, int16_t in) {
+void encode_0x319_Cell37(can_0x319_Cells_37_40_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0x7fffuLL) | (x & 0x7fffuLL);
 	return;
 }
 
-void decode_can_0x319_Cell38(can_0x319_Cells_37_40_obj_t *o, int16_t *out) {
+void decode_0x319_Cell38(can_0x319_Cells_37_40_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4172,14 +4172,14 @@ void decode_can_0x319_Cell38(can_0x319_Cells_37_40_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x319_Cell38(can_0x319_Cells_37_40_obj_t *o, int16_t in) {
+void encode_0x319_Cell38(can_0x319_Cells_37_40_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 16)) | ((x & 0x7fffuLL) << 16);
 	return;
 }
 
-void decode_can_0x319_Cell39(can_0x319_Cells_37_40_obj_t *o, int16_t *out) {
+void decode_0x319_Cell39(can_0x319_Cells_37_40_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4192,14 +4192,14 @@ void decode_can_0x319_Cell39(can_0x319_Cells_37_40_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x319_Cell39(can_0x319_Cells_37_40_obj_t *o, int16_t in) {
+void encode_0x319_Cell39(can_0x319_Cells_37_40_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 32)) | ((x & 0x7fffuLL) << 32);
 	return;
 }
 
-void decode_can_0x319_Cell40(can_0x319_Cells_37_40_obj_t *o, int16_t *out) {
+void decode_0x319_Cell40(can_0x319_Cells_37_40_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4212,14 +4212,14 @@ void decode_can_0x319_Cell40(can_0x319_Cells_37_40_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x319_Cell40(can_0x319_Cells_37_40_obj_t *o, int16_t in) {
+void encode_0x319_Cell40(can_0x319_Cells_37_40_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 48)) | ((x & 0x7fffuLL) << 48);
 	return;
 }
 
-void decode_can_0x319_Cell37_bal(can_0x319_Cells_37_40_obj_t *o, uint8_t *out) {
+void decode_0x319_Cell37_bal(can_0x319_Cells_37_40_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4230,14 +4230,14 @@ void decode_can_0x319_Cell37_bal(can_0x319_Cells_37_40_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x319_Cell37_bal(can_0x319_Cells_37_40_obj_t *o, uint8_t in) {
+void encode_0x319_Cell37_bal(can_0x319_Cells_37_40_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 15)) | ((x & 0x1uLL) << 15);
 	return;
 }
 
-void decode_can_0x319_Cell38_bal(can_0x319_Cells_37_40_obj_t *o, uint8_t *out) {
+void decode_0x319_Cell38_bal(can_0x319_Cells_37_40_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4248,14 +4248,14 @@ void decode_can_0x319_Cell38_bal(can_0x319_Cells_37_40_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x319_Cell38_bal(can_0x319_Cells_37_40_obj_t *o, uint8_t in) {
+void encode_0x319_Cell38_bal(can_0x319_Cells_37_40_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 31)) | ((x & 0x1uLL) << 31);
 	return;
 }
 
-void decode_can_0x319_Cell39_bal(can_0x319_Cells_37_40_obj_t *o, uint8_t *out) {
+void decode_0x319_Cell39_bal(can_0x319_Cells_37_40_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4266,14 +4266,14 @@ void decode_can_0x319_Cell39_bal(can_0x319_Cells_37_40_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x319_Cell39_bal(can_0x319_Cells_37_40_obj_t *o, uint8_t in) {
+void encode_0x319_Cell39_bal(can_0x319_Cells_37_40_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 47)) | ((x & 0x1uLL) << 47);
 	return;
 }
 
-void decode_can_0x319_Cell40_bal(can_0x319_Cells_37_40_obj_t *o, uint8_t *out) {
+void decode_0x319_Cell40_bal(can_0x319_Cells_37_40_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4284,14 +4284,14 @@ void decode_can_0x319_Cell40_bal(can_0x319_Cells_37_40_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x319_Cell40_bal(can_0x319_Cells_37_40_obj_t *o, uint8_t in) {
+void encode_0x319_Cell40_bal(can_0x319_Cells_37_40_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 63)) | ((x & 0x1uLL) << 63);
 	return;
 }
 
-void decode_can_0x31a_Cell41(can_0x31a_Cells_41_44_obj_t *o, int16_t *out) {
+void decode_0x31a_Cell41(can_0x31a_Cells_41_44_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4304,14 +4304,14 @@ void decode_can_0x31a_Cell41(can_0x31a_Cells_41_44_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x31a_Cell41(can_0x31a_Cells_41_44_obj_t *o, int16_t in) {
+void encode_0x31a_Cell41(can_0x31a_Cells_41_44_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0x7fffuLL) | (x & 0x7fffuLL);
 	return;
 }
 
-void decode_can_0x31a_Cell42(can_0x31a_Cells_41_44_obj_t *o, int16_t *out) {
+void decode_0x31a_Cell42(can_0x31a_Cells_41_44_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4324,14 +4324,14 @@ void decode_can_0x31a_Cell42(can_0x31a_Cells_41_44_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x31a_Cell42(can_0x31a_Cells_41_44_obj_t *o, int16_t in) {
+void encode_0x31a_Cell42(can_0x31a_Cells_41_44_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 16)) | ((x & 0x7fffuLL) << 16);
 	return;
 }
 
-void decode_can_0x31a_Cell43(can_0x31a_Cells_41_44_obj_t *o, int16_t *out) {
+void decode_0x31a_Cell43(can_0x31a_Cells_41_44_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4344,14 +4344,14 @@ void decode_can_0x31a_Cell43(can_0x31a_Cells_41_44_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x31a_Cell43(can_0x31a_Cells_41_44_obj_t *o, int16_t in) {
+void encode_0x31a_Cell43(can_0x31a_Cells_41_44_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 32)) | ((x & 0x7fffuLL) << 32);
 	return;
 }
 
-void decode_can_0x31a_Cell44(can_0x31a_Cells_41_44_obj_t *o, int16_t *out) {
+void decode_0x31a_Cell44(can_0x31a_Cells_41_44_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4364,14 +4364,14 @@ void decode_can_0x31a_Cell44(can_0x31a_Cells_41_44_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x31a_Cell44(can_0x31a_Cells_41_44_obj_t *o, int16_t in) {
+void encode_0x31a_Cell44(can_0x31a_Cells_41_44_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 48)) | ((x & 0x7fffuLL) << 48);
 	return;
 }
 
-void decode_can_0x31a_Cell41_bal(can_0x31a_Cells_41_44_obj_t *o, uint8_t *out) {
+void decode_0x31a_Cell41_bal(can_0x31a_Cells_41_44_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4382,14 +4382,14 @@ void decode_can_0x31a_Cell41_bal(can_0x31a_Cells_41_44_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x31a_Cell41_bal(can_0x31a_Cells_41_44_obj_t *o, uint8_t in) {
+void encode_0x31a_Cell41_bal(can_0x31a_Cells_41_44_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 15)) | ((x & 0x1uLL) << 15);
 	return;
 }
 
-void decode_can_0x31a_Cell42_bal(can_0x31a_Cells_41_44_obj_t *o, uint8_t *out) {
+void decode_0x31a_Cell42_bal(can_0x31a_Cells_41_44_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4400,14 +4400,14 @@ void decode_can_0x31a_Cell42_bal(can_0x31a_Cells_41_44_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x31a_Cell42_bal(can_0x31a_Cells_41_44_obj_t *o, uint8_t in) {
+void encode_0x31a_Cell42_bal(can_0x31a_Cells_41_44_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 31)) | ((x & 0x1uLL) << 31);
 	return;
 }
 
-void decode_can_0x31a_Cell43_bal(can_0x31a_Cells_41_44_obj_t *o, uint8_t *out) {
+void decode_0x31a_Cell43_bal(can_0x31a_Cells_41_44_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4418,14 +4418,14 @@ void decode_can_0x31a_Cell43_bal(can_0x31a_Cells_41_44_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x31a_Cell43_bal(can_0x31a_Cells_41_44_obj_t *o, uint8_t in) {
+void encode_0x31a_Cell43_bal(can_0x31a_Cells_41_44_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 47)) | ((x & 0x1uLL) << 47);
 	return;
 }
 
-void decode_can_0x31a_Cell44_bal(can_0x31a_Cells_41_44_obj_t *o, uint8_t *out) {
+void decode_0x31a_Cell44_bal(can_0x31a_Cells_41_44_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4436,14 +4436,14 @@ void decode_can_0x31a_Cell44_bal(can_0x31a_Cells_41_44_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x31a_Cell44_bal(can_0x31a_Cells_41_44_obj_t *o, uint8_t in) {
+void encode_0x31a_Cell44_bal(can_0x31a_Cells_41_44_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 63)) | ((x & 0x1uLL) << 63);
 	return;
 }
 
-void decode_can_0x31b_Cell45(can_0x31b_Cells_45_48_obj_t *o, int16_t *out) {
+void decode_0x31b_Cell45(can_0x31b_Cells_45_48_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4456,14 +4456,14 @@ void decode_can_0x31b_Cell45(can_0x31b_Cells_45_48_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x31b_Cell45(can_0x31b_Cells_45_48_obj_t *o, int16_t in) {
+void encode_0x31b_Cell45(can_0x31b_Cells_45_48_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0x7fffuLL) | (x & 0x7fffuLL);
 	return;
 }
 
-void decode_can_0x31b_Cell46(can_0x31b_Cells_45_48_obj_t *o, int16_t *out) {
+void decode_0x31b_Cell46(can_0x31b_Cells_45_48_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4476,14 +4476,14 @@ void decode_can_0x31b_Cell46(can_0x31b_Cells_45_48_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x31b_Cell46(can_0x31b_Cells_45_48_obj_t *o, int16_t in) {
+void encode_0x31b_Cell46(can_0x31b_Cells_45_48_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 16)) | ((x & 0x7fffuLL) << 16);
 	return;
 }
 
-void decode_can_0x31b_Cell47(can_0x31b_Cells_45_48_obj_t *o, int16_t *out) {
+void decode_0x31b_Cell47(can_0x31b_Cells_45_48_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4496,14 +4496,14 @@ void decode_can_0x31b_Cell47(can_0x31b_Cells_45_48_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x31b_Cell47(can_0x31b_Cells_45_48_obj_t *o, int16_t in) {
+void encode_0x31b_Cell47(can_0x31b_Cells_45_48_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 32)) | ((x & 0x7fffuLL) << 32);
 	return;
 }
 
-void decode_can_0x31b_Cell48(can_0x31b_Cells_45_48_obj_t *o, int16_t *out) {
+void decode_0x31b_Cell48(can_0x31b_Cells_45_48_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4516,14 +4516,14 @@ void decode_can_0x31b_Cell48(can_0x31b_Cells_45_48_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x31b_Cell48(can_0x31b_Cells_45_48_obj_t *o, int16_t in) {
+void encode_0x31b_Cell48(can_0x31b_Cells_45_48_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 48)) | ((x & 0x7fffuLL) << 48);
 	return;
 }
 
-void decode_can_0x31b_Cell45_bal(can_0x31b_Cells_45_48_obj_t *o, uint8_t *out) {
+void decode_0x31b_Cell45_bal(can_0x31b_Cells_45_48_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4534,14 +4534,14 @@ void decode_can_0x31b_Cell45_bal(can_0x31b_Cells_45_48_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x31b_Cell45_bal(can_0x31b_Cells_45_48_obj_t *o, uint8_t in) {
+void encode_0x31b_Cell45_bal(can_0x31b_Cells_45_48_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 15)) | ((x & 0x1uLL) << 15);
 	return;
 }
 
-void decode_can_0x31b_Cell46_bal(can_0x31b_Cells_45_48_obj_t *o, uint8_t *out) {
+void decode_0x31b_Cell46_bal(can_0x31b_Cells_45_48_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4552,14 +4552,14 @@ void decode_can_0x31b_Cell46_bal(can_0x31b_Cells_45_48_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x31b_Cell46_bal(can_0x31b_Cells_45_48_obj_t *o, uint8_t in) {
+void encode_0x31b_Cell46_bal(can_0x31b_Cells_45_48_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 31)) | ((x & 0x1uLL) << 31);
 	return;
 }
 
-void decode_can_0x31b_Cell47_bal(can_0x31b_Cells_45_48_obj_t *o, uint8_t *out) {
+void decode_0x31b_Cell47_bal(can_0x31b_Cells_45_48_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4570,14 +4570,14 @@ void decode_can_0x31b_Cell47_bal(can_0x31b_Cells_45_48_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x31b_Cell47_bal(can_0x31b_Cells_45_48_obj_t *o, uint8_t in) {
+void encode_0x31b_Cell47_bal(can_0x31b_Cells_45_48_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 47)) | ((x & 0x1uLL) << 47);
 	return;
 }
 
-void decode_can_0x31b_Cell48_bal(can_0x31b_Cells_45_48_obj_t *o, uint8_t *out) {
+void decode_0x31b_Cell48_bal(can_0x31b_Cells_45_48_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4588,14 +4588,14 @@ void decode_can_0x31b_Cell48_bal(can_0x31b_Cells_45_48_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x31b_Cell48_bal(can_0x31b_Cells_45_48_obj_t *o, uint8_t in) {
+void encode_0x31b_Cell48_bal(can_0x31b_Cells_45_48_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 63)) | ((x & 0x1uLL) << 63);
 	return;
 }
 
-void decode_can_0x31c_Cell49(can_0x31c_Cells_49_52_obj_t *o, int16_t *out) {
+void decode_0x31c_Cell49(can_0x31c_Cells_49_52_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4608,14 +4608,14 @@ void decode_can_0x31c_Cell49(can_0x31c_Cells_49_52_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x31c_Cell49(can_0x31c_Cells_49_52_obj_t *o, int16_t in) {
+void encode_0x31c_Cell49(can_0x31c_Cells_49_52_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0x7fffuLL) | (x & 0x7fffuLL);
 	return;
 }
 
-void decode_can_0x31c_Cell50(can_0x31c_Cells_49_52_obj_t *o, int16_t *out) {
+void decode_0x31c_Cell50(can_0x31c_Cells_49_52_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4628,14 +4628,14 @@ void decode_can_0x31c_Cell50(can_0x31c_Cells_49_52_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x31c_Cell50(can_0x31c_Cells_49_52_obj_t *o, int16_t in) {
+void encode_0x31c_Cell50(can_0x31c_Cells_49_52_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 16)) | ((x & 0x7fffuLL) << 16);
 	return;
 }
 
-void decode_can_0x31c_Cell51(can_0x31c_Cells_49_52_obj_t *o, int16_t *out) {
+void decode_0x31c_Cell51(can_0x31c_Cells_49_52_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4648,14 +4648,14 @@ void decode_can_0x31c_Cell51(can_0x31c_Cells_49_52_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x31c_Cell51(can_0x31c_Cells_49_52_obj_t *o, int16_t in) {
+void encode_0x31c_Cell51(can_0x31c_Cells_49_52_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 32)) | ((x & 0x7fffuLL) << 32);
 	return;
 }
 
-void decode_can_0x31c_Cell52(can_0x31c_Cells_49_52_obj_t *o, int16_t *out) {
+void decode_0x31c_Cell52(can_0x31c_Cells_49_52_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4668,14 +4668,14 @@ void decode_can_0x31c_Cell52(can_0x31c_Cells_49_52_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x31c_Cell52(can_0x31c_Cells_49_52_obj_t *o, int16_t in) {
+void encode_0x31c_Cell52(can_0x31c_Cells_49_52_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 48)) | ((x & 0x7fffuLL) << 48);
 	return;
 }
 
-void decode_can_0x31c_Cell49_bal(can_0x31c_Cells_49_52_obj_t *o, uint8_t *out) {
+void decode_0x31c_Cell49_bal(can_0x31c_Cells_49_52_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4686,14 +4686,14 @@ void decode_can_0x31c_Cell49_bal(can_0x31c_Cells_49_52_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x31c_Cell49_bal(can_0x31c_Cells_49_52_obj_t *o, uint8_t in) {
+void encode_0x31c_Cell49_bal(can_0x31c_Cells_49_52_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 15)) | ((x & 0x1uLL) << 15);
 	return;
 }
 
-void decode_can_0x31c_Cell50_bal(can_0x31c_Cells_49_52_obj_t *o, uint8_t *out) {
+void decode_0x31c_Cell50_bal(can_0x31c_Cells_49_52_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4704,14 +4704,14 @@ void decode_can_0x31c_Cell50_bal(can_0x31c_Cells_49_52_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x31c_Cell50_bal(can_0x31c_Cells_49_52_obj_t *o, uint8_t in) {
+void encode_0x31c_Cell50_bal(can_0x31c_Cells_49_52_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 31)) | ((x & 0x1uLL) << 31);
 	return;
 }
 
-void decode_can_0x31c_Cell51_bal(can_0x31c_Cells_49_52_obj_t *o, uint8_t *out) {
+void decode_0x31c_Cell51_bal(can_0x31c_Cells_49_52_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4722,14 +4722,14 @@ void decode_can_0x31c_Cell51_bal(can_0x31c_Cells_49_52_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x31c_Cell51_bal(can_0x31c_Cells_49_52_obj_t *o, uint8_t in) {
+void encode_0x31c_Cell51_bal(can_0x31c_Cells_49_52_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 47)) | ((x & 0x1uLL) << 47);
 	return;
 }
 
-void decode_can_0x31c_Cell52_bal(can_0x31c_Cells_49_52_obj_t *o, uint8_t *out) {
+void decode_0x31c_Cell52_bal(can_0x31c_Cells_49_52_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4740,14 +4740,14 @@ void decode_can_0x31c_Cell52_bal(can_0x31c_Cells_49_52_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x31c_Cell52_bal(can_0x31c_Cells_49_52_obj_t *o, uint8_t in) {
+void encode_0x31c_Cell52_bal(can_0x31c_Cells_49_52_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 63)) | ((x & 0x1uLL) << 63);
 	return;
 }
 
-void decode_can_0x31d_Cell53(can_0x31d_Cells_53_54_obj_t *o, int16_t *out) {
+void decode_0x31d_Cell53(can_0x31d_Cells_53_54_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4760,14 +4760,14 @@ void decode_can_0x31d_Cell53(can_0x31d_Cells_53_54_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x31d_Cell53(can_0x31d_Cells_53_54_obj_t *o, int16_t in) {
+void encode_0x31d_Cell53(can_0x31d_Cells_53_54_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0x7fffuLL) | (x & 0x7fffuLL);
 	return;
 }
 
-void decode_can_0x31d_Cell54(can_0x31d_Cells_53_54_obj_t *o, int16_t *out) {
+void decode_0x31d_Cell54(can_0x31d_Cells_53_54_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4780,14 +4780,14 @@ void decode_can_0x31d_Cell54(can_0x31d_Cells_53_54_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x31d_Cell54(can_0x31d_Cells_53_54_obj_t *o, int16_t in) {
+void encode_0x31d_Cell54(can_0x31d_Cells_53_54_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 16)) | ((x & 0x7fffuLL) << 16);
 	return;
 }
 
-void decode_can_0x31d_Cell53_bal(can_0x31d_Cells_53_54_obj_t *o, uint8_t *out) {
+void decode_0x31d_Cell53_bal(can_0x31d_Cells_53_54_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4798,14 +4798,14 @@ void decode_can_0x31d_Cell53_bal(can_0x31d_Cells_53_54_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x31d_Cell53_bal(can_0x31d_Cells_53_54_obj_t *o, uint8_t in) {
+void encode_0x31d_Cell53_bal(can_0x31d_Cells_53_54_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 15)) | ((x & 0x1uLL) << 15);
 	return;
 }
 
-void decode_can_0x31d_Cell54_bal(can_0x31d_Cells_53_54_obj_t *o, uint8_t *out) {
+void decode_0x31d_Cell54_bal(can_0x31d_Cells_53_54_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4816,14 +4816,14 @@ void decode_can_0x31d_Cell54_bal(can_0x31d_Cells_53_54_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x31d_Cell54_bal(can_0x31d_Cells_53_54_obj_t *o, uint8_t in) {
+void encode_0x31d_Cell54_bal(can_0x31d_Cells_53_54_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 31)) | ((x & 0x1uLL) << 31);
 	return;
 }
 
-void decode_can_0x31e_Cell55(can_0x31e_Cells_55_58_obj_t *o, int16_t *out) {
+void decode_0x31e_Cell55(can_0x31e_Cells_55_58_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4838,7 +4838,7 @@ void decode_can_0x31e_Cell55(can_0x31e_Cells_55_58_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x31e_Cell55(can_0x31e_Cells_55_58_obj_t *o, int16_t in) {
+void encode_0x31e_Cell55(can_0x31e_Cells_55_58_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -4847,7 +4847,7 @@ void encode_can_0x31e_Cell55(can_0x31e_Cells_55_58_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x31e_Cell56(can_0x31e_Cells_55_58_obj_t *o, int16_t *out) {
+void decode_0x31e_Cell56(can_0x31e_Cells_55_58_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -4862,7 +4862,7 @@ void decode_can_0x31e_Cell56(can_0x31e_Cells_55_58_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x31e_Cell56(can_0x31e_Cells_55_58_obj_t *o, int16_t in) {
+void encode_0x31e_Cell56(can_0x31e_Cells_55_58_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -4871,175 +4871,7 @@ void encode_can_0x31e_Cell56(can_0x31e_Cells_55_58_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x31e_Cell57(can_0x31e_Cells_55_58_obj_t *o, int16_t *out) {
-	assert(o);
-	assert(out);
-	uint64_t _payload_sig = (uint64_t)(o->payload);
-	uint64_t _lane_sig = _payload_sig;
-	uint64_t x = (_lane_sig >> 32) & 0x7fffuLL;
-	if ((x & 0x4000uLL) != 0uLL)
-		x |= ~0x7fffuLL;
-	int16_t rval = (int16_t)((int64_t)x);
-	assert(rval >= 0);
-	assert(rval <= 5500);
-	*out = rval;
-	return;
-}
-
-void encode_can_0x31e_Cell57(can_0x31e_Cells_55_58_obj_t *o, int16_t in) {
-	assert(o);
-	assert(in >= 0);
-	assert(in <= 5500);
-	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
-	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 32)) | ((x & 0x7fffuLL) << 32);
-	return;
-}
-
-void decode_can_0x31e_Cell58(can_0x31e_Cells_55_58_obj_t *o, int16_t *out) {
-	assert(o);
-	assert(out);
-	uint64_t _payload_sig = (uint64_t)(o->payload);
-	uint64_t _lane_sig = _payload_sig;
-	uint64_t x = (_lane_sig >> 48) & 0x7fffuLL;
-	if ((x & 0x4000uLL) != 0uLL)
-		x |= ~0x7fffuLL;
-	int16_t rval = (int16_t)((int64_t)x);
-	assert(rval >= 0);
-	assert(rval <= 5500);
-	*out = rval;
-	return;
-}
-
-void encode_can_0x31e_Cell58(can_0x31e_Cells_55_58_obj_t *o, int16_t in) {
-	assert(o);
-	assert(in >= 0);
-	assert(in <= 5500);
-	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
-	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 48)) | ((x & 0x7fffuLL) << 48);
-	return;
-}
-
-void decode_can_0x31e_Cell55_bal(can_0x31e_Cells_55_58_obj_t *o, uint8_t *out) {
-	assert(o);
-	assert(out);
-	uint64_t _payload_sig = (uint64_t)(o->payload);
-	uint64_t _lane_sig = _payload_sig;
-	uint64_t x = (_lane_sig >> 15) & 0x1uLL;
-	uint8_t rval = (uint8_t)x;
-	*out = rval;
-	return;
-}
-
-void encode_can_0x31e_Cell55_bal(can_0x31e_Cells_55_58_obj_t *o, uint8_t in) {
-	assert(o);
-	uint64_t x = ((uint64_t)in) & 0x1uLL;
-	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 15)) | ((x & 0x1uLL) << 15);
-	return;
-}
-
-void decode_can_0x31e_Cell56_bal(can_0x31e_Cells_55_58_obj_t *o, uint8_t *out) {
-	assert(o);
-	assert(out);
-	uint64_t _payload_sig = (uint64_t)(o->payload);
-	uint64_t _lane_sig = _payload_sig;
-	uint64_t x = (_lane_sig >> 31) & 0x1uLL;
-	uint8_t rval = (uint8_t)x;
-	*out = rval;
-	return;
-}
-
-void encode_can_0x31e_Cell56_bal(can_0x31e_Cells_55_58_obj_t *o, uint8_t in) {
-	assert(o);
-	uint64_t x = ((uint64_t)in) & 0x1uLL;
-	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 31)) | ((x & 0x1uLL) << 31);
-	return;
-}
-
-void decode_can_0x31e_Cell57_bal(can_0x31e_Cells_55_58_obj_t *o, uint8_t *out) {
-	assert(o);
-	assert(out);
-	uint64_t _payload_sig = (uint64_t)(o->payload);
-	uint64_t _lane_sig = _payload_sig;
-	uint64_t x = (_lane_sig >> 47) & 0x1uLL;
-	uint8_t rval = (uint8_t)x;
-	*out = rval;
-	return;
-}
-
-void encode_can_0x31e_Cell57_bal(can_0x31e_Cells_55_58_obj_t *o, uint8_t in) {
-	assert(o);
-	uint64_t x = ((uint64_t)in) & 0x1uLL;
-	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 47)) | ((x & 0x1uLL) << 47);
-	return;
-}
-
-void decode_can_0x31e_Cell58_bal(can_0x31e_Cells_55_58_obj_t *o, uint8_t *out) {
-	assert(o);
-	assert(out);
-	uint64_t _payload_sig = (uint64_t)(o->payload);
-	uint64_t _lane_sig = _payload_sig;
-	uint64_t x = (_lane_sig >> 63) & 0x1uLL;
-	uint8_t rval = (uint8_t)x;
-	*out = rval;
-	return;
-}
-
-void encode_can_0x31e_Cell58_bal(can_0x31e_Cells_55_58_obj_t *o, uint8_t in) {
-	assert(o);
-	uint64_t x = ((uint64_t)in) & 0x1uLL;
-	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 63)) | ((x & 0x1uLL) << 63);
-	return;
-}
-
-void decode_can_0x31f_Cell59(can_0x31f_Cells_59_62_obj_t *o, int16_t *out) {
-	assert(o);
-	assert(out);
-	uint64_t _payload_sig = (uint64_t)(o->payload);
-	uint64_t _lane_sig = _payload_sig;
-	uint64_t x = _lane_sig & 0x7fffuLL;
-	if ((x & 0x4000uLL) != 0uLL)
-		x |= ~0x7fffuLL;
-	int16_t rval = (int16_t)((int64_t)x);
-	assert(rval >= 0);
-	assert(rval <= 5500);
-	*out = rval;
-	return;
-}
-
-void encode_can_0x31f_Cell59(can_0x31f_Cells_59_62_obj_t *o, int16_t in) {
-	assert(o);
-	assert(in >= 0);
-	assert(in <= 5500);
-	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
-	o->payload = (((uint64_t)o->payload) & ~0x7fffuLL) | (x & 0x7fffuLL);
-	return;
-}
-
-void decode_can_0x31f_Cell60(can_0x31f_Cells_59_62_obj_t *o, int16_t *out) {
-	assert(o);
-	assert(out);
-	uint64_t _payload_sig = (uint64_t)(o->payload);
-	uint64_t _lane_sig = _payload_sig;
-	uint64_t x = (_lane_sig >> 16) & 0x7fffuLL;
-	if ((x & 0x4000uLL) != 0uLL)
-		x |= ~0x7fffuLL;
-	int16_t rval = (int16_t)((int64_t)x);
-	assert(rval >= 0);
-	assert(rval <= 5500);
-	*out = rval;
-	return;
-}
-
-void encode_can_0x31f_Cell60(can_0x31f_Cells_59_62_obj_t *o, int16_t in) {
-	assert(o);
-	assert(in >= 0);
-	assert(in <= 5500);
-	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
-	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 16)) | ((x & 0x7fffuLL) << 16);
-	return;
-}
-
-void decode_can_0x31f_Cell61(can_0x31f_Cells_59_62_obj_t *o, int16_t *out) {
+void decode_0x31e_Cell57(can_0x31e_Cells_55_58_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5054,7 +4886,7 @@ void decode_can_0x31f_Cell61(can_0x31f_Cells_59_62_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x31f_Cell61(can_0x31f_Cells_59_62_obj_t *o, int16_t in) {
+void encode_0x31e_Cell57(can_0x31e_Cells_55_58_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -5063,7 +4895,7 @@ void encode_can_0x31f_Cell61(can_0x31f_Cells_59_62_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x31f_Cell62(can_0x31f_Cells_59_62_obj_t *o, int16_t *out) {
+void decode_0x31e_Cell58(can_0x31e_Cells_55_58_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5078,7 +4910,7 @@ void decode_can_0x31f_Cell62(can_0x31f_Cells_59_62_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x31f_Cell62(can_0x31f_Cells_59_62_obj_t *o, int16_t in) {
+void encode_0x31e_Cell58(can_0x31e_Cells_55_58_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -5087,7 +4919,7 @@ void encode_can_0x31f_Cell62(can_0x31f_Cells_59_62_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x31f_Cell59_bal(can_0x31f_Cells_59_62_obj_t *o, uint8_t *out) {
+void decode_0x31e_Cell55_bal(can_0x31e_Cells_55_58_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5098,14 +4930,14 @@ void decode_can_0x31f_Cell59_bal(can_0x31f_Cells_59_62_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x31f_Cell59_bal(can_0x31f_Cells_59_62_obj_t *o, uint8_t in) {
+void encode_0x31e_Cell55_bal(can_0x31e_Cells_55_58_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 15)) | ((x & 0x1uLL) << 15);
 	return;
 }
 
-void decode_can_0x31f_Cell60_bal(can_0x31f_Cells_59_62_obj_t *o, uint8_t *out) {
+void decode_0x31e_Cell56_bal(can_0x31e_Cells_55_58_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5116,14 +4948,14 @@ void decode_can_0x31f_Cell60_bal(can_0x31f_Cells_59_62_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x31f_Cell60_bal(can_0x31f_Cells_59_62_obj_t *o, uint8_t in) {
+void encode_0x31e_Cell56_bal(can_0x31e_Cells_55_58_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 31)) | ((x & 0x1uLL) << 31);
 	return;
 }
 
-void decode_can_0x31f_Cell61_bal(can_0x31f_Cells_59_62_obj_t *o, uint8_t *out) {
+void decode_0x31e_Cell57_bal(can_0x31e_Cells_55_58_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5134,14 +4966,14 @@ void decode_can_0x31f_Cell61_bal(can_0x31f_Cells_59_62_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x31f_Cell61_bal(can_0x31f_Cells_59_62_obj_t *o, uint8_t in) {
+void encode_0x31e_Cell57_bal(can_0x31e_Cells_55_58_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 47)) | ((x & 0x1uLL) << 47);
 	return;
 }
 
-void decode_can_0x31f_Cell62_bal(can_0x31f_Cells_59_62_obj_t *o, uint8_t *out) {
+void decode_0x31e_Cell58_bal(can_0x31e_Cells_55_58_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5152,14 +4984,14 @@ void decode_can_0x31f_Cell62_bal(can_0x31f_Cells_59_62_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x31f_Cell62_bal(can_0x31f_Cells_59_62_obj_t *o, uint8_t in) {
+void encode_0x31e_Cell58_bal(can_0x31e_Cells_55_58_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 63)) | ((x & 0x1uLL) << 63);
 	return;
 }
 
-void decode_can_0x320_Cell63(can_0x320_Cells_63_66_obj_t *o, int16_t *out) {
+void decode_0x31f_Cell59(can_0x31f_Cells_59_62_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5174,7 +5006,7 @@ void decode_can_0x320_Cell63(can_0x320_Cells_63_66_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x320_Cell63(can_0x320_Cells_63_66_obj_t *o, int16_t in) {
+void encode_0x31f_Cell59(can_0x31f_Cells_59_62_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -5183,7 +5015,7 @@ void encode_can_0x320_Cell63(can_0x320_Cells_63_66_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x320_Cell64(can_0x320_Cells_63_66_obj_t *o, int16_t *out) {
+void decode_0x31f_Cell60(can_0x31f_Cells_59_62_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5198,7 +5030,7 @@ void decode_can_0x320_Cell64(can_0x320_Cells_63_66_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x320_Cell64(can_0x320_Cells_63_66_obj_t *o, int16_t in) {
+void encode_0x31f_Cell60(can_0x31f_Cells_59_62_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -5207,7 +5039,7 @@ void encode_can_0x320_Cell64(can_0x320_Cells_63_66_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x320_Cell65(can_0x320_Cells_63_66_obj_t *o, int16_t *out) {
+void decode_0x31f_Cell61(can_0x31f_Cells_59_62_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5222,7 +5054,7 @@ void decode_can_0x320_Cell65(can_0x320_Cells_63_66_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x320_Cell65(can_0x320_Cells_63_66_obj_t *o, int16_t in) {
+void encode_0x31f_Cell61(can_0x31f_Cells_59_62_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -5231,7 +5063,7 @@ void encode_can_0x320_Cell65(can_0x320_Cells_63_66_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x320_Cell66(can_0x320_Cells_63_66_obj_t *o, int16_t *out) {
+void decode_0x31f_Cell62(can_0x31f_Cells_59_62_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5246,7 +5078,7 @@ void decode_can_0x320_Cell66(can_0x320_Cells_63_66_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x320_Cell66(can_0x320_Cells_63_66_obj_t *o, int16_t in) {
+void encode_0x31f_Cell62(can_0x31f_Cells_59_62_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -5255,7 +5087,7 @@ void encode_can_0x320_Cell66(can_0x320_Cells_63_66_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x320_Cell63_bal(can_0x320_Cells_63_66_obj_t *o, uint8_t *out) {
+void decode_0x31f_Cell59_bal(can_0x31f_Cells_59_62_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5266,14 +5098,14 @@ void decode_can_0x320_Cell63_bal(can_0x320_Cells_63_66_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x320_Cell63_bal(can_0x320_Cells_63_66_obj_t *o, uint8_t in) {
+void encode_0x31f_Cell59_bal(can_0x31f_Cells_59_62_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 15)) | ((x & 0x1uLL) << 15);
 	return;
 }
 
-void decode_can_0x320_Cell64_bal(can_0x320_Cells_63_66_obj_t *o, uint8_t *out) {
+void decode_0x31f_Cell60_bal(can_0x31f_Cells_59_62_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5284,14 +5116,14 @@ void decode_can_0x320_Cell64_bal(can_0x320_Cells_63_66_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x320_Cell64_bal(can_0x320_Cells_63_66_obj_t *o, uint8_t in) {
+void encode_0x31f_Cell60_bal(can_0x31f_Cells_59_62_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 31)) | ((x & 0x1uLL) << 31);
 	return;
 }
 
-void decode_can_0x320_Cell65_bal(can_0x320_Cells_63_66_obj_t *o, uint8_t *out) {
+void decode_0x31f_Cell61_bal(can_0x31f_Cells_59_62_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5302,14 +5134,14 @@ void decode_can_0x320_Cell65_bal(can_0x320_Cells_63_66_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x320_Cell65_bal(can_0x320_Cells_63_66_obj_t *o, uint8_t in) {
+void encode_0x31f_Cell61_bal(can_0x31f_Cells_59_62_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 47)) | ((x & 0x1uLL) << 47);
 	return;
 }
 
-void decode_can_0x320_Cell66_bal(can_0x320_Cells_63_66_obj_t *o, uint8_t *out) {
+void decode_0x31f_Cell62_bal(can_0x31f_Cells_59_62_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5320,14 +5152,14 @@ void decode_can_0x320_Cell66_bal(can_0x320_Cells_63_66_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x320_Cell66_bal(can_0x320_Cells_63_66_obj_t *o, uint8_t in) {
+void encode_0x31f_Cell62_bal(can_0x31f_Cells_59_62_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 63)) | ((x & 0x1uLL) << 63);
 	return;
 }
 
-void decode_can_0x321_Cell67(can_0x321_Cells_67_70_obj_t *o, int16_t *out) {
+void decode_0x320_Cell63(can_0x320_Cells_63_66_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5342,7 +5174,7 @@ void decode_can_0x321_Cell67(can_0x321_Cells_67_70_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x321_Cell67(can_0x321_Cells_67_70_obj_t *o, int16_t in) {
+void encode_0x320_Cell63(can_0x320_Cells_63_66_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -5351,7 +5183,7 @@ void encode_can_0x321_Cell67(can_0x321_Cells_67_70_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x321_Cell68(can_0x321_Cells_67_70_obj_t *o, int16_t *out) {
+void decode_0x320_Cell64(can_0x320_Cells_63_66_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5366,7 +5198,7 @@ void decode_can_0x321_Cell68(can_0x321_Cells_67_70_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x321_Cell68(can_0x321_Cells_67_70_obj_t *o, int16_t in) {
+void encode_0x320_Cell64(can_0x320_Cells_63_66_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -5375,7 +5207,7 @@ void encode_can_0x321_Cell68(can_0x321_Cells_67_70_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x321_Cell69(can_0x321_Cells_67_70_obj_t *o, int16_t *out) {
+void decode_0x320_Cell65(can_0x320_Cells_63_66_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5390,7 +5222,7 @@ void decode_can_0x321_Cell69(can_0x321_Cells_67_70_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x321_Cell69(can_0x321_Cells_67_70_obj_t *o, int16_t in) {
+void encode_0x320_Cell65(can_0x320_Cells_63_66_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -5399,7 +5231,7 @@ void encode_can_0x321_Cell69(can_0x321_Cells_67_70_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x321_Cell70(can_0x321_Cells_67_70_obj_t *o, int16_t *out) {
+void decode_0x320_Cell66(can_0x320_Cells_63_66_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5414,7 +5246,7 @@ void decode_can_0x321_Cell70(can_0x321_Cells_67_70_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x321_Cell70(can_0x321_Cells_67_70_obj_t *o, int16_t in) {
+void encode_0x320_Cell66(can_0x320_Cells_63_66_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -5423,7 +5255,7 @@ void encode_can_0x321_Cell70(can_0x321_Cells_67_70_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x321_Cell67_bal(can_0x321_Cells_67_70_obj_t *o, uint8_t *out) {
+void decode_0x320_Cell63_bal(can_0x320_Cells_63_66_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5434,14 +5266,14 @@ void decode_can_0x321_Cell67_bal(can_0x321_Cells_67_70_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x321_Cell67_bal(can_0x321_Cells_67_70_obj_t *o, uint8_t in) {
+void encode_0x320_Cell63_bal(can_0x320_Cells_63_66_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 15)) | ((x & 0x1uLL) << 15);
 	return;
 }
 
-void decode_can_0x321_Cell68_bal(can_0x321_Cells_67_70_obj_t *o, uint8_t *out) {
+void decode_0x320_Cell64_bal(can_0x320_Cells_63_66_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5452,14 +5284,14 @@ void decode_can_0x321_Cell68_bal(can_0x321_Cells_67_70_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x321_Cell68_bal(can_0x321_Cells_67_70_obj_t *o, uint8_t in) {
+void encode_0x320_Cell64_bal(can_0x320_Cells_63_66_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 31)) | ((x & 0x1uLL) << 31);
 	return;
 }
 
-void decode_can_0x321_Cell69_bal(can_0x321_Cells_67_70_obj_t *o, uint8_t *out) {
+void decode_0x320_Cell65_bal(can_0x320_Cells_63_66_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5470,14 +5302,14 @@ void decode_can_0x321_Cell69_bal(can_0x321_Cells_67_70_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x321_Cell69_bal(can_0x321_Cells_67_70_obj_t *o, uint8_t in) {
+void encode_0x320_Cell65_bal(can_0x320_Cells_63_66_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 47)) | ((x & 0x1uLL) << 47);
 	return;
 }
 
-void decode_can_0x321_Cell70_bal(can_0x321_Cells_67_70_obj_t *o, uint8_t *out) {
+void decode_0x320_Cell66_bal(can_0x320_Cells_63_66_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5488,14 +5320,14 @@ void decode_can_0x321_Cell70_bal(can_0x321_Cells_67_70_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x321_Cell70_bal(can_0x321_Cells_67_70_obj_t *o, uint8_t in) {
+void encode_0x320_Cell66_bal(can_0x320_Cells_63_66_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 63)) | ((x & 0x1uLL) << 63);
 	return;
 }
 
-void decode_can_0x322_Cell71(can_0x322_Cells_71_74_obj_t *o, int16_t *out) {
+void decode_0x321_Cell67(can_0x321_Cells_67_70_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5510,7 +5342,7 @@ void decode_can_0x322_Cell71(can_0x322_Cells_71_74_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x322_Cell71(can_0x322_Cells_71_74_obj_t *o, int16_t in) {
+void encode_0x321_Cell67(can_0x321_Cells_67_70_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -5519,7 +5351,7 @@ void encode_can_0x322_Cell71(can_0x322_Cells_71_74_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x322_Cell72(can_0x322_Cells_71_74_obj_t *o, int16_t *out) {
+void decode_0x321_Cell68(can_0x321_Cells_67_70_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5534,7 +5366,7 @@ void decode_can_0x322_Cell72(can_0x322_Cells_71_74_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x322_Cell72(can_0x322_Cells_71_74_obj_t *o, int16_t in) {
+void encode_0x321_Cell68(can_0x321_Cells_67_70_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -5543,7 +5375,7 @@ void encode_can_0x322_Cell72(can_0x322_Cells_71_74_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x322_Cell73(can_0x322_Cells_71_74_obj_t *o, int16_t *out) {
+void decode_0x321_Cell69(can_0x321_Cells_67_70_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5558,7 +5390,7 @@ void decode_can_0x322_Cell73(can_0x322_Cells_71_74_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x322_Cell73(can_0x322_Cells_71_74_obj_t *o, int16_t in) {
+void encode_0x321_Cell69(can_0x321_Cells_67_70_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -5567,7 +5399,7 @@ void encode_can_0x322_Cell73(can_0x322_Cells_71_74_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x322_Cell74(can_0x322_Cells_71_74_obj_t *o, int16_t *out) {
+void decode_0x321_Cell70(can_0x321_Cells_67_70_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5582,7 +5414,7 @@ void decode_can_0x322_Cell74(can_0x322_Cells_71_74_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x322_Cell74(can_0x322_Cells_71_74_obj_t *o, int16_t in) {
+void encode_0x321_Cell70(can_0x321_Cells_67_70_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -5591,7 +5423,7 @@ void encode_can_0x322_Cell74(can_0x322_Cells_71_74_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x322_Cell71_bal(can_0x322_Cells_71_74_obj_t *o, uint8_t *out) {
+void decode_0x321_Cell67_bal(can_0x321_Cells_67_70_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5602,14 +5434,14 @@ void decode_can_0x322_Cell71_bal(can_0x322_Cells_71_74_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x322_Cell71_bal(can_0x322_Cells_71_74_obj_t *o, uint8_t in) {
+void encode_0x321_Cell67_bal(can_0x321_Cells_67_70_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 15)) | ((x & 0x1uLL) << 15);
 	return;
 }
 
-void decode_can_0x322_Cell72_bal(can_0x322_Cells_71_74_obj_t *o, uint8_t *out) {
+void decode_0x321_Cell68_bal(can_0x321_Cells_67_70_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5620,14 +5452,14 @@ void decode_can_0x322_Cell72_bal(can_0x322_Cells_71_74_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x322_Cell72_bal(can_0x322_Cells_71_74_obj_t *o, uint8_t in) {
+void encode_0x321_Cell68_bal(can_0x321_Cells_67_70_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 31)) | ((x & 0x1uLL) << 31);
 	return;
 }
 
-void decode_can_0x322_Cell73_bal(can_0x322_Cells_71_74_obj_t *o, uint8_t *out) {
+void decode_0x321_Cell69_bal(can_0x321_Cells_67_70_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5638,14 +5470,14 @@ void decode_can_0x322_Cell73_bal(can_0x322_Cells_71_74_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x322_Cell73_bal(can_0x322_Cells_71_74_obj_t *o, uint8_t in) {
+void encode_0x321_Cell69_bal(can_0x321_Cells_67_70_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 47)) | ((x & 0x1uLL) << 47);
 	return;
 }
 
-void decode_can_0x322_Cell74_bal(can_0x322_Cells_71_74_obj_t *o, uint8_t *out) {
+void decode_0x321_Cell70_bal(can_0x321_Cells_67_70_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5656,14 +5488,14 @@ void decode_can_0x322_Cell74_bal(can_0x322_Cells_71_74_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x322_Cell74_bal(can_0x322_Cells_71_74_obj_t *o, uint8_t in) {
+void encode_0x321_Cell70_bal(can_0x321_Cells_67_70_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 63)) | ((x & 0x1uLL) << 63);
 	return;
 }
 
-void decode_can_0x323_Cell75(can_0x323_Cells_75_78_obj_t *o, int16_t *out) {
+void decode_0x322_Cell71(can_0x322_Cells_71_74_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5678,7 +5510,7 @@ void decode_can_0x323_Cell75(can_0x323_Cells_75_78_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x323_Cell75(can_0x323_Cells_75_78_obj_t *o, int16_t in) {
+void encode_0x322_Cell71(can_0x322_Cells_71_74_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -5687,7 +5519,7 @@ void encode_can_0x323_Cell75(can_0x323_Cells_75_78_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x323_Cell76(can_0x323_Cells_75_78_obj_t *o, int16_t *out) {
+void decode_0x322_Cell72(can_0x322_Cells_71_74_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5702,7 +5534,7 @@ void decode_can_0x323_Cell76(can_0x323_Cells_75_78_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x323_Cell76(can_0x323_Cells_75_78_obj_t *o, int16_t in) {
+void encode_0x322_Cell72(can_0x322_Cells_71_74_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -5711,7 +5543,7 @@ void encode_can_0x323_Cell76(can_0x323_Cells_75_78_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x323_Cell77(can_0x323_Cells_75_78_obj_t *o, int16_t *out) {
+void decode_0x322_Cell73(can_0x322_Cells_71_74_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5726,7 +5558,7 @@ void decode_can_0x323_Cell77(can_0x323_Cells_75_78_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x323_Cell77(can_0x323_Cells_75_78_obj_t *o, int16_t in) {
+void encode_0x322_Cell73(can_0x322_Cells_71_74_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -5735,7 +5567,7 @@ void encode_can_0x323_Cell77(can_0x323_Cells_75_78_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x323_Cell78(can_0x323_Cells_75_78_obj_t *o, int16_t *out) {
+void decode_0x322_Cell74(can_0x322_Cells_71_74_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5750,7 +5582,7 @@ void decode_can_0x323_Cell78(can_0x323_Cells_75_78_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x323_Cell78(can_0x323_Cells_75_78_obj_t *o, int16_t in) {
+void encode_0x322_Cell74(can_0x322_Cells_71_74_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -5759,7 +5591,7 @@ void encode_can_0x323_Cell78(can_0x323_Cells_75_78_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x323_Cell75_bal(can_0x323_Cells_75_78_obj_t *o, uint8_t *out) {
+void decode_0x322_Cell71_bal(can_0x322_Cells_71_74_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5770,14 +5602,14 @@ void decode_can_0x323_Cell75_bal(can_0x323_Cells_75_78_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x323_Cell75_bal(can_0x323_Cells_75_78_obj_t *o, uint8_t in) {
+void encode_0x322_Cell71_bal(can_0x322_Cells_71_74_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 15)) | ((x & 0x1uLL) << 15);
 	return;
 }
 
-void decode_can_0x323_Cell76_bal(can_0x323_Cells_75_78_obj_t *o, uint8_t *out) {
+void decode_0x322_Cell72_bal(can_0x322_Cells_71_74_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5788,14 +5620,14 @@ void decode_can_0x323_Cell76_bal(can_0x323_Cells_75_78_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x323_Cell76_bal(can_0x323_Cells_75_78_obj_t *o, uint8_t in) {
+void encode_0x322_Cell72_bal(can_0x322_Cells_71_74_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 31)) | ((x & 0x1uLL) << 31);
 	return;
 }
 
-void decode_can_0x323_Cell77_bal(can_0x323_Cells_75_78_obj_t *o, uint8_t *out) {
+void decode_0x322_Cell73_bal(can_0x322_Cells_71_74_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5806,14 +5638,14 @@ void decode_can_0x323_Cell77_bal(can_0x323_Cells_75_78_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x323_Cell77_bal(can_0x323_Cells_75_78_obj_t *o, uint8_t in) {
+void encode_0x322_Cell73_bal(can_0x322_Cells_71_74_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 47)) | ((x & 0x1uLL) << 47);
 	return;
 }
 
-void decode_can_0x323_Cell78_bal(can_0x323_Cells_75_78_obj_t *o, uint8_t *out) {
+void decode_0x322_Cell74_bal(can_0x322_Cells_71_74_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5824,14 +5656,14 @@ void decode_can_0x323_Cell78_bal(can_0x323_Cells_75_78_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x323_Cell78_bal(can_0x323_Cells_75_78_obj_t *o, uint8_t in) {
+void encode_0x322_Cell74_bal(can_0x322_Cells_71_74_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 63)) | ((x & 0x1uLL) << 63);
 	return;
 }
 
-void decode_can_0x324_Cell79(can_0x324_Cells_79_82_obj_t *o, int16_t *out) {
+void decode_0x323_Cell75(can_0x323_Cells_75_78_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5846,7 +5678,7 @@ void decode_can_0x324_Cell79(can_0x324_Cells_79_82_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x324_Cell79(can_0x324_Cells_79_82_obj_t *o, int16_t in) {
+void encode_0x323_Cell75(can_0x323_Cells_75_78_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -5855,7 +5687,7 @@ void encode_can_0x324_Cell79(can_0x324_Cells_79_82_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x324_Cell80(can_0x324_Cells_79_82_obj_t *o, int16_t *out) {
+void decode_0x323_Cell76(can_0x323_Cells_75_78_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5870,7 +5702,7 @@ void decode_can_0x324_Cell80(can_0x324_Cells_79_82_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x324_Cell80(can_0x324_Cells_79_82_obj_t *o, int16_t in) {
+void encode_0x323_Cell76(can_0x323_Cells_75_78_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -5879,7 +5711,7 @@ void encode_can_0x324_Cell80(can_0x324_Cells_79_82_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x324_Cell81(can_0x324_Cells_79_82_obj_t *o, int16_t *out) {
+void decode_0x323_Cell77(can_0x323_Cells_75_78_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5894,7 +5726,7 @@ void decode_can_0x324_Cell81(can_0x324_Cells_79_82_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x324_Cell81(can_0x324_Cells_79_82_obj_t *o, int16_t in) {
+void encode_0x323_Cell77(can_0x323_Cells_75_78_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -5903,7 +5735,7 @@ void encode_can_0x324_Cell81(can_0x324_Cells_79_82_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x324_Cell82(can_0x324_Cells_79_82_obj_t *o, int16_t *out) {
+void decode_0x323_Cell78(can_0x323_Cells_75_78_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5918,7 +5750,7 @@ void decode_can_0x324_Cell82(can_0x324_Cells_79_82_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x324_Cell82(can_0x324_Cells_79_82_obj_t *o, int16_t in) {
+void encode_0x323_Cell78(can_0x323_Cells_75_78_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -5927,7 +5759,7 @@ void encode_can_0x324_Cell82(can_0x324_Cells_79_82_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x324_Cell79_bal(can_0x324_Cells_79_82_obj_t *o, uint8_t *out) {
+void decode_0x323_Cell75_bal(can_0x323_Cells_75_78_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5938,14 +5770,14 @@ void decode_can_0x324_Cell79_bal(can_0x324_Cells_79_82_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x324_Cell79_bal(can_0x324_Cells_79_82_obj_t *o, uint8_t in) {
+void encode_0x323_Cell75_bal(can_0x323_Cells_75_78_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 15)) | ((x & 0x1uLL) << 15);
 	return;
 }
 
-void decode_can_0x324_Cell80_bal(can_0x324_Cells_79_82_obj_t *o, uint8_t *out) {
+void decode_0x323_Cell76_bal(can_0x323_Cells_75_78_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5956,14 +5788,14 @@ void decode_can_0x324_Cell80_bal(can_0x324_Cells_79_82_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x324_Cell80_bal(can_0x324_Cells_79_82_obj_t *o, uint8_t in) {
+void encode_0x323_Cell76_bal(can_0x323_Cells_75_78_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 31)) | ((x & 0x1uLL) << 31);
 	return;
 }
 
-void decode_can_0x324_Cell81_bal(can_0x324_Cells_79_82_obj_t *o, uint8_t *out) {
+void decode_0x323_Cell77_bal(can_0x323_Cells_75_78_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5974,14 +5806,14 @@ void decode_can_0x324_Cell81_bal(can_0x324_Cells_79_82_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x324_Cell81_bal(can_0x324_Cells_79_82_obj_t *o, uint8_t in) {
+void encode_0x323_Cell77_bal(can_0x323_Cells_75_78_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 47)) | ((x & 0x1uLL) << 47);
 	return;
 }
 
-void decode_can_0x324_Cell82_bal(can_0x324_Cells_79_82_obj_t *o, uint8_t *out) {
+void decode_0x323_Cell78_bal(can_0x323_Cells_75_78_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -5992,14 +5824,14 @@ void decode_can_0x324_Cell82_bal(can_0x324_Cells_79_82_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x324_Cell82_bal(can_0x324_Cells_79_82_obj_t *o, uint8_t in) {
+void encode_0x323_Cell78_bal(can_0x323_Cells_75_78_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 63)) | ((x & 0x1uLL) << 63);
 	return;
 }
 
-void decode_can_0x325_Cell83(can_0x325_Cells_83_86_obj_t *o, int16_t *out) {
+void decode_0x324_Cell79(can_0x324_Cells_79_82_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6014,7 +5846,7 @@ void decode_can_0x325_Cell83(can_0x325_Cells_83_86_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x325_Cell83(can_0x325_Cells_83_86_obj_t *o, int16_t in) {
+void encode_0x324_Cell79(can_0x324_Cells_79_82_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -6023,7 +5855,7 @@ void encode_can_0x325_Cell83(can_0x325_Cells_83_86_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x325_Cell84(can_0x325_Cells_83_86_obj_t *o, int16_t *out) {
+void decode_0x324_Cell80(can_0x324_Cells_79_82_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6038,7 +5870,7 @@ void decode_can_0x325_Cell84(can_0x325_Cells_83_86_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x325_Cell84(can_0x325_Cells_83_86_obj_t *o, int16_t in) {
+void encode_0x324_Cell80(can_0x324_Cells_79_82_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -6047,7 +5879,7 @@ void encode_can_0x325_Cell84(can_0x325_Cells_83_86_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x325_Cell85(can_0x325_Cells_83_86_obj_t *o, int16_t *out) {
+void decode_0x324_Cell81(can_0x324_Cells_79_82_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6062,7 +5894,7 @@ void decode_can_0x325_Cell85(can_0x325_Cells_83_86_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x325_Cell85(can_0x325_Cells_83_86_obj_t *o, int16_t in) {
+void encode_0x324_Cell81(can_0x324_Cells_79_82_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -6071,7 +5903,7 @@ void encode_can_0x325_Cell85(can_0x325_Cells_83_86_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x325_Cell86(can_0x325_Cells_83_86_obj_t *o, int16_t *out) {
+void decode_0x324_Cell82(can_0x324_Cells_79_82_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6086,7 +5918,7 @@ void decode_can_0x325_Cell86(can_0x325_Cells_83_86_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x325_Cell86(can_0x325_Cells_83_86_obj_t *o, int16_t in) {
+void encode_0x324_Cell82(can_0x324_Cells_79_82_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -6095,7 +5927,7 @@ void encode_can_0x325_Cell86(can_0x325_Cells_83_86_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x325_Cell83_bal(can_0x325_Cells_83_86_obj_t *o, uint8_t *out) {
+void decode_0x324_Cell79_bal(can_0x324_Cells_79_82_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6106,14 +5938,14 @@ void decode_can_0x325_Cell83_bal(can_0x325_Cells_83_86_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x325_Cell83_bal(can_0x325_Cells_83_86_obj_t *o, uint8_t in) {
+void encode_0x324_Cell79_bal(can_0x324_Cells_79_82_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 15)) | ((x & 0x1uLL) << 15);
 	return;
 }
 
-void decode_can_0x325_Cell84_bal(can_0x325_Cells_83_86_obj_t *o, uint8_t *out) {
+void decode_0x324_Cell80_bal(can_0x324_Cells_79_82_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6124,14 +5956,14 @@ void decode_can_0x325_Cell84_bal(can_0x325_Cells_83_86_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x325_Cell84_bal(can_0x325_Cells_83_86_obj_t *o, uint8_t in) {
+void encode_0x324_Cell80_bal(can_0x324_Cells_79_82_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 31)) | ((x & 0x1uLL) << 31);
 	return;
 }
 
-void decode_can_0x325_Cell85_bal(can_0x325_Cells_83_86_obj_t *o, uint8_t *out) {
+void decode_0x324_Cell81_bal(can_0x324_Cells_79_82_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6142,14 +5974,14 @@ void decode_can_0x325_Cell85_bal(can_0x325_Cells_83_86_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x325_Cell85_bal(can_0x325_Cells_83_86_obj_t *o, uint8_t in) {
+void encode_0x324_Cell81_bal(can_0x324_Cells_79_82_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 47)) | ((x & 0x1uLL) << 47);
 	return;
 }
 
-void decode_can_0x325_Cell86_bal(can_0x325_Cells_83_86_obj_t *o, uint8_t *out) {
+void decode_0x324_Cell82_bal(can_0x324_Cells_79_82_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6160,14 +5992,14 @@ void decode_can_0x325_Cell86_bal(can_0x325_Cells_83_86_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x325_Cell86_bal(can_0x325_Cells_83_86_obj_t *o, uint8_t in) {
+void encode_0x324_Cell82_bal(can_0x324_Cells_79_82_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 63)) | ((x & 0x1uLL) << 63);
 	return;
 }
 
-void decode_can_0x326_Cell87(can_0x326_Cells_87_90_obj_t *o, int16_t *out) {
+void decode_0x325_Cell83(can_0x325_Cells_83_86_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6182,7 +6014,7 @@ void decode_can_0x326_Cell87(can_0x326_Cells_87_90_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x326_Cell87(can_0x326_Cells_87_90_obj_t *o, int16_t in) {
+void encode_0x325_Cell83(can_0x325_Cells_83_86_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -6191,7 +6023,7 @@ void encode_can_0x326_Cell87(can_0x326_Cells_87_90_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x326_Cell88(can_0x326_Cells_87_90_obj_t *o, int16_t *out) {
+void decode_0x325_Cell84(can_0x325_Cells_83_86_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6206,7 +6038,7 @@ void decode_can_0x326_Cell88(can_0x326_Cells_87_90_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x326_Cell88(can_0x326_Cells_87_90_obj_t *o, int16_t in) {
+void encode_0x325_Cell84(can_0x325_Cells_83_86_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -6215,7 +6047,7 @@ void encode_can_0x326_Cell88(can_0x326_Cells_87_90_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x326_Cell89(can_0x326_Cells_87_90_obj_t *o, int16_t *out) {
+void decode_0x325_Cell85(can_0x325_Cells_83_86_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6230,7 +6062,7 @@ void decode_can_0x326_Cell89(can_0x326_Cells_87_90_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x326_Cell89(can_0x326_Cells_87_90_obj_t *o, int16_t in) {
+void encode_0x325_Cell85(can_0x325_Cells_83_86_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -6239,7 +6071,7 @@ void encode_can_0x326_Cell89(can_0x326_Cells_87_90_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x326_Cell90(can_0x326_Cells_87_90_obj_t *o, int16_t *out) {
+void decode_0x325_Cell86(can_0x325_Cells_83_86_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6254,7 +6086,7 @@ void decode_can_0x326_Cell90(can_0x326_Cells_87_90_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x326_Cell90(can_0x326_Cells_87_90_obj_t *o, int16_t in) {
+void encode_0x325_Cell86(can_0x325_Cells_83_86_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -6263,7 +6095,7 @@ void encode_can_0x326_Cell90(can_0x326_Cells_87_90_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x326_Cell87_bal(can_0x326_Cells_87_90_obj_t *o, uint8_t *out) {
+void decode_0x325_Cell83_bal(can_0x325_Cells_83_86_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6274,14 +6106,14 @@ void decode_can_0x326_Cell87_bal(can_0x326_Cells_87_90_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x326_Cell87_bal(can_0x326_Cells_87_90_obj_t *o, uint8_t in) {
+void encode_0x325_Cell83_bal(can_0x325_Cells_83_86_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 15)) | ((x & 0x1uLL) << 15);
 	return;
 }
 
-void decode_can_0x326_Cell88_bal(can_0x326_Cells_87_90_obj_t *o, uint8_t *out) {
+void decode_0x325_Cell84_bal(can_0x325_Cells_83_86_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6292,14 +6124,14 @@ void decode_can_0x326_Cell88_bal(can_0x326_Cells_87_90_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x326_Cell88_bal(can_0x326_Cells_87_90_obj_t *o, uint8_t in) {
+void encode_0x325_Cell84_bal(can_0x325_Cells_83_86_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 31)) | ((x & 0x1uLL) << 31);
 	return;
 }
 
-void decode_can_0x326_Cell89_bal(can_0x326_Cells_87_90_obj_t *o, uint8_t *out) {
+void decode_0x325_Cell85_bal(can_0x325_Cells_83_86_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6310,14 +6142,14 @@ void decode_can_0x326_Cell89_bal(can_0x326_Cells_87_90_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x326_Cell89_bal(can_0x326_Cells_87_90_obj_t *o, uint8_t in) {
+void encode_0x325_Cell85_bal(can_0x325_Cells_83_86_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 47)) | ((x & 0x1uLL) << 47);
 	return;
 }
 
-void decode_can_0x326_Cell90_bal(can_0x326_Cells_87_90_obj_t *o, uint8_t *out) {
+void decode_0x325_Cell86_bal(can_0x325_Cells_83_86_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6328,14 +6160,14 @@ void decode_can_0x326_Cell90_bal(can_0x326_Cells_87_90_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x326_Cell90_bal(can_0x326_Cells_87_90_obj_t *o, uint8_t in) {
+void encode_0x325_Cell86_bal(can_0x325_Cells_83_86_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 63)) | ((x & 0x1uLL) << 63);
 	return;
 }
 
-void decode_can_0x327_Cell91(can_0x327_Cells_91_94_obj_t *o, int16_t *out) {
+void decode_0x326_Cell87(can_0x326_Cells_87_90_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6350,7 +6182,7 @@ void decode_can_0x327_Cell91(can_0x327_Cells_91_94_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x327_Cell91(can_0x327_Cells_91_94_obj_t *o, int16_t in) {
+void encode_0x326_Cell87(can_0x326_Cells_87_90_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -6359,7 +6191,7 @@ void encode_can_0x327_Cell91(can_0x327_Cells_91_94_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x327_Cell92(can_0x327_Cells_91_94_obj_t *o, int16_t *out) {
+void decode_0x326_Cell88(can_0x326_Cells_87_90_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6374,7 +6206,7 @@ void decode_can_0x327_Cell92(can_0x327_Cells_91_94_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x327_Cell92(can_0x327_Cells_91_94_obj_t *o, int16_t in) {
+void encode_0x326_Cell88(can_0x326_Cells_87_90_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -6383,7 +6215,7 @@ void encode_can_0x327_Cell92(can_0x327_Cells_91_94_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x327_Cell93(can_0x327_Cells_91_94_obj_t *o, int16_t *out) {
+void decode_0x326_Cell89(can_0x326_Cells_87_90_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6398,7 +6230,7 @@ void decode_can_0x327_Cell93(can_0x327_Cells_91_94_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x327_Cell93(can_0x327_Cells_91_94_obj_t *o, int16_t in) {
+void encode_0x326_Cell89(can_0x326_Cells_87_90_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -6407,7 +6239,7 @@ void encode_can_0x327_Cell93(can_0x327_Cells_91_94_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x327_Cell94(can_0x327_Cells_91_94_obj_t *o, int16_t *out) {
+void decode_0x326_Cell90(can_0x326_Cells_87_90_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6422,7 +6254,7 @@ void decode_can_0x327_Cell94(can_0x327_Cells_91_94_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x327_Cell94(can_0x327_Cells_91_94_obj_t *o, int16_t in) {
+void encode_0x326_Cell90(can_0x326_Cells_87_90_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -6431,7 +6263,7 @@ void encode_can_0x327_Cell94(can_0x327_Cells_91_94_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x327_Cell91_bal(can_0x327_Cells_91_94_obj_t *o, uint8_t *out) {
+void decode_0x326_Cell87_bal(can_0x326_Cells_87_90_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6442,14 +6274,14 @@ void decode_can_0x327_Cell91_bal(can_0x327_Cells_91_94_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x327_Cell91_bal(can_0x327_Cells_91_94_obj_t *o, uint8_t in) {
+void encode_0x326_Cell87_bal(can_0x326_Cells_87_90_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 15)) | ((x & 0x1uLL) << 15);
 	return;
 }
 
-void decode_can_0x327_Cell92_bal(can_0x327_Cells_91_94_obj_t *o, uint8_t *out) {
+void decode_0x326_Cell88_bal(can_0x326_Cells_87_90_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6460,14 +6292,14 @@ void decode_can_0x327_Cell92_bal(can_0x327_Cells_91_94_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x327_Cell92_bal(can_0x327_Cells_91_94_obj_t *o, uint8_t in) {
+void encode_0x326_Cell88_bal(can_0x326_Cells_87_90_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 31)) | ((x & 0x1uLL) << 31);
 	return;
 }
 
-void decode_can_0x327_Cell93_bal(can_0x327_Cells_91_94_obj_t *o, uint8_t *out) {
+void decode_0x326_Cell89_bal(can_0x326_Cells_87_90_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6478,14 +6310,14 @@ void decode_can_0x327_Cell93_bal(can_0x327_Cells_91_94_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x327_Cell93_bal(can_0x327_Cells_91_94_obj_t *o, uint8_t in) {
+void encode_0x326_Cell89_bal(can_0x326_Cells_87_90_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 47)) | ((x & 0x1uLL) << 47);
 	return;
 }
 
-void decode_can_0x327_Cell94_bal(can_0x327_Cells_91_94_obj_t *o, uint8_t *out) {
+void decode_0x326_Cell90_bal(can_0x326_Cells_87_90_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6496,14 +6328,14 @@ void decode_can_0x327_Cell94_bal(can_0x327_Cells_91_94_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x327_Cell94_bal(can_0x327_Cells_91_94_obj_t *o, uint8_t in) {
+void encode_0x326_Cell90_bal(can_0x326_Cells_87_90_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 63)) | ((x & 0x1uLL) << 63);
 	return;
 }
 
-void decode_can_0x328_Cell95(can_0x328_Cells_95_98_obj_t *o, int16_t *out) {
+void decode_0x327_Cell91(can_0x327_Cells_91_94_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6518,7 +6350,7 @@ void decode_can_0x328_Cell95(can_0x328_Cells_95_98_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x328_Cell95(can_0x328_Cells_95_98_obj_t *o, int16_t in) {
+void encode_0x327_Cell91(can_0x327_Cells_91_94_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -6527,7 +6359,7 @@ void encode_can_0x328_Cell95(can_0x328_Cells_95_98_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x328_Cell96(can_0x328_Cells_95_98_obj_t *o, int16_t *out) {
+void decode_0x327_Cell92(can_0x327_Cells_91_94_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6542,7 +6374,7 @@ void decode_can_0x328_Cell96(can_0x328_Cells_95_98_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x328_Cell96(can_0x328_Cells_95_98_obj_t *o, int16_t in) {
+void encode_0x327_Cell92(can_0x327_Cells_91_94_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -6551,7 +6383,7 @@ void encode_can_0x328_Cell96(can_0x328_Cells_95_98_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x328_Cell97(can_0x328_Cells_95_98_obj_t *o, int16_t *out) {
+void decode_0x327_Cell93(can_0x327_Cells_91_94_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6566,7 +6398,7 @@ void decode_can_0x328_Cell97(can_0x328_Cells_95_98_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x328_Cell97(can_0x328_Cells_95_98_obj_t *o, int16_t in) {
+void encode_0x327_Cell93(can_0x327_Cells_91_94_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -6575,7 +6407,7 @@ void encode_can_0x328_Cell97(can_0x328_Cells_95_98_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x328_Cell98(can_0x328_Cells_95_98_obj_t *o, int16_t *out) {
+void decode_0x327_Cell94(can_0x327_Cells_91_94_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6590,7 +6422,7 @@ void decode_can_0x328_Cell98(can_0x328_Cells_95_98_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x328_Cell98(can_0x328_Cells_95_98_obj_t *o, int16_t in) {
+void encode_0x327_Cell94(can_0x327_Cells_91_94_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -6599,7 +6431,7 @@ void encode_can_0x328_Cell98(can_0x328_Cells_95_98_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x328_Cell95_bal(can_0x328_Cells_95_98_obj_t *o, uint8_t *out) {
+void decode_0x327_Cell91_bal(can_0x327_Cells_91_94_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6610,14 +6442,14 @@ void decode_can_0x328_Cell95_bal(can_0x328_Cells_95_98_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x328_Cell95_bal(can_0x328_Cells_95_98_obj_t *o, uint8_t in) {
+void encode_0x327_Cell91_bal(can_0x327_Cells_91_94_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 15)) | ((x & 0x1uLL) << 15);
 	return;
 }
 
-void decode_can_0x328_Cell96_bal(can_0x328_Cells_95_98_obj_t *o, uint8_t *out) {
+void decode_0x327_Cell92_bal(can_0x327_Cells_91_94_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6628,14 +6460,14 @@ void decode_can_0x328_Cell96_bal(can_0x328_Cells_95_98_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x328_Cell96_bal(can_0x328_Cells_95_98_obj_t *o, uint8_t in) {
+void encode_0x327_Cell92_bal(can_0x327_Cells_91_94_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 31)) | ((x & 0x1uLL) << 31);
 	return;
 }
 
-void decode_can_0x328_Cell97_bal(can_0x328_Cells_95_98_obj_t *o, uint8_t *out) {
+void decode_0x327_Cell93_bal(can_0x327_Cells_91_94_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6646,14 +6478,14 @@ void decode_can_0x328_Cell97_bal(can_0x328_Cells_95_98_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x328_Cell97_bal(can_0x328_Cells_95_98_obj_t *o, uint8_t in) {
+void encode_0x327_Cell93_bal(can_0x327_Cells_91_94_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 47)) | ((x & 0x1uLL) << 47);
 	return;
 }
 
-void decode_can_0x328_Cell98_bal(can_0x328_Cells_95_98_obj_t *o, uint8_t *out) {
+void decode_0x327_Cell94_bal(can_0x327_Cells_91_94_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6664,14 +6496,14 @@ void decode_can_0x328_Cell98_bal(can_0x328_Cells_95_98_obj_t *o, uint8_t *out) {
 	return;
 }
 
-void encode_can_0x328_Cell98_bal(can_0x328_Cells_95_98_obj_t *o, uint8_t in) {
+void encode_0x327_Cell94_bal(can_0x327_Cells_91_94_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 63)) | ((x & 0x1uLL) << 63);
 	return;
 }
 
-void decode_can_0x329_Cell99(can_0x329_Cells_99_102_obj_t *o, int16_t *out) {
+void decode_0x328_Cell95(can_0x328_Cells_95_98_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6686,7 +6518,7 @@ void decode_can_0x329_Cell99(can_0x329_Cells_99_102_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x329_Cell99(can_0x329_Cells_99_102_obj_t *o, int16_t in) {
+void encode_0x328_Cell95(can_0x328_Cells_95_98_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -6695,7 +6527,7 @@ void encode_can_0x329_Cell99(can_0x329_Cells_99_102_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x329_Cell100(can_0x329_Cells_99_102_obj_t *o, int16_t *out) {
+void decode_0x328_Cell96(can_0x328_Cells_95_98_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6710,7 +6542,7 @@ void decode_can_0x329_Cell100(can_0x329_Cells_99_102_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x329_Cell100(can_0x329_Cells_99_102_obj_t *o, int16_t in) {
+void encode_0x328_Cell96(can_0x328_Cells_95_98_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -6719,7 +6551,7 @@ void encode_can_0x329_Cell100(can_0x329_Cells_99_102_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x329_Cell101(can_0x329_Cells_99_102_obj_t *o, int16_t *out) {
+void decode_0x328_Cell97(can_0x328_Cells_95_98_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6734,7 +6566,7 @@ void decode_can_0x329_Cell101(can_0x329_Cells_99_102_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x329_Cell101(can_0x329_Cells_99_102_obj_t *o, int16_t in) {
+void encode_0x328_Cell97(can_0x328_Cells_95_98_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -6743,7 +6575,7 @@ void encode_can_0x329_Cell101(can_0x329_Cells_99_102_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x329_Cell102(can_0x329_Cells_99_102_obj_t *o, int16_t *out) {
+void decode_0x328_Cell98(can_0x328_Cells_95_98_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6758,7 +6590,7 @@ void decode_can_0x329_Cell102(can_0x329_Cells_99_102_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x329_Cell102(can_0x329_Cells_99_102_obj_t *o, int16_t in) {
+void encode_0x328_Cell98(can_0x328_Cells_95_98_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -6767,7 +6599,7 @@ void encode_can_0x329_Cell102(can_0x329_Cells_99_102_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x329_Cell99_bal(can_0x329_Cells_99_102_obj_t *o, uint8_t *out) {
+void decode_0x328_Cell95_bal(can_0x328_Cells_95_98_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6778,14 +6610,14 @@ void decode_can_0x329_Cell99_bal(can_0x329_Cells_99_102_obj_t *o, uint8_t *out) 
 	return;
 }
 
-void encode_can_0x329_Cell99_bal(can_0x329_Cells_99_102_obj_t *o, uint8_t in) {
+void encode_0x328_Cell95_bal(can_0x328_Cells_95_98_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 15)) | ((x & 0x1uLL) << 15);
 	return;
 }
 
-void decode_can_0x329_Cell100_bal(can_0x329_Cells_99_102_obj_t *o, uint8_t *out) {
+void decode_0x328_Cell96_bal(can_0x328_Cells_95_98_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6796,14 +6628,14 @@ void decode_can_0x329_Cell100_bal(can_0x329_Cells_99_102_obj_t *o, uint8_t *out)
 	return;
 }
 
-void encode_can_0x329_Cell100_bal(can_0x329_Cells_99_102_obj_t *o, uint8_t in) {
+void encode_0x328_Cell96_bal(can_0x328_Cells_95_98_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 31)) | ((x & 0x1uLL) << 31);
 	return;
 }
 
-void decode_can_0x329_Cell101_bal(can_0x329_Cells_99_102_obj_t *o, uint8_t *out) {
+void decode_0x328_Cell97_bal(can_0x328_Cells_95_98_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6814,14 +6646,14 @@ void decode_can_0x329_Cell101_bal(can_0x329_Cells_99_102_obj_t *o, uint8_t *out)
 	return;
 }
 
-void encode_can_0x329_Cell101_bal(can_0x329_Cells_99_102_obj_t *o, uint8_t in) {
+void encode_0x328_Cell97_bal(can_0x328_Cells_95_98_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 47)) | ((x & 0x1uLL) << 47);
 	return;
 }
 
-void decode_can_0x329_Cell102_bal(can_0x329_Cells_99_102_obj_t *o, uint8_t *out) {
+void decode_0x328_Cell98_bal(can_0x328_Cells_95_98_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6832,14 +6664,14 @@ void decode_can_0x329_Cell102_bal(can_0x329_Cells_99_102_obj_t *o, uint8_t *out)
 	return;
 }
 
-void encode_can_0x329_Cell102_bal(can_0x329_Cells_99_102_obj_t *o, uint8_t in) {
+void encode_0x328_Cell98_bal(can_0x328_Cells_95_98_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 63)) | ((x & 0x1uLL) << 63);
 	return;
 }
 
-void decode_can_0x32a_Cell103(can_0x32a_Cells_103_106_obj_t *o, int16_t *out) {
+void decode_0x329_Cell99(can_0x329_Cells_99_102_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6854,7 +6686,7 @@ void decode_can_0x32a_Cell103(can_0x32a_Cells_103_106_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x32a_Cell103(can_0x32a_Cells_103_106_obj_t *o, int16_t in) {
+void encode_0x329_Cell99(can_0x329_Cells_99_102_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -6863,7 +6695,7 @@ void encode_can_0x32a_Cell103(can_0x32a_Cells_103_106_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x32a_Cell104(can_0x32a_Cells_103_106_obj_t *o, int16_t *out) {
+void decode_0x329_Cell100(can_0x329_Cells_99_102_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6878,7 +6710,7 @@ void decode_can_0x32a_Cell104(can_0x32a_Cells_103_106_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x32a_Cell104(can_0x32a_Cells_103_106_obj_t *o, int16_t in) {
+void encode_0x329_Cell100(can_0x329_Cells_99_102_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -6887,7 +6719,7 @@ void encode_can_0x32a_Cell104(can_0x32a_Cells_103_106_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x32a_Cell105(can_0x32a_Cells_103_106_obj_t *o, int16_t *out) {
+void decode_0x329_Cell101(can_0x329_Cells_99_102_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6902,7 +6734,7 @@ void decode_can_0x32a_Cell105(can_0x32a_Cells_103_106_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x32a_Cell105(can_0x32a_Cells_103_106_obj_t *o, int16_t in) {
+void encode_0x329_Cell101(can_0x329_Cells_99_102_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -6911,7 +6743,7 @@ void encode_can_0x32a_Cell105(can_0x32a_Cells_103_106_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x32a_Cell106(can_0x32a_Cells_103_106_obj_t *o, int16_t *out) {
+void decode_0x329_Cell102(can_0x329_Cells_99_102_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6926,7 +6758,7 @@ void decode_can_0x32a_Cell106(can_0x32a_Cells_103_106_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x32a_Cell106(can_0x32a_Cells_103_106_obj_t *o, int16_t in) {
+void encode_0x329_Cell102(can_0x329_Cells_99_102_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -6935,7 +6767,7 @@ void encode_can_0x32a_Cell106(can_0x32a_Cells_103_106_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x32a_Cell103_bal(can_0x32a_Cells_103_106_obj_t *o, uint8_t *out) {
+void decode_0x329_Cell99_bal(can_0x329_Cells_99_102_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6946,14 +6778,14 @@ void decode_can_0x32a_Cell103_bal(can_0x32a_Cells_103_106_obj_t *o, uint8_t *out
 	return;
 }
 
-void encode_can_0x32a_Cell103_bal(can_0x32a_Cells_103_106_obj_t *o, uint8_t in) {
+void encode_0x329_Cell99_bal(can_0x329_Cells_99_102_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 15)) | ((x & 0x1uLL) << 15);
 	return;
 }
 
-void decode_can_0x32a_Cell104_bal(can_0x32a_Cells_103_106_obj_t *o, uint8_t *out) {
+void decode_0x329_Cell100_bal(can_0x329_Cells_99_102_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6964,14 +6796,14 @@ void decode_can_0x32a_Cell104_bal(can_0x32a_Cells_103_106_obj_t *o, uint8_t *out
 	return;
 }
 
-void encode_can_0x32a_Cell104_bal(can_0x32a_Cells_103_106_obj_t *o, uint8_t in) {
+void encode_0x329_Cell100_bal(can_0x329_Cells_99_102_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 31)) | ((x & 0x1uLL) << 31);
 	return;
 }
 
-void decode_can_0x32a_Cell105_bal(can_0x32a_Cells_103_106_obj_t *o, uint8_t *out) {
+void decode_0x329_Cell101_bal(can_0x329_Cells_99_102_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -6982,14 +6814,14 @@ void decode_can_0x32a_Cell105_bal(can_0x32a_Cells_103_106_obj_t *o, uint8_t *out
 	return;
 }
 
-void encode_can_0x32a_Cell105_bal(can_0x32a_Cells_103_106_obj_t *o, uint8_t in) {
+void encode_0x329_Cell101_bal(can_0x329_Cells_99_102_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 47)) | ((x & 0x1uLL) << 47);
 	return;
 }
 
-void decode_can_0x32a_Cell106_bal(can_0x32a_Cells_103_106_obj_t *o, uint8_t *out) {
+void decode_0x329_Cell102_bal(can_0x329_Cells_99_102_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7000,14 +6832,14 @@ void decode_can_0x32a_Cell106_bal(can_0x32a_Cells_103_106_obj_t *o, uint8_t *out
 	return;
 }
 
-void encode_can_0x32a_Cell106_bal(can_0x32a_Cells_103_106_obj_t *o, uint8_t in) {
+void encode_0x329_Cell102_bal(can_0x329_Cells_99_102_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 63)) | ((x & 0x1uLL) << 63);
 	return;
 }
 
-void decode_can_0x32b_Cell107(can_0x32b_Cells_107_110_obj_t *o, int16_t *out) {
+void decode_0x32a_Cell103(can_0x32a_Cells_103_106_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7022,7 +6854,7 @@ void decode_can_0x32b_Cell107(can_0x32b_Cells_107_110_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x32b_Cell107(can_0x32b_Cells_107_110_obj_t *o, int16_t in) {
+void encode_0x32a_Cell103(can_0x32a_Cells_103_106_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -7031,7 +6863,7 @@ void encode_can_0x32b_Cell107(can_0x32b_Cells_107_110_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x32b_Cell108(can_0x32b_Cells_107_110_obj_t *o, int16_t *out) {
+void decode_0x32a_Cell104(can_0x32a_Cells_103_106_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7046,7 +6878,7 @@ void decode_can_0x32b_Cell108(can_0x32b_Cells_107_110_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x32b_Cell108(can_0x32b_Cells_107_110_obj_t *o, int16_t in) {
+void encode_0x32a_Cell104(can_0x32a_Cells_103_106_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -7055,7 +6887,7 @@ void encode_can_0x32b_Cell108(can_0x32b_Cells_107_110_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x32b_Cell109(can_0x32b_Cells_107_110_obj_t *o, int16_t *out) {
+void decode_0x32a_Cell105(can_0x32a_Cells_103_106_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7070,7 +6902,7 @@ void decode_can_0x32b_Cell109(can_0x32b_Cells_107_110_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x32b_Cell109(can_0x32b_Cells_107_110_obj_t *o, int16_t in) {
+void encode_0x32a_Cell105(can_0x32a_Cells_103_106_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -7079,7 +6911,7 @@ void encode_can_0x32b_Cell109(can_0x32b_Cells_107_110_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x32b_Cell110(can_0x32b_Cells_107_110_obj_t *o, int16_t *out) {
+void decode_0x32a_Cell106(can_0x32a_Cells_103_106_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7094,7 +6926,7 @@ void decode_can_0x32b_Cell110(can_0x32b_Cells_107_110_obj_t *o, int16_t *out) {
 	return;
 }
 
-void encode_can_0x32b_Cell110(can_0x32b_Cells_107_110_obj_t *o, int16_t in) {
+void encode_0x32a_Cell106(can_0x32a_Cells_103_106_obj_t *o, int16_t in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 5500);
@@ -7103,7 +6935,7 @@ void encode_can_0x32b_Cell110(can_0x32b_Cells_107_110_obj_t *o, int16_t in) {
 	return;
 }
 
-void decode_can_0x32b_Cell107_bal(can_0x32b_Cells_107_110_obj_t *o, uint8_t *out) {
+void decode_0x32a_Cell103_bal(can_0x32a_Cells_103_106_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7114,14 +6946,14 @@ void decode_can_0x32b_Cell107_bal(can_0x32b_Cells_107_110_obj_t *o, uint8_t *out
 	return;
 }
 
-void encode_can_0x32b_Cell107_bal(can_0x32b_Cells_107_110_obj_t *o, uint8_t in) {
+void encode_0x32a_Cell103_bal(can_0x32a_Cells_103_106_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 15)) | ((x & 0x1uLL) << 15);
 	return;
 }
 
-void decode_can_0x32b_Cell108_bal(can_0x32b_Cells_107_110_obj_t *o, uint8_t *out) {
+void decode_0x32a_Cell104_bal(can_0x32a_Cells_103_106_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7132,14 +6964,14 @@ void decode_can_0x32b_Cell108_bal(can_0x32b_Cells_107_110_obj_t *o, uint8_t *out
 	return;
 }
 
-void encode_can_0x32b_Cell108_bal(can_0x32b_Cells_107_110_obj_t *o, uint8_t in) {
+void encode_0x32a_Cell104_bal(can_0x32a_Cells_103_106_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 31)) | ((x & 0x1uLL) << 31);
 	return;
 }
 
-void decode_can_0x32b_Cell109_bal(can_0x32b_Cells_107_110_obj_t *o, uint8_t *out) {
+void decode_0x32a_Cell105_bal(can_0x32a_Cells_103_106_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7150,14 +6982,14 @@ void decode_can_0x32b_Cell109_bal(can_0x32b_Cells_107_110_obj_t *o, uint8_t *out
 	return;
 }
 
-void encode_can_0x32b_Cell109_bal(can_0x32b_Cells_107_110_obj_t *o, uint8_t in) {
+void encode_0x32a_Cell105_bal(can_0x32a_Cells_103_106_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 47)) | ((x & 0x1uLL) << 47);
 	return;
 }
 
-void decode_can_0x32b_Cell110_bal(can_0x32b_Cells_107_110_obj_t *o, uint8_t *out) {
+void decode_0x32a_Cell106_bal(can_0x32a_Cells_103_106_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7168,14 +7000,182 @@ void decode_can_0x32b_Cell110_bal(can_0x32b_Cells_107_110_obj_t *o, uint8_t *out
 	return;
 }
 
-void encode_can_0x32b_Cell110_bal(can_0x32b_Cells_107_110_obj_t *o, uint8_t in) {
+void encode_0x32a_Cell106_bal(can_0x32a_Cells_103_106_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 63)) | ((x & 0x1uLL) << 63);
 	return;
 }
 
-void decode_can_0x335_Temp1(can_0x335_PackTemperatures1Thru4_obj_t *o, int16_t *out) {
+void decode_0x32b_Cell107(can_0x32b_Cells_107_110_obj_t *o, int16_t *out) {
+	assert(o);
+	assert(out);
+	uint64_t _payload_sig = (uint64_t)(o->payload);
+	uint64_t _lane_sig = _payload_sig;
+	uint64_t x = _lane_sig & 0x7fffuLL;
+	if ((x & 0x4000uLL) != 0uLL)
+		x |= ~0x7fffuLL;
+	int16_t rval = (int16_t)((int64_t)x);
+	assert(rval >= 0);
+	assert(rval <= 5500);
+	*out = rval;
+	return;
+}
+
+void encode_0x32b_Cell107(can_0x32b_Cells_107_110_obj_t *o, int16_t in) {
+	assert(o);
+	assert(in >= 0);
+	assert(in <= 5500);
+	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
+	o->payload = (((uint64_t)o->payload) & ~0x7fffuLL) | (x & 0x7fffuLL);
+	return;
+}
+
+void decode_0x32b_Cell108(can_0x32b_Cells_107_110_obj_t *o, int16_t *out) {
+	assert(o);
+	assert(out);
+	uint64_t _payload_sig = (uint64_t)(o->payload);
+	uint64_t _lane_sig = _payload_sig;
+	uint64_t x = (_lane_sig >> 16) & 0x7fffuLL;
+	if ((x & 0x4000uLL) != 0uLL)
+		x |= ~0x7fffuLL;
+	int16_t rval = (int16_t)((int64_t)x);
+	assert(rval >= 0);
+	assert(rval <= 5500);
+	*out = rval;
+	return;
+}
+
+void encode_0x32b_Cell108(can_0x32b_Cells_107_110_obj_t *o, int16_t in) {
+	assert(o);
+	assert(in >= 0);
+	assert(in <= 5500);
+	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
+	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 16)) | ((x & 0x7fffuLL) << 16);
+	return;
+}
+
+void decode_0x32b_Cell109(can_0x32b_Cells_107_110_obj_t *o, int16_t *out) {
+	assert(o);
+	assert(out);
+	uint64_t _payload_sig = (uint64_t)(o->payload);
+	uint64_t _lane_sig = _payload_sig;
+	uint64_t x = (_lane_sig >> 32) & 0x7fffuLL;
+	if ((x & 0x4000uLL) != 0uLL)
+		x |= ~0x7fffuLL;
+	int16_t rval = (int16_t)((int64_t)x);
+	assert(rval >= 0);
+	assert(rval <= 5500);
+	*out = rval;
+	return;
+}
+
+void encode_0x32b_Cell109(can_0x32b_Cells_107_110_obj_t *o, int16_t in) {
+	assert(o);
+	assert(in >= 0);
+	assert(in <= 5500);
+	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
+	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 32)) | ((x & 0x7fffuLL) << 32);
+	return;
+}
+
+void decode_0x32b_Cell110(can_0x32b_Cells_107_110_obj_t *o, int16_t *out) {
+	assert(o);
+	assert(out);
+	uint64_t _payload_sig = (uint64_t)(o->payload);
+	uint64_t _lane_sig = _payload_sig;
+	uint64_t x = (_lane_sig >> 48) & 0x7fffuLL;
+	if ((x & 0x4000uLL) != 0uLL)
+		x |= ~0x7fffuLL;
+	int16_t rval = (int16_t)((int64_t)x);
+	assert(rval >= 0);
+	assert(rval <= 5500);
+	*out = rval;
+	return;
+}
+
+void encode_0x32b_Cell110(can_0x32b_Cells_107_110_obj_t *o, int16_t in) {
+	assert(o);
+	assert(in >= 0);
+	assert(in <= 5500);
+	uint64_t x = ((uint64_t)((int64_t)in)) & 0x7fffuLL;
+	o->payload = (((uint64_t)o->payload) & ~(0x7fffuLL << 48)) | ((x & 0x7fffuLL) << 48);
+	return;
+}
+
+void decode_0x32b_Cell107_bal(can_0x32b_Cells_107_110_obj_t *o, uint8_t *out) {
+	assert(o);
+	assert(out);
+	uint64_t _payload_sig = (uint64_t)(o->payload);
+	uint64_t _lane_sig = _payload_sig;
+	uint64_t x = (_lane_sig >> 15) & 0x1uLL;
+	uint8_t rval = (uint8_t)x;
+	*out = rval;
+	return;
+}
+
+void encode_0x32b_Cell107_bal(can_0x32b_Cells_107_110_obj_t *o, uint8_t in) {
+	assert(o);
+	uint64_t x = ((uint64_t)in) & 0x1uLL;
+	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 15)) | ((x & 0x1uLL) << 15);
+	return;
+}
+
+void decode_0x32b_Cell108_bal(can_0x32b_Cells_107_110_obj_t *o, uint8_t *out) {
+	assert(o);
+	assert(out);
+	uint64_t _payload_sig = (uint64_t)(o->payload);
+	uint64_t _lane_sig = _payload_sig;
+	uint64_t x = (_lane_sig >> 31) & 0x1uLL;
+	uint8_t rval = (uint8_t)x;
+	*out = rval;
+	return;
+}
+
+void encode_0x32b_Cell108_bal(can_0x32b_Cells_107_110_obj_t *o, uint8_t in) {
+	assert(o);
+	uint64_t x = ((uint64_t)in) & 0x1uLL;
+	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 31)) | ((x & 0x1uLL) << 31);
+	return;
+}
+
+void decode_0x32b_Cell109_bal(can_0x32b_Cells_107_110_obj_t *o, uint8_t *out) {
+	assert(o);
+	assert(out);
+	uint64_t _payload_sig = (uint64_t)(o->payload);
+	uint64_t _lane_sig = _payload_sig;
+	uint64_t x = (_lane_sig >> 47) & 0x1uLL;
+	uint8_t rval = (uint8_t)x;
+	*out = rval;
+	return;
+}
+
+void encode_0x32b_Cell109_bal(can_0x32b_Cells_107_110_obj_t *o, uint8_t in) {
+	assert(o);
+	uint64_t x = ((uint64_t)in) & 0x1uLL;
+	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 47)) | ((x & 0x1uLL) << 47);
+	return;
+}
+
+void decode_0x32b_Cell110_bal(can_0x32b_Cells_107_110_obj_t *o, uint8_t *out) {
+	assert(o);
+	assert(out);
+	uint64_t _payload_sig = (uint64_t)(o->payload);
+	uint64_t _lane_sig = _payload_sig;
+	uint64_t x = (_lane_sig >> 63) & 0x1uLL;
+	uint8_t rval = (uint8_t)x;
+	*out = rval;
+	return;
+}
+
+void encode_0x32b_Cell110_bal(can_0x32b_Cells_107_110_obj_t *o, uint8_t in) {
+	assert(o);
+	uint64_t x = ((uint64_t)in) & 0x1uLL;
+	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 63)) | ((x & 0x1uLL) << 63);
+	return;
+}
+
+void decode_0x335_Temp1(can_0x335_PackTemperatures1Thru4_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7188,14 +7188,14 @@ void decode_can_0x335_Temp1(can_0x335_PackTemperatures1Thru4_obj_t *o, int16_t *
 	return;
 }
 
-void encode_can_0x335_Temp1(can_0x335_PackTemperatures1Thru4_obj_t *o, int16_t in) {
+void encode_0x335_Temp1(can_0x335_PackTemperatures1Thru4_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x335_Temp2(can_0x335_PackTemperatures1Thru4_obj_t *o, int16_t *out) {
+void decode_0x335_Temp2(can_0x335_PackTemperatures1Thru4_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7208,14 +7208,14 @@ void decode_can_0x335_Temp2(can_0x335_PackTemperatures1Thru4_obj_t *o, int16_t *
 	return;
 }
 
-void encode_can_0x335_Temp2(can_0x335_PackTemperatures1Thru4_obj_t *o, int16_t in) {
+void encode_0x335_Temp2(can_0x335_PackTemperatures1Thru4_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 16)) | ((x & 0xffffuLL) << 16);
 	return;
 }
 
-void decode_can_0x335_Temp3(can_0x335_PackTemperatures1Thru4_obj_t *o, int16_t *out) {
+void decode_0x335_Temp3(can_0x335_PackTemperatures1Thru4_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7228,14 +7228,14 @@ void decode_can_0x335_Temp3(can_0x335_PackTemperatures1Thru4_obj_t *o, int16_t *
 	return;
 }
 
-void encode_can_0x335_Temp3(can_0x335_PackTemperatures1Thru4_obj_t *o, int16_t in) {
+void encode_0x335_Temp3(can_0x335_PackTemperatures1Thru4_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 32)) | ((x & 0xffffuLL) << 32);
 	return;
 }
 
-void decode_can_0x335_Temp4(can_0x335_PackTemperatures1Thru4_obj_t *o, int16_t *out) {
+void decode_0x335_Temp4(can_0x335_PackTemperatures1Thru4_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7248,14 +7248,14 @@ void decode_can_0x335_Temp4(can_0x335_PackTemperatures1Thru4_obj_t *o, int16_t *
 	return;
 }
 
-void encode_can_0x335_Temp4(can_0x335_PackTemperatures1Thru4_obj_t *o, int16_t in) {
+void encode_0x335_Temp4(can_0x335_PackTemperatures1Thru4_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 48)) | ((x & 0xffffuLL) << 48);
 	return;
 }
 
-void decode_can_0x336_Temp5(can_0x336_PackTempeartures5Thru8_obj_t *o, int16_t *out) {
+void decode_0x336_Temp5(can_0x336_PackTempeartures5Thru8_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7268,14 +7268,14 @@ void decode_can_0x336_Temp5(can_0x336_PackTempeartures5Thru8_obj_t *o, int16_t *
 	return;
 }
 
-void encode_can_0x336_Temp5(can_0x336_PackTempeartures5Thru8_obj_t *o, int16_t in) {
+void encode_0x336_Temp5(can_0x336_PackTempeartures5Thru8_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x336_Temp6(can_0x336_PackTempeartures5Thru8_obj_t *o, int16_t *out) {
+void decode_0x336_Temp6(can_0x336_PackTempeartures5Thru8_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7288,14 +7288,14 @@ void decode_can_0x336_Temp6(can_0x336_PackTempeartures5Thru8_obj_t *o, int16_t *
 	return;
 }
 
-void encode_can_0x336_Temp6(can_0x336_PackTempeartures5Thru8_obj_t *o, int16_t in) {
+void encode_0x336_Temp6(can_0x336_PackTempeartures5Thru8_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 16)) | ((x & 0xffffuLL) << 16);
 	return;
 }
 
-void decode_can_0x336_Temp7(can_0x336_PackTempeartures5Thru8_obj_t *o, int16_t *out) {
+void decode_0x336_Temp7(can_0x336_PackTempeartures5Thru8_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7308,14 +7308,14 @@ void decode_can_0x336_Temp7(can_0x336_PackTempeartures5Thru8_obj_t *o, int16_t *
 	return;
 }
 
-void encode_can_0x336_Temp7(can_0x336_PackTempeartures5Thru8_obj_t *o, int16_t in) {
+void encode_0x336_Temp7(can_0x336_PackTempeartures5Thru8_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 32)) | ((x & 0xffffuLL) << 32);
 	return;
 }
 
-void decode_can_0x336_Temp8(can_0x336_PackTempeartures5Thru8_obj_t *o, int16_t *out) {
+void decode_0x336_Temp8(can_0x336_PackTempeartures5Thru8_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7328,14 +7328,14 @@ void decode_can_0x336_Temp8(can_0x336_PackTempeartures5Thru8_obj_t *o, int16_t *
 	return;
 }
 
-void encode_can_0x336_Temp8(can_0x336_PackTempeartures5Thru8_obj_t *o, int16_t in) {
+void encode_0x336_Temp8(can_0x336_PackTempeartures5Thru8_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 48)) | ((x & 0xffffuLL) << 48);
 	return;
 }
 
-void decode_can_0x337_Temp9(can_0x337_PackTemperatures9Thru14_obj_t *o, int16_t *out) {
+void decode_0x337_Temp9(can_0x337_PackTemperatures9Thru14_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7348,14 +7348,14 @@ void decode_can_0x337_Temp9(can_0x337_PackTemperatures9Thru14_obj_t *o, int16_t 
 	return;
 }
 
-void encode_can_0x337_Temp9(can_0x337_PackTemperatures9Thru14_obj_t *o, int16_t in) {
+void encode_0x337_Temp9(can_0x337_PackTemperatures9Thru14_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x337_Temp10(can_0x337_PackTemperatures9Thru14_obj_t *o, int16_t *out) {
+void decode_0x337_Temp10(can_0x337_PackTemperatures9Thru14_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7368,14 +7368,14 @@ void decode_can_0x337_Temp10(can_0x337_PackTemperatures9Thru14_obj_t *o, int16_t
 	return;
 }
 
-void encode_can_0x337_Temp10(can_0x337_PackTemperatures9Thru14_obj_t *o, int16_t in) {
+void encode_0x337_Temp10(can_0x337_PackTemperatures9Thru14_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 16)) | ((x & 0xffffuLL) << 16);
 	return;
 }
 
-void decode_can_0x337_Temp11(can_0x337_PackTemperatures9Thru14_obj_t *o, int16_t *out) {
+void decode_0x337_Temp11(can_0x337_PackTemperatures9Thru14_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7388,14 +7388,14 @@ void decode_can_0x337_Temp11(can_0x337_PackTemperatures9Thru14_obj_t *o, int16_t
 	return;
 }
 
-void encode_can_0x337_Temp11(can_0x337_PackTemperatures9Thru14_obj_t *o, int16_t in) {
+void encode_0x337_Temp11(can_0x337_PackTemperatures9Thru14_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 32)) | ((x & 0xffffuLL) << 32);
 	return;
 }
 
-void decode_can_0x337_Temp12(can_0x337_PackTemperatures9Thru14_obj_t *o, int16_t *out) {
+void decode_0x337_Temp12(can_0x337_PackTemperatures9Thru14_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7408,14 +7408,14 @@ void decode_can_0x337_Temp12(can_0x337_PackTemperatures9Thru14_obj_t *o, int16_t
 	return;
 }
 
-void encode_can_0x337_Temp12(can_0x337_PackTemperatures9Thru14_obj_t *o, int16_t in) {
+void encode_0x337_Temp12(can_0x337_PackTemperatures9Thru14_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 48)) | ((x & 0xffffuLL) << 48);
 	return;
 }
 
-void decode_can_0x338_Temp13(can_0x338_PackTemperatures13Thru14_obj_t *o, int16_t *out) {
+void decode_0x338_Temp13(can_0x338_PackTemperatures13Thru14_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7428,14 +7428,14 @@ void decode_can_0x338_Temp13(can_0x338_PackTemperatures13Thru14_obj_t *o, int16_
 	return;
 }
 
-void encode_can_0x338_Temp13(can_0x338_PackTemperatures13Thru14_obj_t *o, int16_t in) {
+void encode_0x338_Temp13(can_0x338_PackTemperatures13Thru14_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x338_Temp14(can_0x338_PackTemperatures13Thru14_obj_t *o, int16_t *out) {
+void decode_0x338_Temp14(can_0x338_PackTemperatures13Thru14_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7448,14 +7448,14 @@ void decode_can_0x338_Temp14(can_0x338_PackTemperatures13Thru14_obj_t *o, int16_
 	return;
 }
 
-void encode_can_0x338_Temp14(can_0x338_PackTemperatures13Thru14_obj_t *o, int16_t in) {
+void encode_0x338_Temp14(can_0x338_PackTemperatures13Thru14_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 16)) | ((x & 0xffffuLL) << 16);
 	return;
 }
 
-void decode_can_0x339_Temp15(can_0x339_PackTemperatures15Thru18_obj_t *o, int16_t *out) {
+void decode_0x339_Temp15(can_0x339_PackTemperatures15Thru18_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7468,14 +7468,14 @@ void decode_can_0x339_Temp15(can_0x339_PackTemperatures15Thru18_obj_t *o, int16_
 	return;
 }
 
-void encode_can_0x339_Temp15(can_0x339_PackTemperatures15Thru18_obj_t *o, int16_t in) {
+void encode_0x339_Temp15(can_0x339_PackTemperatures15Thru18_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x339_Temp16(can_0x339_PackTemperatures15Thru18_obj_t *o, int16_t *out) {
+void decode_0x339_Temp16(can_0x339_PackTemperatures15Thru18_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7488,14 +7488,14 @@ void decode_can_0x339_Temp16(can_0x339_PackTemperatures15Thru18_obj_t *o, int16_
 	return;
 }
 
-void encode_can_0x339_Temp16(can_0x339_PackTemperatures15Thru18_obj_t *o, int16_t in) {
+void encode_0x339_Temp16(can_0x339_PackTemperatures15Thru18_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 16)) | ((x & 0xffffuLL) << 16);
 	return;
 }
 
-void decode_can_0x339_Temp17(can_0x339_PackTemperatures15Thru18_obj_t *o, int16_t *out) {
+void decode_0x339_Temp17(can_0x339_PackTemperatures15Thru18_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7508,14 +7508,14 @@ void decode_can_0x339_Temp17(can_0x339_PackTemperatures15Thru18_obj_t *o, int16_
 	return;
 }
 
-void encode_can_0x339_Temp17(can_0x339_PackTemperatures15Thru18_obj_t *o, int16_t in) {
+void encode_0x339_Temp17(can_0x339_PackTemperatures15Thru18_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 32)) | ((x & 0xffffuLL) << 32);
 	return;
 }
 
-void decode_can_0x339_Temo18(can_0x339_PackTemperatures15Thru18_obj_t *o, int16_t *out) {
+void decode_0x339_Temo18(can_0x339_PackTemperatures15Thru18_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7528,14 +7528,14 @@ void decode_can_0x339_Temo18(can_0x339_PackTemperatures15Thru18_obj_t *o, int16_
 	return;
 }
 
-void encode_can_0x339_Temo18(can_0x339_PackTemperatures15Thru18_obj_t *o, int16_t in) {
+void encode_0x339_Temo18(can_0x339_PackTemperatures15Thru18_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 48)) | ((x & 0xffffuLL) << 48);
 	return;
 }
 
-void decode_can_0x33a_Temp19(can_0x33a_PackTemperatures19Thru22_obj_t *o, int16_t *out) {
+void decode_0x33a_Temp19(can_0x33a_PackTemperatures19Thru22_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7548,14 +7548,14 @@ void decode_can_0x33a_Temp19(can_0x33a_PackTemperatures19Thru22_obj_t *o, int16_
 	return;
 }
 
-void encode_can_0x33a_Temp19(can_0x33a_PackTemperatures19Thru22_obj_t *o, int16_t in) {
+void encode_0x33a_Temp19(can_0x33a_PackTemperatures19Thru22_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x33a_Temp20(can_0x33a_PackTemperatures19Thru22_obj_t *o, int16_t *out) {
+void decode_0x33a_Temp20(can_0x33a_PackTemperatures19Thru22_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7568,14 +7568,14 @@ void decode_can_0x33a_Temp20(can_0x33a_PackTemperatures19Thru22_obj_t *o, int16_
 	return;
 }
 
-void encode_can_0x33a_Temp20(can_0x33a_PackTemperatures19Thru22_obj_t *o, int16_t in) {
+void encode_0x33a_Temp20(can_0x33a_PackTemperatures19Thru22_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 16)) | ((x & 0xffffuLL) << 16);
 	return;
 }
 
-void decode_can_0x33a_Temp21(can_0x33a_PackTemperatures19Thru22_obj_t *o, int16_t *out) {
+void decode_0x33a_Temp21(can_0x33a_PackTemperatures19Thru22_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7588,14 +7588,14 @@ void decode_can_0x33a_Temp21(can_0x33a_PackTemperatures19Thru22_obj_t *o, int16_
 	return;
 }
 
-void encode_can_0x33a_Temp21(can_0x33a_PackTemperatures19Thru22_obj_t *o, int16_t in) {
+void encode_0x33a_Temp21(can_0x33a_PackTemperatures19Thru22_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 32)) | ((x & 0xffffuLL) << 32);
 	return;
 }
 
-void decode_can_0x33a_Temo22(can_0x33a_PackTemperatures19Thru22_obj_t *o, int16_t *out) {
+void decode_0x33a_Temo22(can_0x33a_PackTemperatures19Thru22_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7608,14 +7608,14 @@ void decode_can_0x33a_Temo22(can_0x33a_PackTemperatures19Thru22_obj_t *o, int16_
 	return;
 }
 
-void encode_can_0x33a_Temo22(can_0x33a_PackTemperatures19Thru22_obj_t *o, int16_t in) {
+void encode_0x33a_Temo22(can_0x33a_PackTemperatures19Thru22_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 48)) | ((x & 0xffffuLL) << 48);
 	return;
 }
 
-void decode_can_0x33b_Temp23(can_0x33b_PackTemperatures23Thru26_obj_t *o, int16_t *out) {
+void decode_0x33b_Temp23(can_0x33b_PackTemperatures23Thru26_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7628,14 +7628,14 @@ void decode_can_0x33b_Temp23(can_0x33b_PackTemperatures23Thru26_obj_t *o, int16_
 	return;
 }
 
-void encode_can_0x33b_Temp23(can_0x33b_PackTemperatures23Thru26_obj_t *o, int16_t in) {
+void encode_0x33b_Temp23(can_0x33b_PackTemperatures23Thru26_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x33b_Temp24(can_0x33b_PackTemperatures23Thru26_obj_t *o, int16_t *out) {
+void decode_0x33b_Temp24(can_0x33b_PackTemperatures23Thru26_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7648,14 +7648,14 @@ void decode_can_0x33b_Temp24(can_0x33b_PackTemperatures23Thru26_obj_t *o, int16_
 	return;
 }
 
-void encode_can_0x33b_Temp24(can_0x33b_PackTemperatures23Thru26_obj_t *o, int16_t in) {
+void encode_0x33b_Temp24(can_0x33b_PackTemperatures23Thru26_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 16)) | ((x & 0xffffuLL) << 16);
 	return;
 }
 
-void decode_can_0x33b_Temp25(can_0x33b_PackTemperatures23Thru26_obj_t *o, int16_t *out) {
+void decode_0x33b_Temp25(can_0x33b_PackTemperatures23Thru26_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7668,14 +7668,14 @@ void decode_can_0x33b_Temp25(can_0x33b_PackTemperatures23Thru26_obj_t *o, int16_
 	return;
 }
 
-void encode_can_0x33b_Temp25(can_0x33b_PackTemperatures23Thru26_obj_t *o, int16_t in) {
+void encode_0x33b_Temp25(can_0x33b_PackTemperatures23Thru26_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 32)) | ((x & 0xffffuLL) << 32);
 	return;
 }
 
-void decode_can_0x33b_Temo26(can_0x33b_PackTemperatures23Thru26_obj_t *o, int16_t *out) {
+void decode_0x33b_Temo26(can_0x33b_PackTemperatures23Thru26_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7688,14 +7688,14 @@ void decode_can_0x33b_Temo26(can_0x33b_PackTemperatures23Thru26_obj_t *o, int16_
 	return;
 }
 
-void encode_can_0x33b_Temo26(can_0x33b_PackTemperatures23Thru26_obj_t *o, int16_t in) {
+void encode_0x33b_Temo26(can_0x33b_PackTemperatures23Thru26_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 48)) | ((x & 0xffffuLL) << 48);
 	return;
 }
 
-void decode_can_0x33c_Temp27(can_0x33c_PackTemperatures27Thru30_obj_t *o, int16_t *out) {
+void decode_0x33c_Temp27(can_0x33c_PackTemperatures27Thru30_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7708,14 +7708,14 @@ void decode_can_0x33c_Temp27(can_0x33c_PackTemperatures27Thru30_obj_t *o, int16_
 	return;
 }
 
-void encode_can_0x33c_Temp27(can_0x33c_PackTemperatures27Thru30_obj_t *o, int16_t in) {
+void encode_0x33c_Temp27(can_0x33c_PackTemperatures27Thru30_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x33c_Temp28(can_0x33c_PackTemperatures27Thru30_obj_t *o, int16_t *out) {
+void decode_0x33c_Temp28(can_0x33c_PackTemperatures27Thru30_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7728,14 +7728,14 @@ void decode_can_0x33c_Temp28(can_0x33c_PackTemperatures27Thru30_obj_t *o, int16_
 	return;
 }
 
-void encode_can_0x33c_Temp28(can_0x33c_PackTemperatures27Thru30_obj_t *o, int16_t in) {
+void encode_0x33c_Temp28(can_0x33c_PackTemperatures27Thru30_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 16)) | ((x & 0xffffuLL) << 16);
 	return;
 }
 
-void decode_can_0x33c_Temp29(can_0x33c_PackTemperatures27Thru30_obj_t *o, int16_t *out) {
+void decode_0x33c_Temp29(can_0x33c_PackTemperatures27Thru30_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7748,14 +7748,14 @@ void decode_can_0x33c_Temp29(can_0x33c_PackTemperatures27Thru30_obj_t *o, int16_
 	return;
 }
 
-void encode_can_0x33c_Temp29(can_0x33c_PackTemperatures27Thru30_obj_t *o, int16_t in) {
+void encode_0x33c_Temp29(can_0x33c_PackTemperatures27Thru30_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 32)) | ((x & 0xffffuLL) << 32);
 	return;
 }
 
-void decode_can_0x33c_Temo30(can_0x33c_PackTemperatures27Thru30_obj_t *o, int16_t *out) {
+void decode_0x33c_Temo30(can_0x33c_PackTemperatures27Thru30_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7768,14 +7768,14 @@ void decode_can_0x33c_Temo30(can_0x33c_PackTemperatures27Thru30_obj_t *o, int16_
 	return;
 }
 
-void encode_can_0x33c_Temo30(can_0x33c_PackTemperatures27Thru30_obj_t *o, int16_t in) {
+void encode_0x33c_Temo30(can_0x33c_PackTemperatures27Thru30_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 48)) | ((x & 0xffffuLL) << 48);
 	return;
 }
 
-void decode_can_0x33d_Temp31(can_0x33d_PackTemperatures31Thru34_obj_t *o, int16_t *out) {
+void decode_0x33d_Temp31(can_0x33d_PackTemperatures31Thru34_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7788,14 +7788,14 @@ void decode_can_0x33d_Temp31(can_0x33d_PackTemperatures31Thru34_obj_t *o, int16_
 	return;
 }
 
-void encode_can_0x33d_Temp31(can_0x33d_PackTemperatures31Thru34_obj_t *o, int16_t in) {
+void encode_0x33d_Temp31(can_0x33d_PackTemperatures31Thru34_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x33d_Temp32(can_0x33d_PackTemperatures31Thru34_obj_t *o, int16_t *out) {
+void decode_0x33d_Temp32(can_0x33d_PackTemperatures31Thru34_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7808,14 +7808,14 @@ void decode_can_0x33d_Temp32(can_0x33d_PackTemperatures31Thru34_obj_t *o, int16_
 	return;
 }
 
-void encode_can_0x33d_Temp32(can_0x33d_PackTemperatures31Thru34_obj_t *o, int16_t in) {
+void encode_0x33d_Temp32(can_0x33d_PackTemperatures31Thru34_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 16)) | ((x & 0xffffuLL) << 16);
 	return;
 }
 
-void decode_can_0x33d_Temp33(can_0x33d_PackTemperatures31Thru34_obj_t *o, int16_t *out) {
+void decode_0x33d_Temp33(can_0x33d_PackTemperatures31Thru34_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7828,14 +7828,14 @@ void decode_can_0x33d_Temp33(can_0x33d_PackTemperatures31Thru34_obj_t *o, int16_
 	return;
 }
 
-void encode_can_0x33d_Temp33(can_0x33d_PackTemperatures31Thru34_obj_t *o, int16_t in) {
+void encode_0x33d_Temp33(can_0x33d_PackTemperatures31Thru34_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 32)) | ((x & 0xffffuLL) << 32);
 	return;
 }
 
-void decode_can_0x33d_Temo34(can_0x33d_PackTemperatures31Thru34_obj_t *o, int16_t *out) {
+void decode_0x33d_Temo34(can_0x33d_PackTemperatures31Thru34_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7848,14 +7848,14 @@ void decode_can_0x33d_Temo34(can_0x33d_PackTemperatures31Thru34_obj_t *o, int16_
 	return;
 }
 
-void encode_can_0x33d_Temo34(can_0x33d_PackTemperatures31Thru34_obj_t *o, int16_t in) {
+void encode_0x33d_Temo34(can_0x33d_PackTemperatures31Thru34_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 48)) | ((x & 0xffffuLL) << 48);
 	return;
 }
 
-void decode_can_0x33e_Temp35(can_0x33e_PackTemperatures35Thru38_obj_t *o, int16_t *out) {
+void decode_0x33e_Temp35(can_0x33e_PackTemperatures35Thru38_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7868,14 +7868,14 @@ void decode_can_0x33e_Temp35(can_0x33e_PackTemperatures35Thru38_obj_t *o, int16_
 	return;
 }
 
-void encode_can_0x33e_Temp35(can_0x33e_PackTemperatures35Thru38_obj_t *o, int16_t in) {
+void encode_0x33e_Temp35(can_0x33e_PackTemperatures35Thru38_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x33e_Temp36(can_0x33e_PackTemperatures35Thru38_obj_t *o, int16_t *out) {
+void decode_0x33e_Temp36(can_0x33e_PackTemperatures35Thru38_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7888,14 +7888,14 @@ void decode_can_0x33e_Temp36(can_0x33e_PackTemperatures35Thru38_obj_t *o, int16_
 	return;
 }
 
-void encode_can_0x33e_Temp36(can_0x33e_PackTemperatures35Thru38_obj_t *o, int16_t in) {
+void encode_0x33e_Temp36(can_0x33e_PackTemperatures35Thru38_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 16)) | ((x & 0xffffuLL) << 16);
 	return;
 }
 
-void decode_can_0x33e_Temp37(can_0x33e_PackTemperatures35Thru38_obj_t *o, int16_t *out) {
+void decode_0x33e_Temp37(can_0x33e_PackTemperatures35Thru38_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7908,14 +7908,14 @@ void decode_can_0x33e_Temp37(can_0x33e_PackTemperatures35Thru38_obj_t *o, int16_
 	return;
 }
 
-void encode_can_0x33e_Temp37(can_0x33e_PackTemperatures35Thru38_obj_t *o, int16_t in) {
+void encode_0x33e_Temp37(can_0x33e_PackTemperatures35Thru38_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 32)) | ((x & 0xffffuLL) << 32);
 	return;
 }
 
-void decode_can_0x33e_Temo38(can_0x33e_PackTemperatures35Thru38_obj_t *o, int16_t *out) {
+void decode_0x33e_Temo38(can_0x33e_PackTemperatures35Thru38_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7928,14 +7928,14 @@ void decode_can_0x33e_Temo38(can_0x33e_PackTemperatures35Thru38_obj_t *o, int16_
 	return;
 }
 
-void encode_can_0x33e_Temo38(can_0x33e_PackTemperatures35Thru38_obj_t *o, int16_t in) {
+void encode_0x33e_Temo38(can_0x33e_PackTemperatures35Thru38_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 48)) | ((x & 0xffffuLL) << 48);
 	return;
 }
 
-void decode_can_0x33f_Temp39(can_0x33f_PackTemperatures39Thru42_obj_t *o, int16_t *out) {
+void decode_0x33f_Temp39(can_0x33f_PackTemperatures39Thru42_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7948,14 +7948,14 @@ void decode_can_0x33f_Temp39(can_0x33f_PackTemperatures39Thru42_obj_t *o, int16_
 	return;
 }
 
-void encode_can_0x33f_Temp39(can_0x33f_PackTemperatures39Thru42_obj_t *o, int16_t in) {
+void encode_0x33f_Temp39(can_0x33f_PackTemperatures39Thru42_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x33f_Temp40(can_0x33f_PackTemperatures39Thru42_obj_t *o, int16_t *out) {
+void decode_0x33f_Temp40(can_0x33f_PackTemperatures39Thru42_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7968,14 +7968,14 @@ void decode_can_0x33f_Temp40(can_0x33f_PackTemperatures39Thru42_obj_t *o, int16_
 	return;
 }
 
-void encode_can_0x33f_Temp40(can_0x33f_PackTemperatures39Thru42_obj_t *o, int16_t in) {
+void encode_0x33f_Temp40(can_0x33f_PackTemperatures39Thru42_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 16)) | ((x & 0xffffuLL) << 16);
 	return;
 }
 
-void decode_can_0x33f_Temp41(can_0x33f_PackTemperatures39Thru42_obj_t *o, int16_t *out) {
+void decode_0x33f_Temp41(can_0x33f_PackTemperatures39Thru42_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -7988,14 +7988,14 @@ void decode_can_0x33f_Temp41(can_0x33f_PackTemperatures39Thru42_obj_t *o, int16_
 	return;
 }
 
-void encode_can_0x33f_Temp41(can_0x33f_PackTemperatures39Thru42_obj_t *o, int16_t in) {
+void encode_0x33f_Temp41(can_0x33f_PackTemperatures39Thru42_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 32)) | ((x & 0xffffuLL) << 32);
 	return;
 }
 
-void decode_can_0x33f_Temo42(can_0x33f_PackTemperatures39Thru42_obj_t *o, int16_t *out) {
+void decode_0x33f_Temo42(can_0x33f_PackTemperatures39Thru42_obj_t *o, int16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8008,14 +8008,14 @@ void decode_can_0x33f_Temo42(can_0x33f_PackTemperatures39Thru42_obj_t *o, int16_
 	return;
 }
 
-void encode_can_0x33f_Temo42(can_0x33f_PackTemperatures39Thru42_obj_t *o, int16_t in) {
+void encode_0x33f_Temo42(can_0x33f_PackTemperatures39Thru42_obj_t *o, int16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 48)) | ((x & 0xffffuLL) << 48);
 	return;
 }
 
-void decode_can_0x401_Reserved_Limit(can_0x401_StatusInformation_obj_t *o, uint16_t *out) {
+void decode_0x401_Reserved_Limit(can_0x401_StatusInformation_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8026,14 +8026,14 @@ void decode_can_0x401_Reserved_Limit(can_0x401_StatusInformation_obj_t *o, uint1
 	return;
 }
 
-void encode_can_0x401_Reserved_Limit(can_0x401_StatusInformation_obj_t *o, uint16_t in) {
+void encode_0x401_Reserved_Limit(can_0x401_StatusInformation_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1ffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1ffuLL << 7)) | ((x & 0x1ffuLL) << 7);
 	return;
 }
 
-void decode_can_0x401_Reserved_Error(can_0x401_StatusInformation_obj_t *o, uint8_t *out) {
+void decode_0x401_Reserved_Error(can_0x401_StatusInformation_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8044,14 +8044,14 @@ void decode_can_0x401_Reserved_Error(can_0x401_StatusInformation_obj_t *o, uint8
 	return;
 }
 
-void encode_can_0x401_Reserved_Error(can_0x401_StatusInformation_obj_t *o, uint8_t in) {
+void encode_0x401_Reserved_Error(can_0x401_StatusInformation_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffuLL << 24)) | ((x & 0xffuLL) << 24);
 	return;
 }
 
-void decode_can_0x401_limit_outputvolt_pwm(can_0x401_StatusInformation_obj_t *o, uint8_t *out) {
+void decode_0x401_limit_outputvolt_pwm(can_0x401_StatusInformation_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8062,14 +8062,14 @@ void decode_can_0x401_limit_outputvolt_pwm(can_0x401_StatusInformation_obj_t *o,
 	return;
 }
 
-void encode_can_0x401_limit_outputvolt_pwm(can_0x401_StatusInformation_obj_t *o, uint8_t in) {
+void encode_0x401_limit_outputvolt_pwm(can_0x401_StatusInformation_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~0x1uLL) | (x & 0x1uLL);
 	return;
 }
 
-void decode_can_0x401_limit_motor_current(can_0x401_StatusInformation_obj_t *o, uint8_t *out) {
+void decode_0x401_limit_motor_current(can_0x401_StatusInformation_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8080,14 +8080,14 @@ void decode_can_0x401_limit_motor_current(can_0x401_StatusInformation_obj_t *o, 
 	return;
 }
 
-void encode_can_0x401_limit_motor_current(can_0x401_StatusInformation_obj_t *o, uint8_t in) {
+void encode_0x401_limit_motor_current(can_0x401_StatusInformation_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 1)) | ((x & 0x1uLL) << 1);
 	return;
 }
 
-void decode_can_0x401_limit_velocity(can_0x401_StatusInformation_obj_t *o, uint8_t *out) {
+void decode_0x401_limit_velocity(can_0x401_StatusInformation_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8098,14 +8098,14 @@ void decode_can_0x401_limit_velocity(can_0x401_StatusInformation_obj_t *o, uint8
 	return;
 }
 
-void encode_can_0x401_limit_velocity(can_0x401_StatusInformation_obj_t *o, uint8_t in) {
+void encode_0x401_limit_velocity(can_0x401_StatusInformation_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 2)) | ((x & 0x1uLL) << 2);
 	return;
 }
 
-void decode_can_0x401_limit_bus_current(can_0x401_StatusInformation_obj_t *o, uint8_t *out) {
+void decode_0x401_limit_bus_current(can_0x401_StatusInformation_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8116,14 +8116,14 @@ void decode_can_0x401_limit_bus_current(can_0x401_StatusInformation_obj_t *o, ui
 	return;
 }
 
-void encode_can_0x401_limit_bus_current(can_0x401_StatusInformation_obj_t *o, uint8_t in) {
+void encode_0x401_limit_bus_current(can_0x401_StatusInformation_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 3)) | ((x & 0x1uLL) << 3);
 	return;
 }
 
-void decode_can_0x401_limit_bus_volt_upper(can_0x401_StatusInformation_obj_t *o, uint8_t *out) {
+void decode_0x401_limit_bus_volt_upper(can_0x401_StatusInformation_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8134,14 +8134,14 @@ void decode_can_0x401_limit_bus_volt_upper(can_0x401_StatusInformation_obj_t *o,
 	return;
 }
 
-void encode_can_0x401_limit_bus_volt_upper(can_0x401_StatusInformation_obj_t *o, uint8_t in) {
+void encode_0x401_limit_bus_volt_upper(can_0x401_StatusInformation_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 4)) | ((x & 0x1uLL) << 4);
 	return;
 }
 
-void decode_can_0x401_limit_bus_volt_lower(can_0x401_StatusInformation_obj_t *o, uint8_t *out) {
+void decode_0x401_limit_bus_volt_lower(can_0x401_StatusInformation_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8152,14 +8152,14 @@ void decode_can_0x401_limit_bus_volt_lower(can_0x401_StatusInformation_obj_t *o,
 	return;
 }
 
-void encode_can_0x401_limit_bus_volt_lower(can_0x401_StatusInformation_obj_t *o, uint8_t in) {
+void encode_0x401_limit_bus_volt_lower(can_0x401_StatusInformation_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 5)) | ((x & 0x1uLL) << 5);
 	return;
 }
 
-void decode_can_0x401_limit_temp(can_0x401_StatusInformation_obj_t *o, uint8_t *out) {
+void decode_0x401_limit_temp(can_0x401_StatusInformation_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8170,14 +8170,14 @@ void decode_can_0x401_limit_temp(can_0x401_StatusInformation_obj_t *o, uint8_t *
 	return;
 }
 
-void encode_can_0x401_limit_temp(can_0x401_StatusInformation_obj_t *o, uint8_t in) {
+void encode_0x401_limit_temp(can_0x401_StatusInformation_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 6)) | ((x & 0x1uLL) << 6);
 	return;
 }
 
-void decode_can_0x401_error_hardware_over_current(can_0x401_StatusInformation_obj_t *o, uint8_t *out) {
+void decode_0x401_error_hardware_over_current(can_0x401_StatusInformation_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8188,14 +8188,14 @@ void decode_can_0x401_error_hardware_over_current(can_0x401_StatusInformation_ob
 	return;
 }
 
-void encode_can_0x401_error_hardware_over_current(can_0x401_StatusInformation_obj_t *o, uint8_t in) {
+void encode_0x401_error_hardware_over_current(can_0x401_StatusInformation_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 16)) | ((x & 0x1uLL) << 16);
 	return;
 }
 
-void decode_can_0x401_error_software_over_current(can_0x401_StatusInformation_obj_t *o, uint8_t *out) {
+void decode_0x401_error_software_over_current(can_0x401_StatusInformation_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8206,14 +8206,14 @@ void decode_can_0x401_error_software_over_current(can_0x401_StatusInformation_ob
 	return;
 }
 
-void encode_can_0x401_error_software_over_current(can_0x401_StatusInformation_obj_t *o, uint8_t in) {
+void encode_0x401_error_software_over_current(can_0x401_StatusInformation_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 17)) | ((x & 0x1uLL) << 17);
 	return;
 }
 
-void decode_can_0x401_error_DC_over_volt(can_0x401_StatusInformation_obj_t *o, uint8_t *out) {
+void decode_0x401_error_DC_over_volt(can_0x401_StatusInformation_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8224,14 +8224,14 @@ void decode_can_0x401_error_DC_over_volt(can_0x401_StatusInformation_obj_t *o, u
 	return;
 }
 
-void encode_can_0x401_error_DC_over_volt(can_0x401_StatusInformation_obj_t *o, uint8_t in) {
+void encode_0x401_error_DC_over_volt(can_0x401_StatusInformation_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 18)) | ((x & 0x1uLL) << 18);
 	return;
 }
 
-void decode_can_0x401_error_bad_position(can_0x401_StatusInformation_obj_t *o, uint8_t *out) {
+void decode_0x401_error_bad_position(can_0x401_StatusInformation_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8242,14 +8242,14 @@ void decode_can_0x401_error_bad_position(can_0x401_StatusInformation_obj_t *o, u
 	return;
 }
 
-void encode_can_0x401_error_bad_position(can_0x401_StatusInformation_obj_t *o, uint8_t in) {
+void encode_0x401_error_bad_position(can_0x401_StatusInformation_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 19)) | ((x & 0x1uLL) << 19);
 	return;
 }
 
-void decode_can_0x401_error_watchdog(can_0x401_StatusInformation_obj_t *o, uint8_t *out) {
+void decode_0x401_error_watchdog(can_0x401_StatusInformation_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8260,14 +8260,14 @@ void decode_can_0x401_error_watchdog(can_0x401_StatusInformation_obj_t *o, uint8
 	return;
 }
 
-void encode_can_0x401_error_watchdog(can_0x401_StatusInformation_obj_t *o, uint8_t in) {
+void encode_0x401_error_watchdog(can_0x401_StatusInformation_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 20)) | ((x & 0x1uLL) << 20);
 	return;
 }
 
-void decode_can_0x401_error_configread(can_0x401_StatusInformation_obj_t *o, uint8_t *out) {
+void decode_0x401_error_configread(can_0x401_StatusInformation_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8278,14 +8278,14 @@ void decode_can_0x401_error_configread(can_0x401_StatusInformation_obj_t *o, uin
 	return;
 }
 
-void encode_can_0x401_error_configread(can_0x401_StatusInformation_obj_t *o, uint8_t in) {
+void encode_0x401_error_configread(can_0x401_StatusInformation_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 21)) | ((x & 0x1uLL) << 21);
 	return;
 }
 
-void decode_can_0x401_error_15v_under_volt(can_0x401_StatusInformation_obj_t *o, uint8_t *out) {
+void decode_0x401_error_15v_under_volt(can_0x401_StatusInformation_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8296,14 +8296,14 @@ void decode_can_0x401_error_15v_under_volt(can_0x401_StatusInformation_obj_t *o,
 	return;
 }
 
-void encode_can_0x401_error_15v_under_volt(can_0x401_StatusInformation_obj_t *o, uint8_t in) {
+void encode_0x401_error_15v_under_volt(can_0x401_StatusInformation_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 22)) | ((x & 0x1uLL) << 22);
 	return;
 }
 
-void decode_can_0x401_error_desaturation(can_0x401_StatusInformation_obj_t *o, uint8_t *out) {
+void decode_0x401_error_desaturation(can_0x401_StatusInformation_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8314,14 +8314,14 @@ void decode_can_0x401_error_desaturation(can_0x401_StatusInformation_obj_t *o, u
 	return;
 }
 
-void encode_can_0x401_error_desaturation(can_0x401_StatusInformation_obj_t *o, uint8_t in) {
+void encode_0x401_error_desaturation(can_0x401_StatusInformation_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0x1uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x1uLL << 23)) | ((x & 0x1uLL) << 23);
 	return;
 }
 
-void decode_can_0x402_BusVoltage(can_0x402_BusMeasurement_obj_t *o, float *out) {
+void decode_0x402_BusVoltage(can_0x402_BusMeasurement_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8337,7 +8337,7 @@ void decode_can_0x402_BusVoltage(can_0x402_BusMeasurement_obj_t *o, float *out) 
 	return;
 }
 
-void encode_can_0x402_BusVoltage(can_0x402_BusMeasurement_obj_t *o, float in) {
+void encode_0x402_BusVoltage(can_0x402_BusMeasurement_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -1000);
 	assert(in <= 1000);
@@ -8349,7 +8349,7 @@ void encode_can_0x402_BusVoltage(can_0x402_BusMeasurement_obj_t *o, float in) {
 	return;
 }
 
-void decode_can_0x402_BusCurrent(can_0x402_BusMeasurement_obj_t *o, float *out) {
+void decode_0x402_BusCurrent(can_0x402_BusMeasurement_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8365,7 +8365,7 @@ void decode_can_0x402_BusCurrent(can_0x402_BusMeasurement_obj_t *o, float *out) 
 	return;
 }
 
-void encode_can_0x402_BusCurrent(can_0x402_BusMeasurement_obj_t *o, float in) {
+void encode_0x402_BusCurrent(can_0x402_BusMeasurement_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -1000);
 	assert(in <= 1000);
@@ -8377,7 +8377,7 @@ void encode_can_0x402_BusCurrent(can_0x402_BusMeasurement_obj_t *o, float in) {
 	return;
 }
 
-void decode_can_0x403_MotorVelocity(can_0x403_VelocityMeasurment_obj_t *o, float *out) {
+void decode_0x403_MotorVelocity(can_0x403_VelocityMeasurment_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8393,7 +8393,7 @@ void decode_can_0x403_MotorVelocity(can_0x403_VelocityMeasurment_obj_t *o, float
 	return;
 }
 
-void encode_can_0x403_MotorVelocity(can_0x403_VelocityMeasurment_obj_t *o, float in) {
+void encode_0x403_MotorVelocity(can_0x403_VelocityMeasurment_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -10000);
 	assert(in <= 10000);
@@ -8405,7 +8405,7 @@ void encode_can_0x403_MotorVelocity(can_0x403_VelocityMeasurment_obj_t *o, float
 	return;
 }
 
-void decode_can_0x403_VehicleVelocity(can_0x403_VelocityMeasurment_obj_t *o, float *out) {
+void decode_0x403_VehicleVelocity(can_0x403_VelocityMeasurment_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8421,7 +8421,7 @@ void decode_can_0x403_VehicleVelocity(can_0x403_VelocityMeasurment_obj_t *o, flo
 	return;
 }
 
-void encode_can_0x403_VehicleVelocity(can_0x403_VelocityMeasurment_obj_t *o, float in) {
+void encode_0x403_VehicleVelocity(can_0x403_VelocityMeasurment_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -1000);
 	assert(in <= 1000);
@@ -8433,7 +8433,7 @@ void encode_can_0x403_VehicleVelocity(can_0x403_VelocityMeasurment_obj_t *o, flo
 	return;
 }
 
-void decode_can_0x404_PhaseBcurrent(can_0x404_PhaseCurrentMeasurment_obj_t *o, float *out) {
+void decode_0x404_PhaseBcurrent(can_0x404_PhaseCurrentMeasurment_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8449,7 +8449,7 @@ void decode_can_0x404_PhaseBcurrent(can_0x404_PhaseCurrentMeasurment_obj_t *o, f
 	return;
 }
 
-void encode_can_0x404_PhaseBcurrent(can_0x404_PhaseCurrentMeasurment_obj_t *o, float in) {
+void encode_0x404_PhaseBcurrent(can_0x404_PhaseCurrentMeasurment_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -10000);
 	assert(in <= 10000);
@@ -8461,7 +8461,7 @@ void encode_can_0x404_PhaseBcurrent(can_0x404_PhaseCurrentMeasurment_obj_t *o, f
 	return;
 }
 
-void decode_can_0x404_PhaseCcurrent(can_0x404_PhaseCurrentMeasurment_obj_t *o, float *out) {
+void decode_0x404_PhaseCcurrent(can_0x404_PhaseCurrentMeasurment_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8477,7 +8477,7 @@ void decode_can_0x404_PhaseCcurrent(can_0x404_PhaseCurrentMeasurment_obj_t *o, f
 	return;
 }
 
-void encode_can_0x404_PhaseCcurrent(can_0x404_PhaseCurrentMeasurment_obj_t *o, float in) {
+void encode_0x404_PhaseCcurrent(can_0x404_PhaseCurrentMeasurment_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -10000);
 	assert(in <= 10000);
@@ -8489,7 +8489,7 @@ void encode_can_0x404_PhaseCcurrent(can_0x404_PhaseCurrentMeasurment_obj_t *o, f
 	return;
 }
 
-void decode_can_0x405_MotorVq(can_0x405_MotorVoltage_obj_t *o, float *out) {
+void decode_0x405_MotorVq(can_0x405_MotorVoltage_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8505,7 +8505,7 @@ void decode_can_0x405_MotorVq(can_0x405_MotorVoltage_obj_t *o, float *out) {
 	return;
 }
 
-void encode_can_0x405_MotorVq(can_0x405_MotorVoltage_obj_t *o, float in) {
+void encode_0x405_MotorVq(can_0x405_MotorVoltage_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -10000);
 	assert(in <= 10000);
@@ -8517,7 +8517,7 @@ void encode_can_0x405_MotorVq(can_0x405_MotorVoltage_obj_t *o, float in) {
 	return;
 }
 
-void decode_can_0x405_MotorVd(can_0x405_MotorVoltage_obj_t *o, float *out) {
+void decode_0x405_MotorVd(can_0x405_MotorVoltage_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8533,7 +8533,7 @@ void decode_can_0x405_MotorVd(can_0x405_MotorVoltage_obj_t *o, float *out) {
 	return;
 }
 
-void encode_can_0x405_MotorVd(can_0x405_MotorVoltage_obj_t *o, float in) {
+void encode_0x405_MotorVd(can_0x405_MotorVoltage_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -10000);
 	assert(in <= 10000);
@@ -8545,7 +8545,7 @@ void encode_can_0x405_MotorVd(can_0x405_MotorVoltage_obj_t *o, float in) {
 	return;
 }
 
-void decode_can_0x406_MotorIq(can_0x406_MotorCurrent_obj_t *o, float *out) {
+void decode_0x406_MotorIq(can_0x406_MotorCurrent_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8561,7 +8561,7 @@ void decode_can_0x406_MotorIq(can_0x406_MotorCurrent_obj_t *o, float *out) {
 	return;
 }
 
-void encode_can_0x406_MotorIq(can_0x406_MotorCurrent_obj_t *o, float in) {
+void encode_0x406_MotorIq(can_0x406_MotorCurrent_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -10000);
 	assert(in <= 10000);
@@ -8573,7 +8573,7 @@ void encode_can_0x406_MotorIq(can_0x406_MotorCurrent_obj_t *o, float in) {
 	return;
 }
 
-void decode_can_0x406_MotorId(can_0x406_MotorCurrent_obj_t *o, float *out) {
+void decode_0x406_MotorId(can_0x406_MotorCurrent_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8589,7 +8589,7 @@ void decode_can_0x406_MotorId(can_0x406_MotorCurrent_obj_t *o, float *out) {
 	return;
 }
 
-void encode_can_0x406_MotorId(can_0x406_MotorCurrent_obj_t *o, float in) {
+void encode_0x406_MotorId(can_0x406_MotorCurrent_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -10000);
 	assert(in <= 10000);
@@ -8601,7 +8601,7 @@ void encode_can_0x406_MotorId(can_0x406_MotorCurrent_obj_t *o, float in) {
 	return;
 }
 
-void decode_can_0x407_BEMFq(can_0x407_BackEMF_obj_t *o, float *out) {
+void decode_0x407_BEMFq(can_0x407_BackEMF_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8617,7 +8617,7 @@ void decode_can_0x407_BEMFq(can_0x407_BackEMF_obj_t *o, float *out) {
 	return;
 }
 
-void encode_can_0x407_BEMFq(can_0x407_BackEMF_obj_t *o, float in) {
+void encode_0x407_BEMFq(can_0x407_BackEMF_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -10000);
 	assert(in <= 10000);
@@ -8629,7 +8629,7 @@ void encode_can_0x407_BEMFq(can_0x407_BackEMF_obj_t *o, float in) {
 	return;
 }
 
-void decode_can_0x407_BEMFd(can_0x407_BackEMF_obj_t *o, float *out) {
+void decode_0x407_BEMFd(can_0x407_BackEMF_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8645,7 +8645,7 @@ void decode_can_0x407_BEMFd(can_0x407_BackEMF_obj_t *o, float *out) {
 	return;
 }
 
-void encode_can_0x407_BEMFd(can_0x407_BackEMF_obj_t *o, float in) {
+void encode_0x407_BEMFd(can_0x407_BackEMF_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -10000);
 	assert(in <= 10000);
@@ -8657,7 +8657,7 @@ void encode_can_0x407_BEMFd(can_0x407_BackEMF_obj_t *o, float in) {
 	return;
 }
 
-void decode_can_0x408_supply15v(can_0x408_Rail15v_obj_t *o, float *out) {
+void decode_0x408_supply15v(can_0x408_Rail15v_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8673,7 +8673,7 @@ void decode_can_0x408_supply15v(can_0x408_Rail15v_obj_t *o, float *out) {
 	return;
 }
 
-void encode_can_0x408_supply15v(can_0x408_Rail15v_obj_t *o, float in) {
+void encode_0x408_supply15v(can_0x408_Rail15v_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -100000);
 	assert(in <= 10000);
@@ -8685,7 +8685,7 @@ void encode_can_0x408_supply15v(can_0x408_Rail15v_obj_t *o, float in) {
 	return;
 }
 
-void decode_can_0x409_supply1v9(can_0x409_Rail3v3_1v9_obj_t *o, float *out) {
+void decode_0x409_supply1v9(can_0x409_Rail3v3_1v9_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8701,7 +8701,7 @@ void decode_can_0x409_supply1v9(can_0x409_Rail3v3_1v9_obj_t *o, float *out) {
 	return;
 }
 
-void encode_can_0x409_supply1v9(can_0x409_Rail3v3_1v9_obj_t *o, float in) {
+void encode_0x409_supply1v9(can_0x409_Rail3v3_1v9_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -1000);
 	assert(in <= 1000);
@@ -8713,7 +8713,7 @@ void encode_can_0x409_supply1v9(can_0x409_Rail3v3_1v9_obj_t *o, float in) {
 	return;
 }
 
-void decode_can_0x409_supply3v3(can_0x409_Rail3v3_1v9_obj_t *o, float *out) {
+void decode_0x409_supply3v3(can_0x409_Rail3v3_1v9_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8729,7 +8729,7 @@ void decode_can_0x409_supply3v3(can_0x409_Rail3v3_1v9_obj_t *o, float *out) {
 	return;
 }
 
-void encode_can_0x409_supply3v3(can_0x409_Rail3v3_1v9_obj_t *o, float in) {
+void encode_0x409_supply3v3(can_0x409_Rail3v3_1v9_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -1000);
 	assert(in <= 1000);
@@ -8741,7 +8741,7 @@ void encode_can_0x409_supply3v3(can_0x409_Rail3v3_1v9_obj_t *o, float in) {
 	return;
 }
 
-void decode_can_0x40b_MotorTemp(can_0x40b_Motor_PhaseA_Temperature_obj_t *o, float *out) {
+void decode_0x40b_MotorTemp(can_0x40b_Motor_PhaseA_Temperature_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8757,7 +8757,7 @@ void decode_can_0x40b_MotorTemp(can_0x40b_Motor_PhaseA_Temperature_obj_t *o, flo
 	return;
 }
 
-void encode_can_0x40b_MotorTemp(can_0x40b_Motor_PhaseA_Temperature_obj_t *o, float in) {
+void encode_0x40b_MotorTemp(can_0x40b_Motor_PhaseA_Temperature_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -10000);
 	assert(in <= 10000);
@@ -8769,7 +8769,7 @@ void encode_can_0x40b_MotorTemp(can_0x40b_Motor_PhaseA_Temperature_obj_t *o, flo
 	return;
 }
 
-void decode_can_0x40b_PhaseAtemp(can_0x40b_Motor_PhaseA_Temperature_obj_t *o, float *out) {
+void decode_0x40b_PhaseAtemp(can_0x40b_Motor_PhaseA_Temperature_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8785,7 +8785,7 @@ void decode_can_0x40b_PhaseAtemp(can_0x40b_Motor_PhaseA_Temperature_obj_t *o, fl
 	return;
 }
 
-void encode_can_0x40b_PhaseAtemp(can_0x40b_Motor_PhaseA_Temperature_obj_t *o, float in) {
+void encode_0x40b_PhaseAtemp(can_0x40b_Motor_PhaseA_Temperature_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -10000);
 	assert(in <= 10000);
@@ -8797,7 +8797,7 @@ void encode_can_0x40b_PhaseAtemp(can_0x40b_Motor_PhaseA_Temperature_obj_t *o, fl
 	return;
 }
 
-void decode_can_0x40c_DSP_temp(can_0x40c_Phase_B_dsp_temprature_obj_t *o, float *out) {
+void decode_0x40c_DSP_temp(can_0x40c_Phase_B_dsp_temprature_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8813,7 +8813,7 @@ void decode_can_0x40c_DSP_temp(can_0x40c_Phase_B_dsp_temprature_obj_t *o, float 
 	return;
 }
 
-void encode_can_0x40c_DSP_temp(can_0x40c_Phase_B_dsp_temprature_obj_t *o, float in) {
+void encode_0x40c_DSP_temp(can_0x40c_Phase_B_dsp_temprature_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -100000);
 	assert(in <= 100000);
@@ -8825,7 +8825,7 @@ void encode_can_0x40c_DSP_temp(can_0x40c_Phase_B_dsp_temprature_obj_t *o, float 
 	return;
 }
 
-void decode_can_0x40c_PhaseB_Temp(can_0x40c_Phase_B_dsp_temprature_obj_t *o, float *out) {
+void decode_0x40c_PhaseB_Temp(can_0x40c_Phase_B_dsp_temprature_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8841,7 +8841,7 @@ void decode_can_0x40c_PhaseB_Temp(can_0x40c_Phase_B_dsp_temprature_obj_t *o, flo
 	return;
 }
 
-void encode_can_0x40c_PhaseB_Temp(can_0x40c_Phase_B_dsp_temprature_obj_t *o, float in) {
+void encode_0x40c_PhaseB_Temp(can_0x40c_Phase_B_dsp_temprature_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -100000);
 	assert(in <= 100000);
@@ -8853,7 +8853,7 @@ void encode_can_0x40c_PhaseB_Temp(can_0x40c_Phase_B_dsp_temprature_obj_t *o, flo
 	return;
 }
 
-void decode_can_0x40e_Odometer(can_0x40e_Odometer_amphours_obj_t *o, float *out) {
+void decode_0x40e_Odometer(can_0x40e_Odometer_amphours_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8869,7 +8869,7 @@ void decode_can_0x40e_Odometer(can_0x40e_Odometer_amphours_obj_t *o, float *out)
 	return;
 }
 
-void encode_can_0x40e_Odometer(can_0x40e_Odometer_amphours_obj_t *o, float in) {
+void encode_0x40e_Odometer(can_0x40e_Odometer_amphours_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -10000);
 	assert(in <= 10000);
@@ -8881,7 +8881,7 @@ void encode_can_0x40e_Odometer(can_0x40e_Odometer_amphours_obj_t *o, float in) {
 	return;
 }
 
-void decode_can_0x40e_BusAmphours(can_0x40e_Odometer_amphours_obj_t *o, float *out) {
+void decode_0x40e_BusAmphours(can_0x40e_Odometer_amphours_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8897,7 +8897,7 @@ void decode_can_0x40e_BusAmphours(can_0x40e_Odometer_amphours_obj_t *o, float *o
 	return;
 }
 
-void encode_can_0x40e_BusAmphours(can_0x40e_Odometer_amphours_obj_t *o, float in) {
+void encode_0x40e_BusAmphours(can_0x40e_Odometer_amphours_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -10000);
 	assert(in <= 10000);
@@ -8909,7 +8909,7 @@ void encode_can_0x40e_BusAmphours(can_0x40e_Odometer_amphours_obj_t *o, float in
 	return;
 }
 
-void decode_can_0x501_MotorVelocityCommand(can_0x501_MotorDriveCommand_obj_t *o, float *out) {
+void decode_0x501_MotorVelocityCommand(can_0x501_MotorDriveCommand_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8925,7 +8925,7 @@ void decode_can_0x501_MotorVelocityCommand(can_0x501_MotorDriveCommand_obj_t *o,
 	return;
 }
 
-void encode_can_0x501_MotorVelocityCommand(can_0x501_MotorDriveCommand_obj_t *o, float in) {
+void encode_0x501_MotorVelocityCommand(can_0x501_MotorDriveCommand_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -5000);
 	assert(in <= 5000);
@@ -8937,7 +8937,7 @@ void encode_can_0x501_MotorVelocityCommand(can_0x501_MotorDriveCommand_obj_t *o,
 	return;
 }
 
-void decode_can_0x501_MotorCurrentCommand(can_0x501_MotorDriveCommand_obj_t *o, float *out) {
+void decode_0x501_MotorCurrentCommand(can_0x501_MotorDriveCommand_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8953,7 +8953,7 @@ void decode_can_0x501_MotorCurrentCommand(can_0x501_MotorDriveCommand_obj_t *o, 
 	return;
 }
 
-void encode_can_0x501_MotorCurrentCommand(can_0x501_MotorDriveCommand_obj_t *o, float in) {
+void encode_0x501_MotorCurrentCommand(can_0x501_MotorDriveCommand_obj_t *o, float in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 1);
@@ -8965,7 +8965,7 @@ void encode_can_0x501_MotorCurrentCommand(can_0x501_MotorDriveCommand_obj_t *o, 
 	return;
 }
 
-void decode_can_0x502_BusCurrentCommand(can_0x502_MotorPowerCommand_obj_t *o, float *out) {
+void decode_0x502_BusCurrentCommand(can_0x502_MotorPowerCommand_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -8981,7 +8981,7 @@ void decode_can_0x502_BusCurrentCommand(can_0x502_MotorPowerCommand_obj_t *o, fl
 	return;
 }
 
-void encode_can_0x502_BusCurrentCommand(can_0x502_MotorPowerCommand_obj_t *o, float in) {
+void encode_0x502_BusCurrentCommand(can_0x502_MotorPowerCommand_obj_t *o, float in) {
 	assert(o);
 	assert(in >= 0);
 	assert(in <= 1);
@@ -8993,7 +8993,7 @@ void encode_can_0x502_BusCurrentCommand(can_0x502_MotorPowerCommand_obj_t *o, fl
 	return;
 }
 
-void decode_can_0x8501930_Odometer_Velocity(can_0x8501930_Odometer_Velocity_obj_t *o, int32_t *out) {
+void decode_0x8501930_Odometer_Velocity(can_0x8501930_Odometer_Velocity_obj_t *o, int32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -9006,7 +9006,7 @@ void decode_can_0x8501930_Odometer_Velocity(can_0x8501930_Odometer_Velocity_obj_
 	return;
 }
 
-void encode_can_0x8501930_Odometer_Velocity(can_0x8501930_Odometer_Velocity_obj_t *o, int32_t in) {
+void encode_0x8501930_Odometer_Velocity(can_0x8501930_Odometer_Velocity_obj_t *o, int32_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)((int64_t)in)) & 0xffffffffuLL;
 	uint64_t lane = reverse_byte_order((uint64_t)o->payload);
@@ -9015,7 +9015,7 @@ void encode_can_0x8501930_Odometer_Velocity(can_0x8501930_Odometer_Velocity_obj_
 	return;
 }
 
-void decode_can_0xcc0016e_MagicNode1Flags(can_0xcc0016e_MagicCanNode1RHeartbeat_obj_t *o, uint16_t *out) {
+void decode_0xcc0016e_MagicNode1Flags(can_0xcc0016e_MagicCanNode1RHeartbeat_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -9026,7 +9026,7 @@ void decode_can_0xcc0016e_MagicNode1Flags(can_0xcc0016e_MagicCanNode1RHeartbeat_
 	return;
 }
 
-void encode_can_0xcc0016e_MagicNode1Flags(can_0xcc0016e_MagicCanNode1RHeartbeat_obj_t *o, uint16_t in) {
+void encode_0xcc0016e_MagicNode1Flags(can_0xcc0016e_MagicCanNode1RHeartbeat_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);

@@ -21,7 +21,7 @@ static inline uint64_t reverse_byte_order(uint64_t x) {
 	return x;
 }
 
-void decode_can_0x064_speed(can_0x064_DynLoc_obj_t *o, float *out) {
+void decode_0x064_speed(can_0x064_DynLoc_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -35,7 +35,7 @@ void decode_can_0x064_speed(can_0x064_DynLoc_obj_t *o, float *out) {
 	return;
 }
 
-void encode_can_0x064_speed(can_0x064_DynLoc_obj_t *o, float in) {
+void encode_0x064_speed(can_0x064_DynLoc_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -45,7 +45,7 @@ void encode_can_0x064_speed(can_0x064_DynLoc_obj_t *o, float in) {
 	return;
 }
 
-void decode_can_0x064_torque(can_0x064_DynLoc_obj_t *o, float *out) {
+void decode_0x064_torque(can_0x064_DynLoc_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -59,7 +59,7 @@ void decode_can_0x064_torque(can_0x064_DynLoc_obj_t *o, float *out) {
 	return;
 }
 
-void encode_can_0x064_torque(can_0x064_DynLoc_obj_t *o, float in) {
+void encode_0x064_torque(can_0x064_DynLoc_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -69,7 +69,7 @@ void encode_can_0x064_torque(can_0x064_DynLoc_obj_t *o, float in) {
 	return;
 }
 
-void decode_can_0x3df_dyno_mcn_motor_temp(can_0x3df_DynoMotorTemp_obj_t *o, float *out) {
+void decode_0x3df_dyno_mcn_motor_temp(can_0x3df_DynoMotorTemp_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -83,7 +83,7 @@ void decode_can_0x3df_dyno_mcn_motor_temp(can_0x3df_DynoMotorTemp_obj_t *o, floa
 	return;
 }
 
-void encode_can_0x3df_dyno_mcn_motor_temp(can_0x3df_DynoMotorTemp_obj_t *o, float in) {
+void encode_0x3df_dyno_mcn_motor_temp(can_0x3df_DynoMotorTemp_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -93,7 +93,7 @@ void encode_can_0x3df_dyno_mcn_motor_temp(can_0x3df_DynoMotorTemp_obj_t *o, floa
 	return;
 }
 
-void decode_can_0x3e0_dyno_mcn_ambient_temp(can_0x3e0_DynoAmbientTemp_obj_t *o, float *out) {
+void decode_0x3e0_dyno_mcn_ambient_temp(can_0x3e0_DynoAmbientTemp_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -107,7 +107,7 @@ void decode_can_0x3e0_dyno_mcn_ambient_temp(can_0x3e0_DynoAmbientTemp_obj_t *o, 
 	return;
 }
 
-void encode_can_0x3e0_dyno_mcn_ambient_temp(can_0x3e0_DynoAmbientTemp_obj_t *o, float in) {
+void encode_0x3e0_dyno_mcn_ambient_temp(can_0x3e0_DynoAmbientTemp_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -117,7 +117,7 @@ void encode_can_0x3e0_dyno_mcn_ambient_temp(can_0x3e0_DynoAmbientTemp_obj_t *o, 
 	return;
 }
 
-void decode_can_0x3e1_dyno_motor_plate_temp_1(can_0x3e1_DynoMotorPlateTemps_obj_t *o, float *out) {
+void decode_0x3e1_dyno_motor_plate_temp_1(can_0x3e1_DynoMotorPlateTemps_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -131,7 +131,7 @@ void decode_can_0x3e1_dyno_motor_plate_temp_1(can_0x3e1_DynoMotorPlateTemps_obj_
 	return;
 }
 
-void encode_can_0x3e1_dyno_motor_plate_temp_1(can_0x3e1_DynoMotorPlateTemps_obj_t *o, float in) {
+void encode_0x3e1_dyno_motor_plate_temp_1(can_0x3e1_DynoMotorPlateTemps_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -141,7 +141,7 @@ void encode_can_0x3e1_dyno_motor_plate_temp_1(can_0x3e1_DynoMotorPlateTemps_obj_
 	return;
 }
 
-void decode_can_0x3e1_dyno_motor_plate_temp_2(can_0x3e1_DynoMotorPlateTemps_obj_t *o, float *out) {
+void decode_0x3e1_dyno_motor_plate_temp_2(can_0x3e1_DynoMotorPlateTemps_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -155,7 +155,7 @@ void decode_can_0x3e1_dyno_motor_plate_temp_2(can_0x3e1_DynoMotorPlateTemps_obj_
 	return;
 }
 
-void encode_can_0x3e1_dyno_motor_plate_temp_2(can_0x3e1_DynoMotorPlateTemps_obj_t *o, float in) {
+void encode_0x3e1_dyno_motor_plate_temp_2(can_0x3e1_DynoMotorPlateTemps_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -165,7 +165,7 @@ void encode_can_0x3e1_dyno_motor_plate_temp_2(can_0x3e1_DynoMotorPlateTemps_obj_
 	return;
 }
 
-void decode_can_0x3e2_coolant_flow(can_0x3e2_DynoCoolantFlow_obj_t *o, float *out) {
+void decode_0x3e2_coolant_flow(can_0x3e2_DynoCoolantFlow_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -179,7 +179,7 @@ void decode_can_0x3e2_coolant_flow(can_0x3e2_DynoCoolantFlow_obj_t *o, float *ou
 	return;
 }
 
-void encode_can_0x3e2_coolant_flow(can_0x3e2_DynoCoolantFlow_obj_t *o, float in) {
+void encode_0x3e2_coolant_flow(can_0x3e2_DynoCoolantFlow_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -189,7 +189,7 @@ void encode_can_0x3e2_coolant_flow(can_0x3e2_DynoCoolantFlow_obj_t *o, float in)
 	return;
 }
 
-void decode_can_0x3e3_motor_coolant_temp(can_0x3e3_DynoMotorCoolantTemp_obj_t *o, float *out) {
+void decode_0x3e3_motor_coolant_temp(can_0x3e3_DynoMotorCoolantTemp_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -203,7 +203,7 @@ void decode_can_0x3e3_motor_coolant_temp(can_0x3e3_DynoMotorCoolantTemp_obj_t *o
 	return;
 }
 
-void encode_can_0x3e3_motor_coolant_temp(can_0x3e3_DynoMotorCoolantTemp_obj_t *o, float in) {
+void encode_0x3e3_motor_coolant_temp(can_0x3e3_DynoMotorCoolantTemp_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -213,7 +213,7 @@ void encode_can_0x3e3_motor_coolant_temp(can_0x3e3_DynoMotorCoolantTemp_obj_t *o
 	return;
 }
 
-void decode_can_0x3e4_motor_controller_coolant_temp(can_0x3e4_DynoMotorControllerCoolantTemp_obj_t *o, float *out) {
+void decode_0x3e4_motor_controller_coolant_temp(can_0x3e4_DynoMotorControllerCoolantTemp_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -227,7 +227,7 @@ void decode_can_0x3e4_motor_controller_coolant_temp(can_0x3e4_DynoMotorControlle
 	return;
 }
 
-void encode_can_0x3e4_motor_controller_coolant_temp(can_0x3e4_DynoMotorControllerCoolantTemp_obj_t *o, float in) {
+void encode_0x3e4_motor_controller_coolant_temp(can_0x3e4_DynoMotorControllerCoolantTemp_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -237,7 +237,7 @@ void encode_can_0x3e4_motor_controller_coolant_temp(can_0x3e4_DynoMotorControlle
 	return;
 }
 
-void decode_can_0x3e5_radiator_coolant_temp(can_0x3e5_DynoRadiatorCoolantTemp_obj_t *o, float *out) {
+void decode_0x3e5_radiator_coolant_temp(can_0x3e5_DynoRadiatorCoolantTemp_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -251,7 +251,7 @@ void decode_can_0x3e5_radiator_coolant_temp(can_0x3e5_DynoRadiatorCoolantTemp_ob
 	return;
 }
 
-void encode_can_0x3e5_radiator_coolant_temp(can_0x3e5_DynoRadiatorCoolantTemp_obj_t *o, float in) {
+void encode_0x3e5_radiator_coolant_temp(can_0x3e5_DynoRadiatorCoolantTemp_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -261,7 +261,7 @@ void encode_can_0x3e5_radiator_coolant_temp(can_0x3e5_DynoRadiatorCoolantTemp_ob
 	return;
 }
 
-void decode_can_0x3e6_coolant_pressure_1(can_0x3e6_DynoCoolantPressures_obj_t *o, float *out) {
+void decode_0x3e6_coolant_pressure_1(can_0x3e6_DynoCoolantPressures_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -275,7 +275,7 @@ void decode_can_0x3e6_coolant_pressure_1(can_0x3e6_DynoCoolantPressures_obj_t *o
 	return;
 }
 
-void encode_can_0x3e6_coolant_pressure_1(can_0x3e6_DynoCoolantPressures_obj_t *o, float in) {
+void encode_0x3e6_coolant_pressure_1(can_0x3e6_DynoCoolantPressures_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -285,7 +285,7 @@ void encode_can_0x3e6_coolant_pressure_1(can_0x3e6_DynoCoolantPressures_obj_t *o
 	return;
 }
 
-void decode_can_0x3e6_coolant_pressure_2(can_0x3e6_DynoCoolantPressures_obj_t *o, float *out) {
+void decode_0x3e6_coolant_pressure_2(can_0x3e6_DynoCoolantPressures_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -299,7 +299,7 @@ void decode_can_0x3e6_coolant_pressure_2(can_0x3e6_DynoCoolantPressures_obj_t *o
 	return;
 }
 
-void encode_can_0x3e6_coolant_pressure_2(can_0x3e6_DynoCoolantPressures_obj_t *o, float in) {
+void encode_0x3e6_coolant_pressure_2(can_0x3e6_DynoCoolantPressures_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -309,7 +309,7 @@ void encode_can_0x3e6_coolant_pressure_2(can_0x3e6_DynoCoolantPressures_obj_t *o
 	return;
 }
 
-void decode_can_0x3e7_dyno_mcn_system_flags(can_0x3e7_DynoMCNStatus_obj_t *o, uint32_t *out) {
+void decode_0x3e7_dyno_mcn_system_flags(can_0x3e7_DynoMCNStatus_obj_t *o, uint32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -320,14 +320,14 @@ void decode_can_0x3e7_dyno_mcn_system_flags(can_0x3e7_DynoMCNStatus_obj_t *o, ui
 	return;
 }
 
-void encode_can_0x3e7_dyno_mcn_system_flags(can_0x3e7_DynoMCNStatus_obj_t *o, uint32_t in) {
+void encode_0x3e7_dyno_mcn_system_flags(can_0x3e7_DynoMCNStatus_obj_t *o, uint32_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffffffuLL) | (x & 0xffffffffuLL);
 	return;
 }
 
-void decode_can_0x3e7_dyno_mcn_user_flags(can_0x3e7_DynoMCNStatus_obj_t *o, uint32_t *out) {
+void decode_0x3e7_dyno_mcn_user_flags(can_0x3e7_DynoMCNStatus_obj_t *o, uint32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -338,14 +338,14 @@ void decode_can_0x3e7_dyno_mcn_user_flags(can_0x3e7_DynoMCNStatus_obj_t *o, uint
 	return;
 }
 
-void encode_can_0x3e7_dyno_mcn_user_flags(can_0x3e7_DynoMCNStatus_obj_t *o, uint32_t in) {
+void encode_0x3e7_dyno_mcn_user_flags(can_0x3e7_DynoMCNStatus_obj_t *o, uint32_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffffffuLL << 32)) | ((x & 0xffffffffuLL) << 32);
 	return;
 }
 
-void decode_can_0x400_tritium_id(can_0x400_WS200IDInfo_obj_t *o, uint32_t *out) {
+void decode_0x400_tritium_id(can_0x400_WS200IDInfo_obj_t *o, uint32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -356,14 +356,14 @@ void decode_can_0x400_tritium_id(can_0x400_WS200IDInfo_obj_t *o, uint32_t *out) 
 	return;
 }
 
-void encode_can_0x400_tritium_id(can_0x400_WS200IDInfo_obj_t *o, uint32_t in) {
+void encode_0x400_tritium_id(can_0x400_WS200IDInfo_obj_t *o, uint32_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffffffuLL) | (x & 0xffffffffuLL);
 	return;
 }
 
-void decode_can_0x400_serial_number(can_0x400_WS200IDInfo_obj_t *o, uint32_t *out) {
+void decode_0x400_serial_number(can_0x400_WS200IDInfo_obj_t *o, uint32_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -374,14 +374,14 @@ void decode_can_0x400_serial_number(can_0x400_WS200IDInfo_obj_t *o, uint32_t *ou
 	return;
 }
 
-void encode_can_0x400_serial_number(can_0x400_WS200IDInfo_obj_t *o, uint32_t in) {
+void encode_0x400_serial_number(can_0x400_WS200IDInfo_obj_t *o, uint32_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffffffuLL << 32)) | ((x & 0xffffffffuLL) << 32);
 	return;
 }
 
-void decode_can_0x401_limit_flags(can_0x401_WS200Status_obj_t *o, uint16_t *out) {
+void decode_0x401_limit_flags(can_0x401_WS200Status_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -392,14 +392,14 @@ void decode_can_0x401_limit_flags(can_0x401_WS200Status_obj_t *o, uint16_t *out)
 	return;
 }
 
-void encode_can_0x401_limit_flags(can_0x401_WS200Status_obj_t *o, uint16_t in) {
+void encode_0x401_limit_flags(can_0x401_WS200Status_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x401_error_flags(can_0x401_WS200Status_obj_t *o, uint16_t *out) {
+void decode_0x401_error_flags(can_0x401_WS200Status_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -410,14 +410,14 @@ void decode_can_0x401_error_flags(can_0x401_WS200Status_obj_t *o, uint16_t *out)
 	return;
 }
 
-void encode_can_0x401_error_flags(can_0x401_WS200Status_obj_t *o, uint16_t in) {
+void encode_0x401_error_flags(can_0x401_WS200Status_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 16)) | ((x & 0xffffuLL) << 16);
 	return;
 }
 
-void decode_can_0x401_active_motor(can_0x401_WS200Status_obj_t *o, uint16_t *out) {
+void decode_0x401_active_motor(can_0x401_WS200Status_obj_t *o, uint16_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -428,14 +428,14 @@ void decode_can_0x401_active_motor(can_0x401_WS200Status_obj_t *o, uint16_t *out
 	return;
 }
 
-void encode_can_0x401_active_motor(can_0x401_WS200Status_obj_t *o, uint16_t in) {
+void encode_0x401_active_motor(can_0x401_WS200Status_obj_t *o, uint16_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 32)) | ((x & 0xffffuLL) << 32);
 	return;
 }
 
-void decode_can_0x401_transmit_error_count(can_0x401_WS200Status_obj_t *o, uint8_t *out) {
+void decode_0x401_transmit_error_count(can_0x401_WS200Status_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -446,14 +446,14 @@ void decode_can_0x401_transmit_error_count(can_0x401_WS200Status_obj_t *o, uint8
 	return;
 }
 
-void encode_can_0x401_transmit_error_count(can_0x401_WS200Status_obj_t *o, uint8_t in) {
+void encode_0x401_transmit_error_count(can_0x401_WS200Status_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffuLL << 48)) | ((x & 0xffuLL) << 48);
 	return;
 }
 
-void decode_can_0x401_receive_error_count(can_0x401_WS200Status_obj_t *o, uint8_t *out) {
+void decode_0x401_receive_error_count(can_0x401_WS200Status_obj_t *o, uint8_t *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -464,14 +464,14 @@ void decode_can_0x401_receive_error_count(can_0x401_WS200Status_obj_t *o, uint8_
 	return;
 }
 
-void encode_can_0x401_receive_error_count(can_0x401_WS200Status_obj_t *o, uint8_t in) {
+void encode_0x401_receive_error_count(can_0x401_WS200Status_obj_t *o, uint8_t in) {
 	assert(o);
 	uint64_t x = ((uint64_t)in) & 0xffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffuLL << 56)) | ((x & 0xffuLL) << 56);
 	return;
 }
 
-void decode_can_0x402_bus_voltage(can_0x402_WS200BusMeasurement_obj_t *o, float *out) {
+void decode_0x402_bus_voltage(can_0x402_WS200BusMeasurement_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -485,7 +485,7 @@ void decode_can_0x402_bus_voltage(can_0x402_WS200BusMeasurement_obj_t *o, float 
 	return;
 }
 
-void encode_can_0x402_bus_voltage(can_0x402_WS200BusMeasurement_obj_t *o, float in) {
+void encode_0x402_bus_voltage(can_0x402_WS200BusMeasurement_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -495,7 +495,7 @@ void encode_can_0x402_bus_voltage(can_0x402_WS200BusMeasurement_obj_t *o, float 
 	return;
 }
 
-void decode_can_0x402_bus_current(can_0x402_WS200BusMeasurement_obj_t *o, float *out) {
+void decode_0x402_bus_current(can_0x402_WS200BusMeasurement_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -509,7 +509,7 @@ void decode_can_0x402_bus_current(can_0x402_WS200BusMeasurement_obj_t *o, float 
 	return;
 }
 
-void encode_can_0x402_bus_current(can_0x402_WS200BusMeasurement_obj_t *o, float in) {
+void encode_0x402_bus_current(can_0x402_WS200BusMeasurement_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -519,7 +519,7 @@ void encode_can_0x402_bus_current(can_0x402_WS200BusMeasurement_obj_t *o, float 
 	return;
 }
 
-void decode_can_0x403_motor_velocity(can_0x403_VelocityMeasurement_obj_t *o, float *out) {
+void decode_0x403_motor_velocity(can_0x403_VelocityMeasurement_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -533,7 +533,7 @@ void decode_can_0x403_motor_velocity(can_0x403_VelocityMeasurement_obj_t *o, flo
 	return;
 }
 
-void encode_can_0x403_motor_velocity(can_0x403_VelocityMeasurement_obj_t *o, float in) {
+void encode_0x403_motor_velocity(can_0x403_VelocityMeasurement_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -543,7 +543,7 @@ void encode_can_0x403_motor_velocity(can_0x403_VelocityMeasurement_obj_t *o, flo
 	return;
 }
 
-void decode_can_0x403_vehicle_velocity(can_0x403_VelocityMeasurement_obj_t *o, float *out) {
+void decode_0x403_vehicle_velocity(can_0x403_VelocityMeasurement_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -557,7 +557,7 @@ void decode_can_0x403_vehicle_velocity(can_0x403_VelocityMeasurement_obj_t *o, f
 	return;
 }
 
-void encode_can_0x403_vehicle_velocity(can_0x403_VelocityMeasurement_obj_t *o, float in) {
+void encode_0x403_vehicle_velocity(can_0x403_VelocityMeasurement_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -567,7 +567,7 @@ void encode_can_0x403_vehicle_velocity(can_0x403_VelocityMeasurement_obj_t *o, f
 	return;
 }
 
-void decode_can_0x404_phase_current_b(can_0x404_PhaseCurrent_obj_t *o, float *out) {
+void decode_0x404_phase_current_b(can_0x404_PhaseCurrent_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -581,7 +581,7 @@ void decode_can_0x404_phase_current_b(can_0x404_PhaseCurrent_obj_t *o, float *ou
 	return;
 }
 
-void encode_can_0x404_phase_current_b(can_0x404_PhaseCurrent_obj_t *o, float in) {
+void encode_0x404_phase_current_b(can_0x404_PhaseCurrent_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -591,7 +591,7 @@ void encode_can_0x404_phase_current_b(can_0x404_PhaseCurrent_obj_t *o, float in)
 	return;
 }
 
-void decode_can_0x404_phase_current_c(can_0x404_PhaseCurrent_obj_t *o, float *out) {
+void decode_0x404_phase_current_c(can_0x404_PhaseCurrent_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -605,7 +605,7 @@ void decode_can_0x404_phase_current_c(can_0x404_PhaseCurrent_obj_t *o, float *ou
 	return;
 }
 
-void encode_can_0x404_phase_current_c(can_0x404_PhaseCurrent_obj_t *o, float in) {
+void encode_0x404_phase_current_c(can_0x404_PhaseCurrent_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -615,7 +615,7 @@ void encode_can_0x404_phase_current_c(can_0x404_PhaseCurrent_obj_t *o, float in)
 	return;
 }
 
-void decode_can_0x405_vq(can_0x405_MotorVoltage_obj_t *o, float *out) {
+void decode_0x405_vq(can_0x405_MotorVoltage_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -629,7 +629,7 @@ void decode_can_0x405_vq(can_0x405_MotorVoltage_obj_t *o, float *out) {
 	return;
 }
 
-void encode_can_0x405_vq(can_0x405_MotorVoltage_obj_t *o, float in) {
+void encode_0x405_vq(can_0x405_MotorVoltage_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -639,7 +639,7 @@ void encode_can_0x405_vq(can_0x405_MotorVoltage_obj_t *o, float in) {
 	return;
 }
 
-void decode_can_0x405_vd(can_0x405_MotorVoltage_obj_t *o, float *out) {
+void decode_0x405_vd(can_0x405_MotorVoltage_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -653,7 +653,7 @@ void decode_can_0x405_vd(can_0x405_MotorVoltage_obj_t *o, float *out) {
 	return;
 }
 
-void encode_can_0x405_vd(can_0x405_MotorVoltage_obj_t *o, float in) {
+void encode_0x405_vd(can_0x405_MotorVoltage_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -663,7 +663,7 @@ void encode_can_0x405_vd(can_0x405_MotorVoltage_obj_t *o, float in) {
 	return;
 }
 
-void decode_can_0x406_iq(can_0x406_MotorCurrent_obj_t *o, float *out) {
+void decode_0x406_iq(can_0x406_MotorCurrent_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -677,7 +677,7 @@ void decode_can_0x406_iq(can_0x406_MotorCurrent_obj_t *o, float *out) {
 	return;
 }
 
-void encode_can_0x406_iq(can_0x406_MotorCurrent_obj_t *o, float in) {
+void encode_0x406_iq(can_0x406_MotorCurrent_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -687,7 +687,7 @@ void encode_can_0x406_iq(can_0x406_MotorCurrent_obj_t *o, float in) {
 	return;
 }
 
-void decode_can_0x406_id(can_0x406_MotorCurrent_obj_t *o, float *out) {
+void decode_0x406_id(can_0x406_MotorCurrent_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -701,7 +701,7 @@ void decode_can_0x406_id(can_0x406_MotorCurrent_obj_t *o, float *out) {
 	return;
 }
 
-void encode_can_0x406_id(can_0x406_MotorCurrent_obj_t *o, float in) {
+void encode_0x406_id(can_0x406_MotorCurrent_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -711,7 +711,7 @@ void encode_can_0x406_id(can_0x406_MotorCurrent_obj_t *o, float in) {
 	return;
 }
 
-void decode_can_0x407_bemf_q(can_0x407_MotorBackEMF_obj_t *o, float *out) {
+void decode_0x407_bemf_q(can_0x407_MotorBackEMF_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -725,7 +725,7 @@ void decode_can_0x407_bemf_q(can_0x407_MotorBackEMF_obj_t *o, float *out) {
 	return;
 }
 
-void encode_can_0x407_bemf_q(can_0x407_MotorBackEMF_obj_t *o, float in) {
+void encode_0x407_bemf_q(can_0x407_MotorBackEMF_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -735,7 +735,7 @@ void encode_can_0x407_bemf_q(can_0x407_MotorBackEMF_obj_t *o, float in) {
 	return;
 }
 
-void decode_can_0x407_bemf_d(can_0x407_MotorBackEMF_obj_t *o, float *out) {
+void decode_0x407_bemf_d(can_0x407_MotorBackEMF_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -749,7 +749,7 @@ void decode_can_0x407_bemf_d(can_0x407_MotorBackEMF_obj_t *o, float *out) {
 	return;
 }
 
-void encode_can_0x407_bemf_d(can_0x407_MotorBackEMF_obj_t *o, float in) {
+void encode_0x407_bemf_d(can_0x407_MotorBackEMF_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -759,7 +759,7 @@ void encode_can_0x407_bemf_d(can_0x407_MotorBackEMF_obj_t *o, float in) {
 	return;
 }
 
-void decode_can_0x408_supply_15v(can_0x408_WS200Rail15V_obj_t *o, float *out) {
+void decode_0x408_supply_15v(can_0x408_WS200Rail15V_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -773,7 +773,7 @@ void decode_can_0x408_supply_15v(can_0x408_WS200Rail15V_obj_t *o, float *out) {
 	return;
 }
 
-void encode_can_0x408_supply_15v(can_0x408_WS200Rail15V_obj_t *o, float in) {
+void encode_0x408_supply_15v(can_0x408_WS200Rail15V_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -783,7 +783,7 @@ void encode_can_0x408_supply_15v(can_0x408_WS200Rail15V_obj_t *o, float in) {
 	return;
 }
 
-void decode_can_0x409_rail_2v(can_0x409_WS200LowRail_obj_t *o, float *out) {
+void decode_0x409_rail_2v(can_0x409_WS200LowRail_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -797,7 +797,7 @@ void decode_can_0x409_rail_2v(can_0x409_WS200LowRail_obj_t *o, float *out) {
 	return;
 }
 
-void encode_can_0x409_rail_2v(can_0x409_WS200LowRail_obj_t *o, float in) {
+void encode_0x409_rail_2v(can_0x409_WS200LowRail_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -807,7 +807,7 @@ void encode_can_0x409_rail_2v(can_0x409_WS200LowRail_obj_t *o, float in) {
 	return;
 }
 
-void decode_can_0x409_rail_3v(can_0x409_WS200LowRail_obj_t *o, float *out) {
+void decode_0x409_rail_3v(can_0x409_WS200LowRail_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -821,7 +821,7 @@ void decode_can_0x409_rail_3v(can_0x409_WS200LowRail_obj_t *o, float *out) {
 	return;
 }
 
-void encode_can_0x409_rail_3v(can_0x409_WS200LowRail_obj_t *o, float in) {
+void encode_0x409_rail_3v(can_0x409_WS200LowRail_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -831,7 +831,7 @@ void encode_can_0x409_rail_3v(can_0x409_WS200LowRail_obj_t *o, float in) {
 	return;
 }
 
-void decode_can_0x40b_motor_temp(can_0x40b_WS200MotorTemp_obj_t *o, float *out) {
+void decode_0x40b_motor_temp(can_0x40b_WS200MotorTemp_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -845,7 +845,7 @@ void decode_can_0x40b_motor_temp(can_0x40b_WS200MotorTemp_obj_t *o, float *out) 
 	return;
 }
 
-void encode_can_0x40b_motor_temp(can_0x40b_WS200MotorTemp_obj_t *o, float in) {
+void encode_0x40b_motor_temp(can_0x40b_WS200MotorTemp_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -855,7 +855,7 @@ void encode_can_0x40b_motor_temp(can_0x40b_WS200MotorTemp_obj_t *o, float in) {
 	return;
 }
 
-void decode_can_0x40b_ipm_phase_a_temp(can_0x40b_WS200MotorTemp_obj_t *o, float *out) {
+void decode_0x40b_ipm_phase_a_temp(can_0x40b_WS200MotorTemp_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -869,7 +869,7 @@ void decode_can_0x40b_ipm_phase_a_temp(can_0x40b_WS200MotorTemp_obj_t *o, float 
 	return;
 }
 
-void encode_can_0x40b_ipm_phase_a_temp(can_0x40b_WS200MotorTemp_obj_t *o, float in) {
+void encode_0x40b_ipm_phase_a_temp(can_0x40b_WS200MotorTemp_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -879,7 +879,7 @@ void encode_can_0x40b_ipm_phase_a_temp(can_0x40b_WS200MotorTemp_obj_t *o, float 
 	return;
 }
 
-void decode_can_0x40c_ipm_phase_b_temp(can_0x40c_WS200DSPBoardTemp_obj_t *o, float *out) {
+void decode_0x40c_ipm_phase_b_temp(can_0x40c_WS200DSPBoardTemp_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -893,7 +893,7 @@ void decode_can_0x40c_ipm_phase_b_temp(can_0x40c_WS200DSPBoardTemp_obj_t *o, flo
 	return;
 }
 
-void encode_can_0x40c_ipm_phase_b_temp(can_0x40c_WS200DSPBoardTemp_obj_t *o, float in) {
+void encode_0x40c_ipm_phase_b_temp(can_0x40c_WS200DSPBoardTemp_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -903,7 +903,7 @@ void encode_can_0x40c_ipm_phase_b_temp(can_0x40c_WS200DSPBoardTemp_obj_t *o, flo
 	return;
 }
 
-void decode_can_0x40c_dsp_board_temp(can_0x40c_WS200DSPBoardTemp_obj_t *o, float *out) {
+void decode_0x40c_dsp_board_temp(can_0x40c_WS200DSPBoardTemp_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -917,7 +917,7 @@ void decode_can_0x40c_dsp_board_temp(can_0x40c_WS200DSPBoardTemp_obj_t *o, float
 	return;
 }
 
-void encode_can_0x40c_dsp_board_temp(can_0x40c_WS200DSPBoardTemp_obj_t *o, float in) {
+void encode_0x40c_dsp_board_temp(can_0x40c_WS200DSPBoardTemp_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -927,7 +927,7 @@ void encode_can_0x40c_dsp_board_temp(can_0x40c_WS200DSPBoardTemp_obj_t *o, float
 	return;
 }
 
-void decode_can_0x40d_reserved_1(can_0x40d_WS200PhaseCTemp_obj_t *o, float *out) {
+void decode_0x40d_reserved_1(can_0x40d_WS200PhaseCTemp_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -941,7 +941,7 @@ void decode_can_0x40d_reserved_1(can_0x40d_WS200PhaseCTemp_obj_t *o, float *out)
 	return;
 }
 
-void encode_can_0x40d_reserved_1(can_0x40d_WS200PhaseCTemp_obj_t *o, float in) {
+void encode_0x40d_reserved_1(can_0x40d_WS200PhaseCTemp_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -951,7 +951,7 @@ void encode_can_0x40d_reserved_1(can_0x40d_WS200PhaseCTemp_obj_t *o, float in) {
 	return;
 }
 
-void decode_can_0x40d_ipm_phase_c_temp(can_0x40d_WS200PhaseCTemp_obj_t *o, float *out) {
+void decode_0x40d_ipm_phase_c_temp(can_0x40d_WS200PhaseCTemp_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -965,7 +965,7 @@ void decode_can_0x40d_ipm_phase_c_temp(can_0x40d_WS200PhaseCTemp_obj_t *o, float
 	return;
 }
 
-void encode_can_0x40d_ipm_phase_c_temp(can_0x40d_WS200PhaseCTemp_obj_t *o, float in) {
+void encode_0x40d_ipm_phase_c_temp(can_0x40d_WS200PhaseCTemp_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -975,7 +975,7 @@ void encode_can_0x40d_ipm_phase_c_temp(can_0x40d_WS200PhaseCTemp_obj_t *o, float
 	return;
 }
 
-void decode_can_0x40e_odometer(can_0x40e_WS200BusAmpHours_obj_t *o, float *out) {
+void decode_0x40e_odometer(can_0x40e_WS200BusAmpHours_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -989,7 +989,7 @@ void decode_can_0x40e_odometer(can_0x40e_WS200BusAmpHours_obj_t *o, float *out) 
 	return;
 }
 
-void encode_can_0x40e_odometer(can_0x40e_WS200BusAmpHours_obj_t *o, float in) {
+void encode_0x40e_odometer(can_0x40e_WS200BusAmpHours_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -999,7 +999,7 @@ void encode_can_0x40e_odometer(can_0x40e_WS200BusAmpHours_obj_t *o, float in) {
 	return;
 }
 
-void decode_can_0x40e_dc_bus_amp_hours(can_0x40e_WS200BusAmpHours_obj_t *o, float *out) {
+void decode_0x40e_dc_bus_amp_hours(can_0x40e_WS200BusAmpHours_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1013,7 +1013,7 @@ void decode_can_0x40e_dc_bus_amp_hours(can_0x40e_WS200BusAmpHours_obj_t *o, floa
 	return;
 }
 
-void encode_can_0x40e_dc_bus_amp_hours(can_0x40e_WS200BusAmpHours_obj_t *o, float in) {
+void encode_0x40e_dc_bus_amp_hours(can_0x40e_WS200BusAmpHours_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -1023,7 +1023,7 @@ void encode_can_0x40e_dc_bus_amp_hours(can_0x40e_WS200BusAmpHours_obj_t *o, floa
 	return;
 }
 
-void decode_can_0x417_slip_speed(can_0x417_WS200SlipSpeed_obj_t *o, float *out) {
+void decode_0x417_slip_speed(can_0x417_WS200SlipSpeed_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1037,7 +1037,7 @@ void decode_can_0x417_slip_speed(can_0x417_WS200SlipSpeed_obj_t *o, float *out) 
 	return;
 }
 
-void encode_can_0x417_slip_speed(can_0x417_WS200SlipSpeed_obj_t *o, float in) {
+void encode_0x417_slip_speed(can_0x417_WS200SlipSpeed_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
@@ -1047,7 +1047,7 @@ void encode_can_0x417_slip_speed(can_0x417_WS200SlipSpeed_obj_t *o, float in) {
 	return;
 }
 
-void decode_can_0x417_reserved_2(can_0x417_WS200SlipSpeed_obj_t *o, float *out) {
+void decode_0x417_reserved_2(can_0x417_WS200SlipSpeed_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -1061,7 +1061,7 @@ void decode_can_0x417_reserved_2(can_0x417_WS200SlipSpeed_obj_t *o, float *out) 
 	return;
 }
 
-void encode_can_0x417_reserved_2(can_0x417_WS200SlipSpeed_obj_t *o, float in) {
+void encode_0x417_reserved_2(can_0x417_WS200SlipSpeed_obj_t *o, float in) {
 	assert(o);
 	float wire = (float)in;
 	uint32_t raw;
