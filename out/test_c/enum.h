@@ -90,7 +90,7 @@ typedef struct {
 } can_0x004_Enum2_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint8_t payload;
 } can_0x122_IVTSleepAck_obj_t;
 
 

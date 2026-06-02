@@ -116,11 +116,11 @@ typedef struct {
 } can_0x064_DynLoc_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint32_t payload;
 } can_0x3df_DynoMotorTemp_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint32_t payload;
 } can_0x3e0_DynoAmbientTemp_obj_t;
 
 typedef struct {
@@ -128,19 +128,19 @@ typedef struct {
 } can_0x3e1_DynoMotorPlateTemps_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint32_t payload;
 } can_0x3e2_DynoCoolantFlow_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint32_t payload;
 } can_0x3e3_DynoMotorCoolantTemp_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint32_t payload;
 } can_0x3e4_DynoMotorControllerCoolantTemp_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint32_t payload;
 } can_0x3e5_DynoRadiatorCoolantTemp_obj_t;
 
 typedef struct {

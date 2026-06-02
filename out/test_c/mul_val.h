@@ -41,7 +41,7 @@ static inline int message_dlc_can2(const unsigned long id) {
 }
 
 typedef struct {
-	uint64_t payload;
+	uint16_t payload;
 } can_0x000_extended_multiplex_w_ranges_obj_t;
 
 typedef struct {

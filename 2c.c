@@ -23,7 +23,6 @@
 
 #define MAX_NAME_LENGTH (512u)
 #define CAN_OBJ_MESSAGE_UNION_FIELD "messages"
-
 static bool string_in_list(char **items, size_t count, const char *value)
 {
 	assert(value);
@@ -372,6 +371,26 @@ static const char *determine_type(unsigned length, bool is_signed, bool is_float
 	return is_signed ?
 		determine_signed_type(length) :
 		determine_unsigned_type(length);
+}
+
+static unsigned msg_payload_storage_bits(can_msg_t *msg)
+{
+	assert(msg);
+	unsigned highest_byte = msg->dlc ? (msg->dlc - 1u) : 0u;
+
+	for (size_t i = 0; i < msg->signal_count; i++) {
+		signal_t *sig = msg->sigs[i];
+		const bool motorola = (sig->endianess == endianess_motorola_e);
+		const unsigned start = fix_start_bit(motorola, sig->start_bit, sig->bit_length);
+		const unsigned high_lane_byte = (start + sig->bit_length - 1u) / 8u;
+		const unsigned low_lane_byte = start / 8u;
+		const unsigned high_stored_byte = motorola ? (7u - low_lane_byte) : high_lane_byte;
+
+		if (high_stored_byte > highest_byte)
+			highest_byte = high_stored_byte;
+	}
+
+	return (highest_byte + 1u) * 8u;
 }
 
 static int signal2print(signal_t *sig, unsigned id, const char *obj_name, const char *msg_name, FILE *o)
@@ -1196,10 +1215,13 @@ static int msg2h_objects(dbc_t *dbc, FILE *h, dbc2c_options_t *copts)
 		can_msg_t *msg = dbc->messages[i];
 		char name[MAX_NAME_LENGTH] = {0};
 		make_name(name, MAX_NAME_LENGTH, msg->name, msg->id, copts);
-		fprintf(h, "typedef struct {\n");
-		fprintf(h, "\tuint64_t payload;\n");
-		fprintf(h, "} %s_obj_t;\n", name);
-		fprintf(h, "\n");
+		const char *payload_type = determine_unsigned_type(msg_payload_storage_bits(msg));
+		if (fprintf(h, "typedef struct {\n") < 0)
+			return -1;
+		if (fprintf(h, "\t%s payload;\n", payload_type) < 0)
+			return -1;
+		if (fprintf(h, "} %s_obj_t;\n\n", name) < 0)
+			return -1;
 	}
 	return 0;
 }

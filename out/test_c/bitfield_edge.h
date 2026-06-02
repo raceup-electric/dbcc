@@ -80,7 +80,7 @@ typedef struct {
 } can_0x066_EdgeDouble_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint16_t payload;
 } can_0x067_EdgeEnums_obj_t;
 
 typedef struct {

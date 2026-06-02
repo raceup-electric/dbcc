@@ -14,6 +14,7 @@
 		} \
 	} while (0)
 
+
 static inline int check_float_eq(float a, float b, float tol) {
 	return fabsf(a - b) <= tol;
 }

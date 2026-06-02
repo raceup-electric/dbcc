@@ -401,31 +401,31 @@ static inline int message_dlc_can2(const unsigned long id) {
 }
 
 typedef struct {
-	uint64_t payload;
+	uint16_t payload;
 } can_0x020_MagicCanNode1RBootloaderAddress_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint16_t payload;
 } can_0x022_MagicCanNode2MBootloaderAddress_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint16_t payload;
 } can_0x023_MagicCanNode2Heartbeat_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint16_t payload;
 } can_0x024_MagicCanNode3FBootloaderAddress_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint16_t payload;
 } can_0x025_MagicCanNode3Heartbeat_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint16_t payload;
 } can_0x026_FrameFaultBootloaderAddres_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint16_t payload;
 } can_0x027_FrameFaultHeartbeat_obj_t;
 
 typedef struct {
@@ -433,7 +433,7 @@ typedef struct {
 } can_0x028_FrameFaultCommand_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint16_t payload;
 } can_0x02c_DriveControlsBootloader_obj_t;
 
 typedef struct {
@@ -441,15 +441,15 @@ typedef struct {
 } can_0x02d_DriveControlsCommand_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint16_t payload;
 } can_0x02e_DriveControlsHeartbeat_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint16_t payload;
 } can_0x030_CANMirrorBootloaderAddress_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint16_t payload;
 } can_0x031_CANMirrorHeatbeart_obj_t;
 
 typedef struct {
@@ -457,11 +457,11 @@ typedef struct {
 } can_0x032_CANMirrorCommand_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint16_t payload;
 } can_0x033_RiderDisplayBootloaderAddress_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint16_t payload;
 } can_0x034_RiderDisplayHeartbeat_obj_t;
 
 typedef struct {
@@ -469,35 +469,35 @@ typedef struct {
 } can_0x035_RiderDisplayCommand_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint16_t payload;
 } can_0x039_BIM1BootloaderAddress_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint16_t payload;
 } can_0x03a_BIM1Heartbeat_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint16_t payload;
 } can_0x03b_BIM2BootloaderAddress_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint16_t payload;
 } can_0x03c_BIM2Heartbeat_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint16_t payload;
 } can_0x03d_BIM3BootloaderAddress_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint16_t payload;
 } can_0x03e_BIM3Heartbeat_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint16_t payload;
 } can_0x03f_BIM4BootloaderAddress_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint16_t payload;
 } can_0x040_BIM4Heartbeat_obj_t;
 
 typedef struct {
@@ -513,7 +513,7 @@ typedef struct {
 } can_0x0a2_MagicCanNode3FCommand_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint16_t payload;
 } can_0x0aa_CANcorderHeartbeat_obj_t;
 
 typedef struct {
@@ -537,39 +537,39 @@ typedef struct {
 } can_0x100_FrameFaultDetectionStatus_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint32_t payload;
 } can_0x101_FrontBrakePressure_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint32_t payload;
 } can_0x102_RearBrakePressure_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint32_t payload;
 } can_0x103_FrontSuspensionTravel_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint32_t payload;
 } can_0x104_RearSuspensionTravel_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint32_t payload;
 } can_0x106_BusVoltage12V_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint32_t payload;
 } can_0x107_PostMotorCoolantTemp_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint32_t payload;
 } can_0x108_PostControllerCoolantTemp_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint32_t payload;
 } can_0x109_RadiatorCoolSideCoolantTemp_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint32_t payload;
 } can_0x10a_AmbientTemp_obj_t;
 
 typedef struct {
@@ -577,7 +577,7 @@ typedef struct {
 } can_0x10b_GPSLatAndValidityStatus_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint32_t payload;
 } can_0x10c_GPSLongitude_obj_t;
 
 typedef struct {
@@ -601,7 +601,7 @@ typedef struct {
 } can_0x111_MotorPlateTemp_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint32_t payload;
 } can_0x112_MotorScoop_obj_t;
 
 typedef struct {
@@ -621,15 +621,15 @@ typedef struct {
 } can_0x116_IMU4_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint32_t payload;
 } can_0x29a_IMU5_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint16_t payload;
 } can_0x29b_MESSAGE_NAME_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint8_t payload;
 } can_0x29c_MESSAGE_NAME2_obj_t;
 
 typedef struct {
@@ -881,7 +881,7 @@ typedef struct {
 } can_0x8501930_Odometer_Velocity_obj_t;
 
 typedef struct {
-	uint64_t payload;
+	uint16_t payload;
 } can_0xcc0016e_MagicCanNode1RHeartbeat_obj_t;
 
 
