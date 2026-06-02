@@ -67,8 +67,8 @@ void decode_can_0x692_sig3(can_0x692_extended_multiplex_obj_t *o, uint8_t *out);
 void encode_can_0x692_sig3(can_0x692_extended_multiplex_obj_t *o, uint8_t in);
 void decode_can_0x692_sig1(can_0x692_extended_multiplex_obj_t *o, uint8_t *out);
 void encode_can_0x692_sig1(can_0x692_extended_multiplex_obj_t *o, uint8_t in);
-void decode_can_0x692_sig2(can_0x692_extended_multiplex_obj_t *o, double *out);
-void encode_can_0x692_sig2(can_0x692_extended_multiplex_obj_t *o, double in);
+void decode_can_0x692_sig2(can_0x692_extended_multiplex_obj_t *o, float *out);
+void encode_can_0x692_sig2(can_0x692_extended_multiplex_obj_t *o, float in);
 
 
 #ifdef __cplusplus

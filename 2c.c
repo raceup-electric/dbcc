@@ -443,8 +443,10 @@ static const char *signal_api_type(const char *msgname, signal_t *sig, dbc2c_opt
 	assert(buf);
 	assert(buflen);
 	const char *type = determine_type(sig->bit_length, sig->is_signed, sig->is_floating);
-	if (copts->use_doubles_for_encoding || sig->scaling != 1.0 || sig->offset != 0.0)
+	if (copts->use_doubles_for_encoding)
 		return "double";
+	if (!sig->is_floating && (sig->scaling != 1.0 || sig->offset != 0.0))
+		return sig->bit_length <= 32 ? "float" : "double";
 	if (sig->is_floating || !sig->val_list || sig->val_list->val_list_item_count == 0)
 		return type;
 
@@ -602,12 +604,12 @@ static int emit_encode_value_to_x(FILE *o, signal_t *sig, uint64_t mask)
 
 	if (sig->is_signed) {
 		if (needs_wire)
-			return fprintf(o, "\tuint64_t x = ((uint64_t)((int64_t)wire)) & 0x%" PRIx64 "uLL;\n", mask) < 0 ? -1 : 0;
+			return fprintf(o, "\tuint64_t x = ((uint64_t)((int64_t)(wire >= 0.0 ? wire + 0.5 : wire - 0.5))) & 0x%" PRIx64 "uLL;\n", mask) < 0 ? -1 : 0;
 		return fprintf(o, "\tuint64_t x = ((uint64_t)((int64_t)in)) & 0x%" PRIx64 "uLL;\n", mask) < 0 ? -1 : 0;
 	}
 
 	if (needs_wire)
-		return fprintf(o, "\tuint64_t x = ((uint64_t)wire) & 0x%" PRIx64 "uLL;\n", mask) < 0 ? -1 : 0;
+		return fprintf(o, "\tuint64_t x = ((uint64_t)(wire + 0.5)) & 0x%" PRIx64 "uLL;\n", mask) < 0 ? -1 : 0;
 	return fprintf(o, "\tuint64_t x = ((uint64_t)in) & 0x%" PRIx64 "uLL;\n", mask) < 0 ? -1 : 0;
 }
 

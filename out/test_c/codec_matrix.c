@@ -39,7 +39,7 @@ void encode_can_0x0c8_u12(can_0x0c8_MatrixIntelTypes_obj_t *o, uint16_t in) {
 	return;
 }
 
-void decode_can_0x0c8_s12(can_0x0c8_MatrixIntelTypes_obj_t *o, double *out) {
+void decode_can_0x0c8_s12(can_0x0c8_MatrixIntelTypes_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -47,7 +47,7 @@ void decode_can_0x0c8_s12(can_0x0c8_MatrixIntelTypes_obj_t *o, double *out) {
 	uint64_t x = (_lane_sig >> 28) & 0xfffuLL;
 	if ((x & 0x800uLL) != 0uLL)
 		x |= ~0xfffuLL;
-	double rval = (double)((int64_t)x);
+	float rval = (float)((int64_t)x);
 	rval *= -1;
 	rval += 100;
 	assert(rval >= -1947);
@@ -55,13 +55,13 @@ void decode_can_0x0c8_s12(can_0x0c8_MatrixIntelTypes_obj_t *o, double *out) {
 	return;
 }
 
-void encode_can_0x0c8_s12(can_0x0c8_MatrixIntelTypes_obj_t *o, double in) {
+void encode_can_0x0c8_s12(can_0x0c8_MatrixIntelTypes_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -1947);
 	double wire = (double)in;
 	wire += -100;
 	wire *= -1;
-	uint64_t x = ((uint64_t)((int64_t)wire)) & 0xfffuLL;
+	uint64_t x = ((uint64_t)((int64_t)(wire >= 0.0 ? wire + 0.5 : wire - 0.5))) & 0xfffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xfffuLL << 28)) | ((x & 0xfffuLL) << 28);
 	return;
 }
@@ -160,36 +160,36 @@ void encode_can_0x0c8_opcode(can_0x0c8_MatrixIntelTypes_obj_t *o, val_table_Matr
 	return;
 }
 
-void decode_can_0x0c9_scale_0p1(can_0x0c9_MatrixIntelScaled_obj_t *o, double *out) {
+void decode_can_0x0c9_scale_0p1(can_0x0c9_MatrixIntelScaled_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
 	uint64_t _lane_sig = _payload_sig;
 	uint64_t x = _lane_sig & 0xffffuLL;
-	double rval = (double)x;
+	float rval = (float)x;
 	rval *= 0.1;
 	assert(rval <= 6553.5);
 	*out = rval;
 	return;
 }
 
-void encode_can_0x0c9_scale_0p1(can_0x0c9_MatrixIntelScaled_obj_t *o, double in) {
+void encode_can_0x0c9_scale_0p1(can_0x0c9_MatrixIntelScaled_obj_t *o, float in) {
 	assert(o);
 	assert(in <= 6553.5);
 	double wire = (double)in;
 	wire *= 10;
-	uint64_t x = ((uint64_t)wire) & 0xffffuLL;
+	uint64_t x = ((uint64_t)(wire + 0.5)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffuLL) | (x & 0xffffuLL);
 	return;
 }
 
-void decode_can_0x0c9_scale_0p01_offset_m40(can_0x0c9_MatrixIntelScaled_obj_t *o, double *out) {
+void decode_can_0x0c9_scale_0p01_offset_m40(can_0x0c9_MatrixIntelScaled_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
 	uint64_t _lane_sig = _payload_sig;
 	uint64_t x = (_lane_sig >> 16) & 0xffffuLL;
-	double rval = (double)x;
+	float rval = (float)x;
 	rval *= 0.01;
 	rval += -40;
 	assert(rval <= 615.35);
@@ -197,24 +197,24 @@ void decode_can_0x0c9_scale_0p01_offset_m40(can_0x0c9_MatrixIntelScaled_obj_t *o
 	return;
 }
 
-void encode_can_0x0c9_scale_0p01_offset_m40(can_0x0c9_MatrixIntelScaled_obj_t *o, double in) {
+void encode_can_0x0c9_scale_0p01_offset_m40(can_0x0c9_MatrixIntelScaled_obj_t *o, float in) {
 	assert(o);
 	assert(in <= 615.35);
 	double wire = (double)in;
 	wire += 40;
 	wire *= 100;
-	uint64_t x = ((uint64_t)wire) & 0xffffuLL;
+	uint64_t x = ((uint64_t)(wire + 0.5)) & 0xffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffffuLL << 16)) | ((x & 0xffffuLL) << 16);
 	return;
 }
 
-void decode_can_0x0c9_scale_0p5_offset_1p5(can_0x0c9_MatrixIntelScaled_obj_t *o, double *out) {
+void decode_can_0x0c9_scale_0p5_offset_1p5(can_0x0c9_MatrixIntelScaled_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
 	uint64_t _lane_sig = _payload_sig;
 	uint64_t x = (_lane_sig >> 32) & 0xffuLL;
-	double rval = (double)x;
+	float rval = (float)x;
 	rval *= 0.5;
 	rval += 1.5;
 	assert(rval >= 1.5);
@@ -223,14 +223,14 @@ void decode_can_0x0c9_scale_0p5_offset_1p5(can_0x0c9_MatrixIntelScaled_obj_t *o,
 	return;
 }
 
-void encode_can_0x0c9_scale_0p5_offset_1p5(can_0x0c9_MatrixIntelScaled_obj_t *o, double in) {
+void encode_can_0x0c9_scale_0p5_offset_1p5(can_0x0c9_MatrixIntelScaled_obj_t *o, float in) {
 	assert(o);
 	assert(in >= 1.5);
 	assert(in <= 129);
 	double wire = (double)in;
 	wire += -1.5;
 	wire *= 2;
-	uint64_t x = ((uint64_t)wire) & 0xffuLL;
+	uint64_t x = ((uint64_t)(wire + 0.5)) & 0xffuLL;
 	o->payload = (((uint64_t)o->payload) & ~(0xffuLL << 32)) | ((x & 0xffuLL) << 32);
 	return;
 }
@@ -255,7 +255,7 @@ void encode_can_0x0ca_u12_be(can_0x0ca_MatrixMotorolaTypes_obj_t *o, uint16_t in
 	return;
 }
 
-void decode_can_0x0ca_s12_be(can_0x0ca_MatrixMotorolaTypes_obj_t *o, double *out) {
+void decode_can_0x0ca_s12_be(can_0x0ca_MatrixMotorolaTypes_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
@@ -263,7 +263,7 @@ void decode_can_0x0ca_s12_be(can_0x0ca_MatrixMotorolaTypes_obj_t *o, double *out
 	uint64_t x = (_lane_sig >> 24) & 0xfffuLL;
 	if ((x & 0x800uLL) != 0uLL)
 		x |= ~0xfffuLL;
-	double rval = (double)((int64_t)x);
+	float rval = (float)((int64_t)x);
 	rval *= -1;
 	rval += 100;
 	assert(rval >= -1947);
@@ -271,13 +271,13 @@ void decode_can_0x0ca_s12_be(can_0x0ca_MatrixMotorolaTypes_obj_t *o, double *out
 	return;
 }
 
-void encode_can_0x0ca_s12_be(can_0x0ca_MatrixMotorolaTypes_obj_t *o, double in) {
+void encode_can_0x0ca_s12_be(can_0x0ca_MatrixMotorolaTypes_obj_t *o, float in) {
 	assert(o);
 	assert(in >= -1947);
 	double wire = (double)in;
 	wire += -100;
 	wire *= -1;
-	uint64_t x = ((uint64_t)((int64_t)wire)) & 0xfffuLL;
+	uint64_t x = ((uint64_t)((int64_t)(wire >= 0.0 ? wire + 0.5 : wire - 0.5))) & 0xfffuLL;
 	uint64_t lane = reverse_byte_order((uint64_t)o->payload);
 	lane = (lane & ~(0xfffuLL << 24)) | ((x & 0xfffuLL) << 24);
 	o->payload = reverse_byte_order(lane);
@@ -368,38 +368,38 @@ void encode_can_0x0ca_state_be(can_0x0ca_MatrixMotorolaTypes_obj_t *o, val_table
 	return;
 }
 
-void decode_can_0x0cb_scale_0p1_be(can_0x0cb_MatrixMotorolaScaled_obj_t *o, double *out) {
+void decode_can_0x0cb_scale_0p1_be(can_0x0cb_MatrixMotorolaScaled_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
 	uint64_t _lane_sig = reverse_byte_order(_payload_sig);
 	uint64_t x = (_lane_sig >> 48) & 0xffffuLL;
-	double rval = (double)x;
+	float rval = (float)x;
 	rval *= 0.1;
 	assert(rval <= 6553.5);
 	*out = rval;
 	return;
 }
 
-void encode_can_0x0cb_scale_0p1_be(can_0x0cb_MatrixMotorolaScaled_obj_t *o, double in) {
+void encode_can_0x0cb_scale_0p1_be(can_0x0cb_MatrixMotorolaScaled_obj_t *o, float in) {
 	assert(o);
 	assert(in <= 6553.5);
 	double wire = (double)in;
 	wire *= 10;
-	uint64_t x = ((uint64_t)wire) & 0xffffuLL;
+	uint64_t x = ((uint64_t)(wire + 0.5)) & 0xffffuLL;
 	uint64_t lane = reverse_byte_order((uint64_t)o->payload);
 	lane = (lane & ~(0xffffuLL << 48)) | ((x & 0xffffuLL) << 48);
 	o->payload = reverse_byte_order(lane);
 	return;
 }
 
-void decode_can_0x0cb_scale_0p01_offset_m40_be(can_0x0cb_MatrixMotorolaScaled_obj_t *o, double *out) {
+void decode_can_0x0cb_scale_0p01_offset_m40_be(can_0x0cb_MatrixMotorolaScaled_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
 	uint64_t _lane_sig = reverse_byte_order(_payload_sig);
 	uint64_t x = (_lane_sig >> 32) & 0xffffuLL;
-	double rval = (double)x;
+	float rval = (float)x;
 	rval *= 0.01;
 	rval += -40;
 	assert(rval <= 615.35);
@@ -407,26 +407,26 @@ void decode_can_0x0cb_scale_0p01_offset_m40_be(can_0x0cb_MatrixMotorolaScaled_ob
 	return;
 }
 
-void encode_can_0x0cb_scale_0p01_offset_m40_be(can_0x0cb_MatrixMotorolaScaled_obj_t *o, double in) {
+void encode_can_0x0cb_scale_0p01_offset_m40_be(can_0x0cb_MatrixMotorolaScaled_obj_t *o, float in) {
 	assert(o);
 	assert(in <= 615.35);
 	double wire = (double)in;
 	wire += 40;
 	wire *= 100;
-	uint64_t x = ((uint64_t)wire) & 0xffffuLL;
+	uint64_t x = ((uint64_t)(wire + 0.5)) & 0xffffuLL;
 	uint64_t lane = reverse_byte_order((uint64_t)o->payload);
 	lane = (lane & ~(0xffffuLL << 32)) | ((x & 0xffffuLL) << 32);
 	o->payload = reverse_byte_order(lane);
 	return;
 }
 
-void decode_can_0x0cb_scale_0p5_offset_1p5_be(can_0x0cb_MatrixMotorolaScaled_obj_t *o, double *out) {
+void decode_can_0x0cb_scale_0p5_offset_1p5_be(can_0x0cb_MatrixMotorolaScaled_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
 	uint64_t _lane_sig = reverse_byte_order(_payload_sig);
 	uint64_t x = (_lane_sig >> 24) & 0xffuLL;
-	double rval = (double)x;
+	float rval = (float)x;
 	rval *= 0.5;
 	rval += 1.5;
 	assert(rval >= 1.5);
@@ -435,14 +435,14 @@ void decode_can_0x0cb_scale_0p5_offset_1p5_be(can_0x0cb_MatrixMotorolaScaled_obj
 	return;
 }
 
-void encode_can_0x0cb_scale_0p5_offset_1p5_be(can_0x0cb_MatrixMotorolaScaled_obj_t *o, double in) {
+void encode_can_0x0cb_scale_0p5_offset_1p5_be(can_0x0cb_MatrixMotorolaScaled_obj_t *o, float in) {
 	assert(o);
 	assert(in >= 1.5);
 	assert(in <= 129);
 	double wire = (double)in;
 	wire += -1.5;
 	wire *= 2;
-	uint64_t x = ((uint64_t)wire) & 0xffuLL;
+	uint64_t x = ((uint64_t)(wire + 0.5)) & 0xffuLL;
 	uint64_t lane = reverse_byte_order((uint64_t)o->payload);
 	lane = (lane & ~(0xffuLL << 24)) | ((x & 0xffuLL) << 24);
 	o->payload = reverse_byte_order(lane);
@@ -512,6 +512,29 @@ void encode_can_0x0cd_d64(can_0x0cd_MatrixDouble_obj_t *o, double in) {
 	memcpy(&raw, &wire, sizeof(raw));
 	uint64_t x = raw & 0xffffffffffffffffuLL;
 	o->payload = (((uint64_t)o->payload) & ~0xffffffffffffffffuLL) | (x & 0xffffffffffffffffuLL);
+	return;
+}
+
+void decode_can_0x0ce_scale32_0p001(can_0x0ce_MatrixWideScaled_obj_t *o, float *out) {
+	assert(o);
+	assert(out);
+	uint64_t _payload_sig = (uint64_t)(o->payload);
+	uint64_t _lane_sig = _payload_sig;
+	uint64_t x = _lane_sig & 0xffffffffuLL;
+	float rval = (float)x;
+	rval *= 0.001;
+	assert(rval <= 4.29497e+06);
+	*out = rval;
+	return;
+}
+
+void encode_can_0x0ce_scale32_0p001(can_0x0ce_MatrixWideScaled_obj_t *o, float in) {
+	assert(o);
+	assert(in <= 4.29497e+06);
+	double wire = (double)in;
+	wire *= 1000;
+	uint64_t x = ((uint64_t)(wire + 0.5)) & 0xffffffffuLL;
+	o->payload = (((uint64_t)o->payload) & ~0xffffffffuLL) | (x & 0xffffffffuLL);
 	return;
 }
 

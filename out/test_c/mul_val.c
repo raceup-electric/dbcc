@@ -199,25 +199,25 @@ void encode_can_0x692_sig1(can_0x692_extended_multiplex_obj_t *o, uint8_t in) {
 	return;
 }
 
-void decode_can_0x692_sig2(can_0x692_extended_multiplex_obj_t *o, double *out) {
+void decode_can_0x692_sig2(can_0x692_extended_multiplex_obj_t *o, float *out) {
 	assert(o);
 	assert(out);
 	uint64_t _payload_sig = (uint64_t)(o->payload);
 	uint64_t _lane_sig = _payload_sig;
 	uint64_t x = (_lane_sig >> 2) & 0x3uLL;
-	double rval = (double)x;
+	float rval = (float)x;
 	rval *= -1;
 	rval += 4;
 	*out = rval;
 	return;
 }
 
-void encode_can_0x692_sig2(can_0x692_extended_multiplex_obj_t *o, double in) {
+void encode_can_0x692_sig2(can_0x692_extended_multiplex_obj_t *o, float in) {
 	assert(o);
 	double wire = (double)in;
 	wire += -4;
 	wire *= -1;
-	uint64_t x = ((uint64_t)wire) & 0x3uLL;
+	uint64_t x = ((uint64_t)(wire + 0.5)) & 0x3uLL;
 	o->payload = (((uint64_t)o->payload) & ~(0x3uLL << 2)) | ((x & 0x3uLL) << 2);
 	return;
 }

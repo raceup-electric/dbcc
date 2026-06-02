@@ -16,7 +16,7 @@ int test_2c_mul_val(void) {
 	can_0x692_extended_multiplex_obj_t mux1 = {0};
 	uint16_t simple_muxer = 0;
 	uint8_t muxed_muxer = 0, sig3 = 0, sig1 = 0;
-	double sig2 = 0.0;
+	float sig2 = 0.0f;
 	uint32_t muxed1 = 0;
 
 	encode_can_0x692_simple_muxer(&mux1, 9216u);
@@ -24,7 +24,7 @@ int test_2c_mul_val(void) {
 	encode_can_0x692_muxed1(&mux1, 0x89abcdefu);
 	encode_can_0x692_sig3(&mux1, 9u);
 	encode_can_0x692_sig1(&mux1, 2u);
-	encode_can_0x692_sig2(&mux1, 3.0);
+	encode_can_0x692_sig2(&mux1, 3.0f);
 	decode_can_0x692_simple_muxer(&mux1, &simple_muxer);
 	decode_can_0x692_muxed_muxer(&mux1, &muxed_muxer);
 	decode_can_0x692_muxed1(&mux1, &muxed1);
@@ -36,7 +36,7 @@ int test_2c_mul_val(void) {
 	CHECK(muxed1 == 0x89abcdefu);
 	CHECK(sig3 == 9u);
 	CHECK(sig1 == 2u);
-	CHECK(check_double_eq(sig2, 3.0, 1e-12));
+	CHECK(check_float_eq(sig2, 3.0f, 1e-6f));
 
 	can_0x692_extended_multiplex_obj_t mux2 = {0};
 	uint32_t muxed2 = 0;
