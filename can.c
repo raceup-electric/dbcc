@@ -139,20 +139,40 @@ static void nodes(mpc_ast_t *sig_ast, signal_t *sig)
 	sig->ecu_count = len;
 }
 
-static void message_nodes(mpc_ast_t *msg_ast, can_msg_t *msg)
+static bool has_node(char **nodes, size_t count, const char *node)
+{
+	assert(node);
+	for (size_t i = 0; i < count; i++)
+		if (!strcmp(nodes[i], node))
+			return true;
+	return false;
+}
+
+static void add_unique_tx_node(can_msg_t *msg, const char *node)
+{
+	assert(msg);
+	assert(node);
+	if (has_node(msg->ecus, msg->ecu_count, node))
+		return;
+	msg->ecus = reallocator(msg->ecus, sizeof(*msg->ecus) * (msg->ecu_count + 1));
+	msg->ecus[msg->ecu_count++] = duplicate(node);
+	if (!msg->ecu)
+		msg->ecu = duplicate(node);
+}
+
+static void append_message_nodes(mpc_ast_t *msg_ast, can_msg_t *msg)
 {
 	assert(msg_ast && msg);
 
 	mpc_ast_t *single_node = mpc_ast_get_child(msg_ast, "nodes|node|ident|regex");
 	if (single_node) {
-		msg->ecus = allocate(sizeof(*msg->ecus));
-		msg->ecus[0] = duplicate(single_node->contents);
-		msg->ecu_count = 1;
-		msg->ecu = duplicate(single_node->contents);
+		add_unique_tx_node(msg, single_node->contents);
 		return;
 	}
 
 	mpc_ast_t *multiple_nodes = mpc_ast_get_child(msg_ast, "nodes|>");
+	if (!multiple_nodes)
+		return;
 	char **nodes = NULL;
 	size_t len = 0;
 	for (int i = 0; i >= 0;) {
@@ -164,10 +184,70 @@ static void message_nodes(mpc_ast_t *msg_ast, can_msg_t *msg)
 			i++;
 		}
 	}
-	msg->ecus = nodes;
-	msg->ecu_count = len;
-	if (len)
-		msg->ecu = duplicate(nodes[0]);
+	for (size_t i = 0; i < len; i++) {
+		add_unique_tx_node(msg, nodes[i]);
+		free(nodes[i]);
+	}
+	free(nodes);
+}
+
+static unsigned long raw_message_id(const can_msg_t *msg)
+{
+	assert(msg);
+	return msg->id | ((unsigned long)msg->is_extended << 31);
+}
+
+static can_msg_t *find_message_by_raw_id(dbc_t *dbc, unsigned long raw_id)
+{
+	assert(dbc);
+	for (size_t i = 0; i < dbc->message_count; i++)
+		if (raw_message_id(dbc->messages[i]) == raw_id)
+			return dbc->messages[i];
+	return NULL;
+}
+
+static void apply_single_bo_tx_bu(mpc_ast_t *bo_tx_bu_ast, dbc_t *dbc)
+{
+	assert(bo_tx_bu_ast);
+	assert(dbc);
+
+	mpc_ast_t *id_ast = mpc_ast_get_child(bo_tx_bu_ast, "id|integer|regex");
+	unsigned long raw_id = 0;
+	int r = sscanf(id_ast->contents, "%lu", &raw_id);
+	assert(r == 1);
+
+	can_msg_t *msg = find_message_by_raw_id(dbc, raw_id);
+	if (!msg) {
+		warning("BO_TX_BU_ references unknown message id %lu", raw_id);
+		return;
+	}
+
+	append_message_nodes(bo_tx_bu_ast, msg);
+}
+
+static void apply_bo_tx_bu(mpc_ast_t *ast, dbc_t *dbc)
+{
+	assert(ast);
+	assert(dbc);
+
+	for (int i = 0; i < ast->children_num; i++) {
+		mpc_ast_t *child = ast->children[i];
+		if (!child || !child->tag)
+			continue;
+
+		if (!strcmp(child->tag, "bo_tx_bus|bo_tx_bu|>")) {
+			apply_single_bo_tx_bu(child, dbc);
+			continue;
+		}
+
+		if (!strcmp(child->tag, "bo_tx_bus|>")) {
+			for (int j = 0; j < child->children_num; j++) {
+				mpc_ast_t *bo_tx_bu_ast = child->children[j];
+				if (bo_tx_bu_ast && bo_tx_bu_ast->tag && !strcmp(bo_tx_bu_ast->tag, "bo_tx_bu|>"))
+					apply_single_bo_tx_bu(bo_tx_bu_ast, dbc);
+			}
+		}
+	}
 }
 
 static int sigval_from_ast(mpc_ast_t *ast, unsigned id, const char *signal)
@@ -572,7 +652,7 @@ static can_msg_t *ast2msg(mpc_ast_t *top, mpc_ast_t *ast, dbc_t *dbc)
 	assert(r == 1);
 	r = sscanf(id->contents,  "%lu", &c->id);
 	assert(r == 1);
-	message_nodes(ast, c);
+	append_message_nodes(ast, c);
 
 	/* Extended CAN messages use the top most bit (which should
 	 * not normally be set) to indicate that they are extended
@@ -797,6 +877,7 @@ dbc_t *ast2dbc(mpc_ast_t *ast)
 	}
 	d->message_count = j;
 	d->messages = r;
+	apply_bo_tx_bu(ast, d);
 
 	if (ast_contains_sigval(ast))
 		d->use_float = true;

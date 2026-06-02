@@ -56,6 +56,8 @@ static mpc_ast_t *_parse_dbc_file_by_handle(const char *name, FILE *handle);
 	X(comment,              "comment")\
 	X(comments,             "comments")\
 	X(comment_string,       "comment_string")\
+	X(bo_tx_bu,             "bo_tx_bu")\
+	X(bo_tx_bus,            "bo_tx_bus")\
 	X(dbc,                  "dbc")
 
 /* TODO: Be more lax in what is acceptable */
@@ -110,6 +112,8 @@ static const char *dbc_grammar =
 " mul_ranges           : <mul_range>* ; \n"
 " mul_val              : \"SG_MUL_VAL_\" <s>+ <id> <s>+ <name> <s>+ <name> <s>+ <mul_ranges> ';' <n> ; \n"
 " mul_vals             : <mul_val>* ; \n"
+" bo_tx_bu             : \"BO_TX_BU_\" <s>+ <id> <s>* ':' <s>* <nodes>? <s>* ';' <n>+ ; \n"
+" bo_tx_bus            : <bo_tx_bu>* ; \n"
 " env_var_name         : <ident> ; \n"
 " comment_string       : <string> ; \n"
 " comment              : \"CM_\" <s>+ "
@@ -121,7 +125,7 @@ static const char *dbc_grammar =
 "                        |    <comment_string> "
 "                        ) <s>* ';' <n>+ ;\n "
 " comments              : <comment>* ; "
-" dbc       : <version> <symbols> <bs> <ecus> <values> <n>* <messages> <comments> <sigval>* <attribute_definition>* <attribute_value>* <values> <vals> <mul_vals>  ; \n" ;
+" dbc       : <version> <symbols> <bs> <ecus> <values> <n>* <messages> <bo_tx_bus> <comments> <sigval>* <attribute_definition>* <attribute_value>* <values> <vals> <mul_vals>  ; \n" ;
 
 const char *parse_get_grammar(void)
 {

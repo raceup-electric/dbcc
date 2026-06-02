@@ -68,6 +68,8 @@ BO_ 104 EdgeMux: 8 ECU_A,ECU_B
  SG_ muxed_a m1 : 8|8@1+ (1,0) [0|255] "" ECU_B
  SG_ muxed_b m2 : 8|8@1+ (1,0) [0|255] "" ECU_B
 
+BO_TX_BU_ 101 : ECU_B;
+
 SIG_VALTYPE_ 101 f32 : 1;
 SIG_VALTYPE_ 102 d64 : 2;
 
