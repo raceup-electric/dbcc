@@ -90,6 +90,8 @@ typedef struct {
 	unsigned dlc;        /**< length of CAN message 0-8 bytes */
 	unsigned long id;    /**< identifier, 11 or 29 bit */
 	bool is_extended;    /**< is extended mode message (29bit) */
+	bool has_cycle_time; /**< true if GenMsgCycleTime is explicitly set for this message */
+	unsigned cycle_time; /**< GenMsgCycleTime value in milliseconds */
 	char *comment;
 } can_msg_t;
 
@@ -103,6 +105,7 @@ typedef struct {
 	val_list_t **val_tables; /**< named value tables in DBC file */
 	size_t mul_val_count; /**< count of mul_vals*/
 	mul_val_list_t **mul_vals; /**< multiplexed value list; used for multiplexed signals in DBC file */
+	bool has_message_cycle_time_attribute; /**< true if BA_DEF_ BO_ "GenMsgCycleTime" exists */
 	int version;          /**< version information used for generating files (not just C) */
 } dbc_t;
 

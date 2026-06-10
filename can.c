@@ -206,6 +206,128 @@ static can_msg_t *find_message_by_raw_id(dbc_t *dbc, unsigned long raw_id)
 	return NULL;
 }
 
+static const char *ast_text_contents(mpc_ast_t *ast)
+{
+	assert(ast);
+	if (!ast->tag)
+		return ast->contents;
+	if (!strcmp(ast->tag, "whatever|string|>") ||
+	    !strcmp(ast->tag, "string|>") ||
+	    !strcmp(ast->tag, "comment_string|string|>")) {
+		assert(ast->children_num > 1);
+		return ast->children[1]->contents;
+	}
+	return ast->contents;
+}
+
+static int parse_unsigned_text(const char *text, unsigned *out)
+{
+	assert(text);
+	assert(out);
+	return sscanf(text, "%u", out) == 1;
+}
+
+static void parse_attribute_definitions(mpc_ast_t *ast, dbc_t *dbc)
+{
+	assert(ast);
+	assert(dbc);
+
+	for (int i = 0; i >= 0;) {
+		i = mpc_ast_get_index_lb(ast, "attribute_definition|>", i);
+		if (i < 0)
+			break;
+
+		mpc_ast_t *attr_ast = mpc_ast_get_child_lb(ast, "attribute_definition|>", i);
+		const char *scope = NULL;
+		const char *name = NULL;
+		for (int j = 0; j < attr_ast->children_num; j++) {
+			mpc_ast_t *child = attr_ast->children[j];
+			if (!child || !child->tag)
+				continue;
+			if (!strncmp(child->tag, "whatever|ident|regex", 20)) {
+				const char *text = ast_text_contents(child);
+				if (!strcmp(text, "BO_")) {
+					scope = text;
+					continue;
+				}
+				if (!strcmp(text, "DEF_"))
+					continue;
+			}
+			if (!strncmp(child->tag, "whatever|string|>", 17)) {
+				name = ast_text_contents(child);
+				continue;
+			}
+		}
+
+		if (name && !strcmp(name, "GenMsgCycleTime")) {
+			if (scope && !strcmp(scope, "BO_"))
+				dbc->has_message_cycle_time_attribute = true;
+		}
+
+		i++;
+	}
+}
+
+static void apply_attribute_values(mpc_ast_t *ast, dbc_t *dbc)
+{
+	assert(ast);
+	assert(dbc);
+
+	for (int i = 0; i >= 0;) {
+		i = mpc_ast_get_index_lb(ast, "attribute_value|>", i);
+		if (i < 0)
+			break;
+
+		mpc_ast_t *attr_ast = mpc_ast_get_child_lb(ast, "attribute_value|>", i);
+		const char *name = NULL;
+		const char *scope = NULL;
+		unsigned long raw_id = 0;
+		unsigned value = 0;
+		int integer_index = 0;
+
+		for (int j = 0; j < attr_ast->children_num; j++) {
+			mpc_ast_t *child = attr_ast->children[j];
+			if (!child || !child->tag)
+				continue;
+			if (!strncmp(child->tag, "whatever|string|>", 17)) {
+				name = ast_text_contents(child);
+				continue;
+			}
+			if (!strncmp(child->tag, "whatever|ident|regex", 20)) {
+				scope = ast_text_contents(child);
+				continue;
+			}
+			if (!strncmp(child->tag, "whatever|integer", 16)) {
+				if (integer_index == 0) {
+					if (scope && !strcmp(scope, "BO_")) {
+						if (sscanf(ast_text_contents(child), "%lu", &raw_id) != 1)
+							raw_id = 0;
+					} else {
+						if (!parse_unsigned_text(ast_text_contents(child), &value))
+							value = 0;
+					}
+				} else if (integer_index == 1) {
+					if (!parse_unsigned_text(ast_text_contents(child), &value))
+						value = 0;
+				}
+				integer_index++;
+			}
+		}
+
+		if (name && !strcmp(name, "GenMsgCycleTime") && scope && !strcmp(scope, "BO_")) {
+			can_msg_t *msg = find_message_by_raw_id(dbc, raw_id);
+			if (!msg) {
+				warning("BA_ GenMsgCycleTime references unknown message id %lu", raw_id);
+			} else {
+				msg->has_cycle_time = true;
+				msg->cycle_time = value;
+			}
+		}
+
+		i++;
+	}
+}
+
 static void apply_single_bo_tx_bu(mpc_ast_t *bo_tx_bu_ast, dbc_t *dbc)
 {
 	assert(bo_tx_bu_ast);
@@ -878,6 +1000,8 @@ dbc_t *ast2dbc(mpc_ast_t *ast)
 	d->message_count = j;
 	d->messages = r;
 	apply_bo_tx_bu(ast, d);
+	parse_attribute_definitions(ast, d);
+	apply_attribute_values(ast, d);
 
 	if (ast_contains_sigval(ast))
 		d->use_float = true;

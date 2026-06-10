@@ -251,6 +251,8 @@ static uint32_t hash_message(uint32_t hash, const can_msg_t *msg)
 	for (size_t i = 0; i < msg->ecu_count; i++)
 		hash = hash32_update_format(hash, "%s,", msg->ecus[i]);
 	hash = hash32_update_cstr(hash, "\n");
+	if (msg->has_cycle_time)
+		hash = hash32_update_format(hash, "CYCLETIME:%u\n", msg->cycle_time);
 	hash = hash32_update_format(hash, "COMMENT:%s\n", msg->comment ? msg->comment : "");
 	for (size_t i = 0; i < msg->signal_count; i++)
 		hash = hash_signal(hash, msg->sigs[i]);
@@ -1009,19 +1011,25 @@ static void msg2h_define_can_ids(dbc_t *dbc, FILE *h, dbc2c_options_t *copts) {
 		char macro_base[MAX_NAME_LENGTH] = { 0 };
 		char dlc_macro_name[MAX_NAME_LENGTH] = { 0 };
 		char dlc_macro_base[MAX_NAME_LENGTH] = { 0 };
+		char cycle_macro_name[MAX_NAME_LENGTH] = { 0 };
+		char cycle_macro_base[MAX_NAME_LENGTH] = { 0 };
 
 		for (size_t i = 0; name[i] != 0; i++)
 			name[i] = toupper(name[i]);
 		snprintf(macro_base, sizeof(macro_base), "CAN_ID_%s", name);
 		snprintf(dlc_macro_base, sizeof(dlc_macro_base), "CAN_DLC_%s", name);
+		snprintf(cycle_macro_base, sizeof(cycle_macro_base), "CAN_CYCLETIME_%s", name);
 		format_macro_identifier(macro_name, sizeof(macro_name), copts, macro_base);
 		format_macro_identifier(dlc_macro_name, sizeof(dlc_macro_name), copts, dlc_macro_base);
+		format_macro_identifier(cycle_macro_name, sizeof(cycle_macro_name), copts, cycle_macro_base);
 		if (ens) {
 			fprintf(h, "\t%s = %lu, /* 0x%lx */\n", macro_name, msg->id, msg->id);
 		} else {
 			fprintf(h, "#define %s (%lu) /* 0x%lx */\n", macro_name, msg->id, msg->id);
 		}
 		fprintf(h, "#define %s (%u)\n", dlc_macro_name, msg->dlc);
+		if (dbc->has_message_cycle_time_attribute && msg->has_cycle_time)
+			fprintf(h, "#define %s (%u)\n", cycle_macro_name, msg->cycle_time);
 
 		free(name);
 	}

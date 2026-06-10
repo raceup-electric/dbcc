@@ -606,19 +606,20 @@ int main(int argc, char **argv)
 		whitelist_filter_dbc(dbc, ecu_whitelist, ecu_whitelist_length);
 		print_dbc_summary_block(dbc, argv[i]);
 
-		char *outpath = dbcc_basename(argv[i]);
-		if (outdir) {
-			outpath = allocate(strlen(outpath) + strlen(outdir) + 2 /* '/' + '\0'*/);
-			strcat(outpath, outdir);
-			strcat(outpath, "/");
-			strcat(outpath, dbcc_basename(argv[i]));
-		}
+			char *input_name = duplicate(argv[i]);
+			char *basename = dbcc_basename(input_name);
+			char *outpath = basename;
+			if (outdir) {
+				const size_t outpath_len = strlen(outdir) + strlen(basename) + 2 /* '/' + '\0' */;
+				outpath = allocate(outpath_len);
+				snprintf(outpath, outpath_len, "%s/%s", outdir, basename);
+			}
 
-		int r = 0;
-		switch (convert) {
-		case CONVERT_TO_C:
-			r = dbc2cWrapper(dbc, outpath, dbcc_basename(argv[i]), &copts);
-			break;
+			int r = 0;
+			switch (convert) {
+			case CONVERT_TO_C:
+				r = dbc2cWrapper(dbc, outpath, basename, &copts);
+				break;
 		case CONVERT_TO_XML:
 			r = dbc2xmlWrapper(dbc, outpath, copts.use_time_stamps);
 			break;
@@ -633,22 +634,22 @@ int main(int argc, char **argv)
 		case CONVERT_TO_JSON:
 			r = dbc2jsonWrapper(dbc, outpath, copts.use_time_stamps);
 			break;
-		case CONVERT_TO_ROS:
-			r = dbc2rosWrapper(dbc, outpath, dbcc_basename(argv[i]), &rosopts);
-			break;
-		case CONVERT_TO_SDO_DPS:
-			r = dbc2sdodpsWrapper(dbc, argv[i], outpath);
-			break;
+			case CONVERT_TO_ROS:
+				r = dbc2rosWrapper(dbc, outpath, basename, &rosopts);
+				break;
+			case CONVERT_TO_SDO_DPS:
+				r = dbc2sdodpsWrapper(dbc, argv[i], outpath);
+				break;
 		default:
 			error("invalid conversion type: %d", convert);
 		}
-		if (r < 0)
-			warning("conversion process failed: %u/%u", r, convert);
-
-		if (outdir)
-			free(outpath);
-		dbc_delete(dbc);
-		mpc_ast_delete(ast);
+			if (r < 0)
+				warning("conversion process failed: %u/%u", r, convert);
+			if (outdir)
+				free(outpath);
+			free(input_name);
+			dbc_delete(dbc);
+			mpc_ast_delete(ast);
 	}
 	free(ecu_whitelist);
 

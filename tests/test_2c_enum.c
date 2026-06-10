@@ -15,6 +15,7 @@ int test_2c_enum(void) {
 	CHECK(sizeof(can_0x001_Enum1_obj_t) == 8u);
 	CHECK(sizeof(ack.payload) == 1u);
 	CHECK(sizeof(can_0x122_IVTSleepAck_obj_t) == 1u);
+	CHECK(CAN_CYCLETIME_IVTCTRL == 100u);
 
 	encode_0x001_state(&enum1, CAN_0X001_ENUM1_STATE_ACTIVE);
 	decode_0x001_state(&enum1, &enum1_out);

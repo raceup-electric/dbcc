@@ -4,6 +4,7 @@
 int test_2c_single_enum(void) {
 	CHECK(CAN_DLC_ENUM1 == 8u);
 	CHECK(CAN_DLC_IVTSLEEPACK == 1u);
+	CHECK(CAN_CYCLETIME_IVTCTRL == 100u);
 	CHECK(message_dlc_can2(CAN_ID_ENUM1) == 8);
 	CHECK(message_dlc_can2(CAN_ID_IVTSLEEPACK) == 1);
 
