@@ -80,7 +80,7 @@ extern "C" {
 #define CAN_ID_WS200SLIPSPEED (1047) /* 0x417 */
 #define CAN_DLC_WS200SLIPSPEED (8)
 
-static inline int message_dlc_can2(const unsigned long id) {
+static inline int message_dlc(const unsigned long id) {
 	switch (id) {
 	case CAN_ID_DYNLOC: return CAN_DLC_DYNLOC;
 	case CAN_ID_DYNOMOTORTEMP: return CAN_DLC_DYNOMOTORTEMP;

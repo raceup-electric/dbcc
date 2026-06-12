@@ -273,7 +273,7 @@ extern "C" {
 #define CAN_ID_MAGICCANNODE1RHEARTBEAT (213909870) /* 0xcc0016e */
 #define CAN_DLC_MAGICCANNODE1RHEARTBEAT (2)
 
-static inline int message_dlc_can2(const unsigned long id) {
+static inline int message_dlc(const unsigned long id) {
 	switch (id) {
 	case CAN_ID_MAGICCANNODE1RBOOTLOADERADDRESS: return CAN_DLC_MAGICCANNODE1RBOOTLOADERADDRESS;
 	case CAN_ID_MAGICCANNODE2MBOOTLOADERADDRESS: return CAN_DLC_MAGICCANNODE2MBOOTLOADERADDRESS;

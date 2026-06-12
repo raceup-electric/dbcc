@@ -1045,8 +1045,11 @@ static int msg2h_message_dlc_switch(dbc_t *dbc, FILE *h, dbc2c_options_t *copts)
 	assert(dbc);
 	assert(h);
 	assert(copts);
+	char function_name[MAX_NAME_LENGTH] = { 0 };
 
-	if (fprintf(h, "static inline int message_dlc_can2(const unsigned long id) {\n") < 0)
+	format_identifier(function_name, sizeof(function_name), copts, "message_dlc");
+
+	if (fprintf(h, "static inline int %s(const unsigned long id) {\n", function_name) < 0)
 		return -1;
 	if (fprintf(h, "\tswitch (id) {\n") < 0)
 		return -1;

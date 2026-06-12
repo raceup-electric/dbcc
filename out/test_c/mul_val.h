@@ -32,7 +32,7 @@ extern "C" {
 #define CAN_ID_EXTENDED_MULTIPLEX (1682) /* 0x692 */
 #define CAN_DLC_EXTENDED_MULTIPLEX (8)
 
-static inline int message_dlc_can2(const unsigned long id) {
+static inline int message_dlc(const unsigned long id) {
 	switch (id) {
 	case CAN_ID_EXTENDED_MULTIPLEX_W_RANGES: return CAN_DLC_EXTENDED_MULTIPLEX_W_RANGES;
 	case CAN_ID_EXTENDED_MULTIPLEX: return CAN_DLC_EXTENDED_MULTIPLEX;

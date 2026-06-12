@@ -43,7 +43,7 @@ extern "C" {
 #define CAN_ID_MATRIXWIDESCALED (206) /* 0xce */
 #define CAN_DLC_MATRIXWIDESCALED (8)
 
-static inline int message_dlc_can2(const unsigned long id) {
+static inline int message_dlc(const unsigned long id) {
 	switch (id) {
 	case CAN_ID_MATRIXINTELTYPES: return CAN_DLC_MATRIXINTELTYPES;
 	case CAN_ID_MATRIXINTELSCALED: return CAN_DLC_MATRIXINTELSCALED;

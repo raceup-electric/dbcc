@@ -4,8 +4,8 @@
 int test_2c_ex2(void) {
 	CHECK(CAN_DLC_DYNLOC == 8u);
 	CHECK(CAN_DLC_DYNOCOOLANTFLOW == 4u);
-	CHECK(message_dlc_can2(CAN_ID_DYNLOC) == 8);
-	CHECK(message_dlc_can2(CAN_ID_DYNOCOOLANTFLOW) == 4);
+	CHECK(message_dlc(CAN_ID_DYNLOC) == 8);
+	CHECK(message_dlc(CAN_ID_DYNOCOOLANTFLOW) == 4);
 	CHECK(sizeof(can_0x3e2_DynoCoolantFlow_obj_t) == 4u);
 	CHECK(sizeof(((can_0x3e2_DynoCoolantFlow_obj_t){0}).payload) == 4u);
 

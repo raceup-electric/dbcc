@@ -39,7 +39,7 @@ extern "C" {
 #define CAN_ID_EDGEMUX (104) /* 0x68 */
 #define CAN_DLC_EDGEMUX (8)
 
-static inline int message_dlc_can2(const unsigned long id) {
+static inline int message_dlc(const unsigned long id) {
 	switch (id) {
 	case CAN_ID_EDGEPACKED: return CAN_DLC_EDGEPACKED;
 	case CAN_ID_EDGEFLOAT: return CAN_DLC_EDGEFLOAT;

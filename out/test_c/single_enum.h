@@ -39,7 +39,7 @@ extern "C" {
 #define CAN_ID_IVTSLEEPACK (290) /* 0x122 */
 #define CAN_DLC_IVTSLEEPACK (1)
 
-static inline int message_dlc_can2(const unsigned long id) {
+static inline int message_dlc(const unsigned long id) {
 	switch (id) {
 	case CAN_ID_ENUM1: return CAN_DLC_ENUM1;
 	case CAN_ID_IVTCTRL: return CAN_DLC_IVTCTRL;
