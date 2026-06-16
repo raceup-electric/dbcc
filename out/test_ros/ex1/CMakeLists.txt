@@ -159,9 +159,9 @@ ament_export_dependencies(rosidl_default_runtime)
 add_executable(${PROJECT_NAME}_parser src/${PROJECT_NAME}_parser.cpp)
 target_include_directories(${PROJECT_NAME}_parser PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 ament_target_dependencies(${PROJECT_NAME}_parser rclcpp builtin_interfaces can_msgs)
-rosidl_target_interfaces(${PROJECT_NAME}_parser
-  ${PROJECT_NAME} "rosidl_typesupport_cpp"
-)
+rosidl_get_typesupport_target(cpp_typesupport_target
+  ${PROJECT_NAME} rosidl_typesupport_cpp)
+target_link_libraries(${PROJECT_NAME}_parser ${cpp_typesupport_target})
 
 install(DIRECTORY include/
   DESTINATION include
