@@ -17,6 +17,10 @@ typedef struct {
 	bool use_doubles_for_encoding;
 	bool generate_print, generate_pack, generate_unpack;
 	bool generate_asserts;
+	bool generate_signal_min_defines;
+	bool generate_signal_max_defines;
+	bool generate_signal_scaling_defines;
+	bool generate_signal_offset_defines;
 	bool generate_enum_can_ids;
 	const char *symbol_namespace;
 	const char *macro_namespace;

@@ -1194,6 +1194,72 @@ static int val_tables2h_types(dbc_t *dbc, FILE *h, dbc2c_options_t *copts)
 	return 0;
 }
 
+static void uppercase_identifier(char *s)
+{
+	assert(s);
+	for (size_t i = 0; s[i]; i++) {
+		unsigned char ch = (unsigned char)s[i];
+		if (isalnum(ch))
+			s[i] = (char)toupper(ch);
+	}
+}
+
+static int msg2h_signal_field_defines(dbc_t *dbc, FILE *h, dbc2c_options_t *copts)
+{
+	assert(dbc);
+	assert(h);
+	assert(copts);
+
+	if (!copts->generate_signal_min_defines &&
+	    !copts->generate_signal_max_defines &&
+	    !copts->generate_signal_scaling_defines &&
+	    !copts->generate_signal_offset_defines)
+		return 0;
+
+	for (size_t i = 0; i < dbc->message_count; i++) {
+		can_msg_t *msg = dbc->messages[i];
+		char msg_name[MAX_NAME_LENGTH] = { 0 };
+		make_name(msg_name, sizeof(msg_name), msg->name, msg->id, copts);
+
+		for (size_t j = 0; j < msg->signal_count; j++) {
+			signal_t *sig = msg->sigs[j];
+			char *sig_name = escape_string(sig->name, 0);
+			char macro_base[MAX_NAME_LENGTH] = { 0 };
+			char macro_name[MAX_NAME_LENGTH] = { 0 };
+
+			if (copts->generate_signal_min_defines) {
+				snprintf(macro_base, sizeof(macro_base), "%s_%s_min", msg_name, sig_name);
+				uppercase_identifier(macro_base);
+				format_macro_identifier(macro_name, sizeof(macro_name), copts, macro_base);
+				fprintf(h, "#define %s (%.15g)\n", macro_name, sig->minimum);
+			}
+			if (copts->generate_signal_max_defines) {
+				snprintf(macro_base, sizeof(macro_base), "%s_%s_max", msg_name, sig_name);
+				uppercase_identifier(macro_base);
+				format_macro_identifier(macro_name, sizeof(macro_name), copts, macro_base);
+				fprintf(h, "#define %s (%.15g)\n", macro_name, sig->maximum);
+			}
+			if (copts->generate_signal_scaling_defines) {
+				snprintf(macro_base, sizeof(macro_base), "%s_%s_scaling", msg_name, sig_name);
+				uppercase_identifier(macro_base);
+				format_macro_identifier(macro_name, sizeof(macro_name), copts, macro_base);
+				fprintf(h, "#define %s (%.15g)\n", macro_name, sig->scaling);
+			}
+			if (copts->generate_signal_offset_defines) {
+				snprintf(macro_base, sizeof(macro_base), "%s_%s_offset", msg_name, sig_name);
+				uppercase_identifier(macro_base);
+				format_macro_identifier(macro_name, sizeof(macro_name), copts, macro_base);
+				fprintf(h, "#define %s (%.15g)\n", macro_name, sig->offset);
+			}
+
+			free(sig_name);
+		}
+	}
+
+	fputc('\n', h);
+	return 0;
+}
+
 static int msg2h_types(dbc_t *dbc, FILE *h, dbc2c_options_t *copts)
 {
 	assert(h);
@@ -1397,6 +1463,10 @@ int dbc2c(dbc_t *dbc, FILE *c, FILE *h, const char *name, dbc2c_options_t *copts
 	}
 
 	msg2h_define_can_ids(dbc, h, copts);
+	if (msg2h_signal_field_defines(dbc, h, copts) < 0) {
+		rv = -1;
+		goto fail;
+	}
 	if (msg2h_message_dlc_switch(dbc, h, copts) < 0) {
 		rv = -1;
 		goto fail;

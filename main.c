@@ -281,7 +281,7 @@ static void print_dbc_summary_block(const dbc_t *dbc, const char *file_name)
 static void usage(const char *arg0)
 {
 	assert(arg0);
-	fprintf(stderr, "%s: [-] [-hvjgtxpkuDCd] [-o dir] file*\n", arg0);
+	fprintf(stderr, "%s: [-] [-hvjgtxpkuDCd] [-f fields] [-o dir] file*\n", arg0);
 }
 
 static void help(void)
@@ -314,6 +314,7 @@ Options:\n\
 \t-k     generate only pack code (C code)\n\
 \t-u     generate only unpack code (C code)\n\
 \t-s     disable assert generation (C code)\n\
+\t-f set generate signal field defines. Supported chars: m=min, M=max, s=scaling, o=offset (C code)\n\
 \t-O     prefix all public C symbols with the output filename basename\n\
 \t-n [version] specify the version of the generated output. Defaults to the latest. (C code)\n\
 \t-B     use bool type for 1 bit long unsigned signals (ROS code)\n\
@@ -463,6 +464,10 @@ int main(int argc, char **argv)
 		.generate_pack             =  false,
 		.generate_unpack           =  false,
 		.generate_asserts          =  true,
+		.generate_signal_min_defines = false,
+		.generate_signal_max_defines = false,
+		.generate_signal_scaling_defines = false,
+		.generate_signal_offset_defines = false,
 		.symbol_namespace          =  NULL,
 		.macro_namespace           =  NULL,
 		.version                   =  3,
@@ -476,7 +481,7 @@ int main(int argc, char **argv)
 	};
 	int opt = 0;
 
-	while ((opt = dbcc_getopt(argc, argv, "hVvbjgxCrNtDpukso:n:OBLPW:d")) != -1) {
+	while ((opt = dbcc_getopt(argc, argv, "hVvbjgxCrNtDpuksf:o:n:OBLPW:d")) != -1) {
 		switch (opt) {
 		case 'h':
 			usage(argv[0]);
@@ -543,6 +548,27 @@ int main(int argc, char **argv)
 		case 's':
 			copts.generate_asserts = false;
 			debug("asserts disabled - apparently you think silent corruption is a good thing");
+			break;
+		case 'f':
+			for (const char *p = dbcc_optarg; *p; p++) {
+				switch (*p) {
+				case 'm':
+					copts.generate_signal_min_defines = true;
+					break;
+				case 'M':
+					copts.generate_signal_max_defines = true;
+					break;
+				case 's':
+					copts.generate_signal_scaling_defines = true;
+					break;
+				case 'o':
+					copts.generate_signal_offset_defines = true;
+					break;
+				default:
+					error("Invalid -f field selector '%c'. Supported chars: m, M, s, o.", *p);
+				}
+			}
+			debug("generate signal field defines: %s", dbcc_optarg);
 			break;
 		case 'n': {
 			copts.version = strtol(dbcc_optarg, NULL, 10);

@@ -31,6 +31,11 @@ extern "C" {
 #define CAN_ID_NEWMESSAGE0 (1024) /* 0x400 */
 #define CAN_DLC_NEWMESSAGE0 (8)
 
+#define CAN_0X400_NEWMESSAGE0_DOUBLE_SIGNAL_0_MIN (0)
+#define CAN_0X400_NEWMESSAGE0_DOUBLE_SIGNAL_0_MAX (0)
+#define CAN_0X400_NEWMESSAGE0_DOUBLE_SIGNAL_0_SCALING (1)
+#define CAN_0X400_NEWMESSAGE0_DOUBLE_SIGNAL_0_OFFSET (0)
+
 static inline int message_dlc(const unsigned long id) {
 	switch (id) {
 	case CAN_ID_NEWMESSAGE0: return CAN_DLC_NEWMESSAGE0;

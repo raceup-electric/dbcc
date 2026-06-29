@@ -65,7 +65,7 @@ run: ${XMLS} ${CODECS} ${XHTMLS}
 
 ${TEST_C_DIR}/%.c: %.dbc ${TARGET}
 	@mkdir -p ${TEST_C_DIR}
-	./${TARGET} ${DBCCFLAGS} -o ${TEST_C_DIR} $<
+	./${TARGET} ${DBCCFLAGS} -f mMso -o ${TEST_C_DIR} $<
 
 TEST_C_FILES=${TEST_C_DIR}/ex1.c \
             ${TEST_C_DIR}/ex2.c \
