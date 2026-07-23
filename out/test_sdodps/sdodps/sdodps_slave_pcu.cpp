@@ -449,6 +449,10 @@ bool SlavePcu::process(std::uint32_t id, std::uint64_t payload) {
 	return false;
 }
 
+bool SlavePcu::notify(PcuVar var) {
+	return process_get(var);
+}
+
 bool SlavePcu::process_get(PcuVar var) {
 	switch (var) {
 	case PcuVar::dbc_hash: {
@@ -545,84 +549,108 @@ bool SlavePcu::process_set(PcuVar var, std::uint64_t payload) {
 		const std::uint32_t value = sdodps_decode_pcu_dbc_hash(payload);
 		const Status status = write_dbc_hash(value);
 		const Opcode opcode = status == Status::ok ? Opcode::RES : (status == Status::read_only ? Opcode::ERR_WRITE_RO : Opcode::ERR);
-		const std::uint64_t raw = status == Status::ok ? sdodps_encode_pcu_dbc_hash(value) : 0u;
+		std::uint32_t stored = value;
+		if (status == Status::ok) (void)read_dbc_hash(&stored);
+		const std::uint64_t raw = status == Status::ok ? sdodps_encode_pcu_dbc_hash(stored) : 0u;
 		return send_response(opcode, var, raw);
 	}
 	case PcuVar::send_asms: {
 		const std::uint8_t value = sdodps_decode_pcu_send_asms(payload);
 		const Status status = write_send_asms(value);
 		const Opcode opcode = status == Status::ok ? Opcode::RES : (status == Status::read_only ? Opcode::ERR_WRITE_RO : Opcode::ERR);
-		const std::uint64_t raw = status == Status::ok ? sdodps_encode_pcu_send_asms(value) : 0u;
+		std::uint8_t stored = value;
+		if (status == Status::ok) (void)read_send_asms(&stored);
+		const std::uint64_t raw = status == Status::ok ? sdodps_encode_pcu_send_asms(stored) : 0u;
 		return send_response(opcode, var, raw);
 	}
 	case PcuVar::Kp_batt: {
 		const float value = sdodps_decode_pcu_Kp_batt(payload);
 		const Status status = write_Kp_batt(value);
 		const Opcode opcode = status == Status::ok ? Opcode::RES : (status == Status::read_only ? Opcode::ERR_WRITE_RO : Opcode::ERR);
-		const std::uint64_t raw = status == Status::ok ? sdodps_encode_pcu_Kp_batt(value) : 0u;
+		float stored = value;
+		if (status == Status::ok) (void)read_Kp_batt(&stored);
+		const std::uint64_t raw = status == Status::ok ? sdodps_encode_pcu_Kp_batt(stored) : 0u;
 		return send_response(opcode, var, raw);
 	}
 	case PcuVar::Ki_batt: {
 		const float value = sdodps_decode_pcu_Ki_batt(payload);
 		const Status status = write_Ki_batt(value);
 		const Opcode opcode = status == Status::ok ? Opcode::RES : (status == Status::read_only ? Opcode::ERR_WRITE_RO : Opcode::ERR);
-		const std::uint64_t raw = status == Status::ok ? sdodps_encode_pcu_Ki_batt(value) : 0u;
+		float stored = value;
+		if (status == Status::ok) (void)read_Ki_batt(&stored);
+		const std::uint64_t raw = status == Status::ok ? sdodps_encode_pcu_Ki_batt(stored) : 0u;
 		return send_response(opcode, var, raw);
 	}
 	case PcuVar::T_0_batt: {
 		const float value = sdodps_decode_pcu_T_0_batt(payload);
 		const Status status = write_T_0_batt(value);
 		const Opcode opcode = status == Status::ok ? Opcode::RES : (status == Status::read_only ? Opcode::ERR_WRITE_RO : Opcode::ERR);
-		const std::uint64_t raw = status == Status::ok ? sdodps_encode_pcu_T_0_batt(value) : 0u;
+		float stored = value;
+		if (status == Status::ok) (void)read_T_0_batt(&stored);
+		const std::uint64_t raw = status == Status::ok ? sdodps_encode_pcu_T_0_batt(stored) : 0u;
 		return send_response(opcode, var, raw);
 	}
 	case PcuVar::T_100_batt: {
 		const float value = sdodps_decode_pcu_T_100_batt(payload);
 		const Status status = write_T_100_batt(value);
 		const Opcode opcode = status == Status::ok ? Opcode::RES : (status == Status::read_only ? Opcode::ERR_WRITE_RO : Opcode::ERR);
-		const std::uint64_t raw = status == Status::ok ? sdodps_encode_pcu_T_100_batt(value) : 0u;
+		float stored = value;
+		if (status == Status::ok) (void)read_T_100_batt(&stored);
+		const std::uint64_t raw = status == Status::ok ? sdodps_encode_pcu_T_100_batt(stored) : 0u;
 		return send_response(opcode, var, raw);
 	}
 	case PcuVar::droni_perf: {
 		const std::uint8_t value = sdodps_decode_pcu_droni_perf(payload);
 		const Status status = write_droni_perf(value);
 		const Opcode opcode = status == Status::ok ? Opcode::RES : (status == Status::read_only ? Opcode::ERR_WRITE_RO : Opcode::ERR);
-		const std::uint64_t raw = status == Status::ok ? sdodps_encode_pcu_droni_perf(value) : 0u;
+		std::uint8_t stored = value;
+		if (status == Status::ok) (void)read_droni_perf(&stored);
+		const std::uint64_t raw = status == Status::ok ? sdodps_encode_pcu_droni_perf(stored) : 0u;
 		return send_response(opcode, var, raw);
 	}
 	case PcuVar::pump_l_max: {
 		const std::uint8_t value = sdodps_decode_pcu_pump_l_max(payload);
 		const Status status = write_pump_l_max(value);
 		const Opcode opcode = status == Status::ok ? Opcode::RES : (status == Status::read_only ? Opcode::ERR_WRITE_RO : Opcode::ERR);
-		const std::uint64_t raw = status == Status::ok ? sdodps_encode_pcu_pump_l_max(value) : 0u;
+		std::uint8_t stored = value;
+		if (status == Status::ok) (void)read_pump_l_max(&stored);
+		const std::uint64_t raw = status == Status::ok ? sdodps_encode_pcu_pump_l_max(stored) : 0u;
 		return send_response(opcode, var, raw);
 	}
 	case PcuVar::pump_r_max: {
 		const std::uint8_t value = sdodps_decode_pcu_pump_r_max(payload);
 		const Status status = write_pump_r_max(value);
 		const Opcode opcode = status == Status::ok ? Opcode::RES : (status == Status::read_only ? Opcode::ERR_WRITE_RO : Opcode::ERR);
-		const std::uint64_t raw = status == Status::ok ? sdodps_encode_pcu_pump_r_max(value) : 0u;
+		std::uint8_t stored = value;
+		if (status == Status::ok) (void)read_pump_r_max(&stored);
+		const std::uint64_t raw = status == Status::ok ? sdodps_encode_pcu_pump_r_max(stored) : 0u;
 		return send_response(opcode, var, raw);
 	}
 	case PcuVar::rain_mode: {
 		const std::uint8_t value = sdodps_decode_pcu_rain_mode(payload);
 		const Status status = write_rain_mode(value);
 		const Opcode opcode = status == Status::ok ? Opcode::RES : (status == Status::read_only ? Opcode::ERR_WRITE_RO : Opcode::ERR);
-		const std::uint64_t raw = status == Status::ok ? sdodps_encode_pcu_rain_mode(value) : 0u;
+		std::uint8_t stored = value;
+		if (status == Status::ok) (void)read_rain_mode(&stored);
+		const std::uint64_t raw = status == Status::ok ? sdodps_encode_pcu_rain_mode(stored) : 0u;
 		return send_response(opcode, var, raw);
 	}
 	case PcuVar::limit_fan_curr: {
 		const std::uint8_t value = sdodps_decode_pcu_limit_fan_curr(payload);
 		const Status status = write_limit_fan_curr(value);
 		const Opcode opcode = status == Status::ok ? Opcode::RES : (status == Status::read_only ? Opcode::ERR_WRITE_RO : Opcode::ERR);
-		const std::uint64_t raw = status == Status::ok ? sdodps_encode_pcu_limit_fan_curr(value) : 0u;
+		std::uint8_t stored = value;
+		if (status == Status::ok) (void)read_limit_fan_curr(&stored);
+		const std::uint64_t raw = status == Status::ok ? sdodps_encode_pcu_limit_fan_curr(stored) : 0u;
 		return send_response(opcode, var, raw);
 	}
 	case PcuVar::debug_sense: {
 		const std::uint8_t value = sdodps_decode_pcu_debug_sense(payload);
 		const Status status = write_debug_sense(value);
 		const Opcode opcode = status == Status::ok ? Opcode::RES : (status == Status::read_only ? Opcode::ERR_WRITE_RO : Opcode::ERR);
-		const std::uint64_t raw = status == Status::ok ? sdodps_encode_pcu_debug_sense(value) : 0u;
+		std::uint8_t stored = value;
+		if (status == Status::ok) (void)read_debug_sense(&stored);
+		const std::uint64_t raw = status == Status::ok ? sdodps_encode_pcu_debug_sense(stored) : 0u;
 		return send_response(opcode, var, raw);
 	}
 	}

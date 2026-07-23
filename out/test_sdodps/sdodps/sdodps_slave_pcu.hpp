@@ -66,6 +66,7 @@ public:
 	static Status read_debug_sense(std::uint8_t *out);
 	static Status write_debug_sense(std::uint8_t value);
 	static bool process(std::uint32_t id, std::uint64_t payload);
+	static bool notify(PcuVar var);
 
 private:
 	struct State {

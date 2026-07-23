@@ -648,13 +648,18 @@ static void emit_master_header_boards(FILE *o, can_msg_t **msgs, size_t count)
 		fprintf(o, "enum class %s : std::uint16_t {\n", enum_name);
 		signal_t *var_id = find_signal_by_name(msg, "var_id");
 		assert(var_id && var_id->val_list);
+		uint64_t var_count = 0;
 		for (size_t j = 0; j < var_id->val_list->val_list_item_count; j++) {
 			val_list_item_t *item = var_id->val_list->val_list_items[j];
 			char *name = sanitize_identifier(item->name, false);
 			fprintf(o, "\t%s = %uu,\n", name, item->value);
+			if ((uint64_t)item->value >= var_count)
+				var_count = (uint64_t)item->value + 1u;
 			free(name);
 		}
 		fprintf(o, "};\n");
+		fprintf(o, "static constexpr std::size_t %sCount = %" PRIu64 "u;\n",
+			enum_name, var_count);
 		fprintf(o, "const char *to_string(%s value);\n\n", enum_name);
 		free(enum_name);
 		free(board);
@@ -1007,8 +1012,9 @@ static void generate_slave_hpp(can_msg_t *msg, const char *outdir)
 		"\tstatic void set_tx_callback(TxCallback cb);\n");
 	emit_slave_header_methods(o, msg);
 	fprintf(o,
-		"\tstatic bool process(std::uint32_t id, std::uint64_t payload);\n\n"
-		"private:\n");
+		"\tstatic bool process(std::uint32_t id, std::uint64_t payload);\n"
+		"\tstatic bool notify(%sVar var);\n\n"
+		"private:\n", board_type);
 	emit_slave_header_state(o, msg);
 	fprintf(o,
 		"\tstatic State &instance();\n"
@@ -1109,7 +1115,9 @@ static void emit_slave_cpp_process_set(FILE *o, can_msg_t *msg)
 		fprintf(o, "\t\tconst %s value = sdodps_decode_%s_%s(payload);\n", signal_api_type(sig), board_file, name);
 		fprintf(o, "\t\tconst Status status = write_%s(value);\n", name);
 		fprintf(o, "\t\tconst Opcode opcode = status == Status::ok ? Opcode::RES : (status == Status::read_only ? Opcode::ERR_WRITE_RO : Opcode::ERR);\n");
-		fprintf(o, "\t\tconst std::uint64_t raw = status == Status::ok ? sdodps_encode_%s_%s(value) : 0u;\n", board_file, name);
+		fprintf(o, "\t\t%s stored = value;\n", signal_api_type(sig));
+		fprintf(o, "\t\tif (status == Status::ok) (void)read_%s(&stored);\n", name);
+		fprintf(o, "\t\tconst std::uint64_t raw = status == Status::ok ? sdodps_encode_%s_%s(stored) : 0u;\n", board_file, name);
 		fprintf(o, "\t\treturn send_response(opcode, var, raw);\n");
 		fprintf(o, "\t}\n");
 		free(name);
@@ -1158,6 +1166,9 @@ static void generate_slave_cpp(can_msg_t *msg, const char *outdir)
 	fprintf(o, "\tif (opcode == Opcode::GET_REQ) return process_get(var);\n");
 	fprintf(o, "\tif (opcode == Opcode::SET_REQ) return process_set(var, payload);\n");
 	fprintf(o, "\treturn false;\n}\n\n");
+
+	fprintf(o, "bool Slave%s::notify(%sVar var) {\n", board_type, board_type);
+	fprintf(o, "\treturn process_get(var);\n}\n\n");
 
 	emit_slave_cpp_process_get(o, msg);
 	emit_slave_cpp_process_set(o, msg);

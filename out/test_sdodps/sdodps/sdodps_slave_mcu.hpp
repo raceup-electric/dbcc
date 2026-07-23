@@ -72,6 +72,7 @@ public:
 	static Status read_serial_core_usb(std::uint8_t *out);
 	static Status write_serial_core_usb(std::uint8_t value);
 	static bool process(std::uint32_t id, std::uint64_t payload);
+	static bool notify(McuVar var);
 
 private:
 	struct State {

@@ -474,6 +474,10 @@ bool SlaveMcu::process(std::uint32_t id, std::uint64_t payload) {
 	return false;
 }
 
+bool SlaveMcu::notify(McuVar var) {
+	return process_get(var);
+}
+
 bool SlaveMcu::process_get(McuVar var) {
 	switch (var) {
 	case McuVar::dbc_hash: {
@@ -577,91 +581,117 @@ bool SlaveMcu::process_set(McuVar var, std::uint64_t payload) {
 		const std::uint32_t value = sdodps_decode_mcu_dbc_hash(payload);
 		const Status status = write_dbc_hash(value);
 		const Opcode opcode = status == Status::ok ? Opcode::RES : (status == Status::read_only ? Opcode::ERR_WRITE_RO : Opcode::ERR);
-		const std::uint64_t raw = status == Status::ok ? sdodps_encode_mcu_dbc_hash(value) : 0u;
+		std::uint32_t stored = value;
+		if (status == Status::ok) (void)read_dbc_hash(&stored);
+		const std::uint64_t raw = status == Status::ok ? sdodps_encode_mcu_dbc_hash(stored) : 0u;
 		return send_response(opcode, var, raw);
 	}
 	case McuVar::is_pos_torque_allowed: {
 		const std::uint8_t value = sdodps_decode_mcu_is_pos_torque_allowed(payload);
 		const Status status = write_is_pos_torque_allowed(value);
 		const Opcode opcode = status == Status::ok ? Opcode::RES : (status == Status::read_only ? Opcode::ERR_WRITE_RO : Opcode::ERR);
-		const std::uint64_t raw = status == Status::ok ? sdodps_encode_mcu_is_pos_torque_allowed(value) : 0u;
+		std::uint8_t stored = value;
+		if (status == Status::ok) (void)read_is_pos_torque_allowed(&stored);
+		const std::uint64_t raw = status == Status::ok ? sdodps_encode_mcu_is_pos_torque_allowed(stored) : 0u;
 		return send_response(opcode, var, raw);
 	}
 	case McuVar::is_neg_torque_allowed: {
 		const std::uint8_t value = sdodps_decode_mcu_is_neg_torque_allowed(payload);
 		const Status status = write_is_neg_torque_allowed(value);
 		const Opcode opcode = status == Status::ok ? Opcode::RES : (status == Status::read_only ? Opcode::ERR_WRITE_RO : Opcode::ERR);
-		const std::uint64_t raw = status == Status::ok ? sdodps_encode_mcu_is_neg_torque_allowed(value) : 0u;
+		std::uint8_t stored = value;
+		if (status == Status::ok) (void)read_is_neg_torque_allowed(&stored);
+		const std::uint64_t raw = status == Status::ok ? sdodps_encode_mcu_is_neg_torque_allowed(stored) : 0u;
 		return send_response(opcode, var, raw);
 	}
 	case McuVar::motor_max_torque: {
 		const float value = sdodps_decode_mcu_motor_max_torque(payload);
 		const Status status = write_motor_max_torque(value);
 		const Opcode opcode = status == Status::ok ? Opcode::RES : (status == Status::read_only ? Opcode::ERR_WRITE_RO : Opcode::ERR);
-		const std::uint64_t raw = status == Status::ok ? sdodps_encode_mcu_motor_max_torque(value) : 0u;
+		float stored = value;
+		if (status == Status::ok) (void)read_motor_max_torque(&stored);
+		const std::uint64_t raw = status == Status::ok ? sdodps_encode_mcu_motor_max_torque(stored) : 0u;
 		return send_response(opcode, var, raw);
 	}
 	case McuVar::lim_pos_torque: {
 		const float value = sdodps_decode_mcu_lim_pos_torque(payload);
 		const Status status = write_lim_pos_torque(value);
 		const Opcode opcode = status == Status::ok ? Opcode::RES : (status == Status::read_only ? Opcode::ERR_WRITE_RO : Opcode::ERR);
-		const std::uint64_t raw = status == Status::ok ? sdodps_encode_mcu_lim_pos_torque(value) : 0u;
+		float stored = value;
+		if (status == Status::ok) (void)read_lim_pos_torque(&stored);
+		const std::uint64_t raw = status == Status::ok ? sdodps_encode_mcu_lim_pos_torque(stored) : 0u;
 		return send_response(opcode, var, raw);
 	}
 	case McuVar::lim_neg_torque: {
 		const float value = sdodps_decode_mcu_lim_neg_torque(payload);
 		const Status status = write_lim_neg_torque(value);
 		const Opcode opcode = status == Status::ok ? Opcode::RES : (status == Status::read_only ? Opcode::ERR_WRITE_RO : Opcode::ERR);
-		const std::uint64_t raw = status == Status::ok ? sdodps_encode_mcu_lim_neg_torque(value) : 0u;
+		float stored = value;
+		if (status == Status::ok) (void)read_lim_neg_torque(&stored);
+		const std::uint64_t raw = status == Status::ok ? sdodps_encode_mcu_lim_neg_torque(stored) : 0u;
 		return send_response(opcode, var, raw);
 	}
 	case McuVar::lim_rpm: {
 		const std::uint16_t value = sdodps_decode_mcu_lim_rpm(payload);
 		const Status status = write_lim_rpm(value);
 		const Opcode opcode = status == Status::ok ? Opcode::RES : (status == Status::read_only ? Opcode::ERR_WRITE_RO : Opcode::ERR);
-		const std::uint64_t raw = status == Status::ok ? sdodps_encode_mcu_lim_rpm(value) : 0u;
+		std::uint16_t stored = value;
+		if (status == Status::ok) (void)read_lim_rpm(&stored);
+		const std::uint64_t raw = status == Status::ok ? sdodps_encode_mcu_lim_rpm(stored) : 0u;
 		return send_response(opcode, var, raw);
 	}
 	case McuVar::speed_limitation: {
 		const std::uint16_t value = sdodps_decode_mcu_speed_limitation(payload);
 		const Status status = write_speed_limitation(value);
 		const Opcode opcode = status == Status::ok ? Opcode::RES : (status == Status::read_only ? Opcode::ERR_WRITE_RO : Opcode::ERR);
-		const std::uint64_t raw = status == Status::ok ? sdodps_encode_mcu_speed_limitation(value) : 0u;
+		std::uint16_t stored = value;
+		if (status == Status::ok) (void)read_speed_limitation(&stored);
+		const std::uint64_t raw = status == Status::ok ? sdodps_encode_mcu_speed_limitation(stored) : 0u;
 		return send_response(opcode, var, raw);
 	}
 	case McuVar::scs_active: {
 		const std::uint8_t value = sdodps_decode_mcu_scs_active(payload);
 		const Status status = write_scs_active(value);
 		const Opcode opcode = status == Status::ok ? Opcode::RES : (status == Status::read_only ? Opcode::ERR_WRITE_RO : Opcode::ERR);
-		const std::uint64_t raw = status == Status::ok ? sdodps_encode_mcu_scs_active(value) : 0u;
+		std::uint8_t stored = value;
+		if (status == Status::ok) (void)read_scs_active(&stored);
+		const std::uint64_t raw = status == Status::ok ? sdodps_encode_mcu_scs_active(stored) : 0u;
 		return send_response(opcode, var, raw);
 	}
 	case McuVar::scs_monitor_bmsLv: {
 		const std::uint8_t value = sdodps_decode_mcu_scs_monitor_bmsLv(payload);
 		const Status status = write_scs_monitor_bmsLv(value);
 		const Opcode opcode = status == Status::ok ? Opcode::RES : (status == Status::read_only ? Opcode::ERR_WRITE_RO : Opcode::ERR);
-		const std::uint64_t raw = status == Status::ok ? sdodps_encode_mcu_scs_monitor_bmsLv(value) : 0u;
+		std::uint8_t stored = value;
+		if (status == Status::ok) (void)read_scs_monitor_bmsLv(&stored);
+		const std::uint64_t raw = status == Status::ok ? sdodps_encode_mcu_scs_monitor_bmsLv(stored) : 0u;
 		return send_response(opcode, var, raw);
 	}
 	case McuVar::scs_monitor_bmsHv: {
 		const std::uint8_t value = sdodps_decode_mcu_scs_monitor_bmsHv(payload);
 		const Status status = write_scs_monitor_bmsHv(value);
 		const Opcode opcode = status == Status::ok ? Opcode::RES : (status == Status::read_only ? Opcode::ERR_WRITE_RO : Opcode::ERR);
-		const std::uint64_t raw = status == Status::ok ? sdodps_encode_mcu_scs_monitor_bmsHv(value) : 0u;
+		std::uint8_t stored = value;
+		if (status == Status::ok) (void)read_scs_monitor_bmsHv(&stored);
+		const std::uint64_t raw = status == Status::ok ? sdodps_encode_mcu_scs_monitor_bmsHv(stored) : 0u;
 		return send_response(opcode, var, raw);
 	}
 	case McuVar::scs_monitor_ebs: {
 		const std::uint8_t value = sdodps_decode_mcu_scs_monitor_ebs(payload);
 		const Status status = write_scs_monitor_ebs(value);
 		const Opcode opcode = status == Status::ok ? Opcode::RES : (status == Status::read_only ? Opcode::ERR_WRITE_RO : Opcode::ERR);
-		const std::uint64_t raw = status == Status::ok ? sdodps_encode_mcu_scs_monitor_ebs(value) : 0u;
+		std::uint8_t stored = value;
+		if (status == Status::ok) (void)read_scs_monitor_ebs(&stored);
+		const std::uint64_t raw = status == Status::ok ? sdodps_encode_mcu_scs_monitor_ebs(stored) : 0u;
 		return send_response(opcode, var, raw);
 	}
 	case McuVar::serial_core_usb: {
 		const std::uint8_t value = sdodps_decode_mcu_serial_core_usb(payload);
 		const Status status = write_serial_core_usb(value);
 		const Opcode opcode = status == Status::ok ? Opcode::RES : (status == Status::read_only ? Opcode::ERR_WRITE_RO : Opcode::ERR);
-		const std::uint64_t raw = status == Status::ok ? sdodps_encode_mcu_serial_core_usb(value) : 0u;
+		std::uint8_t stored = value;
+		if (status == Status::ok) (void)read_serial_core_usb(&stored);
+		const std::uint64_t raw = status == Status::ok ? sdodps_encode_mcu_serial_core_usb(stored) : 0u;
 		return send_response(opcode, var, raw);
 	}
 	}

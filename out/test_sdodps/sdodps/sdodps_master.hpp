@@ -51,6 +51,7 @@ enum class PcuVar : std::uint16_t {
 	limit_fan_curr = 10u,
 	debug_sense = 11u,
 };
+static constexpr std::size_t PcuVarCount = 12u;
 const char *to_string(PcuVar value);
 
 static constexpr std::uint32_t SDOMcu_CAN_ID = 513u;
@@ -69,6 +70,7 @@ enum class McuVar : std::uint16_t {
 	scs_monitor_ebs = 11u,
 	serial_core_usb = 12u,
 };
+static constexpr std::size_t McuVarCount = 13u;
 const char *to_string(McuVar value);
 
 class Master {
