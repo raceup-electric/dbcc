@@ -1,11 +1,13 @@
 LDFLAGS  = -lm
 CFLAGS   = -std=c99 -Wall -Wextra -g -O2 -pedantic -fwrapv -DDBCC_VERSION="\"v1.2.5\""
 CXXFLAGS = -std=c++17 -Wall -Wextra -g -O2 -pedantic
+RUSTC   ?= rustc
 RM      := rm
 OUTDIR  := out
 TEST_C_DIR := ${OUTDIR}/test_c
 TEST_ROS_DIR := ${OUTDIR}/test_ros
 TEST_SDODPS_DIR := ${OUTDIR}/test_sdodps
+TEST_RUST_DIR := ${OUTDIR}/test_rust
 SOURCES := ${wildcard *.c}
 MDS     := ${wildcard *.md}
 HTMLS   := ${MDS:%.md=%.html}
@@ -21,7 +23,7 @@ CODECS  := ${DBCS:%.dbc=${OUTDIR}/%.c}
 CFLAGS  += -MMD
 TARGET  := dbcc
 
-.PHONY: doc all run clean test test_c test_c_codegen test_c_compile test_c_run test_ros test_sdodps
+.PHONY: doc all run clean test test_c test_c_codegen test_c_compile test_c_run test_ros test_sdodps test_rust
 
 all: ${TARGET}
 
@@ -179,6 +181,12 @@ test_sdodps: ${TARGET}
 		-o ${TEST_SDODPS_DIR}/test_sdodps_generated
 	./${TEST_SDODPS_DIR}/test_sdodps_generated
 
+test_rust: ${TARGET}
+	@mkdir -p ${TEST_RUST_DIR}
+	./${TARGET} -R -o ${TEST_RUST_DIR} codec_matrix.dbc bitfield_edge.dbc sdodps.dbc
+	${RUSTC} --edition=2021 --test -D warnings tests/test_2rust.rs -o ${TEST_RUST_DIR}/test_2rust
+	./${TEST_RUST_DIR}/test_2rust
+
 test:
 	@set -e; \
 	t0=$$(date +%s%3N); \
@@ -192,6 +200,8 @@ test:
 	printf '[time] run_generated_c: %d ms\n' "$$((t2-t1))"; \
 	t1=$$(date +%s%3N); $(MAKE) --no-print-directory test_sdodps; t2=$$(date +%s%3N); \
 	printf '[time] test_sdodps: %d ms\n' "$$((t2-t1))"; \
+	t1=$$(date +%s%3N); $(MAKE) --no-print-directory test_rust; t2=$$(date +%s%3N); \
+	printf '[time] test_rust: %d ms\n' "$$((t2-t1))"; \
 	tf=$$(date +%s%3N); \
 	printf '[time] total_test: %d ms\n' "$$((tf-t0))"
 
@@ -201,4 +211,4 @@ doc: ${HTMLS} ${MANS} ${PDFS}
 
 clean:
 	${RM} -f *.o *.d *.out ${TARGET} *.htm vgcore.* core
-	${RM} -rf ${TEST_C_DIR} ${TEST_ROS_DIR} ${TEST_SDODPS_DIR}
+	${RM} -rf ${TEST_C_DIR} ${TEST_ROS_DIR} ${TEST_SDODPS_DIR} ${TEST_RUST_DIR}

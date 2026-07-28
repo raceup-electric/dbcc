@@ -18,6 +18,7 @@
 #include "2json.h"
 #include "2ros.h"
 #include "2sdodps.h"
+#include "2rust.h"
 #include "options.h"
 
 #ifndef NELEMS
@@ -32,6 +33,7 @@ typedef enum {
 	CONVERT_TO_JSON,
 	CONVERT_TO_ROS,
 	CONVERT_TO_SDO_DPS,
+	CONVERT_TO_RUST,
 } conversion_type_e;
 
 static bool string_in_list(char **items, size_t count, const char *value)
@@ -281,13 +283,13 @@ static void print_dbc_summary_block(const dbc_t *dbc, const char *file_name)
 static void usage(const char *arg0)
 {
 	assert(arg0);
-	fprintf(stderr, "%s: [-] [-hvjgtxpkuDCd] [-f fields] [-o dir] file*\n", arg0);
+	fprintf(stderr, "%s: [-] [-hvjgtxpkuDCdR] [-f fields] [-o dir] file*\n", arg0);
 }
 
 static void help(void)
 {
 	static const char *msg = "\
-dbcc - compile CAN DBC files to C code\n\
+dbcc - compile CAN DBC files to C, Rust, and data formats\n\
 Author: Richard James Howe\n\
 License: MIT\n\
 Email: hello.operator.co.uk@gmail.com\n\
@@ -308,6 +310,7 @@ Options:\n\
 \t-j     convert output to JSON instead of the default C code\n\
 \t-r     convert output to ROS2 package instead of the default C code\n\
 \t-d     convert output to SDO_DPS package instead of the default C code\n\
+\t-R     convert output to a dependency-free Rust module\n\
 \t-o dir set the output directory\n\
 \t-D     use 'double' for the encode/decode type messages (C code)\n\
 \t-p     generate only print code (C code)\n\
@@ -445,6 +448,23 @@ static int dbc2sdodpsWrapper(dbc_t *dbc, const char *src_dbc_file, const char *o
 	return r;
 }
 
+static int dbc2rustWrapper(dbc_t *dbc, const char *output_file,
+	const char *file_only, const char *source_file)
+{
+	assert(dbc);
+	assert(output_file);
+	assert(file_only);
+	assert(source_file);
+	char *name = replace_file_type(output_file, "rs");
+	char *module_name = replace_file_type(file_only, "");
+	FILE *output = fopen_or_die(name, "wb");
+	const int r = dbc2rust(dbc, output, module_name, source_file);
+	fclose(output);
+	free(module_name);
+	free(name);
+	return r;
+}
+
 // TODO: Formatting, new printing functions
 int main(int argc, char **argv)
 {
@@ -481,7 +501,7 @@ int main(int argc, char **argv)
 	};
 	int opt = 0;
 
-	while ((opt = dbcc_getopt(argc, argv, "hVvbjgxCrNtDpuksf:o:n:OBLPW:d")) != -1) {
+	while ((opt = dbcc_getopt(argc, argv, "hVvbjgxCrRNtDpuksf:o:n:OBLPW:d")) != -1) {
 		switch (opt) {
 		case 'h':
 			usage(argv[0]);
@@ -513,6 +533,9 @@ int main(int argc, char **argv)
 			break;
 		case 'd':
 			convert = CONVERT_TO_SDO_DPS;
+			break;
+		case 'R':
+			convert = CONVERT_TO_RUST;
 			break;
 		case 'N':
 			copts.use_id_in_name = false;
@@ -665,6 +688,9 @@ int main(int argc, char **argv)
 				break;
 			case CONVERT_TO_SDO_DPS:
 				r = dbc2sdodpsWrapper(dbc, argv[i], outpath);
+				break;
+			case CONVERT_TO_RUST:
+				r = dbc2rustWrapper(dbc, outpath, basename, argv[i]);
 				break;
 		default:
 			error("invalid conversion type: %d", convert);

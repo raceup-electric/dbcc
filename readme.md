@@ -197,6 +197,30 @@ A flat CSV file can be generated, which is easier to import into Excel.
 
 A JSON file can be generated, which is what all the cool kids use nowadays.
 
+## Rust Generation
+
+Use `-R` to generate a dependency-free Rust module:
+
+```sh
+mkdir -p gen
+./dbcc -R -o gen network.dbc
+```
+
+The generated `network.rs` contains:
+
+- typed CAN message structs with a getter and setter for every signal;
+- Intel and Motorola codecs, scaling/offset handling, floats, doubles,
+  enumerations, multiplex validation, and range errors;
+- CAN ID/DLC/cycle-time constants, DBC/node hashes, and signal metadata;
+- `get_all_mess()`, `get_message()`, `get_all_signals()`, `get_signal()`,
+  `decode_message()`, and typed getters on the `Message` enum;
+- a dependency-free SDO_DPS master/slave API when the DBC contains valid SDO
+  messages, including `GET_ALL_REQ`, per-variable getters/setters, callbacks,
+  notifications, and non-destructive `get_*` plus consuming `take_*` methods.
+
+The output uses only `core` functionality and can therefore be included in a
+`no_std` crate.
+
 ## Operation
 
 Consult the [manual page][] for more information about the precise operation of the
