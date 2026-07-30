@@ -1,9 +1,9 @@
 #![allow(dead_code)]
 
-#[path = "../out/test_rust/codec_matrix.rs"]
-mod codec_matrix;
 #[path = "../out/test_rust/bitfield_edge.rs"]
 mod bitfield_edge;
+#[path = "../out/test_rust/codec_matrix.rs"]
+mod codec_matrix;
 #[path = "../out/test_rust/sdodps.rs"]
 mod sdodps;
 
@@ -33,6 +33,11 @@ fn codec_matrix_round_trips_intel_motorola_float_and_enum() {
         MatrixIntelTypesInlineEnumValue::Two
     );
     assert_eq!(intel.get_opcode().unwrap(), MatrixOpcode::SetReq);
+    assert_eq!(MatrixOpcode::WriteReq, MatrixOpcode::SetReq);
+
+    let mut collision = MatrixCollision::new();
+    collision.set_state(MatrixCollisionValue::One).unwrap();
+    assert_eq!(collision.get_state().unwrap(), MatrixCollisionValue::One);
 
     let mut motorola = MatrixMotorolaTypes::new();
     motorola.set_u8_be(0x5a).unwrap();
@@ -59,7 +64,7 @@ fn codec_matrix_round_trips_intel_motorola_float_and_enum() {
 fn message_catalog_and_typed_message_getters_work() {
     use codec_matrix::*;
 
-    assert_eq!(get_all_mess().len(), 7);
+    assert_eq!(get_all_mess().len(), 8);
     assert_eq!(
         get_message(CAN_ID_MATRIXINTELTYPES).map(|message| message.dlc),
         Some(8)

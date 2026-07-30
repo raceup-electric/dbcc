@@ -180,11 +180,34 @@ static char *message_type_name(const can_msg_t *msg)
 	return rust_pascal(msg->name);
 }
 
-static char *signal_enum_name(const can_msg_t *msg, const signal_t *sig)
+static bool rust_type_matches_message(const dbc_t *dbc, const char *type_name)
+{
+	for (size_t i = 0; i < dbc->message_count; i++) {
+		char *message = message_type_name(dbc->messages[i]);
+		const bool matches = !strcmp(message, type_name);
+		free(message);
+		if (matches)
+			return true;
+	}
+	return false;
+}
+
+static char *val_table_enum_name(const dbc_t *dbc, const char *table_name)
+{
+	char *name = rust_pascal(table_name);
+	if (!rust_type_matches_message(dbc, name))
+		return name;
+	char *unique = format_alloc("%sValue", name);
+	free(name);
+	return unique;
+}
+
+static char *signal_enum_name(const dbc_t *dbc, const can_msg_t *msg,
+	const signal_t *sig)
 {
 	if (sig->val_list && sig->val_list->is_val_table_reference &&
 	    sig->val_list->val_table_name)
-		return rust_pascal(sig->val_list->val_table_name);
+		return val_table_enum_name(dbc, sig->val_list->val_table_name);
 	char *message = message_type_name(msg);
 	char *signal = rust_pascal(sig->name);
 	char *name = format_alloc("%s%sValue", message, signal);
@@ -193,10 +216,11 @@ static char *signal_enum_name(const can_msg_t *msg, const signal_t *sig)
 	return name;
 }
 
-static char *signal_api_type(const can_msg_t *msg, const signal_t *sig)
+static char *signal_api_type(const dbc_t *dbc, const can_msg_t *msg,
+	const signal_t *sig)
 {
 	if (signal_has_enum(sig))
-		return signal_enum_name(msg, sig);
+		return signal_enum_name(dbc, msg, sig);
 	if (sig->is_floating)
 		return duplicate(sig->bit_length == 64u ? "f64" : "f32");
 	if (sig->scaling != 1.0 || sig->offset != 0.0)
@@ -492,6 +516,15 @@ static bool enum_table_emitted_before(const dbc_t *dbc, size_t upto,
 	return false;
 }
 
+static size_t enum_value_first_index(const val_list_t *list, size_t index)
+{
+	for (size_t i = 0; i < index; i++)
+		if (list->val_list_items[i]->value ==
+		    list->val_list_items[index]->value)
+			return i;
+	return index;
+}
+
 static void emit_enum(FILE *o, const char *type_name, const val_list_t *list)
 {
 	if (!list || list->val_list_item_count == 0u)
@@ -502,6 +535,8 @@ static void emit_enum(FILE *o, const char *type_name, const val_list_t *list)
 		"pub enum %s {\n",
 		type_name);
 	for (size_t i = 0; i < list->val_list_item_count; i++) {
+		if (enum_value_first_index(list, i) != i)
+			continue;
 		val_list_item_t *item = list->val_list_items[i];
 		char *variant = rust_pascal(item->name);
 		fprintf(o, "    %s = %" PRIu64 "u64,\n",
@@ -510,12 +545,29 @@ static void emit_enum(FILE *o, const char *type_name, const val_list_t *list)
 	}
 	fprintf(o,
 		"}\n\n"
-		"impl %s {\n"
-		"    pub const fn raw(self) -> u64 { self as u64 }\n"
-		"    pub const fn name(self) -> &'static str {\n"
-		"        match self {\n",
+		"impl %s {\n",
 		type_name);
 	for (size_t i = 0; i < list->val_list_item_count; i++) {
+		const size_t first = enum_value_first_index(list, i);
+		if (first == i)
+			continue;
+		char *alias = rust_pascal(list->val_list_items[i]->name);
+		char *canonical = rust_pascal(list->val_list_items[first]->name);
+		if (strcmp(alias, canonical))
+			fprintf(o,
+				"    #[allow(non_upper_case_globals)]\n"
+				"    pub const %s: Self = Self::%s;\n",
+				alias, canonical);
+		free(canonical);
+		free(alias);
+	}
+	fprintf(o,
+		"    pub const fn raw(self) -> u64 { self as u64 }\n"
+		"    pub const fn name(self) -> &'static str {\n"
+		"        match self {\n");
+	for (size_t i = 0; i < list->val_list_item_count; i++) {
+		if (enum_value_first_index(list, i) != i)
+			continue;
 		val_list_item_t *item = list->val_list_items[i];
 		char *variant = rust_pascal(item->name);
 		fprintf(o, "            Self::%s => ", variant);
@@ -535,6 +587,8 @@ static void emit_enum(FILE *o, const char *type_name, const val_list_t *list)
 		"        match value {\n",
 		type_name);
 	for (size_t i = 0; i < list->val_list_item_count; i++) {
+		if (enum_value_first_index(list, i) != i)
+			continue;
 		val_list_item_t *item = list->val_list_items[i];
 		char *variant = rust_pascal(item->name);
 		fprintf(o, "            %" PRIu64 "u64 => Ok(Self::%s),\n",
@@ -556,7 +610,7 @@ static void emit_enums(FILE *o, const dbc_t *dbc)
 		if (!list || !list->name || list->val_list_item_count == 0u ||
 		    enum_table_emitted_before(dbc, i, list))
 			continue;
-		char *name = rust_pascal(list->name);
+		char *name = val_table_enum_name(dbc, list->name);
 		emit_enum(o, name, list);
 		free(name);
 	}
@@ -566,7 +620,7 @@ static void emit_enums(FILE *o, const dbc_t *dbc)
 			signal_t *sig = msg->sigs[j];
 			if (!signal_has_enum(sig) || sig->val_list->is_val_table_reference)
 				continue;
-			char *name = signal_enum_name(msg, sig);
+			char *name = signal_enum_name(dbc, msg, sig);
 			emit_enum(o, name, sig->val_list);
 			free(name);
 		}
@@ -593,8 +647,13 @@ static void emit_mux_check(FILE *o, can_msg_t *msg, signal_t *sig)
 		for (size_t r = 0; r < mv->range_num; r++) {
 			if (have_range)
 				fputs(" || ", o);
-			fprintf(o, "(mux >= %uu64 && mux <= %uu64)",
-				mv->ranges[r]->min_value, mv->ranges[r]->max_value);
+			if (mv->ranges[r]->min_value == 0u)
+				fprintf(o, "(mux <= %uu64)",
+					mv->ranges[r]->max_value);
+			else
+				fprintf(o, "(mux >= %uu64 && mux <= %uu64)",
+					mv->ranges[r]->min_value,
+					mv->ranges[r]->max_value);
 			have_range = true;
 		}
 	}
@@ -619,10 +678,11 @@ static void emit_range_check(FILE *o, const signal_t *sig, const char *value)
 	fputs(" });\n        }\n", o);
 }
 
-static void emit_signal_getter(FILE *o, can_msg_t *msg, signal_t *sig)
+static void emit_signal_getter(FILE *o, const dbc_t *dbc, can_msg_t *msg,
+	signal_t *sig)
 {
 	char *method = rust_snake(sig->name);
-	char *type = signal_api_type(msg, sig);
+	char *type = signal_api_type(dbc, msg, sig);
 	fprintf(o, "    pub fn get_%s(&self) -> Result<%s, DbccError> {\n", method, type);
 	emit_mux_check(o, msg, sig);
 	fprintf(o,
@@ -692,10 +752,11 @@ static void emit_signal_getter(FILE *o, can_msg_t *msg, signal_t *sig)
 	free(method);
 }
 
-static void emit_signal_setter(FILE *o, can_msg_t *msg, signal_t *sig)
+static void emit_signal_setter(FILE *o, const dbc_t *dbc, can_msg_t *msg,
+	signal_t *sig)
 {
 	char *method = rust_snake(sig->name);
-	char *type = signal_api_type(msg, sig);
+	char *type = signal_api_type(dbc, msg, sig);
 	fprintf(o, "    pub fn set_%s(&mut self, value: %s) -> Result<(), DbccError> {\n",
 		method, type);
 	emit_mux_check(o, msg, sig);
@@ -744,7 +805,7 @@ static void emit_signal_setter(FILE *o, can_msg_t *msg, signal_t *sig)
 	free(method);
 }
 
-static void emit_message(FILE *o, can_msg_t *msg)
+static void emit_message(FILE *o, const dbc_t *dbc, can_msg_t *msg)
 {
 	char *type = message_type_name(msg);
 	char *upper = rust_upper(msg->name);
@@ -783,15 +844,15 @@ static void emit_message(FILE *o, can_msg_t *msg)
 		"    }\n\n",
 		type, type, upper, upper);
 	for (size_t i = 0; i < msg->signal_count; i++) {
-		emit_signal_getter(o, msg, msg->sigs[i]);
-		emit_signal_setter(o, msg, msg->sigs[i]);
+		emit_signal_getter(o, dbc, msg, msg->sigs[i]);
+		emit_signal_setter(o, dbc, msg, msg->sigs[i]);
 	}
 	fputs("}\n\n", o);
 
 	for (size_t i = 0; i < msg->signal_count; i++) {
 		signal_t *sig = msg->sigs[i];
 		char *method = rust_snake(sig->name);
-		char *api = signal_api_type(msg, sig);
+		char *api = signal_api_type(dbc, msg, sig);
 		fprintf(o,
 			"pub fn decode_0x%03" PRIx64 "_%s(message: &%s) -> Result<%s, DbccError> {\n"
 			"    message.get_%s()\n"
@@ -1047,7 +1108,7 @@ static void emit_sdo_common(FILE *o)
 		"pub enum SdoStatus { Ok, UnknownVariable, ReadOnly, NoValue, OutOfRange, TxMissing, BadFrame }\n\n"
 		"pub type SdoTxCallback = fn(u32, u8, u64) -> bool;\n"
 		"pub type SdoValueHook = fn(u32, u16);\n\n"
-		"fn sdo_frame(id: u32, opcode: SdoOpcode, var_id: u16, raw: u64, bits: u32) -> CanFrame {\n"
+		"pub fn sdo_frame(id: u32, opcode: SdoOpcode, var_id: u16, raw: u64, bits: u32) -> CanFrame {\n"
 		"    let mut payload = 0u64;\n"
 		"    dbcc_insert(&mut payload, 0, 8, false, opcode as u64);\n"
 		"    dbcc_insert(&mut payload, 8, 10, false, var_id as u64);\n"
@@ -1621,7 +1682,7 @@ int dbc2rust(dbc_t *dbc, FILE *output, const char *name, const char *dbc_file)
 	emit_prelude(output, dbc, name);
 	emit_enums(output, dbc);
 	for (size_t i = 0; i < dbc->message_count; i++)
-		emit_message(output, dbc->messages[i]);
+		emit_message(output, dbc, dbc->messages[i]);
 	emit_database_api(output, dbc);
 	emit_sdo(output, dbc);
 	return ferror(output) ? -1 : 0;
