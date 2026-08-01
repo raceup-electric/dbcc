@@ -3,10 +3,10 @@
 #![allow(non_camel_case_types, non_snake_case, non_upper_case_globals)]
 
 pub const DBCC_GENERATOR_VERSION: u32 = 3u32;
-pub const DBCC_HASH: u32 = 0x4c5fb0bau32;
+pub const DBCC_HASH: u32 = 0x5187962cu32;
 pub const DBCC_MODULE_NAME: &str = "codec_matrix";
-pub const DBCC_NODE_HASH_TEST_NODE: u32 = 0xf9e40aecu32;
-pub const DBCC_NODE_HASH_AUX_NODE: u32 = 0x0984bfe0u32;
+pub const DBCC_NODE_HASH_TEST_NODE: u32 = 0x99f62e9eu32;
+pub const DBCC_NODE_HASH_AUX_NODE: u32 = 0xb7cc7a08u32;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum DbccError {
@@ -106,6 +106,8 @@ pub enum MatrixOpcode {
 }
 
 impl MatrixOpcode {
+    #[allow(non_upper_case_globals)]
+    pub const WriteReq: Self = Self::SetReq;
     pub const fn raw(self) -> u64 { self as u64 }
     pub const fn name(self) -> &'static str {
         match self {
@@ -121,6 +123,34 @@ impl core::convert::TryFrom<u64> for MatrixOpcode {
         match value {
             1u64 => Ok(Self::GetReq),
             2u64 => Ok(Self::SetReq),
+            other => Err(other),
+        }
+    }
+}
+
+#[repr(u64)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum MatrixCollisionValue {
+    Zero = 0u64,
+    One = 1u64,
+}
+
+impl MatrixCollisionValue {
+    pub const fn raw(self) -> u64 { self as u64 }
+    pub const fn name(self) -> &'static str {
+        match self {
+            Self::Zero => "ZERO",
+            Self::One => "ONE",
+        }
+    }
+}
+
+impl core::convert::TryFrom<u64> for MatrixCollisionValue {
+    type Error = u64;
+    fn try_from(value: u64) -> Result<Self, u64> {
+        match value {
+            0u64 => Ok(Self::Zero),
+            1u64 => Ok(Self::One),
             other => Err(other),
         }
     }
@@ -1007,6 +1037,49 @@ pub fn encode_0x0ce_scale32_0p001(message: &mut MatrixWideScaled, value: f32) ->
     message.set_scale32_0p001(value)
 }
 
+pub const CAN_ID_MATRIXCOLLISION: u32 = 207u32;
+pub const CAN_DLC_MATRIXCOLLISION: u8 = 1u8;
+pub const MATRIXCOLLISION_STATE_MIN: f64 = 0_f64;
+pub const MATRIXCOLLISION_STATE_MAX: f64 = 1_f64;
+pub const MATRIXCOLLISION_STATE_SCALING: f64 = 1_f64;
+pub const MATRIXCOLLISION_STATE_OFFSET: f64 = 0_f64;
+
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
+pub struct MatrixCollision { payload: u64 }
+
+impl MatrixCollision {
+    pub const ID: u32 = CAN_ID_MATRIXCOLLISION;
+    pub const DLC: u8 = CAN_DLC_MATRIXCOLLISION;
+    pub const fn new() -> Self { Self { payload: 0 } }
+    pub const fn from_payload(payload: u64) -> Self { Self { payload } }
+    pub const fn payload(&self) -> u64 { self.payload }
+    pub fn set_payload(&mut self, payload: u64) { self.payload = payload; }
+    pub const fn frame(&self) -> CanFrame {
+        CanFrame { id: Self::ID, dlc: Self::DLC, payload: self.payload }
+    }
+
+    pub fn get_state(&self) -> Result<MatrixCollisionValue, DbccError> {
+        let raw = dbcc_extract(self.payload, 0u32, 1u32, false);
+        <MatrixCollisionValue as core::convert::TryFrom<u64>>::try_from(raw)
+            .map_err(|value| DbccError::InvalidEnumValue { signal: "state", value })
+    }
+
+    pub fn set_state(&mut self, value: MatrixCollisionValue) -> Result<(), DbccError> {
+        let raw = value.raw();
+        dbcc_insert(&mut self.payload, 0u32, 1u32, false, raw);
+        Ok(())
+    }
+
+}
+
+pub fn decode_0x0cf_state(message: &MatrixCollision) -> Result<MatrixCollisionValue, DbccError> {
+    message.get_state()
+}
+
+pub fn encode_0x0cf_state(message: &mut MatrixCollision, value: MatrixCollisionValue) -> Result<(), DbccError> {
+    message.set_state(value)
+}
+
 pub static SIGNALS_MATRIXINTELTYPES: &[SignalInfo] = &[
     SignalInfo { name: "u8", start_bit: 0u16, bit_length: 8u16, little_endian: true, signed: false, floating: false, scaling: 1_f64, offset: 0_f64, minimum: 0_f64, maximum: 255_f64, units: "", multiplexor: false, multiplexed: false, switch_value: None },
     SignalInfo { name: "s8", start_bit: 8u16, bit_length: 8u16, little_endian: true, signed: true, floating: false, scaling: 1_f64, offset: 0_f64, minimum: -128_f64, maximum: 127_f64, units: "", multiplexor: false, multiplexed: false, switch_value: None },
@@ -1051,6 +1124,10 @@ pub static SIGNALS_MATRIXWIDESCALED: &[SignalInfo] = &[
     SignalInfo { name: "scale32_0p001", start_bit: 0u16, bit_length: 32u16, little_endian: true, signed: false, floating: false, scaling: 0.001_f64, offset: 0_f64, minimum: 0_f64, maximum: 4294967.2949999999_f64, units: "", multiplexor: false, multiplexed: false, switch_value: None },
 ];
 
+pub static SIGNALS_MATRIXCOLLISION: &[SignalInfo] = &[
+    SignalInfo { name: "state", start_bit: 0u16, bit_length: 1u16, little_endian: true, signed: false, floating: false, scaling: 1_f64, offset: 0_f64, minimum: 0_f64, maximum: 1_f64, units: "", multiplexor: false, multiplexed: false, switch_value: None },
+];
+
 pub static ALL_MESSAGES: &[MessageInfo] = &[
     MessageInfo { id: CAN_ID_MATRIXINTELTYPES, dlc: CAN_DLC_MATRIXINTELTYPES, name: "MatrixIntelTypes", is_extended: false, cycle_time_ms: None, signals: SIGNALS_MATRIXINTELTYPES },
     MessageInfo { id: CAN_ID_MATRIXINTELSCALED, dlc: CAN_DLC_MATRIXINTELSCALED, name: "MatrixIntelScaled", is_extended: false, cycle_time_ms: None, signals: SIGNALS_MATRIXINTELSCALED },
@@ -1059,6 +1136,7 @@ pub static ALL_MESSAGES: &[MessageInfo] = &[
     MessageInfo { id: CAN_ID_MATRIXFLOAT, dlc: CAN_DLC_MATRIXFLOAT, name: "MatrixFloat", is_extended: false, cycle_time_ms: None, signals: SIGNALS_MATRIXFLOAT },
     MessageInfo { id: CAN_ID_MATRIXDOUBLE, dlc: CAN_DLC_MATRIXDOUBLE, name: "MatrixDouble", is_extended: false, cycle_time_ms: None, signals: SIGNALS_MATRIXDOUBLE },
     MessageInfo { id: CAN_ID_MATRIXWIDESCALED, dlc: CAN_DLC_MATRIXWIDESCALED, name: "MatrixWideScaled", is_extended: false, cycle_time_ms: None, signals: SIGNALS_MATRIXWIDESCALED },
+    MessageInfo { id: CAN_ID_MATRIXCOLLISION, dlc: CAN_DLC_MATRIXCOLLISION, name: "MatrixCollision", is_extended: false, cycle_time_ms: None, signals: SIGNALS_MATRIXCOLLISION },
 ];
 
 /// Return metadata for every CAN message in the DBC.
@@ -1087,6 +1165,7 @@ pub enum Message {
     MatrixFloat(MatrixFloat),
     MatrixDouble(MatrixDouble),
     MatrixWideScaled(MatrixWideScaled),
+    MatrixCollision(MatrixCollision),
 }
 
 impl Message {
@@ -1099,6 +1178,7 @@ impl Message {
             Self::MatrixFloat(_) => MatrixFloat::ID,
             Self::MatrixDouble(_) => MatrixDouble::ID,
             Self::MatrixWideScaled(_) => MatrixWideScaled::ID,
+            Self::MatrixCollision(_) => MatrixCollision::ID,
         }
     }
 
@@ -1111,6 +1191,7 @@ impl Message {
             Self::MatrixFloat(_) => MatrixFloat::DLC,
             Self::MatrixDouble(_) => MatrixDouble::DLC,
             Self::MatrixWideScaled(_) => MatrixWideScaled::DLC,
+            Self::MatrixCollision(_) => MatrixCollision::DLC,
         }
     }
 
@@ -1123,6 +1204,7 @@ impl Message {
             Self::MatrixFloat(message) => message.payload(),
             Self::MatrixDouble(message) => message.payload(),
             Self::MatrixWideScaled(message) => message.payload(),
+            Self::MatrixCollision(message) => message.payload(),
         }
     }
 
@@ -1186,6 +1268,14 @@ impl Message {
         match self { Self::MatrixWideScaled(message) => Some(message), _ => None }
     }
 
+    pub const fn get_matrixcollision(&self) -> Option<&MatrixCollision> {
+        match self { Self::MatrixCollision(message) => Some(message), _ => None }
+    }
+
+    pub fn get_matrixcollision_mut(&mut self) -> Option<&mut MatrixCollision> {
+        match self { Self::MatrixCollision(message) => Some(message), _ => None }
+    }
+
 }
 
 pub fn decode_message(id: u32, payload: u64, dlc: u8) -> Result<Message, DbccError> {
@@ -1231,6 +1321,12 @@ pub fn decode_message(id: u32, payload: u64, dlc: u8) -> Result<Message, DbccErr
                 return Err(DbccError::InvalidDlc { id, expected: CAN_DLC_MATRIXWIDESCALED, actual: dlc });
             }
             Ok(Message::MatrixWideScaled(MatrixWideScaled::from_payload(payload)))
+        }
+        CAN_ID_MATRIXCOLLISION => {
+            if dlc != CAN_DLC_MATRIXCOLLISION {
+                return Err(DbccError::InvalidDlc { id, expected: CAN_DLC_MATRIXCOLLISION, actual: dlc });
+            }
+            Ok(Message::MatrixCollision(MatrixCollision::from_payload(payload)))
         }
         _ => Err(DbccError::UnknownMessage { id }),
     }

@@ -24,9 +24,9 @@ better MISRA-C support.
 extern "C" { 
 #endif
 
-#define DBCC_HASH (0x4c5fb0bau)
-#define DBCC_NODE_HASH_TEST_NODE (0xf9e40aecu)
-#define DBCC_NODE_HASH_AUX_NODE (0x0984bfe0u)
+#define DBCC_HASH (0x5187962cu)
+#define DBCC_NODE_HASH_TEST_NODE (0x99f62e9eu)
+#define DBCC_NODE_HASH_AUX_NODE (0xb7cc7a08u)
 
 #define CAN_ID_MATRIXINTELTYPES (200) /* 0xc8 */
 #define CAN_DLC_MATRIXINTELTYPES (8)
@@ -42,6 +42,8 @@ extern "C" {
 #define CAN_DLC_MATRIXDOUBLE (8)
 #define CAN_ID_MATRIXWIDESCALED (206) /* 0xce */
 #define CAN_DLC_MATRIXWIDESCALED (8)
+#define CAN_ID_MATRIXCOLLISION (207) /* 0xcf */
+#define CAN_DLC_MATRIXCOLLISION (1)
 
 #define CAN_0X0C8_MATRIXINTELTYPES_U12_MIN (0)
 #define CAN_0X0C8_MATRIXINTELTYPES_U12_MAX (4095)
@@ -135,6 +137,10 @@ extern "C" {
 #define CAN_0X0CE_MATRIXWIDESCALED_SCALE32_0P001_MAX (4294967.295)
 #define CAN_0X0CE_MATRIXWIDESCALED_SCALE32_0P001_SCALING (0.001)
 #define CAN_0X0CE_MATRIXWIDESCALED_SCALE32_0P001_OFFSET (0)
+#define CAN_0X0CF_MATRIXCOLLISION_STATE_MIN (0)
+#define CAN_0X0CF_MATRIXCOLLISION_STATE_MAX (1)
+#define CAN_0X0CF_MATRIXCOLLISION_STATE_SCALING (1)
+#define CAN_0X0CF_MATRIXCOLLISION_STATE_OFFSET (0)
 
 static inline int message_dlc(const unsigned long id) {
 	switch (id) {
@@ -145,6 +151,7 @@ static inline int message_dlc(const unsigned long id) {
 	case CAN_ID_MATRIXFLOAT: return CAN_DLC_MATRIXFLOAT;
 	case CAN_ID_MATRIXDOUBLE: return CAN_DLC_MATRIXDOUBLE;
 	case CAN_ID_MATRIXWIDESCALED: return CAN_DLC_MATRIXWIDESCALED;
+	case CAN_ID_MATRIXCOLLISION: return CAN_DLC_MATRIXCOLLISION;
 	default: return -1;
 	}
 }
@@ -158,7 +165,13 @@ typedef enum {
 typedef enum {
 	VAL_TABLE_MATRIXOPCODE_GET_REQ = 1,
 	VAL_TABLE_MATRIXOPCODE_SET_REQ = 2,
+	VAL_TABLE_MATRIXOPCODE_WRITE_REQ = 2,
 } val_table_MatrixOpcode_e;
+
+typedef enum {
+	VAL_TABLE_MATRIXCOLLISION_ZERO = 0,
+	VAL_TABLE_MATRIXCOLLISION_ONE = 1,
+} val_table_MatrixCollision_e;
 
 typedef enum {
 	CAN_0X0C8_MATRIXINTELTYPES_INLINE_ENUM_ZERO = 0,
@@ -199,6 +212,10 @@ typedef struct {
 typedef struct {
 	uint64_t payload;
 } can_0x0ce_MatrixWideScaled_obj_t;
+
+typedef struct {
+	uint8_t payload;
+} can_0x0cf_MatrixCollision_obj_t;
 
 
 void decode_0x0c8_u12(can_0x0c8_MatrixIntelTypes_obj_t *o, uint16_t *out);
@@ -259,6 +276,10 @@ void encode_0x0cd_d64(can_0x0cd_MatrixDouble_obj_t *o, double in);
 
 void decode_0x0ce_scale32_0p001(can_0x0ce_MatrixWideScaled_obj_t *o, float *out);
 void encode_0x0ce_scale32_0p001(can_0x0ce_MatrixWideScaled_obj_t *o, float in);
+
+
+void decode_0x0cf_state(can_0x0cf_MatrixCollision_obj_t *o, val_table_MatrixCollision_e *out);
+void encode_0x0cf_state(can_0x0cf_MatrixCollision_obj_t *o, val_table_MatrixCollision_e in);
 
 
 #ifdef __cplusplus

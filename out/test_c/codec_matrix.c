@@ -538,3 +538,21 @@ void encode_0x0ce_scale32_0p001(can_0x0ce_MatrixWideScaled_obj_t *o, float in) {
 	return;
 }
 
+void decode_0x0cf_state(can_0x0cf_MatrixCollision_obj_t *o, val_table_MatrixCollision_e *out) {
+	assert(o);
+	assert(out);
+	uint64_t _payload_sig = (uint64_t)(o->payload);
+	uint64_t _lane_sig = _payload_sig;
+	uint64_t x = _lane_sig & 0x1uLL;
+	val_table_MatrixCollision_e rval = (val_table_MatrixCollision_e)x;
+	*out = rval;
+	return;
+}
+
+void encode_0x0cf_state(can_0x0cf_MatrixCollision_obj_t *o, val_table_MatrixCollision_e in) {
+	assert(o);
+	uint64_t x = ((uint64_t)in) & 0x1uLL;
+	o->payload = (((uint64_t)o->payload) & ~0x1uLL) | (x & 0x1uLL);
+	return;
+}
+

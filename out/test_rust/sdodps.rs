@@ -1396,7 +1396,7 @@ pub enum SdoStatus { Ok, UnknownVariable, ReadOnly, NoValue, OutOfRange, TxMissi
 pub type SdoTxCallback = fn(u32, u8, u64) -> bool;
 pub type SdoValueHook = fn(u32, u16);
 
-fn sdo_frame(id: u32, opcode: SdoOpcode, var_id: u16, raw: u64, bits: u32) -> CanFrame {
+pub fn sdo_frame(id: u32, opcode: SdoOpcode, var_id: u16, raw: u64, bits: u32) -> CanFrame {
     let mut payload = 0u64;
     dbcc_insert(&mut payload, 0, 8, false, opcode as u64);
     dbcc_insert(&mut payload, 8, 10, false, var_id as u64);
