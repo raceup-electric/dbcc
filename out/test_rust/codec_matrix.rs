@@ -35,7 +35,9 @@ pub struct SignalInfo {
     pub units: &'static str,
     pub multiplexor: bool,
     pub multiplexed: bool,
+    pub multiplexor_name: Option<&'static str>,
     pub switch_value: Option<u64>,
+    pub switch_ranges: &'static [(u64, u64)],
 }
 
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -1081,51 +1083,51 @@ pub fn encode_0x0cf_state(message: &mut MatrixCollision, value: MatrixCollisionV
 }
 
 pub static SIGNALS_MATRIXINTELTYPES: &[SignalInfo] = &[
-    SignalInfo { name: "u8", start_bit: 0u16, bit_length: 8u16, little_endian: true, signed: false, floating: false, scaling: 1_f64, offset: 0_f64, minimum: 0_f64, maximum: 255_f64, units: "", multiplexor: false, multiplexed: false, switch_value: None },
-    SignalInfo { name: "s8", start_bit: 8u16, bit_length: 8u16, little_endian: true, signed: true, floating: false, scaling: 1_f64, offset: 0_f64, minimum: -128_f64, maximum: 127_f64, units: "", multiplexor: false, multiplexed: false, switch_value: None },
-    SignalInfo { name: "u12", start_bit: 16u16, bit_length: 12u16, little_endian: true, signed: false, floating: false, scaling: 1_f64, offset: 0_f64, minimum: 0_f64, maximum: 4095_f64, units: "", multiplexor: false, multiplexed: false, switch_value: None },
-    SignalInfo { name: "s12", start_bit: 28u16, bit_length: 12u16, little_endian: true, signed: true, floating: false, scaling: -1_f64, offset: 100_f64, minimum: -1947_f64, maximum: 2148_f64, units: "", multiplexor: false, multiplexed: false, switch_value: None },
-    SignalInfo { name: "state", start_bit: 40u16, bit_length: 2u16, little_endian: true, signed: false, floating: false, scaling: 1_f64, offset: 0_f64, minimum: 0_f64, maximum: 2_f64, units: "", multiplexor: false, multiplexed: false, switch_value: None },
-    SignalInfo { name: "inline_enum", start_bit: 42u16, bit_length: 2u16, little_endian: true, signed: false, floating: false, scaling: 1_f64, offset: 0_f64, minimum: 0_f64, maximum: 3_f64, units: "", multiplexor: false, multiplexed: false, switch_value: None },
-    SignalInfo { name: "opcode", start_bit: 44u16, bit_length: 2u16, little_endian: true, signed: false, floating: false, scaling: 1_f64, offset: 0_f64, minimum: 0_f64, maximum: 3_f64, units: "", multiplexor: false, multiplexed: false, switch_value: None },
+    SignalInfo { name: "u8", start_bit: 0u16, bit_length: 8u16, little_endian: true, signed: false, floating: false, scaling: 1_f64, offset: 0_f64, minimum: 0_f64, maximum: 255_f64, units: "", multiplexor: false, multiplexed: false, multiplexor_name: None, switch_value: None, switch_ranges: &[] },
+    SignalInfo { name: "s8", start_bit: 8u16, bit_length: 8u16, little_endian: true, signed: true, floating: false, scaling: 1_f64, offset: 0_f64, minimum: -128_f64, maximum: 127_f64, units: "", multiplexor: false, multiplexed: false, multiplexor_name: None, switch_value: None, switch_ranges: &[] },
+    SignalInfo { name: "u12", start_bit: 16u16, bit_length: 12u16, little_endian: true, signed: false, floating: false, scaling: 1_f64, offset: 0_f64, minimum: 0_f64, maximum: 4095_f64, units: "", multiplexor: false, multiplexed: false, multiplexor_name: None, switch_value: None, switch_ranges: &[] },
+    SignalInfo { name: "s12", start_bit: 28u16, bit_length: 12u16, little_endian: true, signed: true, floating: false, scaling: -1_f64, offset: 100_f64, minimum: -1947_f64, maximum: 2148_f64, units: "", multiplexor: false, multiplexed: false, multiplexor_name: None, switch_value: None, switch_ranges: &[] },
+    SignalInfo { name: "state", start_bit: 40u16, bit_length: 2u16, little_endian: true, signed: false, floating: false, scaling: 1_f64, offset: 0_f64, minimum: 0_f64, maximum: 2_f64, units: "", multiplexor: false, multiplexed: false, multiplexor_name: None, switch_value: None, switch_ranges: &[] },
+    SignalInfo { name: "inline_enum", start_bit: 42u16, bit_length: 2u16, little_endian: true, signed: false, floating: false, scaling: 1_f64, offset: 0_f64, minimum: 0_f64, maximum: 3_f64, units: "", multiplexor: false, multiplexed: false, multiplexor_name: None, switch_value: None, switch_ranges: &[] },
+    SignalInfo { name: "opcode", start_bit: 44u16, bit_length: 2u16, little_endian: true, signed: false, floating: false, scaling: 1_f64, offset: 0_f64, minimum: 0_f64, maximum: 3_f64, units: "", multiplexor: false, multiplexed: false, multiplexor_name: None, switch_value: None, switch_ranges: &[] },
 ];
 
 pub static SIGNALS_MATRIXINTELSCALED: &[SignalInfo] = &[
-    SignalInfo { name: "scale_0p1", start_bit: 0u16, bit_length: 16u16, little_endian: true, signed: false, floating: false, scaling: 0.10000000000000001_f64, offset: 0_f64, minimum: 0_f64, maximum: 6553.5_f64, units: "", multiplexor: false, multiplexed: false, switch_value: None },
-    SignalInfo { name: "scale_0p01_offset_m40", start_bit: 16u16, bit_length: 16u16, little_endian: true, signed: false, floating: false, scaling: 0.01_f64, offset: -40_f64, minimum: -40_f64, maximum: 615.35000000000002_f64, units: "", multiplexor: false, multiplexed: false, switch_value: None },
-    SignalInfo { name: "scale_0p5_offset_1p5", start_bit: 32u16, bit_length: 8u16, little_endian: true, signed: false, floating: false, scaling: 0.5_f64, offset: 1.5_f64, minimum: 1.5_f64, maximum: 129_f64, units: "", multiplexor: false, multiplexed: false, switch_value: None },
+    SignalInfo { name: "scale_0p1", start_bit: 0u16, bit_length: 16u16, little_endian: true, signed: false, floating: false, scaling: 0.10000000000000001_f64, offset: 0_f64, minimum: 0_f64, maximum: 6553.5_f64, units: "", multiplexor: false, multiplexed: false, multiplexor_name: None, switch_value: None, switch_ranges: &[] },
+    SignalInfo { name: "scale_0p01_offset_m40", start_bit: 16u16, bit_length: 16u16, little_endian: true, signed: false, floating: false, scaling: 0.01_f64, offset: -40_f64, minimum: -40_f64, maximum: 615.35000000000002_f64, units: "", multiplexor: false, multiplexed: false, multiplexor_name: None, switch_value: None, switch_ranges: &[] },
+    SignalInfo { name: "scale_0p5_offset_1p5", start_bit: 32u16, bit_length: 8u16, little_endian: true, signed: false, floating: false, scaling: 0.5_f64, offset: 1.5_f64, minimum: 1.5_f64, maximum: 129_f64, units: "", multiplexor: false, multiplexed: false, multiplexor_name: None, switch_value: None, switch_ranges: &[] },
 ];
 
 pub static SIGNALS_MATRIXMOTOROLATYPES: &[SignalInfo] = &[
-    SignalInfo { name: "u8_be", start_bit: 7u16, bit_length: 8u16, little_endian: false, signed: false, floating: false, scaling: 1_f64, offset: 0_f64, minimum: 0_f64, maximum: 255_f64, units: "", multiplexor: false, multiplexed: false, switch_value: None },
-    SignalInfo { name: "s8_be", start_bit: 15u16, bit_length: 8u16, little_endian: false, signed: true, floating: false, scaling: 1_f64, offset: 0_f64, minimum: -128_f64, maximum: 127_f64, units: "", multiplexor: false, multiplexed: false, switch_value: None },
-    SignalInfo { name: "u12_be", start_bit: 23u16, bit_length: 12u16, little_endian: false, signed: false, floating: false, scaling: 1_f64, offset: 0_f64, minimum: 0_f64, maximum: 4095_f64, units: "", multiplexor: false, multiplexed: false, switch_value: None },
-    SignalInfo { name: "s12_be", start_bit: 27u16, bit_length: 12u16, little_endian: false, signed: true, floating: false, scaling: -1_f64, offset: 100_f64, minimum: -1947_f64, maximum: 2148_f64, units: "", multiplexor: false, multiplexed: false, switch_value: None },
-    SignalInfo { name: "inline_enum_be", start_bit: 45u16, bit_length: 2u16, little_endian: false, signed: false, floating: false, scaling: 1_f64, offset: 0_f64, minimum: 0_f64, maximum: 3_f64, units: "", multiplexor: false, multiplexed: false, switch_value: None },
-    SignalInfo { name: "state_be", start_bit: 47u16, bit_length: 2u16, little_endian: false, signed: false, floating: false, scaling: 1_f64, offset: 0_f64, minimum: 0_f64, maximum: 2_f64, units: "", multiplexor: false, multiplexed: false, switch_value: None },
+    SignalInfo { name: "u8_be", start_bit: 7u16, bit_length: 8u16, little_endian: false, signed: false, floating: false, scaling: 1_f64, offset: 0_f64, minimum: 0_f64, maximum: 255_f64, units: "", multiplexor: false, multiplexed: false, multiplexor_name: None, switch_value: None, switch_ranges: &[] },
+    SignalInfo { name: "s8_be", start_bit: 15u16, bit_length: 8u16, little_endian: false, signed: true, floating: false, scaling: 1_f64, offset: 0_f64, minimum: -128_f64, maximum: 127_f64, units: "", multiplexor: false, multiplexed: false, multiplexor_name: None, switch_value: None, switch_ranges: &[] },
+    SignalInfo { name: "u12_be", start_bit: 23u16, bit_length: 12u16, little_endian: false, signed: false, floating: false, scaling: 1_f64, offset: 0_f64, minimum: 0_f64, maximum: 4095_f64, units: "", multiplexor: false, multiplexed: false, multiplexor_name: None, switch_value: None, switch_ranges: &[] },
+    SignalInfo { name: "s12_be", start_bit: 27u16, bit_length: 12u16, little_endian: false, signed: true, floating: false, scaling: -1_f64, offset: 100_f64, minimum: -1947_f64, maximum: 2148_f64, units: "", multiplexor: false, multiplexed: false, multiplexor_name: None, switch_value: None, switch_ranges: &[] },
+    SignalInfo { name: "inline_enum_be", start_bit: 45u16, bit_length: 2u16, little_endian: false, signed: false, floating: false, scaling: 1_f64, offset: 0_f64, minimum: 0_f64, maximum: 3_f64, units: "", multiplexor: false, multiplexed: false, multiplexor_name: None, switch_value: None, switch_ranges: &[] },
+    SignalInfo { name: "state_be", start_bit: 47u16, bit_length: 2u16, little_endian: false, signed: false, floating: false, scaling: 1_f64, offset: 0_f64, minimum: 0_f64, maximum: 2_f64, units: "", multiplexor: false, multiplexed: false, multiplexor_name: None, switch_value: None, switch_ranges: &[] },
 ];
 
 pub static SIGNALS_MATRIXMOTOROLASCALED: &[SignalInfo] = &[
-    SignalInfo { name: "scale_0p1_be", start_bit: 7u16, bit_length: 16u16, little_endian: false, signed: false, floating: false, scaling: 0.10000000000000001_f64, offset: 0_f64, minimum: 0_f64, maximum: 6553.5_f64, units: "", multiplexor: false, multiplexed: false, switch_value: None },
-    SignalInfo { name: "scale_0p01_offset_m40_be", start_bit: 23u16, bit_length: 16u16, little_endian: false, signed: false, floating: false, scaling: 0.01_f64, offset: -40_f64, minimum: -40_f64, maximum: 615.35000000000002_f64, units: "", multiplexor: false, multiplexed: false, switch_value: None },
-    SignalInfo { name: "scale_0p5_offset_1p5_be", start_bit: 39u16, bit_length: 8u16, little_endian: false, signed: false, floating: false, scaling: 0.5_f64, offset: 1.5_f64, minimum: 1.5_f64, maximum: 129_f64, units: "", multiplexor: false, multiplexed: false, switch_value: None },
+    SignalInfo { name: "scale_0p1_be", start_bit: 7u16, bit_length: 16u16, little_endian: false, signed: false, floating: false, scaling: 0.10000000000000001_f64, offset: 0_f64, minimum: 0_f64, maximum: 6553.5_f64, units: "", multiplexor: false, multiplexed: false, multiplexor_name: None, switch_value: None, switch_ranges: &[] },
+    SignalInfo { name: "scale_0p01_offset_m40_be", start_bit: 23u16, bit_length: 16u16, little_endian: false, signed: false, floating: false, scaling: 0.01_f64, offset: -40_f64, minimum: -40_f64, maximum: 615.35000000000002_f64, units: "", multiplexor: false, multiplexed: false, multiplexor_name: None, switch_value: None, switch_ranges: &[] },
+    SignalInfo { name: "scale_0p5_offset_1p5_be", start_bit: 39u16, bit_length: 8u16, little_endian: false, signed: false, floating: false, scaling: 0.5_f64, offset: 1.5_f64, minimum: 1.5_f64, maximum: 129_f64, units: "", multiplexor: false, multiplexed: false, multiplexor_name: None, switch_value: None, switch_ranges: &[] },
 ];
 
 pub static SIGNALS_MATRIXFLOAT: &[SignalInfo] = &[
-    SignalInfo { name: "f32", start_bit: 0u16, bit_length: 32u16, little_endian: true, signed: false, floating: true, scaling: 1_f64, offset: 0_f64, minimum: 0_f64, maximum: 0_f64, units: "", multiplexor: false, multiplexed: false, switch_value: None },
-    SignalInfo { name: "raw32", start_bit: 32u16, bit_length: 32u16, little_endian: true, signed: false, floating: false, scaling: 1_f64, offset: 0_f64, minimum: 0_f64, maximum: 4294967295_f64, units: "", multiplexor: false, multiplexed: false, switch_value: None },
+    SignalInfo { name: "f32", start_bit: 0u16, bit_length: 32u16, little_endian: true, signed: false, floating: true, scaling: 1_f64, offset: 0_f64, minimum: 0_f64, maximum: 0_f64, units: "", multiplexor: false, multiplexed: false, multiplexor_name: None, switch_value: None, switch_ranges: &[] },
+    SignalInfo { name: "raw32", start_bit: 32u16, bit_length: 32u16, little_endian: true, signed: false, floating: false, scaling: 1_f64, offset: 0_f64, minimum: 0_f64, maximum: 4294967295_f64, units: "", multiplexor: false, multiplexed: false, multiplexor_name: None, switch_value: None, switch_ranges: &[] },
 ];
 
 pub static SIGNALS_MATRIXDOUBLE: &[SignalInfo] = &[
-    SignalInfo { name: "d64", start_bit: 0u16, bit_length: 64u16, little_endian: true, signed: false, floating: true, scaling: 1_f64, offset: 0_f64, minimum: 0_f64, maximum: 0_f64, units: "", multiplexor: false, multiplexed: false, switch_value: None },
+    SignalInfo { name: "d64", start_bit: 0u16, bit_length: 64u16, little_endian: true, signed: false, floating: true, scaling: 1_f64, offset: 0_f64, minimum: 0_f64, maximum: 0_f64, units: "", multiplexor: false, multiplexed: false, multiplexor_name: None, switch_value: None, switch_ranges: &[] },
 ];
 
 pub static SIGNALS_MATRIXWIDESCALED: &[SignalInfo] = &[
-    SignalInfo { name: "scale32_0p001", start_bit: 0u16, bit_length: 32u16, little_endian: true, signed: false, floating: false, scaling: 0.001_f64, offset: 0_f64, minimum: 0_f64, maximum: 4294967.2949999999_f64, units: "", multiplexor: false, multiplexed: false, switch_value: None },
+    SignalInfo { name: "scale32_0p001", start_bit: 0u16, bit_length: 32u16, little_endian: true, signed: false, floating: false, scaling: 0.001_f64, offset: 0_f64, minimum: 0_f64, maximum: 4294967.2949999999_f64, units: "", multiplexor: false, multiplexed: false, multiplexor_name: None, switch_value: None, switch_ranges: &[] },
 ];
 
 pub static SIGNALS_MATRIXCOLLISION: &[SignalInfo] = &[
-    SignalInfo { name: "state", start_bit: 0u16, bit_length: 1u16, little_endian: true, signed: false, floating: false, scaling: 1_f64, offset: 0_f64, minimum: 0_f64, maximum: 1_f64, units: "", multiplexor: false, multiplexed: false, switch_value: None },
+    SignalInfo { name: "state", start_bit: 0u16, bit_length: 1u16, little_endian: true, signed: false, floating: false, scaling: 1_f64, offset: 0_f64, minimum: 0_f64, maximum: 1_f64, units: "", multiplexor: false, multiplexed: false, multiplexor_name: None, switch_value: None, switch_ranges: &[] },
 ];
 
 pub static ALL_MESSAGES: &[MessageInfo] = &[

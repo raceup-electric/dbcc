@@ -4,6 +4,8 @@
 mod bitfield_edge;
 #[path = "../out/test_rust/codec_matrix.rs"]
 mod codec_matrix;
+#[path = "../out/test_rust/mul_val.rs"]
+mod mul_val;
 #[path = "../out/test_rust/sdodps.rs"]
 mod sdodps;
 
@@ -112,6 +114,31 @@ fn bitfield_edges_and_multiplex_guards_work() {
     assert_eq!(mux.get_muxed_a().unwrap(), 0x5a);
     assert!(matches!(
         mux.get_muxed_b(),
+        Err(DbccError::InactiveMultiplexedSignal { .. })
+    ));
+}
+
+#[test]
+fn extended_multiplex_guards_include_every_parent() {
+    use mul_val::*;
+
+    let signal = get_signal(CAN_ID_EXTENDED_MULTIPLEX, "muxed1").unwrap();
+    assert_eq!(signal.multiplexor_name, Some("muxed_muxer"));
+    assert_eq!(signal.switch_ranges, &[(1, 1)]);
+
+    let muxer = get_signal(CAN_ID_EXTENDED_MULTIPLEX, "muxed_muxer").unwrap();
+    assert_eq!(muxer.multiplexor_name, Some("simple_muxer"));
+    assert_eq!(muxer.switch_ranges, &[(9216, 9216)]);
+
+    let mut message = ExtendedMultiplex::new();
+    message.set_simple_muxer(9216).unwrap();
+    message.set_muxed_muxer(1).unwrap();
+    message.set_muxed1(0x89ab_cdef).unwrap();
+    assert_eq!(message.get_muxed1().unwrap(), 0x89ab_cdef);
+
+    message.set_simple_muxer(0).unwrap();
+    assert!(matches!(
+        message.get_muxed1(),
         Err(DbccError::InactiveMultiplexedSignal { .. })
     ));
 }

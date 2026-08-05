@@ -183,7 +183,7 @@ test_sdodps: ${TARGET}
 
 test_rust: ${TARGET}
 	@mkdir -p ${TEST_RUST_DIR}
-	./${TARGET} -R -o ${TEST_RUST_DIR} codec_matrix.dbc bitfield_edge.dbc sdodps.dbc
+	./${TARGET} -R -o ${TEST_RUST_DIR} codec_matrix.dbc bitfield_edge.dbc mul_val.dbc sdodps.dbc
 	${RUSTC} --edition=2021 --test -D warnings tests/test_2rust.rs -o ${TEST_RUST_DIR}/test_2rust
 	./${TEST_RUST_DIR}/test_2rust
 

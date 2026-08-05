@@ -475,7 +475,9 @@ static void emit_prelude(FILE *o, const dbc_t *dbc, const char *name)
 		"    pub units: &'static str,\n"
 		"    pub multiplexor: bool,\n"
 		"    pub multiplexed: bool,\n"
+		"    pub multiplexor_name: Option<&'static str>,\n"
 		"    pub switch_value: Option<u64>,\n"
+		"    pub switch_ranges: &'static [(u64, u64)],\n"
 		"}\n\n"
 		"#[derive(Debug, Clone, Copy, PartialEq)]\n"
 		"pub struct MessageInfo {\n"
@@ -627,13 +629,17 @@ static void emit_enums(FILE *o, const dbc_t *dbc)
 	}
 }
 
-static void emit_mux_check(FILE *o, can_msg_t *msg, signal_t *sig)
+static void emit_mux_check_recursive(FILE *o, can_msg_t *msg, signal_t *sig,
+	const signal_t *reported_signal, size_t depth)
 {
 	if (!sig->is_multiplexed)
 		return;
+	if (depth >= msg->signal_count)
+		error("multiplexor cycle detected in message %s", msg->name);
 	signal_t *parent = signal_mux_parent(msg, sig);
 	if (!parent)
 		return;
+	emit_mux_check_recursive(o, msg, parent, reported_signal, depth + 1u);
 	fprintf(o,
 		"        let mux = dbcc_extract(self.payload, %uu32, %uu32, %s);\n"
 		"        if !(",
@@ -663,8 +669,13 @@ static void emit_mux_check(FILE *o, can_msg_t *msg, signal_t *sig)
 		") {\n"
 		"            return Err(DbccError::InactiveMultiplexedSignal { signal: ",
 		o);
-	emit_rust_string(o, sig->name);
+	emit_rust_string(o, reported_signal->name);
 	fputs(", mux });\n        }\n", o);
+}
+
+static void emit_mux_check(FILE *o, can_msg_t *msg, signal_t *sig)
+{
+	emit_mux_check_recursive(o, msg, sig, sig, 0u);
 }
 
 static void emit_range_check(FILE *o, const signal_t *sig, const char *value)
@@ -877,6 +888,7 @@ static void emit_database_api(FILE *o, const dbc_t *dbc)
 		fprintf(o, "pub static SIGNALS_%s: &[SignalInfo] = &[\n", upper);
 		for (size_t j = 0; j < msg->signal_count; j++) {
 			signal_t *sig = msg->sigs[j];
+			signal_t *parent = signal_mux_parent(msg, sig);
 			fputs("    SignalInfo { name: ", o);
 			emit_rust_string(o, sig->name);
 			fprintf(o,
@@ -888,14 +900,41 @@ static void emit_database_api(FILE *o, const dbc_t *dbc)
 				sig->scaling, sig->offset, sig->minimum, sig->maximum);
 			emit_rust_string(o, sig->units ? sig->units : "");
 			fprintf(o,
-				", multiplexor: %s, multiplexed: %s, switch_value: ",
+				", multiplexor: %s, multiplexed: %s, multiplexor_name: ",
 				sig->is_multiplexor ? "true" : "false",
 				sig->is_multiplexed ? "true" : "false");
+			if (parent) {
+				fputs("Some(", o);
+				emit_rust_string(o, parent->name);
+				fputc(')', o);
+			} else {
+				fputs("None", o);
+			}
+			fputs(", switch_value: ", o);
 			if (sig->is_multiplexed)
 				fprintf(o, "Some(%uu64)", sig->switchval);
 			else
 				fputs("None", o);
-			fputs(" },\n", o);
+			fputs(", switch_ranges: &[", o);
+			bool have_range = false;
+			if (parent) {
+				for (size_t k = 0; k < parent->mul_num; k++) {
+					if (parent->muxed[k] != sig || !parent->mux_vals[k])
+						continue;
+					mul_val_list_t *mv = parent->mux_vals[k];
+					for (size_t r = 0; r < mv->range_num; r++) {
+						if (have_range)
+							fputs(", ", o);
+						fprintf(o, "(%uu64, %uu64)",
+							mv->ranges[r]->min_value,
+							mv->ranges[r]->max_value);
+						have_range = true;
+					}
+				}
+			}
+			if (sig->is_multiplexed && !have_range)
+				fprintf(o, "(%uu64, %uu64)", sig->switchval, sig->switchval);
+			fputs("] },\n", o);
 		}
 		fputs("];\n\n", o);
 		free(upper);
