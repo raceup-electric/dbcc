@@ -53,7 +53,7 @@ private:
 		/* 0x400: NewMessage0 */
 		new_message0_sub_ = this->create_subscription<float_signal::msg::NewMessage0>(
 			"new_message0", qos, [this](const float_signal::msg::NewMessage0::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* float_signal_0: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -100,7 +100,7 @@ private:
 				if (dlc < 8) return;
 				float_signal::msg::NewMessage0 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* float_signal_0: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */

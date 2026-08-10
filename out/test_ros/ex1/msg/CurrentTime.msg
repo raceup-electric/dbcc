@@ -1,4 +1,4 @@
-Header header
+std_msgs/Header header
 uint16 years
 uint8 month
 uint8 day

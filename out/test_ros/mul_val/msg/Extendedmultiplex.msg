@@ -1,4 +1,4 @@
-Header header
+std_msgs/Header header
 uint8 sig1
 float64 sig2
 uint8 sig3

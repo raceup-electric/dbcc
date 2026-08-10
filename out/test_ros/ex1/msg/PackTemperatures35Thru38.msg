@@ -1,4 +1,4 @@
-Header header
+std_msgs/Header header
 int16 temp35 # (cÂ°C)
 int16 temp36 # (cÂ°C)
 int16 temp37 # (cÂ°C)

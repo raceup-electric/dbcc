@@ -173,7 +173,7 @@ private:
 		/* 0xcc0016e: MagicCanNode1RHeartbeat */
 		magic_can_node1_r_heartbeat_sub_ = this->create_subscription<ex1::msg::MagicCanNode1RHeartbeat>(
 			"magic_can_node1_r_heartbeat", qos, [this](const ex1::msg::MagicCanNode1RHeartbeat::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* magicnode1flags: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -187,7 +187,7 @@ private:
 		/* 0x023: MagicCanNode2Heartbeat */
 		magic_can_node2_heartbeat_sub_ = this->create_subscription<ex1::msg::MagicCanNode2Heartbeat>(
 			"magic_can_node2_heartbeat", qos, [this](const ex1::msg::MagicCanNode2Heartbeat::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* magicnode2flags: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -201,7 +201,7 @@ private:
 		/* 0x025: MagicCanNode3Heartbeat */
 		magic_can_node3_heartbeat_sub_ = this->create_subscription<ex1::msg::MagicCanNode3Heartbeat>(
 			"magic_can_node3_heartbeat", qos, [this](const ex1::msg::MagicCanNode3Heartbeat::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* magicnode3flags: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -215,7 +215,7 @@ private:
 		/* 0x027: FrameFaultHeartbeat */
 		frame_fault_heartbeat_sub_ = this->create_subscription<ex1::msg::FrameFaultHeartbeat>(
 			"frame_fault_heartbeat", qos, [this](const ex1::msg::FrameFaultHeartbeat::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* framefaultflags: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -229,7 +229,7 @@ private:
 		/* 0x02e: DriveControlsHeartbeat */
 		drive_controls_heartbeat_sub_ = this->create_subscription<ex1::msg::DriveControlsHeartbeat>(
 			"drive_controls_heartbeat", qos, [this](const ex1::msg::DriveControlsHeartbeat::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* drivecontroltritiumerror: start-bit 1, length 1, endianess intel, scaling 1, offset 0 */
@@ -252,7 +252,7 @@ private:
 		/* 0x031: CANMirrorHeatbeart */
 		can_mirror_heatbeart_sub_ = this->create_subscription<ex1::msg::CANMirrorHeatbeart>(
 			"can_mirror_heatbeart", qos, [this](const ex1::msg::CANMirrorHeatbeart::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* canmirroroverflowcounter: start-bit 0, length 8, endianess intel, scaling 1, offset 0 */
@@ -278,7 +278,7 @@ private:
 		/* 0x034: RiderDisplayHeartbeat */
 		rider_display_heartbeat_sub_ = this->create_subscription<ex1::msg::RiderDisplayHeartbeat>(
 			"rider_display_heartbeat", qos, [this](const ex1::msg::RiderDisplayHeartbeat::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* riderdisplayflags: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -292,7 +292,7 @@ private:
 		/* 0x03a: BIM1Heartbeat */
 		bim1_heartbeat_sub_ = this->create_subscription<ex1::msg::BIM1Heartbeat>(
 			"bim1_heartbeat", qos, [this](const ex1::msg::BIM1Heartbeat::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* bim1init: start-bit 0, length 1, endianess intel, scaling 1, offset 0 */
@@ -314,7 +314,7 @@ private:
 		/* 0x03c: BIM2Heartbeat */
 		bim2_heartbeat_sub_ = this->create_subscription<ex1::msg::BIM2Heartbeat>(
 			"bim2_heartbeat", qos, [this](const ex1::msg::BIM2Heartbeat::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* bim2init: start-bit 0, length 1, endianess intel, scaling 1, offset 0 */
@@ -336,7 +336,7 @@ private:
 		/* 0x03e: BIM3Heartbeat */
 		bim3_heartbeat_sub_ = this->create_subscription<ex1::msg::BIM3Heartbeat>(
 			"bim3_heartbeat", qos, [this](const ex1::msg::BIM3Heartbeat::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* bim3init: start-bit 0, length 1, endianess intel, scaling 1, offset 0 */
@@ -358,7 +358,7 @@ private:
 		/* 0x040: BIM4Heartbeat */
 		bim4_heartbeat_sub_ = this->create_subscription<ex1::msg::BIM4Heartbeat>(
 			"bim4_heartbeat", qos, [this](const ex1::msg::BIM4Heartbeat::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* bim4init: start-bit 0, length 1, endianess intel, scaling 1, offset 0 */
@@ -380,7 +380,7 @@ private:
 		/* 0x100: FrameFaultDetectionStatus */
 		frame_fault_detection_status_sub_ = this->create_subscription<ex1::msg::FrameFaultDetectionStatus>(
 			"frame_fault_detection_status", qos, [this](const ex1::msg::FrameFaultDetectionStatus::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* estimatedpackframeresistance: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -398,7 +398,7 @@ private:
 		/* 0x101: FrontBrakePressure */
 		front_brake_pressure_sub_ = this->create_subscription<ex1::msg::FrontBrakePressure>(
 			"front_brake_pressure", qos, [this](const ex1::msg::FrontBrakePressure::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* frontbrakepressure: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -412,7 +412,7 @@ private:
 		/* 0x102: RearBrakePressure */
 		rear_brake_pressure_sub_ = this->create_subscription<ex1::msg::RearBrakePressure>(
 			"rear_brake_pressure", qos, [this](const ex1::msg::RearBrakePressure::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* rearbrakepressure: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -426,7 +426,7 @@ private:
 		/* 0x103: FrontSuspensionTravel */
 		front_suspension_travel_sub_ = this->create_subscription<ex1::msg::FrontSuspensionTravel>(
 			"front_suspension_travel", qos, [this](const ex1::msg::FrontSuspensionTravel::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* frontsuspensionposition: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -440,7 +440,7 @@ private:
 		/* 0x104: RearSuspensionTravel */
 		rear_suspension_travel_sub_ = this->create_subscription<ex1::msg::RearSuspensionTravel>(
 			"rear_suspension_travel", qos, [this](const ex1::msg::RearSuspensionTravel::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* rearsuspensionposition: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -454,7 +454,7 @@ private:
 		/* 0x106: BusVoltage12V */
 		bus_voltage12_v_sub_ = this->create_subscription<ex1::msg::BusVoltage12V>(
 			"bus_voltage12_v", qos, [this](const ex1::msg::BusVoltage12V::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* busvoltage12v: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -468,7 +468,7 @@ private:
 		/* 0x107: PostMotorCoolantTemp */
 		post_motor_coolant_temp_sub_ = this->create_subscription<ex1::msg::PostMotorCoolantTemp>(
 			"post_motor_coolant_temp", qos, [this](const ex1::msg::PostMotorCoolantTemp::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* postmotorcoolanttemp: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -482,7 +482,7 @@ private:
 		/* 0x108: PostControllerCoolantTemp */
 		post_controller_coolant_temp_sub_ = this->create_subscription<ex1::msg::PostControllerCoolantTemp>(
 			"post_controller_coolant_temp", qos, [this](const ex1::msg::PostControllerCoolantTemp::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* postcontrollercoolanttemp: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -496,7 +496,7 @@ private:
 		/* 0x109: RadiatorCoolSideCoolantTemp */
 		radiator_cool_side_coolant_temp_sub_ = this->create_subscription<ex1::msg::RadiatorCoolSideCoolantTemp>(
 			"radiator_cool_side_coolant_temp", qos, [this](const ex1::msg::RadiatorCoolSideCoolantTemp::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* radiatorcoolsidecoolanttemp: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -510,7 +510,7 @@ private:
 		/* 0x10a: AmbientTemp */
 		ambient_temp_sub_ = this->create_subscription<ex1::msg::AmbientTemp>(
 			"ambient_temp", qos, [this](const ex1::msg::AmbientTemp::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* ambienttemp: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -524,7 +524,7 @@ private:
 		/* 0x10b: GPSLatAndValidityStatus */
 		gps_lat_and_validity_status_sub_ = this->create_subscription<ex1::msg::GPSLatAndValidityStatus>(
 			"gps_lat_and_validity_status", qos, [this](const ex1::msg::GPSLatAndValidityStatus::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* gpslatitude: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -542,7 +542,7 @@ private:
 		/* 0x10c: GPSLongitude */
 		gps_longitude_sub_ = this->create_subscription<ex1::msg::GPSLongitude>(
 			"gps_longitude", qos, [this](const ex1::msg::GPSLongitude::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* gpslongitude: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -556,7 +556,7 @@ private:
 		/* 0x10d: GPSAltitudeAndAccuracy */
 		gps_altitude_and_accuracy_sub_ = this->create_subscription<ex1::msg::GPSAltitudeAndAccuracy>(
 			"gps_altitude_and_accuracy", qos, [this](const ex1::msg::GPSAltitudeAndAccuracy::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* gpsaltitude: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -574,7 +574,7 @@ private:
 		/* 0x10e: CurrentTime */
 		current_time_sub_ = this->create_subscription<ex1::msg::CurrentTime>(
 			"current_time", qos, [this](const ex1::msg::CurrentTime::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* years: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -608,7 +608,7 @@ private:
 		/* 0x10f: IMUAccelerationMeasurement */
 		imu_acceleration_measurement_sub_ = this->create_subscription<ex1::msg::IMUAccelerationMeasurement>(
 			"imu_acceleration_measurement", qos, [this](const ex1::msg::IMUAccelerationMeasurement::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* xaxisacceleration: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -630,7 +630,7 @@ private:
 		/* 0x110: IMUGyroMeasurement */
 		imu_gyro_measurement_sub_ = this->create_subscription<ex1::msg::IMUGyroMeasurement>(
 			"imu_gyro_measurement", qos, [this](const ex1::msg::IMUGyroMeasurement::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* xaxisroll: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -652,7 +652,7 @@ private:
 		/* 0x111: MotorPlateTemp */
 		motor_plate_temp_sub_ = this->create_subscription<ex1::msg::MotorPlateTemp>(
 			"motor_plate_temp", qos, [this](const ex1::msg::MotorPlateTemp::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* motorplatetemp1: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -670,7 +670,7 @@ private:
 		/* 0x300: BIM1CellStatistics1 */
 		bim1_cell_statistics1_sub_ = this->create_subscription<ex1::msg::BIM1CellStatistics1>(
 			"bim1_cell_statistics1", qos, [this](const ex1::msg::BIM1CellStatistics1::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* bim1maxcellvoltage: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -696,7 +696,7 @@ private:
 		/* 0x301: BIM1CellStatistics2 */
 		bim1_cell_statistics2_sub_ = this->create_subscription<ex1::msg::BIM1CellStatistics2>(
 			"bim1_cell_statistics2", qos, [this](const ex1::msg::BIM1CellStatistics2::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* bim1avgcellvoltage: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -718,7 +718,7 @@ private:
 		/* 0x302: BIM2CellStatisitcs1 */
 		bim2_cell_statisitcs1_sub_ = this->create_subscription<ex1::msg::BIM2CellStatisitcs1>(
 			"bim2_cell_statisitcs1", qos, [this](const ex1::msg::BIM2CellStatisitcs1::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* bim2maxcellvoltage: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -744,7 +744,7 @@ private:
 		/* 0x303: BIM2CellStatistics2 */
 		bim2_cell_statistics2_sub_ = this->create_subscription<ex1::msg::BIM2CellStatistics2>(
 			"bim2_cell_statistics2", qos, [this](const ex1::msg::BIM2CellStatistics2::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* bim2avgcellvoltage: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -766,7 +766,7 @@ private:
 		/* 0x304: BIM3CellStatisitcs1 */
 		bim3_cell_statisitcs1_sub_ = this->create_subscription<ex1::msg::BIM3CellStatisitcs1>(
 			"bim3_cell_statisitcs1", qos, [this](const ex1::msg::BIM3CellStatisitcs1::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* bim3maxcellvoltage: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -792,7 +792,7 @@ private:
 		/* 0x305: BIM3CellStatistics2 */
 		bim3_cell_statistics2_sub_ = this->create_subscription<ex1::msg::BIM3CellStatistics2>(
 			"bim3_cell_statistics2", qos, [this](const ex1::msg::BIM3CellStatistics2::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* bim3avgcellvoltage: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -814,7 +814,7 @@ private:
 		/* 0x306: BIM4CellStatistics1 */
 		bim4_cell_statistics1_sub_ = this->create_subscription<ex1::msg::BIM4CellStatistics1>(
 			"bim4_cell_statistics1", qos, [this](const ex1::msg::BIM4CellStatistics1::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* bim4maxcellvoltage: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -840,7 +840,7 @@ private:
 		/* 0x307: BIM4CellStatistics2 */
 		bim4_cell_statistics2_sub_ = this->create_subscription<ex1::msg::BIM4CellStatistics2>(
 			"bim4_cell_statistics2", qos, [this](const ex1::msg::BIM4CellStatistics2::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* bim4avgcellvoltage: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -862,7 +862,7 @@ private:
 		/* 0x310: Cells14 */
 		cells14_sub_ = this->create_subscription<ex1::msg::Cells14>(
 			"cells14", qos, [this](const ex1::msg::Cells14::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* cell1: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -904,7 +904,7 @@ private:
 		/* 0x311: Cells58 */
 		cells58_sub_ = this->create_subscription<ex1::msg::Cells58>(
 			"cells58", qos, [this](const ex1::msg::Cells58::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* cell5: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -946,7 +946,7 @@ private:
 		/* 0x312: Cells912 */
 		cells912_sub_ = this->create_subscription<ex1::msg::Cells912>(
 			"cells912", qos, [this](const ex1::msg::Cells912::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* cell9: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -988,7 +988,7 @@ private:
 		/* 0x8501930: OdometerVelocity */
 		odometer_velocity_sub_ = this->create_subscription<ex1::msg::OdometerVelocity>(
 			"odometer_velocity", qos, [this](const ex1::msg::OdometerVelocity::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t m = 0;
 				/* odometer_velocity: start-bit 7, length 32, endianess motorola, scaling 1, offset 0 */
@@ -1003,7 +1003,7 @@ private:
 		/* 0x313: Cells1316 */
 		cells1316_sub_ = this->create_subscription<ex1::msg::Cells1316>(
 			"cells1316", qos, [this](const ex1::msg::Cells1316::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* cell13: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -1045,7 +1045,7 @@ private:
 		/* 0x314: Cells1720 */
 		cells1720_sub_ = this->create_subscription<ex1::msg::Cells1720>(
 			"cells1720", qos, [this](const ex1::msg::Cells1720::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* cell17: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -1087,7 +1087,7 @@ private:
 		/* 0x315: Cells2124 */
 		cells2124_sub_ = this->create_subscription<ex1::msg::Cells2124>(
 			"cells2124", qos, [this](const ex1::msg::Cells2124::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* cell21: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -1129,7 +1129,7 @@ private:
 		/* 0x316: Cells2528 */
 		cells2528_sub_ = this->create_subscription<ex1::msg::Cells2528>(
 			"cells2528", qos, [this](const ex1::msg::Cells2528::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* cell25: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -1171,7 +1171,7 @@ private:
 		/* 0x317: Cells2932 */
 		cells2932_sub_ = this->create_subscription<ex1::msg::Cells2932>(
 			"cells2932", qos, [this](const ex1::msg::Cells2932::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* cell29: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -1213,7 +1213,7 @@ private:
 		/* 0x318: Cells3336 */
 		cells3336_sub_ = this->create_subscription<ex1::msg::Cells3336>(
 			"cells3336", qos, [this](const ex1::msg::Cells3336::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* cell33: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -1255,7 +1255,7 @@ private:
 		/* 0x319: Cells3740 */
 		cells3740_sub_ = this->create_subscription<ex1::msg::Cells3740>(
 			"cells3740", qos, [this](const ex1::msg::Cells3740::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* cell37: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -1297,7 +1297,7 @@ private:
 		/* 0x31a: Cells4144 */
 		cells4144_sub_ = this->create_subscription<ex1::msg::Cells4144>(
 			"cells4144", qos, [this](const ex1::msg::Cells4144::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* cell41: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -1339,7 +1339,7 @@ private:
 		/* 0x31b: Cells4548 */
 		cells4548_sub_ = this->create_subscription<ex1::msg::Cells4548>(
 			"cells4548", qos, [this](const ex1::msg::Cells4548::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* cell45: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -1381,7 +1381,7 @@ private:
 		/* 0x31c: Cells4952 */
 		cells4952_sub_ = this->create_subscription<ex1::msg::Cells4952>(
 			"cells4952", qos, [this](const ex1::msg::Cells4952::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* cell49: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -1423,7 +1423,7 @@ private:
 		/* 0x31d: Cells5354 */
 		cells5354_sub_ = this->create_subscription<ex1::msg::Cells5354>(
 			"cells5354", qos, [this](const ex1::msg::Cells5354::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* cell53: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -1449,7 +1449,7 @@ private:
 		/* 0x31e: Cells5558 */
 		cells5558_sub_ = this->create_subscription<ex1::msg::Cells5558>(
 			"cells5558", qos, [this](const ex1::msg::Cells5558::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* cell55: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -1491,7 +1491,7 @@ private:
 		/* 0x31f: Cells5962 */
 		cells5962_sub_ = this->create_subscription<ex1::msg::Cells5962>(
 			"cells5962", qos, [this](const ex1::msg::Cells5962::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* cell59: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -1533,7 +1533,7 @@ private:
 		/* 0x320: Cells6366 */
 		cells6366_sub_ = this->create_subscription<ex1::msg::Cells6366>(
 			"cells6366", qos, [this](const ex1::msg::Cells6366::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* cell63: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -1575,7 +1575,7 @@ private:
 		/* 0x321: Cells6770 */
 		cells6770_sub_ = this->create_subscription<ex1::msg::Cells6770>(
 			"cells6770", qos, [this](const ex1::msg::Cells6770::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* cell67: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -1617,7 +1617,7 @@ private:
 		/* 0x322: Cells7174 */
 		cells7174_sub_ = this->create_subscription<ex1::msg::Cells7174>(
 			"cells7174", qos, [this](const ex1::msg::Cells7174::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* cell71: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -1659,7 +1659,7 @@ private:
 		/* 0x323: Cells7578 */
 		cells7578_sub_ = this->create_subscription<ex1::msg::Cells7578>(
 			"cells7578", qos, [this](const ex1::msg::Cells7578::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* cell75: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -1701,7 +1701,7 @@ private:
 		/* 0x324: Cells7982 */
 		cells7982_sub_ = this->create_subscription<ex1::msg::Cells7982>(
 			"cells7982", qos, [this](const ex1::msg::Cells7982::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* cell79: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -1743,7 +1743,7 @@ private:
 		/* 0x325: Cells8386 */
 		cells8386_sub_ = this->create_subscription<ex1::msg::Cells8386>(
 			"cells8386", qos, [this](const ex1::msg::Cells8386::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* cell83: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -1785,7 +1785,7 @@ private:
 		/* 0x326: Cells8790 */
 		cells8790_sub_ = this->create_subscription<ex1::msg::Cells8790>(
 			"cells8790", qos, [this](const ex1::msg::Cells8790::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* cell87: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -1827,7 +1827,7 @@ private:
 		/* 0x327: Cells9194 */
 		cells9194_sub_ = this->create_subscription<ex1::msg::Cells9194>(
 			"cells9194", qos, [this](const ex1::msg::Cells9194::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* cell91: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -1869,7 +1869,7 @@ private:
 		/* 0x328: Cells9598 */
 		cells9598_sub_ = this->create_subscription<ex1::msg::Cells9598>(
 			"cells9598", qos, [this](const ex1::msg::Cells9598::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* cell95: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -1911,7 +1911,7 @@ private:
 		/* 0x329: Cells99102 */
 		cells99102_sub_ = this->create_subscription<ex1::msg::Cells99102>(
 			"cells99102", qos, [this](const ex1::msg::Cells99102::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* cell99: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -1953,7 +1953,7 @@ private:
 		/* 0x32a: Cells103106 */
 		cells103106_sub_ = this->create_subscription<ex1::msg::Cells103106>(
 			"cells103106", qos, [this](const ex1::msg::Cells103106::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* cell103: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -1995,7 +1995,7 @@ private:
 		/* 0x32b: Cells107110 */
 		cells107110_sub_ = this->create_subscription<ex1::msg::Cells107110>(
 			"cells107110", qos, [this](const ex1::msg::Cells107110::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* cell107: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -2037,7 +2037,7 @@ private:
 		/* 0x335: PackTemperatures1Thru4 */
 		pack_temperatures1_thru4_sub_ = this->create_subscription<ex1::msg::PackTemperatures1Thru4>(
 			"pack_temperatures1_thru4", qos, [this](const ex1::msg::PackTemperatures1Thru4::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* temp1: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -2063,7 +2063,7 @@ private:
 		/* 0x336: PackTempeartures5Thru8 */
 		pack_tempeartures5_thru8_sub_ = this->create_subscription<ex1::msg::PackTempeartures5Thru8>(
 			"pack_tempeartures5_thru8", qos, [this](const ex1::msg::PackTempeartures5Thru8::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* temp5: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -2089,7 +2089,7 @@ private:
 		/* 0x337: PackTemperatures9Thru14 */
 		pack_temperatures9_thru14_sub_ = this->create_subscription<ex1::msg::PackTemperatures9Thru14>(
 			"pack_temperatures9_thru14", qos, [this](const ex1::msg::PackTemperatures9Thru14::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* temp9: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -2115,7 +2115,7 @@ private:
 		/* 0x338: PackTemperatures13Thru14 */
 		pack_temperatures13_thru14_sub_ = this->create_subscription<ex1::msg::PackTemperatures13Thru14>(
 			"pack_temperatures13_thru14", qos, [this](const ex1::msg::PackTemperatures13Thru14::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* temp13: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -2133,7 +2133,7 @@ private:
 		/* 0x339: PackTemperatures15Thru18 */
 		pack_temperatures15_thru18_sub_ = this->create_subscription<ex1::msg::PackTemperatures15Thru18>(
 			"pack_temperatures15_thru18", qos, [this](const ex1::msg::PackTemperatures15Thru18::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* temp15: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -2159,7 +2159,7 @@ private:
 		/* 0x33a: PackTemperatures19Thru22 */
 		pack_temperatures19_thru22_sub_ = this->create_subscription<ex1::msg::PackTemperatures19Thru22>(
 			"pack_temperatures19_thru22", qos, [this](const ex1::msg::PackTemperatures19Thru22::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* temp19: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -2185,7 +2185,7 @@ private:
 		/* 0x33b: PackTemperatures23Thru26 */
 		pack_temperatures23_thru26_sub_ = this->create_subscription<ex1::msg::PackTemperatures23Thru26>(
 			"pack_temperatures23_thru26", qos, [this](const ex1::msg::PackTemperatures23Thru26::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* temp23: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -2211,7 +2211,7 @@ private:
 		/* 0x33c: PackTemperatures27Thru30 */
 		pack_temperatures27_thru30_sub_ = this->create_subscription<ex1::msg::PackTemperatures27Thru30>(
 			"pack_temperatures27_thru30", qos, [this](const ex1::msg::PackTemperatures27Thru30::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* temp27: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -2237,7 +2237,7 @@ private:
 		/* 0x33d: PackTemperatures31Thru34 */
 		pack_temperatures31_thru34_sub_ = this->create_subscription<ex1::msg::PackTemperatures31Thru34>(
 			"pack_temperatures31_thru34", qos, [this](const ex1::msg::PackTemperatures31Thru34::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* temp31: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -2263,7 +2263,7 @@ private:
 		/* 0x33e: PackTemperatures35Thru38 */
 		pack_temperatures35_thru38_sub_ = this->create_subscription<ex1::msg::PackTemperatures35Thru38>(
 			"pack_temperatures35_thru38", qos, [this](const ex1::msg::PackTemperatures35Thru38::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* temp35: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -2289,7 +2289,7 @@ private:
 		/* 0x33f: PackTemperatures39Thru42 */
 		pack_temperatures39_thru42_sub_ = this->create_subscription<ex1::msg::PackTemperatures39Thru42>(
 			"pack_temperatures39_thru42", qos, [this](const ex1::msg::PackTemperatures39Thru42::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* temp39: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -2315,7 +2315,7 @@ private:
 		/* 0x501: MotorDriveCommand */
 		motor_drive_command_sub_ = this->create_subscription<ex1::msg::MotorDriveCommand>(
 			"motor_drive_command", qos, [this](const ex1::msg::MotorDriveCommand::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* motorvelocitycommand: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -2333,7 +2333,7 @@ private:
 		/* 0x502: MotorPowerCommand */
 		motor_power_command_sub_ = this->create_subscription<ex1::msg::MotorPowerCommand>(
 			"motor_power_command", qos, [this](const ex1::msg::MotorPowerCommand::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* buscurrentcommand: start-bit 32, length 32, endianess intel, scaling 1, offset 0 */
@@ -2348,7 +2348,7 @@ private:
 		/* 0x401: StatusInformation */
 		status_information_sub_ = this->create_subscription<ex1::msg::StatusInformation>(
 			"status_information", qos, [this](const ex1::msg::StatusInformation::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* limit_outputvolt_pwm: start-bit 0, length 1, endianess intel, scaling 1, offset 0 */
@@ -2426,7 +2426,7 @@ private:
 		/* 0x402: BusMeasurement */
 		bus_measurement_sub_ = this->create_subscription<ex1::msg::BusMeasurement>(
 			"bus_measurement", qos, [this](const ex1::msg::BusMeasurement::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* busvoltage: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -2444,7 +2444,7 @@ private:
 		/* 0x403: VelocityMeasurment */
 		velocity_measurment_sub_ = this->create_subscription<ex1::msg::VelocityMeasurment>(
 			"velocity_measurment", qos, [this](const ex1::msg::VelocityMeasurment::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* motorvelocity: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -2462,7 +2462,7 @@ private:
 		/* 0x404: PhaseCurrentMeasurment */
 		phase_current_measurment_sub_ = this->create_subscription<ex1::msg::PhaseCurrentMeasurment>(
 			"phase_current_measurment", qos, [this](const ex1::msg::PhaseCurrentMeasurment::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* phasebcurrent: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -2480,7 +2480,7 @@ private:
 		/* 0x405: MotorVoltage */
 		motor_voltage_sub_ = this->create_subscription<ex1::msg::MotorVoltage>(
 			"motor_voltage", qos, [this](const ex1::msg::MotorVoltage::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* motorvq: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -2498,7 +2498,7 @@ private:
 		/* 0x406: MotorCurrent */
 		motor_current_sub_ = this->create_subscription<ex1::msg::MotorCurrent>(
 			"motor_current", qos, [this](const ex1::msg::MotorCurrent::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* motoriq: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -2516,7 +2516,7 @@ private:
 		/* 0x40b: MotorPhaseATemperature */
 		motor_phase_a_temperature_sub_ = this->create_subscription<ex1::msg::MotorPhaseATemperature>(
 			"motor_phase_a_temperature", qos, [this](const ex1::msg::MotorPhaseATemperature::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* motortemp: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -2534,7 +2534,7 @@ private:
 		/* 0x40e: Odometeramphours */
 		odometeramphours_sub_ = this->create_subscription<ex1::msg::Odometeramphours>(
 			"odometeramphours", qos, [this](const ex1::msg::Odometeramphours::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* odometer: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -2552,7 +2552,7 @@ private:
 		/* 0x407: BackEMF */
 		back_emf_sub_ = this->create_subscription<ex1::msg::BackEMF>(
 			"back_emf", qos, [this](const ex1::msg::BackEMF::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* bemfq: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -2570,7 +2570,7 @@ private:
 		/* 0x408: Rail15v */
 		rail15v_sub_ = this->create_subscription<ex1::msg::Rail15v>(
 			"rail15v", qos, [this](const ex1::msg::Rail15v::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* supply15v: start-bit 32, length 32, endianess intel, scaling 1, offset 0 */
@@ -2585,7 +2585,7 @@ private:
 		/* 0x409: Rail3v31v9 */
 		rail3v31v9_sub_ = this->create_subscription<ex1::msg::Rail3v31v9>(
 			"rail3v31v9", qos, [this](const ex1::msg::Rail3v31v9::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* supply1v9: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -2603,7 +2603,7 @@ private:
 		/* 0x40c: PhaseBdsptemprature */
 		phase_bdsptemprature_sub_ = this->create_subscription<ex1::msg::PhaseBdsptemprature>(
 			"phase_bdsptemprature", qos, [this](const ex1::msg::PhaseBdsptemprature::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* dsp_temp: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -2621,7 +2621,7 @@ private:
 		/* 0x020: MagicCanNode1RBootloaderAddress */
 		magic_can_node1_r_bootloader_address_sub_ = this->create_subscription<ex1::msg::MagicCanNode1RBootloaderAddress>(
 			"magic_can_node1_r_bootloader_address", qos, [this](const ex1::msg::MagicCanNode1RBootloaderAddress::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* magicnode1r_bladdy: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -2635,7 +2635,7 @@ private:
 		/* 0x022: MagicCanNode2MBootloaderAddress */
 		magic_can_node2_m_bootloader_address_sub_ = this->create_subscription<ex1::msg::MagicCanNode2MBootloaderAddress>(
 			"magic_can_node2_m_bootloader_address", qos, [this](const ex1::msg::MagicCanNode2MBootloaderAddress::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* magicnode2m_bladdy: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -2649,7 +2649,7 @@ private:
 		/* 0x024: MagicCanNode3FBootloaderAddress */
 		magic_can_node3_f_bootloader_address_sub_ = this->create_subscription<ex1::msg::MagicCanNode3FBootloaderAddress>(
 			"magic_can_node3_f_bootloader_address", qos, [this](const ex1::msg::MagicCanNode3FBootloaderAddress::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* magicnode3f_bladdy: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -2663,7 +2663,7 @@ private:
 		/* 0x026: FrameFaultBootloaderAddres */
 		frame_fault_bootloader_addres_sub_ = this->create_subscription<ex1::msg::FrameFaultBootloaderAddres>(
 			"frame_fault_bootloader_addres", qos, [this](const ex1::msg::FrameFaultBootloaderAddres::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* framefaultbootloaderaddress: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -2677,7 +2677,7 @@ private:
 		/* 0x028: FrameFaultCommand */
 		frame_fault_command_sub_ = this->create_subscription<ex1::msg::FrameFaultCommand>(
 			"frame_fault_command", qos, [this](const ex1::msg::FrameFaultCommand::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* framefaultcommandvalue: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -2695,7 +2695,7 @@ private:
 		/* 0x02c: DriveControlsBootloader */
 		drive_controls_bootloader_sub_ = this->create_subscription<ex1::msg::DriveControlsBootloader>(
 			"drive_controls_bootloader", qos, [this](const ex1::msg::DriveControlsBootloader::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* drivecontrolsbootloader: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -2709,7 +2709,7 @@ private:
 		/* 0x02d: DriveControlsCommand */
 		drive_controls_command_sub_ = this->create_subscription<ex1::msg::DriveControlsCommand>(
 			"drive_controls_command", qos, [this](const ex1::msg::DriveControlsCommand::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* drivecontrolcommandvalue: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -2727,7 +2727,7 @@ private:
 		/* 0x030: CANMirrorBootloaderAddress */
 		can_mirror_bootloader_address_sub_ = this->create_subscription<ex1::msg::CANMirrorBootloaderAddress>(
 			"can_mirror_bootloader_address", qos, [this](const ex1::msg::CANMirrorBootloaderAddress::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* canmirrorbootloaderaddress: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -2741,7 +2741,7 @@ private:
 		/* 0x032: CANMirrorCommand */
 		can_mirror_command_sub_ = this->create_subscription<ex1::msg::CANMirrorCommand>(
 			"can_mirror_command", qos, [this](const ex1::msg::CANMirrorCommand::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* canmirrorcommandvalue: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -2759,7 +2759,7 @@ private:
 		/* 0x033: RiderDisplayBootloaderAddress */
 		rider_display_bootloader_address_sub_ = this->create_subscription<ex1::msg::RiderDisplayBootloaderAddress>(
 			"rider_display_bootloader_address", qos, [this](const ex1::msg::RiderDisplayBootloaderAddress::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* riderdisplaybootloaderaddress: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -2773,7 +2773,7 @@ private:
 		/* 0x035: RiderDisplayCommand */
 		rider_display_command_sub_ = this->create_subscription<ex1::msg::RiderDisplayCommand>(
 			"rider_display_command", qos, [this](const ex1::msg::RiderDisplayCommand::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* riderdisplaycommandvalue: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -2791,7 +2791,7 @@ private:
 		/* 0x039: BIM1BootloaderAddress */
 		bim1_bootloader_address_sub_ = this->create_subscription<ex1::msg::BIM1BootloaderAddress>(
 			"bim1_bootloader_address", qos, [this](const ex1::msg::BIM1BootloaderAddress::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* bim1bootloaderaddress: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -2805,7 +2805,7 @@ private:
 		/* 0x03b: BIM2BootloaderAddress */
 		bim2_bootloader_address_sub_ = this->create_subscription<ex1::msg::BIM2BootloaderAddress>(
 			"bim2_bootloader_address", qos, [this](const ex1::msg::BIM2BootloaderAddress::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* bim2bootloaderaddres: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -2819,7 +2819,7 @@ private:
 		/* 0x03d: BIM3BootloaderAddress */
 		bim3_bootloader_address_sub_ = this->create_subscription<ex1::msg::BIM3BootloaderAddress>(
 			"bim3_bootloader_address", qos, [this](const ex1::msg::BIM3BootloaderAddress::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* bim3bootloaderaddress: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -2833,7 +2833,7 @@ private:
 		/* 0x03f: BIM4BootloaderAddress */
 		bim4_bootloader_address_sub_ = this->create_subscription<ex1::msg::BIM4BootloaderAddress>(
 			"bim4_bootloader_address", qos, [this](const ex1::msg::BIM4BootloaderAddress::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* bim4bootloaderaddres: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -2847,7 +2847,7 @@ private:
 		/* 0x0a0: MagicCanNode1RCommand */
 		magic_can_node1_r_command_sub_ = this->create_subscription<ex1::msg::MagicCanNode1RCommand>(
 			"magic_can_node1_r_command", qos, [this](const ex1::msg::MagicCanNode1RCommand::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* magiccannode1commandvalue: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -2865,7 +2865,7 @@ private:
 		/* 0x0a1: MagicCanNode2MCommand */
 		magic_can_node2_m_command_sub_ = this->create_subscription<ex1::msg::MagicCanNode2MCommand>(
 			"magic_can_node2_m_command", qos, [this](const ex1::msg::MagicCanNode2MCommand::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* magiccannode2commandvalue: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -2883,7 +2883,7 @@ private:
 		/* 0x0a2: MagicCanNode3FCommand */
 		magic_can_node3_f_command_sub_ = this->create_subscription<ex1::msg::MagicCanNode3FCommand>(
 			"magic_can_node3_f_command", qos, [this](const ex1::msg::MagicCanNode3FCommand::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* magiccannode3commandvalue: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -2901,7 +2901,7 @@ private:
 		/* 0x0aa: CANcorderHeartbeat */
 		ca_ncorder_heartbeat_sub_ = this->create_subscription<ex1::msg::CANcorderHeartbeat>(
 			"ca_ncorder_heartbeat", qos, [this](const ex1::msg::CANcorderHeartbeat::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* cancorderheartbeat: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -2915,7 +2915,7 @@ private:
 		/* 0x0b0: BIM1Command */
 		bim1_command_sub_ = this->create_subscription<ex1::msg::BIM1Command>(
 			"bim1_command", qos, [this](const ex1::msg::BIM1Command::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* bim1commandvalue: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -2933,7 +2933,7 @@ private:
 		/* 0x0b1: BIM2Command */
 		bim2_command_sub_ = this->create_subscription<ex1::msg::BIM2Command>(
 			"bim2_command", qos, [this](const ex1::msg::BIM2Command::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* bim2commandvalue: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -2951,7 +2951,7 @@ private:
 		/* 0x0b2: BIM3Command */
 		bim3_command_sub_ = this->create_subscription<ex1::msg::BIM3Command>(
 			"bim3_command", qos, [this](const ex1::msg::BIM3Command::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* bim3commandvalue: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -2969,7 +2969,7 @@ private:
 		/* 0x0b3: BIM4Command */
 		bim4_command_sub_ = this->create_subscription<ex1::msg::BIM4Command>(
 			"bim4_command", qos, [this](const ex1::msg::BIM4Command::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* bim4commandvalue: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -2987,7 +2987,7 @@ private:
 		/* 0x112: MotorScoop */
 		motor_scoop_sub_ = this->create_subscription<ex1::msg::MotorScoop>(
 			"motor_scoop", qos, [this](const ex1::msg::MotorScoop::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* motorscoop: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -3001,7 +3001,7 @@ private:
 		/* 0x113: IMU1 */
 		imu1_sub_ = this->create_subscription<ex1::msg::IMU1>(
 			"imu1", qos, [this](const ex1::msg::IMU1::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* imuaccelx: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -3019,7 +3019,7 @@ private:
 		/* 0x114: IMU2 */
 		imu2_sub_ = this->create_subscription<ex1::msg::IMU2>(
 			"imu2", qos, [this](const ex1::msg::IMU2::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* imuaccelz: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -3037,7 +3037,7 @@ private:
 		/* 0x115: IMU3 */
 		imu3_sub_ = this->create_subscription<ex1::msg::IMU3>(
 			"imu3", qos, [this](const ex1::msg::IMU3::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* gravityy: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -3055,7 +3055,7 @@ private:
 		/* 0x116: IMU4 */
 		imu4_sub_ = this->create_subscription<ex1::msg::IMU4>(
 			"imu4", qos, [this](const ex1::msg::IMU4::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* yaw: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -3073,7 +3073,7 @@ private:
 		/* 0x29a: IMU5 */
 		imu5_sub_ = this->create_subscription<ex1::msg::IMU5>(
 			"imu5", qos, [this](const ex1::msg::IMU5::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* multiplexor: start-bit 0, length 4, endianess intel, scaling 1, offset 0 */
@@ -3111,7 +3111,7 @@ private:
 		/* 0x29b: MESSAGENAME */
 		messagename_sub_ = this->create_subscription<ex1::msg::MESSAGENAME>(
 			"messagename", qos, [this](const ex1::msg::MESSAGENAME::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t m = 0;
 				/* nonsensesignal: start-bit 0, length 3, endianess motorola, scaling 1, offset 0 */
@@ -3126,7 +3126,7 @@ private:
 		/* 0x29c: MESSAGENAME2 */
 		messagename2_sub_ = this->create_subscription<ex1::msg::MESSAGENAME2>(
 			"messagename2", qos, [this](const ex1::msg::MESSAGENAME2::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* placeholdersignal: start-bit 0, length 8, endianess intel, scaling 1, offset 0 */
@@ -3289,7 +3289,7 @@ private:
 				if (dlc < 2) return;
 				ex1::msg::MagicCanNode1RHeartbeat msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* magicnode1flags: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -3302,7 +3302,7 @@ private:
 				if (dlc < 2) return;
 				ex1::msg::MagicCanNode2Heartbeat msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* magicnode2flags: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -3315,7 +3315,7 @@ private:
 				if (dlc < 2) return;
 				ex1::msg::MagicCanNode3Heartbeat msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* magicnode3flags: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -3328,7 +3328,7 @@ private:
 				if (dlc < 2) return;
 				ex1::msg::FrameFaultHeartbeat msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* framefaultflags: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -3341,7 +3341,7 @@ private:
 				if (dlc < 2) return;
 				ex1::msg::DriveControlsHeartbeat msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* drivecontroltritiumerror: start-bit 1, length 1, endianess intel, scaling 1, offset 0 */
@@ -3360,7 +3360,7 @@ private:
 				if (dlc < 2) return;
 				ex1::msg::CANMirrorHeatbeart msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* canmirroroverflowcounter: start-bit 0, length 8, endianess intel, scaling 1, offset 0 */
@@ -3382,7 +3382,7 @@ private:
 				if (dlc < 2) return;
 				ex1::msg::RiderDisplayHeartbeat msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* riderdisplayflags: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -3395,7 +3395,7 @@ private:
 				if (dlc < 2) return;
 				ex1::msg::BIM1Heartbeat msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* bim1init: start-bit 0, length 1, endianess intel, scaling 1, offset 0 */
@@ -3414,7 +3414,7 @@ private:
 				if (dlc < 2) return;
 				ex1::msg::BIM2Heartbeat msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* bim2init: start-bit 0, length 1, endianess intel, scaling 1, offset 0 */
@@ -3433,7 +3433,7 @@ private:
 				if (dlc < 2) return;
 				ex1::msg::BIM3Heartbeat msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* bim3init: start-bit 0, length 1, endianess intel, scaling 1, offset 0 */
@@ -3452,7 +3452,7 @@ private:
 				if (dlc < 2) return;
 				ex1::msg::BIM4Heartbeat msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* bim4init: start-bit 0, length 1, endianess intel, scaling 1, offset 0 */
@@ -3471,7 +3471,7 @@ private:
 				if (dlc < 6) return;
 				ex1::msg::FrameFaultDetectionStatus msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* estimatedpackframeresistance: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -3487,7 +3487,7 @@ private:
 				if (dlc < 4) return;
 				ex1::msg::FrontBrakePressure msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* frontbrakepressure: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -3500,7 +3500,7 @@ private:
 				if (dlc < 4) return;
 				ex1::msg::RearBrakePressure msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* rearbrakepressure: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -3513,7 +3513,7 @@ private:
 				if (dlc < 4) return;
 				ex1::msg::FrontSuspensionTravel msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* frontsuspensionposition: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -3526,7 +3526,7 @@ private:
 				if (dlc < 4) return;
 				ex1::msg::RearSuspensionTravel msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* rearsuspensionposition: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -3539,7 +3539,7 @@ private:
 				if (dlc < 4) return;
 				ex1::msg::BusVoltage12V msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* busvoltage12v: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -3552,7 +3552,7 @@ private:
 				if (dlc < 4) return;
 				ex1::msg::PostMotorCoolantTemp msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* postmotorcoolanttemp: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -3565,7 +3565,7 @@ private:
 				if (dlc < 4) return;
 				ex1::msg::PostControllerCoolantTemp msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* postcontrollercoolanttemp: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -3578,7 +3578,7 @@ private:
 				if (dlc < 4) return;
 				ex1::msg::RadiatorCoolSideCoolantTemp msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* radiatorcoolsidecoolanttemp: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -3591,7 +3591,7 @@ private:
 				if (dlc < 4) return;
 				ex1::msg::AmbientTemp msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* ambienttemp: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -3604,7 +3604,7 @@ private:
 				if (dlc < 5) return;
 				ex1::msg::GPSLatAndValidityStatus msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* gpslatitude: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -3620,7 +3620,7 @@ private:
 				if (dlc < 4) return;
 				ex1::msg::GPSLongitude msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* gpslongitude: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -3633,7 +3633,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::GPSAltitudeAndAccuracy msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* gpsaltitude: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -3649,7 +3649,7 @@ private:
 				if (dlc < 7) return;
 				ex1::msg::CurrentTime msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* years: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -3677,7 +3677,7 @@ private:
 				if (dlc < 6) return;
 				ex1::msg::IMUAccelerationMeasurement msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* xaxisacceleration: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -3696,7 +3696,7 @@ private:
 				if (dlc < 6) return;
 				ex1::msg::IMUGyroMeasurement msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* xaxisroll: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -3715,7 +3715,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::MotorPlateTemp msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* motorplatetemp1: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -3731,7 +3731,7 @@ private:
 				if (dlc < 7) return;
 				ex1::msg::BIM1CellStatistics1 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* bim1maxcellvoltage: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -3753,7 +3753,7 @@ private:
 				if (dlc < 5) return;
 				ex1::msg::BIM1CellStatistics2 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* bim1avgcellvoltage: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -3772,7 +3772,7 @@ private:
 				if (dlc < 7) return;
 				ex1::msg::BIM2CellStatisitcs1 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* bim2maxcellvoltage: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -3794,7 +3794,7 @@ private:
 				if (dlc < 5) return;
 				ex1::msg::BIM2CellStatistics2 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* bim2avgcellvoltage: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -3813,7 +3813,7 @@ private:
 				if (dlc < 7) return;
 				ex1::msg::BIM3CellStatisitcs1 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* bim3maxcellvoltage: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -3835,7 +3835,7 @@ private:
 				if (dlc < 5) return;
 				ex1::msg::BIM3CellStatistics2 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* bim3avgcellvoltage: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -3854,7 +3854,7 @@ private:
 				if (dlc < 6) return;
 				ex1::msg::BIM4CellStatistics1 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* bim4maxcellvoltage: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -3876,7 +3876,7 @@ private:
 				if (dlc < 5) return;
 				ex1::msg::BIM4CellStatistics2 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* bim4avgcellvoltage: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -3895,7 +3895,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::Cells14 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* cell1: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -3933,7 +3933,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::Cells58 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* cell5: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -3971,7 +3971,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::Cells912 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* cell9: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -4009,7 +4009,7 @@ private:
 				if (dlc < 6) return;
 				ex1::msg::OdometerVelocity msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t m = reverse_byte_order(data);
 				/* odometer_velocity: start-bit 7, length 32, endianess motorola, scaling 1, offset 0 */
@@ -4022,7 +4022,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::Cells1316 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* cell13: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -4060,7 +4060,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::Cells1720 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* cell17: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -4098,7 +4098,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::Cells2124 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* cell21: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -4136,7 +4136,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::Cells2528 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* cell25: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -4174,7 +4174,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::Cells2932 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* cell29: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -4212,7 +4212,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::Cells3336 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* cell33: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -4250,7 +4250,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::Cells3740 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* cell37: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -4288,7 +4288,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::Cells4144 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* cell41: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -4326,7 +4326,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::Cells4548 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* cell45: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -4364,7 +4364,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::Cells4952 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* cell49: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -4402,7 +4402,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::Cells5354 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* cell53: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -4426,7 +4426,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::Cells5558 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* cell55: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -4464,7 +4464,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::Cells5962 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* cell59: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -4502,7 +4502,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::Cells6366 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* cell63: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -4540,7 +4540,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::Cells6770 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* cell67: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -4578,7 +4578,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::Cells7174 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* cell71: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -4616,7 +4616,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::Cells7578 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* cell75: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -4654,7 +4654,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::Cells7982 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* cell79: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -4692,7 +4692,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::Cells8386 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* cell83: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -4730,7 +4730,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::Cells8790 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* cell87: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -4768,7 +4768,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::Cells9194 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* cell91: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -4806,7 +4806,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::Cells9598 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* cell95: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -4844,7 +4844,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::Cells99102 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* cell99: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -4882,7 +4882,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::Cells103106 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* cell103: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -4920,7 +4920,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::Cells107110 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* cell107: start-bit 0, length 15, endianess intel, scaling 1, offset 0 */
@@ -4958,7 +4958,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::PackTemperatures1Thru4 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* temp1: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -4980,7 +4980,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::PackTempeartures5Thru8 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* temp5: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -5002,7 +5002,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::PackTemperatures9Thru14 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* temp9: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -5024,7 +5024,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::PackTemperatures13Thru14 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* temp13: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -5040,7 +5040,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::PackTemperatures15Thru18 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* temp15: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -5062,7 +5062,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::PackTemperatures19Thru22 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* temp19: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -5084,7 +5084,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::PackTemperatures23Thru26 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* temp23: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -5106,7 +5106,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::PackTemperatures27Thru30 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* temp27: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -5128,7 +5128,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::PackTemperatures31Thru34 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* temp31: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -5150,7 +5150,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::PackTemperatures35Thru38 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* temp35: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -5172,7 +5172,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::PackTemperatures39Thru42 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* temp39: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -5194,7 +5194,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::MotorDriveCommand msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* motorvelocitycommand: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -5210,7 +5210,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::MotorPowerCommand msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* buscurrentcommand: start-bit 32, length 32, endianess intel, scaling 1, offset 0 */
@@ -5223,7 +5223,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::StatusInformation msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* limit_outputvolt_pwm: start-bit 0, length 1, endianess intel, scaling 1, offset 0 */
@@ -5284,7 +5284,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::BusMeasurement msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* busvoltage: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -5300,7 +5300,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::VelocityMeasurment msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* motorvelocity: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -5316,7 +5316,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::PhaseCurrentMeasurment msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* phasebcurrent: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -5332,7 +5332,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::MotorVoltage msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* motorvq: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -5348,7 +5348,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::MotorCurrent msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* motoriq: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -5364,7 +5364,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::MotorPhaseATemperature msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* motortemp: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -5380,7 +5380,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::Odometeramphours msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* odometer: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -5396,7 +5396,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::BackEMF msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* bemfq: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -5412,7 +5412,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::Rail15v msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* supply15v: start-bit 32, length 32, endianess intel, scaling 1, offset 0 */
@@ -5425,7 +5425,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::Rail3v31v9 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* supply1v9: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -5441,7 +5441,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::PhaseBdsptemprature msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* dsp_temp: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -5457,7 +5457,7 @@ private:
 				if (dlc < 2) return;
 				ex1::msg::MagicCanNode1RBootloaderAddress msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* magicnode1r_bladdy: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -5470,7 +5470,7 @@ private:
 				if (dlc < 2) return;
 				ex1::msg::MagicCanNode2MBootloaderAddress msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* magicnode2m_bladdy: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -5483,7 +5483,7 @@ private:
 				if (dlc < 2) return;
 				ex1::msg::MagicCanNode3FBootloaderAddress msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* magicnode3f_bladdy: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -5496,7 +5496,7 @@ private:
 				if (dlc < 2) return;
 				ex1::msg::FrameFaultBootloaderAddres msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* framefaultbootloaderaddress: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -5509,7 +5509,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::FrameFaultCommand msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* framefaultcommandvalue: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -5525,7 +5525,7 @@ private:
 				if (dlc < 2) return;
 				ex1::msg::DriveControlsBootloader msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* drivecontrolsbootloader: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -5538,7 +5538,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::DriveControlsCommand msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* drivecontrolcommandvalue: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -5554,7 +5554,7 @@ private:
 				if (dlc < 2) return;
 				ex1::msg::CANMirrorBootloaderAddress msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* canmirrorbootloaderaddress: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -5567,7 +5567,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::CANMirrorCommand msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* canmirrorcommandvalue: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -5583,7 +5583,7 @@ private:
 				if (dlc < 2) return;
 				ex1::msg::RiderDisplayBootloaderAddress msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* riderdisplaybootloaderaddress: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -5596,7 +5596,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::RiderDisplayCommand msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* riderdisplaycommandvalue: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -5612,7 +5612,7 @@ private:
 				if (dlc < 2) return;
 				ex1::msg::BIM1BootloaderAddress msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* bim1bootloaderaddress: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -5625,7 +5625,7 @@ private:
 				if (dlc < 2) return;
 				ex1::msg::BIM2BootloaderAddress msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* bim2bootloaderaddres: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -5638,7 +5638,7 @@ private:
 				if (dlc < 2) return;
 				ex1::msg::BIM3BootloaderAddress msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* bim3bootloaderaddress: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -5651,7 +5651,7 @@ private:
 				if (dlc < 2) return;
 				ex1::msg::BIM4BootloaderAddress msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* bim4bootloaderaddres: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -5664,7 +5664,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::MagicCanNode1RCommand msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* magiccannode1commandvalue: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -5680,7 +5680,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::MagicCanNode2MCommand msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* magiccannode2commandvalue: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -5696,7 +5696,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::MagicCanNode3FCommand msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* magiccannode3commandvalue: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -5712,7 +5712,7 @@ private:
 				if (dlc < 2) return;
 				ex1::msg::CANcorderHeartbeat msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* cancorderheartbeat: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -5725,7 +5725,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::BIM1Command msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* bim1commandvalue: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -5741,7 +5741,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::BIM2Command msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* bim2commandvalue: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -5757,7 +5757,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::BIM3Command msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* bim3commandvalue: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -5773,7 +5773,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::BIM4Command msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* bim4commandvalue: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -5789,7 +5789,7 @@ private:
 				if (dlc < 4) return;
 				ex1::msg::MotorScoop msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* motorscoop: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -5802,7 +5802,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::IMU1 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* imuaccelx: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -5818,7 +5818,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::IMU2 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* imuaccelz: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -5834,7 +5834,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::IMU3 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* gravityy: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -5850,7 +5850,7 @@ private:
 				if (dlc < 8) return;
 				ex1::msg::IMU4 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* yaw: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -5866,7 +5866,7 @@ private:
 				if (dlc < 4) return;
 				ex1::msg::IMU5 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* multiplexor: start-bit 0, length 4, endianess intel, scaling 1, offset 0 */
@@ -5897,7 +5897,7 @@ private:
 				if (dlc < 1) return;
 				ex1::msg::MESSAGENAME msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t m = reverse_byte_order(data);
 				/* nonsensesignal: start-bit 0, length 3, endianess motorola, scaling 1, offset 0 */
@@ -5910,7 +5910,7 @@ private:
 				if (dlc < 1) return;
 				ex1::msg::MESSAGENAME2 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* placeholdersignal: start-bit 0, length 8, endianess intel, scaling 1, offset 0 */

@@ -54,7 +54,7 @@ private:
 		/* 0x000: Extendedmultiplexwranges */
 		extendedmultiplexwranges_sub_ = this->create_subscription<mul_val::msg::Extendedmultiplexwranges>(
 			"extendedmultiplexwranges", qos, [this](const mul_val::msg::Extendedmultiplexwranges::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* muxer_w_multiple_ranges: start-bit 0, length 8, endianess intel, scaling 1, offset 0 */
@@ -72,7 +72,7 @@ private:
 		/* 0x692: Extendedmultiplex */
 		extendedmultiplex_sub_ = this->create_subscription<mul_val::msg::Extendedmultiplex>(
 			"extendedmultiplex", qos, [this](const mul_val::msg::Extendedmultiplex::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* sig1: start-bit 0, length 2, endianess intel, scaling 1, offset 0 */
@@ -140,7 +140,7 @@ private:
 				if (dlc < 2) return;
 				mul_val::msg::Extendedmultiplexwranges msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* muxer_w_multiple_ranges: start-bit 0, length 8, endianess intel, scaling 1, offset 0 */
@@ -156,7 +156,7 @@ private:
 				if (dlc < 8) return;
 				mul_val::msg::Extendedmultiplex msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* sig1: start-bit 0, length 2, endianess intel, scaling 1, offset 0 */

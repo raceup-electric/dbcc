@@ -1,4 +1,4 @@
-Header header
+std_msgs/Header header
 int16 cell5
 uint8 cell5_bal
 int16 cell6

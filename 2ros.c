@@ -489,9 +489,9 @@ static void generate_package_xml(const char *outdir, const char *package_name, d
 		"  <buildtool_depend>ament_cmake</buildtool_depend>\n"
 		"  <build_depend>rosidl_default_generators</build_depend>\n\n"
 		"  <depend>rclcpp</depend>\n"
+		"  <depend>std_msgs</depend>\n"
 		"  <depend>can_msgs</depend>\n"
 		"%s"
-		"  <depend>builtin_interfaces</depend>\n"
 		"  <exec_depend>rosidl_default_runtime</exec_depend>\n\n"
 		"  <member_of_group>rosidl_interface_packages</member_of_group>\n\n"
 		"  <export>\n"
@@ -528,10 +528,10 @@ static void generate_cmakelists_txt(const dbc_t *dbc, const char *outdir, const 
 		"# find dependencies\n"
 		"find_package(ament_cmake REQUIRED)\n"
 		"find_package(rclcpp REQUIRED)\n"
+		"find_package(std_msgs REQUIRED)\n"
 		"find_package(can_msgs REQUIRED)\n"
 		"%s"
-		"find_package(rosidl_default_generators REQUIRED)\n"
-		"find_package(builtin_interfaces REQUIRED)\n\n"
+		"find_package(rosidl_default_generators REQUIRED)\n\n"
 		"set(msg_files\n",
 		package_name, rosopts->generate_legacy_subscriber ? "find_package(raceup_msgs REQUIRED)\n" : "");
 
@@ -539,18 +539,17 @@ static void generate_cmakelists_txt(const dbc_t *dbc, const char *outdir, const 
 		const can_msg_t *msg = dbc->messages[i];
 		fprintf(file, "  \"msg/%s.msg\"\n", msg->name);
 	}
-	fprintf(file, "  \"msg/Header.msg\"\n");
 	fprintf(file,
 		")\n\n"
 		"rosidl_generate_interfaces(${PROJECT_NAME}\n"
 		"  ${msg_files}\n"
-		"  DEPENDENCIES builtin_interfaces\n"
+		"  DEPENDENCIES std_msgs\n"
 		")\n\n"
 		"# Ensure that C++ nodes can use the generated message headers\n"
 		"ament_export_dependencies(rosidl_default_runtime)\n\n\n"
 		"add_executable(${PROJECT_NAME}%s src/${PROJECT_NAME}%s.cpp)\n"
 		"target_include_directories(${PROJECT_NAME}%s PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)\n"
-		"ament_target_dependencies(${PROJECT_NAME}%s rclcpp builtin_interfaces can_msgs%s)\n"
+		"ament_target_dependencies(${PROJECT_NAME}%s rclcpp std_msgs can_msgs%s)\n"
 		"rosidl_get_typesupport_target(cpp_typesupport_target\n"
 		"  ${PROJECT_NAME} rosidl_typesupport_cpp)\n"
 		"target_link_libraries(${PROJECT_NAME}_parser ${cpp_typesupport_target})\n\n"
@@ -853,7 +852,7 @@ static void generate_ros_msgs(const dbc_t *dbc, const char *outdir, dbc2ros_opti
 		if (msg->comment)
 			fprintf(file, "# %s\n\n", msg->comment);
 
-		fprintf(file, "Header header\n");
+		fprintf(file, "std_msgs/Header header\n");
 
 		for (size_t j = 0; j < msg->signal_count; j++) {
 			const signal_t *sig = msg->sigs[j];
@@ -903,15 +902,6 @@ static void generate_ros_msgs(const dbc_t *dbc, const char *outdir, dbc2ros_opti
 		fclose(file);
 		free(file_name);
 	}
-
-	size_t name_size = strlen(outdir) + strlen("/msg/Header.msg") + 1; /* + 1 for '\0' */
-	char *file_name = allocate(name_size);
-	snprintf(file_name, name_size, "%s%s", outdir, "/msg/Header.msg");
-	FILE *file = fopen_or_die(file_name, "wb");
-	fprintf(file, "builtin_interfaces/Time stamp\n");
-	fprintf(file, "bool received\n");
-	fclose(file);
-	free(file_name);
 }
 
 static void create_headers(const dbc_t *dbc, FILE *file, const char *package_name, dbc2ros_options_t *rosopts) {
@@ -1106,7 +1096,7 @@ static int msg_pack(FILE *c, can_msg_t *msg, const char *package_name, dbc2ros_o
 
 	free(snake_msg_name);
 
-	fprintf(c, "\t\t\t\tif (msg->header.received) return;\n");
+	fprintf(c, "\t\t\t\tif (msg->header.frame_id == \"r\") return;\n");
 	if (message_has_signals)
 		fprintf(c, "\t\t\t\tuint64_t x;\n");
 	if (motorola_used)
@@ -1160,7 +1150,7 @@ static int msg_unpack(FILE *c, can_msg_t *msg, const char *package_name, dbc2ros
 
 	fprintf(c, "\t\t\t\t%s::msg::%s msg;\n", package_name, msg->name);
 	fprintf(c, "\t\t\t\tmsg.header.stamp = timestamp;\n");
-	fprintf(c, "\t\t\t\tmsg.header.received = true;\n");
+	fprintf(c, "\t\t\t\tmsg.header.frame_id = \"r\";\n");
 
 	if (message_has_signals)
 		fprintf(c, "\t\t\t\tuint64_t x;\n");

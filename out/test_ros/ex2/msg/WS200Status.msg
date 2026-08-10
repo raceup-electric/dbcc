@@ -1,4 +1,4 @@
-Header header
+std_msgs/Header header
 uint16 limit_flags
 uint16 error_flags
 uint16 active_motor # [0,10]

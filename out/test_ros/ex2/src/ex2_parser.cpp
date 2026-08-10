@@ -67,7 +67,7 @@ private:
 		/* 0x400: WS200IDInfo */
 		ws200_id_info_sub_ = this->create_subscription<ex2::msg::WS200IDInfo>(
 			"ws200_id_info", qos, [this](const ex2::msg::WS200IDInfo::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* tritium_id: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -85,7 +85,7 @@ private:
 		/* 0x401: WS200Status */
 		ws200_status_sub_ = this->create_subscription<ex2::msg::WS200Status>(
 			"ws200_status", qos, [this](const ex2::msg::WS200Status::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* limit_flags: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -115,7 +115,7 @@ private:
 		/* 0x402: WS200BusMeasurement */
 		ws200_bus_measurement_sub_ = this->create_subscription<ex2::msg::WS200BusMeasurement>(
 			"ws200_bus_measurement", qos, [this](const ex2::msg::WS200BusMeasurement::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* bus_voltage: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -133,7 +133,7 @@ private:
 		/* 0x403: VelocityMeasurement */
 		velocity_measurement_sub_ = this->create_subscription<ex2::msg::VelocityMeasurement>(
 			"velocity_measurement", qos, [this](const ex2::msg::VelocityMeasurement::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* motor_velocity: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -151,7 +151,7 @@ private:
 		/* 0x404: PhaseCurrent */
 		phase_current_sub_ = this->create_subscription<ex2::msg::PhaseCurrent>(
 			"phase_current", qos, [this](const ex2::msg::PhaseCurrent::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* phase_current_b: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -169,7 +169,7 @@ private:
 		/* 0x405: MotorVoltage */
 		motor_voltage_sub_ = this->create_subscription<ex2::msg::MotorVoltage>(
 			"motor_voltage", qos, [this](const ex2::msg::MotorVoltage::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* vq: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -187,7 +187,7 @@ private:
 		/* 0x406: MotorCurrent */
 		motor_current_sub_ = this->create_subscription<ex2::msg::MotorCurrent>(
 			"motor_current", qos, [this](const ex2::msg::MotorCurrent::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* iq: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -205,7 +205,7 @@ private:
 		/* 0x407: MotorBackEMF */
 		motor_back_emf_sub_ = this->create_subscription<ex2::msg::MotorBackEMF>(
 			"motor_back_emf", qos, [this](const ex2::msg::MotorBackEMF::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* bemf_q: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -223,7 +223,7 @@ private:
 		/* 0x408: WS200Rail15V */
 		ws200_rail15_v_sub_ = this->create_subscription<ex2::msg::WS200Rail15V>(
 			"ws200_rail15_v", qos, [this](const ex2::msg::WS200Rail15V::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* supply_15v: start-bit 32, length 32, endianess intel, scaling 1, offset 0 */
@@ -238,7 +238,7 @@ private:
 		/* 0x409: WS200LowRail */
 		ws200_low_rail_sub_ = this->create_subscription<ex2::msg::WS200LowRail>(
 			"ws200_low_rail", qos, [this](const ex2::msg::WS200LowRail::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* rail_2v: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -256,7 +256,7 @@ private:
 		/* 0x40b: WS200MotorTemp */
 		ws200_motor_temp_sub_ = this->create_subscription<ex2::msg::WS200MotorTemp>(
 			"ws200_motor_temp", qos, [this](const ex2::msg::WS200MotorTemp::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* motor_temp: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -274,7 +274,7 @@ private:
 		/* 0x40c: WS200DSPBoardTemp */
 		ws200_dsp_board_temp_sub_ = this->create_subscription<ex2::msg::WS200DSPBoardTemp>(
 			"ws200_dsp_board_temp", qos, [this](const ex2::msg::WS200DSPBoardTemp::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* ipm_phase_b_temp: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -292,7 +292,7 @@ private:
 		/* 0x40d: WS200PhaseCTemp */
 		ws200_phase_c_temp_sub_ = this->create_subscription<ex2::msg::WS200PhaseCTemp>(
 			"ws200_phase_c_temp", qos, [this](const ex2::msg::WS200PhaseCTemp::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* reserved_1: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -310,7 +310,7 @@ private:
 		/* 0x40e: WS200BusAmpHours */
 		ws200_bus_amp_hours_sub_ = this->create_subscription<ex2::msg::WS200BusAmpHours>(
 			"ws200_bus_amp_hours", qos, [this](const ex2::msg::WS200BusAmpHours::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* odometer: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -328,7 +328,7 @@ private:
 		/* 0x417: WS200SlipSpeed */
 		ws200_slip_speed_sub_ = this->create_subscription<ex2::msg::WS200SlipSpeed>(
 			"ws200_slip_speed", qos, [this](const ex2::msg::WS200SlipSpeed::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* slip_speed: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -389,7 +389,7 @@ private:
 				if (dlc < 8) return;
 				ex2::msg::WS200IDInfo msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* tritium_id: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -405,7 +405,7 @@ private:
 				if (dlc < 8) return;
 				ex2::msg::WS200Status msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* limit_flags: start-bit 0, length 16, endianess intel, scaling 1, offset 0 */
@@ -430,7 +430,7 @@ private:
 				if (dlc < 8) return;
 				ex2::msg::WS200BusMeasurement msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* bus_voltage: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -446,7 +446,7 @@ private:
 				if (dlc < 8) return;
 				ex2::msg::VelocityMeasurement msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* motor_velocity: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -462,7 +462,7 @@ private:
 				if (dlc < 8) return;
 				ex2::msg::PhaseCurrent msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* phase_current_b: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -478,7 +478,7 @@ private:
 				if (dlc < 8) return;
 				ex2::msg::MotorVoltage msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* vq: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -494,7 +494,7 @@ private:
 				if (dlc < 8) return;
 				ex2::msg::MotorCurrent msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* iq: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -510,7 +510,7 @@ private:
 				if (dlc < 8) return;
 				ex2::msg::MotorBackEMF msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* bemf_q: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -526,7 +526,7 @@ private:
 				if (dlc < 8) return;
 				ex2::msg::WS200Rail15V msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* supply_15v: start-bit 32, length 32, endianess intel, scaling 1, offset 0 */
@@ -539,7 +539,7 @@ private:
 				if (dlc < 8) return;
 				ex2::msg::WS200LowRail msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* rail_2v: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -555,7 +555,7 @@ private:
 				if (dlc < 8) return;
 				ex2::msg::WS200MotorTemp msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* motor_temp: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -571,7 +571,7 @@ private:
 				if (dlc < 8) return;
 				ex2::msg::WS200DSPBoardTemp msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* ipm_phase_b_temp: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -587,7 +587,7 @@ private:
 				if (dlc < 8) return;
 				ex2::msg::WS200PhaseCTemp msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* reserved_1: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -603,7 +603,7 @@ private:
 				if (dlc < 8) return;
 				ex2::msg::WS200BusAmpHours msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* odometer: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -619,7 +619,7 @@ private:
 				if (dlc < 8) return;
 				ex2::msg::WS200SlipSpeed msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* slip_speed: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */

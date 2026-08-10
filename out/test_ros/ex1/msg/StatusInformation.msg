@@ -1,6 +1,6 @@
 # increments
 
-Header header
+std_msgs/Header header
 uint8 limit_outputvolt_pwm
 uint8 limit_motor_current
 uint8 limit_velocity

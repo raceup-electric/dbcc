@@ -1,4 +1,4 @@
-Header header
+std_msgs/Header header
 uint8 flag0
 uint8 byte_a
 uint8 flag1

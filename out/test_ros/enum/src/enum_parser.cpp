@@ -56,7 +56,7 @@ private:
 		/* 0x122: IVTSleepAck */
 		ivt_sleep_ack_sub_ = this->create_subscription<enum::msg::IVTSleepAck>(
 			"ivt_sleep_ack", qos, [this](const enum::msg::IVTSleepAck::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* ivt_sleep_ack: start-bit 0, length 4, endianess intel, scaling 1, offset 0 */
@@ -70,7 +70,7 @@ private:
 		/* 0x003: IVTCtrl */
 		ivt_ctrl_sub_ = this->create_subscription<enum::msg::IVTCtrl>(
 			"ivt_ctrl", qos, [this](const enum::msg::IVTCtrl::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* ivt_ctrl_fuse_state: start-bit 13, length 1, endianess intel, scaling 1, offset 0 */
@@ -85,7 +85,7 @@ private:
 		/* 0x001: Enum1 */
 		enum1_sub_ = this->create_subscription<enum::msg::Enum1>(
 			"enum1", qos, [this](const enum::msg::Enum1::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* state: start-bit 0, length 4, endianess intel, scaling 1, offset 0 */
@@ -99,7 +99,7 @@ private:
 		/* 0x004: Enum2 */
 		enum2_sub_ = this->create_subscription<enum::msg::Enum2>(
 			"enum2", qos, [this](const enum::msg::Enum2::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* state: start-bit 0, length 4, endianess intel, scaling 1, offset 0 */
@@ -145,7 +145,7 @@ private:
 				if (dlc < 1) return;
 				enum::msg::IVTSleepAck msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* ivt_sleep_ack: start-bit 0, length 4, endianess intel, scaling 1, offset 0 */
@@ -159,7 +159,7 @@ private:
 				if (dlc < 8) return;
 				enum::msg::IVTCtrl msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* ivt_ctrl_fuse_state: start-bit 13, length 1, endianess intel, scaling 1, offset 0 */
@@ -172,7 +172,7 @@ private:
 				if (dlc < 8) return;
 				enum::msg::Enum1 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* state: start-bit 0, length 4, endianess intel, scaling 1, offset 0 */
@@ -185,7 +185,7 @@ private:
 				if (dlc < 8) return;
 				enum::msg::Enum2 msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* state: start-bit 0, length 4, endianess intel, scaling 1, offset 0 */

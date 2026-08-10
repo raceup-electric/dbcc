@@ -57,7 +57,7 @@ private:
 		/* 0x064: EdgePacked */
 		edge_packed_sub_ = this->create_subscription<bitfield_edge::msg::EdgePacked>(
 			"edge_packed", qos, [this](const bitfield_edge::msg::EdgePacked::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* flag0: start-bit 0, length 1, endianess intel, scaling 1, offset 0 */
@@ -115,7 +115,7 @@ private:
 		/* 0x065: EdgeFloat */
 		edge_float_sub_ = this->create_subscription<bitfield_edge::msg::EdgeFloat>(
 			"edge_float", qos, [this](const bitfield_edge::msg::EdgeFloat::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* f32: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -133,7 +133,7 @@ private:
 		/* 0x066: EdgeDouble */
 		edge_double_sub_ = this->create_subscription<bitfield_edge::msg::EdgeDouble>(
 			"edge_double", qos, [this](const bitfield_edge::msg::EdgeDouble::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* d64: start-bit 0, length 64, endianess intel, scaling 1, offset 0 */
@@ -147,7 +147,7 @@ private:
 		/* 0x067: EdgeEnums */
 		edge_enums_sub_ = this->create_subscription<bitfield_edge::msg::EdgeEnums>(
 			"edge_enums", qos, [this](const bitfield_edge::msg::EdgeEnums::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* mode: start-bit 0, length 2, endianess intel, scaling 1, offset 0 */
@@ -169,7 +169,7 @@ private:
 		/* 0x068: EdgeMux */
 		edge_mux_sub_ = this->create_subscription<bitfield_edge::msg::EdgeMux>(
 			"edge_mux", qos, [this](const bitfield_edge::msg::EdgeMux::SharedPtr msg) {
-				if (msg->header.received) return;
+				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
 				/* mux: start-bit 0, length 8, endianess intel, scaling 1, offset 0 */
@@ -224,7 +224,7 @@ private:
 				if (dlc < 8) return;
 				bitfield_edge::msg::EdgePacked msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* flag0: start-bit 0, length 1, endianess intel, scaling 1, offset 0 */
@@ -271,7 +271,7 @@ private:
 				if (dlc < 8) return;
 				bitfield_edge::msg::EdgeFloat msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* f32: start-bit 0, length 32, endianess intel, scaling 1, offset 0 */
@@ -287,7 +287,7 @@ private:
 				if (dlc < 8) return;
 				bitfield_edge::msg::EdgeDouble msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* d64: start-bit 0, length 64, endianess intel, scaling 1, offset 0 */
@@ -300,7 +300,7 @@ private:
 				if (dlc < 2) return;
 				bitfield_edge::msg::EdgeEnums msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* mode: start-bit 0, length 2, endianess intel, scaling 1, offset 0 */
@@ -319,7 +319,7 @@ private:
 				if (dlc < 8) return;
 				bitfield_edge::msg::EdgeMux msg;
 				msg.header.stamp = timestamp;
-				msg.header.received = true;
+				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
 				/* mux: start-bit 0, length 8, endianess intel, scaling 1, offset 0 */

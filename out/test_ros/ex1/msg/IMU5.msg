@@ -1,4 +1,4 @@
-Header header
+std_msgs/Header header
 uint8 multiplexor # multiplexor
 uint8 multi2a # multiplexed-b1
 uint8 multi1 # multiplexed-a

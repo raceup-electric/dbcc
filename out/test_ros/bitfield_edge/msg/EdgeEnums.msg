@@ -1,4 +1,4 @@
-Header header
+std_msgs/Header header
 uint8 mode
 uint8 state
 uint8 inline_enum
