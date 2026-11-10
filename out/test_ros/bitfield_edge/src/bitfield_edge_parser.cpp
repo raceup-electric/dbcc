@@ -172,17 +172,23 @@ private:
 				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
+				uint64_t mux_mux;
 				/* mux: start-bit 0, length 8, endianess intel, scaling 1, offset 0 */
 				x = ((uint8_t)((msg->mux))) & 0xff;
+				mux_mux = x;
 				i |= x;
-				/* muxed_a: start-bit 8, length 8, endianess intel, scaling 1, offset 0 */
-				x = ((uint8_t)((msg->muxed_a))) & 0xff;
-				x <<= 8; 
-				i |= x;
-				/* muxed_b: start-bit 8, length 8, endianess intel, scaling 1, offset 0 */
-				x = ((uint8_t)((msg->muxed_b))) & 0xff;
-				x <<= 8; 
-				i |= x;
+				if ((mux_mux == 1u)) {
+					/* muxed_a: start-bit 8, length 8, endianess intel, scaling 1, offset 0 */
+					x = ((uint8_t)((msg->muxed_a))) & 0xff;
+					x <<= 8; 
+					i |= x;
+				}
+				if ((mux_mux == 2u)) {
+					/* muxed_b: start-bit 8, length 8, endianess intel, scaling 1, offset 0 */
+					x = ((uint8_t)((msg->muxed_b))) & 0xff;
+					x <<= 8; 
+					i |= x;
+				}
 				uint64_t data = (i);
 				publishFrame(data, 8, 104);
 			}
@@ -322,15 +328,21 @@ private:
 				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
+				uint64_t mux_mux;
 				/* mux: start-bit 0, length 8, endianess intel, scaling 1, offset 0 */
 				x = i & 0xff;
+				mux_mux = x;
 				msg.mux = (uint8_t)(x);
-				/* muxed_a: start-bit 8, length 8, endianess intel, scaling 1, offset 0 */
-				x = (i >> 8) & 0xff;
-				msg.muxed_a = (uint8_t)(x);
-				/* muxed_b: start-bit 8, length 8, endianess intel, scaling 1, offset 0 */
-				x = (i >> 8) & 0xff;
-				msg.muxed_b = (uint8_t)(x);
+				if ((mux_mux == 1u)) {
+					/* muxed_a: start-bit 8, length 8, endianess intel, scaling 1, offset 0 */
+					x = (i >> 8) & 0xff;
+					msg.muxed_a = (uint8_t)(x);
+				}
+				if ((mux_mux == 2u)) {
+					/* muxed_b: start-bit 8, length 8, endianess intel, scaling 1, offset 0 */
+					x = (i >> 8) & 0xff;
+					msg.muxed_b = (uint8_t)(x);
+				}
 				edge_mux_pub_->publish(msg);
 				break;
 			}

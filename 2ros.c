@@ -353,6 +353,185 @@ static const char *determine_type_rosmsg(unsigned length, bool is_signed, bool i
 		determine_unsigned_type_rosmsg(length, rosopts);
 }
 
+/* ---- Multiplexing support (mirrors the logic used by 2c.c) ----
+ *
+ * The ROS messages always contain every signal (multiplexor and multiplexed
+ * ones). On the wire only the multiplexed signals belonging to the currently
+ * selected multiplexor value are present:
+ *  - decoding (CAN -> ROS): multiplexed signals are only decoded if the
+ *    multiplexor value read from the frame matches, otherwise the field is
+ *    left at its default value (zero);
+ *  - encoding (ROS -> CAN): multiplexed signals are only written if the
+ *    multiplexor field of the ROS message matches, otherwise the bits in the
+ *    frame stay zero.
+ * Nested (extended) multiplexing is handled by chaining the conditions of all
+ * ancestors. The raw multiplexor value is kept in a local `mux_<signal>`. */
+
+static void normalize_multiplexed_flags(can_msg_t *msg)
+{
+	assert(msg);
+
+	for (size_t i = 0; i < msg->signal_count; i++) {
+		signal_t *sig = msg->sigs[i];
+		for (size_t j = 0; j < sig->mul_num; j++)
+			sig->muxed[j]->is_multiplexed = true;
+	}
+}
+
+static signal_t *signal_mux_parent(can_msg_t *msg, signal_t *sig)
+{
+	assert(msg);
+	assert(sig);
+	if (sig->mux_parent)
+		return sig->mux_parent;
+	if (!sig->is_multiplexed)
+		return NULL;
+
+	signal_t *fallback = NULL;
+	for (size_t i = 0; i < msg->signal_count; i++) {
+		signal_t *candidate = msg->sigs[i];
+		if (!candidate->is_multiplexor)
+			continue;
+		if (!fallback)
+			fallback = candidate;
+		for (size_t j = 0; j < candidate->mul_num; j++)
+			if (candidate->muxed[j] == sig)
+				return candidate;
+	}
+	return fallback;
+}
+
+/* true if the signal is only present for some values of a multiplexor */
+static bool signal_has_mux_condition(can_msg_t *msg, signal_t *sig)
+{
+	assert(msg);
+	assert(sig);
+	if (!sig->is_multiplexed)
+		return false;
+	signal_t *parent = signal_mux_parent(msg, sig);
+	return parent && parent != sig;
+}
+
+/* true if at least one other signal of the message is selected by this one */
+static bool signal_is_mux_parent(can_msg_t *msg, signal_t *sig)
+{
+	assert(msg);
+	assert(sig);
+	for (size_t i = 0; i < msg->signal_count; i++) {
+		signal_t *other = msg->sigs[i];
+		if (other != sig && signal_has_mux_condition(msg, other) && signal_mux_parent(msg, other) == sig)
+			return true;
+	}
+	return false;
+}
+
+/* prints a C++ expression that is true when `parent` selects `sig` */
+static void fprintf_mux_match(FILE *o, const signal_t *parent, const signal_t *sig)
+{
+	assert(o);
+	assert(parent);
+	assert(sig);
+	bool have_range = false;
+	for (size_t i = 0; i < parent->mul_num; i++) {
+		if (parent->muxed[i] != sig)
+			continue;
+		const mul_val_list_t *mv = parent->mux_vals[i];
+		if (!mv)
+			continue;
+		for (size_t r = 0; r < mv->range_num; r++) {
+			const unsigned lo = mv->ranges[r]->min_value;
+			const unsigned hi = mv->ranges[r]->max_value;
+			if (have_range)
+				fputs(" || ", o);
+			if (lo == hi)
+				fprintf(o, "(mux_%s == %uu)", parent->name, lo);
+			else if (lo == 0) /* avoid "unsigned >= 0" warnings */
+				fprintf(o, "(mux_%s <= %uu)", parent->name, hi);
+			else
+				fprintf(o, "(mux_%s >= %uu && mux_%s <= %uu)", parent->name, lo, parent->name, hi);
+			have_range = true;
+		}
+	}
+	if (!have_range)
+		fprintf(o, "(mux_%s == %uu)", parent->name, sig->switchval);
+}
+
+/* prints the full condition under which `sig` is present (includes the
+ * conditions of all of its multiplexor ancestors). Only call this if
+ * signal_has_mux_condition() is true for `sig`. */
+static void fprintf_mux_condition(FILE *o, can_msg_t *msg, signal_t *sig, size_t depth)
+{
+	assert(o);
+	assert(msg);
+	assert(sig);
+	if (depth > msg->signal_count)
+		error("cyclic multiplexing in message '%s' (signal '%s')", msg->name, sig->name);
+	signal_t *parent = signal_mux_parent(msg, sig);
+	assert(parent && parent != sig);
+	if (signal_has_mux_condition(msg, parent)) {
+		fputc('(', o);
+		fprintf_mux_condition(o, msg, parent, depth + 1);
+		fputs(") && ", o);
+	}
+	fprintf_mux_match(o, parent, sig);
+}
+
+/* Declares the raw (unscaled, unsigned) multiplexor values. They are assigned
+ * from `x` by the (de)serializer of the multiplexor signal itself, which
+ * always runs before the signals it selects (see signal_serialization_order). */
+static void emit_mux_decls(FILE *c, can_msg_t *msg, const char *indent)
+{
+	assert(c);
+	assert(msg);
+	assert(indent);
+	for (size_t i = 0; i < msg->signal_count; i++)
+		if (signal_is_mux_parent(msg, msg->sigs[i]))
+			fprintf(c, "%suint64_t mux_%s;\n", indent, msg->sigs[i]->name);
+}
+
+/* Order in which signals are (de)serialized: multiplexors before the signals
+ * they select (their raw value is needed for the conditions). For messages
+ * without multiplexing this is just the original order. Caller frees the
+ * result. */
+static size_t *signal_serialization_order(can_msg_t *msg)
+{
+	assert(msg);
+	const size_t count = msg->signal_count;
+	size_t *order = allocate(sizeof(*order) * (count ? count : 1));
+	bool *done = allocate(count ? count : 1);
+	memset(done, 0, count ? count : 1);
+
+	size_t emitted = 0;
+	bool progress = true;
+	while (emitted < count && progress) {
+		progress = false;
+		for (size_t i = 0; i < count; i++) {
+			if (done[i])
+				continue;
+			signal_t *sig = msg->sigs[i];
+			bool ready = true;
+			if (signal_has_mux_condition(msg, sig)) {
+				signal_t *parent = signal_mux_parent(msg, sig);
+				for (size_t p = 0; p < count; p++)
+					if (msg->sigs[p] == parent && !done[p])
+						ready = false;
+			}
+			if (!ready)
+				continue;
+			done[i] = true;
+			order[emitted++] = i;
+			progress = true;
+		}
+	}
+	/* malformed (cyclic) input: keep the rest in file order, the condition
+	 * generation reports the cycle */
+	for (size_t i = 0; i < count; i++)
+		if (!done[i])
+			order[emitted++] = i;
+	free(done);
+	return order;
+}
+
 static int comment_sig(signal_t *sig, FILE *o, const char *indent)
 {
 	assert(sig);
@@ -974,7 +1153,7 @@ static void create_constructor_destructor(FILE *file, const char *class_name, co
 	class_name, node_name, package_name);
 }
 
-static int signal2serializer(signal_t *sig, FILE *o, const char *indent, dbc2ros_options_t *rosopts)
+static int signal2serializer(signal_t *sig, FILE *o, const char *indent, dbc2ros_options_t *rosopts, bool store_mux)
 {
 	assert(sig);
 	assert(o);
@@ -1004,6 +1183,9 @@ static int signal2serializer(signal_t *sig, FILE *o, const char *indent, dbc2ros
 		fprintf(o, " * %g", 1.0 / sig->scaling);
 	fprintf(o, ")) & 0x%"PRIx64";\n", mask);
 
+	if (store_mux)
+		if (fprintf(o, "%smux_%s = x;\n", indent, sig->name) < 0)
+			return -1;
 
 	if (start)
 		if (fprintf(o, "%sx <<= %u; \n", indent, start) < 0)
@@ -1013,7 +1195,7 @@ static int signal2serializer(signal_t *sig, FILE *o, const char *indent, dbc2ros
 	return 0;
 }
 
-static int signal2deserializer(signal_t *sig, FILE *o, const char *indent, dbc2ros_options_t *rosopts)
+static int signal2deserializer(signal_t *sig, FILE *o, const char *indent, dbc2ros_options_t *rosopts, bool store_mux)
 {
 	assert(sig);
 	assert(o);
@@ -1034,6 +1216,11 @@ static int signal2deserializer(signal_t *sig, FILE *o, const char *indent, dbc2r
 		if (fprintf(o, "%sx = %c & 0x%"PRIx64";\n", indent, motorola ? 'm' : 'i',  mask) < 0)
 			return -1;
 	}
+
+	/* before sign extension: the DBC multiplexor values are raw unsigned bits */
+	if (store_mux)
+		if (fprintf(o, "%smux_%s = x;\n", indent, sig->name) < 0)
+			return -1;
 
 	if (sig->is_floating) {
 		assert(length == 32 || length == 64);
@@ -1104,14 +1291,26 @@ static int msg_pack(FILE *c, can_msg_t *msg, const char *package_name, dbc2ros_o
 	if (intel_used)
 		fprintf(c, "\t\t\t\tuint64_t i = 0;\n");
 
-	for (size_t i = 0; i < msg->signal_count; i++) {
-		// TODO add multiplexed signal logic
-		if (msg->sigs[i]->is_multiplexed)
-			warning("multiplexed signal are not yet supported! (%ld - %s: %s)",
-				msg->id, msg->name, msg->sigs[i]->name);
+	emit_mux_decls(c, msg, "\t\t\t\t");
 
-		signal2serializer(msg->sigs[i], c, "\t\t\t\t", rosopts);
+	/* multiplexors first, so their raw value is known when the signals they
+	 * select are checked */
+	size_t *order = signal_serialization_order(msg);
+	for (size_t k = 0; k < msg->signal_count; k++) {
+		signal_t *sig = msg->sigs[order[k]];
+		const bool store_mux = signal_is_mux_parent(msg, sig);
+
+		if (signal_has_mux_condition(msg, sig)) {
+			fprintf(c, "\t\t\t\tif (");
+			fprintf_mux_condition(c, msg, sig, 0);
+			fprintf(c, ") {\n");
+			signal2serializer(sig, c, "\t\t\t\t\t", rosopts, store_mux);
+			fprintf(c, "\t\t\t\t}\n");
+		} else {
+			signal2serializer(sig, c, "\t\t\t\t", rosopts, store_mux);
+		}
 	}
+	free(order);
 
 	fprintf(c, "\t\t\t\tuint64_t data = %s%s%s%s%s%s;\n",
 		swap_motorola && motorola_used ? "reverse_byte_order" : "",
@@ -1160,13 +1359,26 @@ static int msg_unpack(FILE *c, can_msg_t *msg, const char *package_name, dbc2ros
 		fprintf(c, "\t\t\t\tuint64_t i = %s(data);\n", swap_motorola ? "" : "reverse_byte_order");
 
 
-	for (size_t i = 0; i < msg->signal_count; i++) {
-		// TODO add multiplexed signal logic
-		if (msg->sigs[i]->is_multiplexed)
-			warning("multiplexed signal are not yet supported! (%ld - %s: %s)", msg->id, msg->name, msg->sigs[i]->name);
+	emit_mux_decls(c, msg, "\t\t\t\t");
 
-		signal2deserializer(msg->sigs[i], c, "\t\t\t\t", rosopts);
+	/* multiplexors first, so their raw value is known when the signals they
+	 * select are checked */
+	size_t *order = signal_serialization_order(msg);
+	for (size_t k = 0; k < msg->signal_count; k++) {
+		signal_t *sig = msg->sigs[order[k]];
+		const bool store_mux = signal_is_mux_parent(msg, sig);
+
+		if (signal_has_mux_condition(msg, sig)) {
+			fprintf(c, "\t\t\t\tif (");
+			fprintf_mux_condition(c, msg, sig, 0);
+			fprintf(c, ") {\n");
+			signal2deserializer(sig, c, "\t\t\t\t\t", rosopts, store_mux);
+			fprintf(c, "\t\t\t\t}\n");
+		} else {
+			signal2deserializer(sig, c, "\t\t\t\t", rosopts, store_mux);
+		}
 	}
+	free(order);
 
 	char *snake_msg_name = pascal2snake(msg->name);
 	fprintf(c, "\t\t\t\t%s_pub_->publish(msg);\n", snake_msg_name);
@@ -1320,6 +1532,14 @@ int dbc2ros(const dbc_t *dbc, const char *outdir, const char *package_name, dbc2
 	generate_cmakelists_txt(dbc, outdir, package_name, rosopts);
 	generate_ros_msgs(dbc, outdir, rosopts);
 	generate_hash_header(dbc, outdir, package_name, rosopts);
+
+	/* Normalizing the multiplexing flags must happen after the hashes are
+	 * computed: the C generator hashes the DBC before normalizing too, and the
+	 * flags are part of the hash, so doing it earlier would make the ROS and
+	 * C hashes differ. */
+	for (size_t i = 0; i < dbc->message_count; i++)
+		normalize_multiplexed_flags(dbc->messages[i]);
+
 	generate_ros_node(dbc, outdir, package_name, rosopts);
 
 	return 0;

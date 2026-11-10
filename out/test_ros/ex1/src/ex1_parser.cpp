@@ -3076,29 +3076,41 @@ private:
 				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
+				uint64_t mux_multiplexor;
 				/* multiplexor: start-bit 0, length 4, endianess intel, scaling 1, offset 0 */
 				x = ((uint8_t)((msg->multiplexor))) & 0xf;
+				mux_multiplexor = x;
 				i |= x;
-				/* multi2a: start-bit 6, length 2, endianess intel, scaling 1, offset 0 */
-				x = ((uint8_t)((msg->multi2a))) & 0x3;
-				x <<= 6; 
-				i |= x;
-				/* multi1: start-bit 8, length 4, endianess intel, scaling 1, offset 0 */
-				x = ((uint8_t)((msg->multi1))) & 0xf;
-				x <<= 8; 
-				i |= x;
-				/* multi2b: start-bit 8, length 2, endianess intel, scaling 1, offset 0 */
-				x = ((uint8_t)((msg->multi2b))) & 0x3;
-				x <<= 8; 
-				i |= x;
-				/* multi3: start-bit 8, length 4, endianess intel, scaling 1, offset 0 */
-				x = ((uint8_t)((msg->multi3))) & 0xf;
-				x <<= 8; 
-				i |= x;
-				/* multi4: start-bit 8, length 4, endianess intel, scaling 1, offset 0 */
-				x = ((uint8_t)((msg->multi4))) & 0xf;
-				x <<= 8; 
-				i |= x;
+				if ((mux_multiplexor == 0u)) {
+					/* multi2a: start-bit 6, length 2, endianess intel, scaling 1, offset 0 */
+					x = ((uint8_t)((msg->multi2a))) & 0x3;
+					x <<= 6; 
+					i |= x;
+				}
+				if ((mux_multiplexor == 1u)) {
+					/* multi1: start-bit 8, length 4, endianess intel, scaling 1, offset 0 */
+					x = ((uint8_t)((msg->multi1))) & 0xf;
+					x <<= 8; 
+					i |= x;
+				}
+				if ((mux_multiplexor == 0u)) {
+					/* multi2b: start-bit 8, length 2, endianess intel, scaling 1, offset 0 */
+					x = ((uint8_t)((msg->multi2b))) & 0x3;
+					x <<= 8; 
+					i |= x;
+				}
+				if ((mux_multiplexor == 2u)) {
+					/* multi3: start-bit 8, length 4, endianess intel, scaling 1, offset 0 */
+					x = ((uint8_t)((msg->multi3))) & 0xf;
+					x <<= 8; 
+					i |= x;
+				}
+				if ((mux_multiplexor == 3u)) {
+					/* multi4: start-bit 8, length 4, endianess intel, scaling 1, offset 0 */
+					x = ((uint8_t)((msg->multi4))) & 0xf;
+					x <<= 8; 
+					i |= x;
+				}
 				/* normal: start-bit 16, length 8, endianess intel, scaling 1, offset 0 */
 				x = ((uint8_t)((msg->normal))) & 0xff;
 				x <<= 16; 
@@ -5869,24 +5881,36 @@ private:
 				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
+				uint64_t mux_multiplexor;
 				/* multiplexor: start-bit 0, length 4, endianess intel, scaling 1, offset 0 */
 				x = i & 0xf;
+				mux_multiplexor = x;
 				msg.multiplexor = (uint8_t)(x);
-				/* multi2a: start-bit 6, length 2, endianess intel, scaling 1, offset 0 */
-				x = (i >> 6) & 0x3;
-				msg.multi2a = (uint8_t)(x);
-				/* multi1: start-bit 8, length 4, endianess intel, scaling 1, offset 0 */
-				x = (i >> 8) & 0xf;
-				msg.multi1 = (uint8_t)(x);
-				/* multi2b: start-bit 8, length 2, endianess intel, scaling 1, offset 0 */
-				x = (i >> 8) & 0x3;
-				msg.multi2b = (uint8_t)(x);
-				/* multi3: start-bit 8, length 4, endianess intel, scaling 1, offset 0 */
-				x = (i >> 8) & 0xf;
-				msg.multi3 = (uint8_t)(x);
-				/* multi4: start-bit 8, length 4, endianess intel, scaling 1, offset 0 */
-				x = (i >> 8) & 0xf;
-				msg.multi4 = (uint8_t)(x);
+				if ((mux_multiplexor == 0u)) {
+					/* multi2a: start-bit 6, length 2, endianess intel, scaling 1, offset 0 */
+					x = (i >> 6) & 0x3;
+					msg.multi2a = (uint8_t)(x);
+				}
+				if ((mux_multiplexor == 1u)) {
+					/* multi1: start-bit 8, length 4, endianess intel, scaling 1, offset 0 */
+					x = (i >> 8) & 0xf;
+					msg.multi1 = (uint8_t)(x);
+				}
+				if ((mux_multiplexor == 0u)) {
+					/* multi2b: start-bit 8, length 2, endianess intel, scaling 1, offset 0 */
+					x = (i >> 8) & 0x3;
+					msg.multi2b = (uint8_t)(x);
+				}
+				if ((mux_multiplexor == 2u)) {
+					/* multi3: start-bit 8, length 4, endianess intel, scaling 1, offset 0 */
+					x = (i >> 8) & 0xf;
+					msg.multi3 = (uint8_t)(x);
+				}
+				if ((mux_multiplexor == 3u)) {
+					/* multi4: start-bit 8, length 4, endianess intel, scaling 1, offset 0 */
+					x = (i >> 8) & 0xf;
+					msg.multi4 = (uint8_t)(x);
+				}
 				/* normal: start-bit 16, length 8, endianess intel, scaling 1, offset 0 */
 				x = (i >> 16) & 0xff;
 				msg.normal = (int8_t)(x);

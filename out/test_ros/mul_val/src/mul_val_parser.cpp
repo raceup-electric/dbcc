@@ -57,13 +57,17 @@ private:
 				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
+				uint64_t mux_muxer_w_multiple_ranges;
 				/* muxer_w_multiple_ranges: start-bit 0, length 8, endianess intel, scaling 1, offset 0 */
 				x = ((uint8_t)((msg->muxer_w_multiple_ranges))) & 0xff;
+				mux_muxer_w_multiple_ranges = x;
 				i |= x;
-				/* muxed_w_ranges: start-bit 8, length 8, endianess intel, scaling 1, offset 0 */
-				x = ((uint8_t)((msg->muxed_w_ranges))) & 0xff;
-				x <<= 8; 
-				i |= x;
+				if ((mux_muxer_w_multiple_ranges >= 1u && mux_muxer_w_multiple_ranges <= 2u) || (mux_muxer_w_multiple_ranges == 66u) || (mux_muxer_w_multiple_ranges == 255u)) {
+					/* muxed_w_ranges: start-bit 8, length 8, endianess intel, scaling 1, offset 0 */
+					x = ((uint8_t)((msg->muxed_w_ranges))) & 0xff;
+					x <<= 8; 
+					i |= x;
+				}
 				uint64_t data = (i);
 				publishFrame(data, 2, 0);
 			}
@@ -75,6 +79,8 @@ private:
 				if (msg->header.frame_id == "r") return;
 				uint64_t x;
 				uint64_t i = 0;
+				uint64_t mux_simple_muxer;
+				uint64_t mux_muxed_muxer;
 				/* sig1: start-bit 0, length 2, endianess intel, scaling 1, offset 0 */
 				x = ((uint8_t)((msg->sig1))) & 0x3;
 				i |= x;
@@ -88,20 +94,28 @@ private:
 				i |= x;
 				/* simple_muxer: start-bit 8, length 16, endianess intel, scaling 1, offset 0 */
 				x = ((uint16_t)((msg->simple_muxer))) & 0xffff;
+				mux_simple_muxer = x;
 				x <<= 8; 
 				i |= x;
-				/* muxed_muxer: start-bit 24, length 8, endianess intel, scaling 1, offset 0 */
-				x = ((uint8_t)((msg->muxed_muxer))) & 0xff;
-				x <<= 24; 
-				i |= x;
-				/* muxed1: start-bit 32, length 32, endianess intel, scaling 1, offset 0 */
-				x = ((uint32_t)((msg->muxed1))) & 0xffffffff;
-				x <<= 32; 
-				i |= x;
-				/* muxed2: start-bit 32, length 32, endianess intel, scaling 1, offset 0 */
-				x = ((uint32_t)((msg->muxed2))) & 0xffffffff;
-				x <<= 32; 
-				i |= x;
+				if ((mux_simple_muxer == 9216u)) {
+					/* muxed_muxer: start-bit 24, length 8, endianess intel, scaling 1, offset 0 */
+					x = ((uint8_t)((msg->muxed_muxer))) & 0xff;
+					mux_muxed_muxer = x;
+					x <<= 24; 
+					i |= x;
+				}
+				if (((mux_simple_muxer == 9216u)) && (mux_muxed_muxer == 1u)) {
+					/* muxed1: start-bit 32, length 32, endianess intel, scaling 1, offset 0 */
+					x = ((uint32_t)((msg->muxed1))) & 0xffffffff;
+					x <<= 32; 
+					i |= x;
+				}
+				if (((mux_simple_muxer == 9216u)) && (mux_muxed_muxer == 4u)) {
+					/* muxed2: start-bit 32, length 32, endianess intel, scaling 1, offset 0 */
+					x = ((uint32_t)((msg->muxed2))) & 0xffffffff;
+					x <<= 32; 
+					i |= x;
+				}
 				uint64_t data = (i);
 				publishFrame(data, 8, 1682);
 			}
@@ -143,12 +157,16 @@ private:
 				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
+				uint64_t mux_muxer_w_multiple_ranges;
 				/* muxer_w_multiple_ranges: start-bit 0, length 8, endianess intel, scaling 1, offset 0 */
 				x = i & 0xff;
+				mux_muxer_w_multiple_ranges = x;
 				msg.muxer_w_multiple_ranges = (uint8_t)(x);
-				/* muxed_w_ranges: start-bit 8, length 8, endianess intel, scaling 1, offset 0 */
-				x = (i >> 8) & 0xff;
-				msg.muxed_w_ranges = (int8_t)(x);
+				if ((mux_muxer_w_multiple_ranges >= 1u && mux_muxer_w_multiple_ranges <= 2u) || (mux_muxer_w_multiple_ranges == 66u) || (mux_muxer_w_multiple_ranges == 255u)) {
+					/* muxed_w_ranges: start-bit 8, length 8, endianess intel, scaling 1, offset 0 */
+					x = (i >> 8) & 0xff;
+					msg.muxed_w_ranges = (int8_t)(x);
+				}
 				extendedmultiplexwranges_pub_->publish(msg);
 				break;
 			}
@@ -159,6 +177,8 @@ private:
 				msg.header.frame_id = "r";
 				uint64_t x;
 				uint64_t i = (data);
+				uint64_t mux_simple_muxer;
+				uint64_t mux_muxed_muxer;
 				/* sig1: start-bit 0, length 2, endianess intel, scaling 1, offset 0 */
 				x = i & 0x3;
 				msg.sig1 = (uint8_t)(x);
@@ -170,16 +190,24 @@ private:
 				msg.sig3 = (uint8_t)(x);
 				/* simple_muxer: start-bit 8, length 16, endianess intel, scaling 1, offset 0 */
 				x = (i >> 8) & 0xffff;
+				mux_simple_muxer = x;
 				msg.simple_muxer = (uint16_t)(x);
-				/* muxed_muxer: start-bit 24, length 8, endianess intel, scaling 1, offset 0 */
-				x = (i >> 24) & 0xff;
-				msg.muxed_muxer = (uint8_t)(x);
-				/* muxed1: start-bit 32, length 32, endianess intel, scaling 1, offset 0 */
-				x = (i >> 32) & 0xffffffff;
-				msg.muxed1 = (uint32_t)(x);
-				/* muxed2: start-bit 32, length 32, endianess intel, scaling 1, offset 0 */
-				x = (i >> 32) & 0xffffffff;
-				msg.muxed2 = (uint32_t)(x);
+				if ((mux_simple_muxer == 9216u)) {
+					/* muxed_muxer: start-bit 24, length 8, endianess intel, scaling 1, offset 0 */
+					x = (i >> 24) & 0xff;
+					mux_muxed_muxer = x;
+					msg.muxed_muxer = (uint8_t)(x);
+				}
+				if (((mux_simple_muxer == 9216u)) && (mux_muxed_muxer == 1u)) {
+					/* muxed1: start-bit 32, length 32, endianess intel, scaling 1, offset 0 */
+					x = (i >> 32) & 0xffffffff;
+					msg.muxed1 = (uint32_t)(x);
+				}
+				if (((mux_simple_muxer == 9216u)) && (mux_muxed_muxer == 4u)) {
+					/* muxed2: start-bit 32, length 32, endianess intel, scaling 1, offset 0 */
+					x = (i >> 32) & 0xffffffff;
+					msg.muxed2 = (uint32_t)(x);
+				}
 				extendedmultiplex_pub_->publish(msg);
 				break;
 			}
